@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sargam.io
 
-## Getting Started
+Sargam.io turns songs into relative note notation for the way India learns music: Sargam (Bhatkhande) and ABC-style letter notes for keyboard, harmonium, bansuri, and guitar.
 
-First, run the development server:
+## Current prototype
+
+The first interactive vertical slice is complete:
+
+- Landing page and transcription entry flow
+- Instrument setup for keyboard/harmonium, bansuri, and guitar
+- Relative MIDI-to-Sargam conversion with komal/shuddh and octave markers
+- Instant Sargam / ABC notation toggle
+- Mock transcription flow, export to clipboard, and TXT download
+- Production-safe metadata, sitemap, and robots file
+
+The external audio-to-MIDI provider and persistent cache are intentionally mocked for now; see [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md).
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm.cmd run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm.cmd run lint
+npm.cmd run build
+```
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+Copy `.env.example` to `.env.local` and add values only when the live API/database integrations are being built. `.env.local` is ignored by Git.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Core conversion logic
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`src/lib/midiToSargam.ts` converts absolute MIDI values to relative notes against the selected `rootMidi`:
 
-## Deploy on Vercel
+```ts
+interval = ((incomingMidi - rootMidi) % 12 + 12) % 12
+octaveShift = Math.floor((incomingMidi - rootMidi) / 12)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The 12 swaras map to `S r R g G m M P d D n N`; lowercase values are komal, `m` is shuddh Ma, and `M` is tivra Ma. A period marks mandra saptak and an apostrophe marks taar saptak.
