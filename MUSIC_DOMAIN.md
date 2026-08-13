@@ -34,6 +34,7 @@ This document is the working domain boundary for the product. It covers a learne
 - [Sharda Music: Hindustani raga classification](https://www.sharda.org/music_theory/raga-classification-systems/) provides the requested uppercase/lowercase-style thaat examples and the ten Bhatkhande parent scales.
 - [University of HNB Garhwal Hindustani music syllabus](https://www.hnbgu.ac.in/sites/default/files/2025-06/Univerity%20Entrance%20Test%20%28UET%29%202025-26%20Syllabus%20for%20Diffrent%20Programmes.pdf) treats swara, thaat, raga, laya, taal, matra, tali, khali, sam, and vibhag as distinct concepts.
 - [UC eScholarship on Bhatkhande](https://escholarship.org/uc/item/7r7315x6) gives historical context for the Bhatkhande classification/notation system.
+- [Klangio's official API](https://api.klang.io/open_api) documents asynchronous transcription jobs and MIDI result endpoints; [Klangio's API page](https://klang.io/api/) currently lists request quotas and duration limits. The live adapter must be verified against the exact account-level API contract before activation.
 
 ## Decisions before live API work
 
