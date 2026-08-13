@@ -3,6 +3,7 @@
 import { FormEvent, SVGProps, useMemo, useState } from "react";
 import { formatRelativeNotes, type NotationSystem } from "@/src/lib/midiToSargam";
 import { mockSong, rootOptions } from "@/src/lib/mockTranscription";
+import { normalizeYouTubeUrl } from "@/src/lib/transcription";
 
 type Instrument = "keyboard" | "bansuri" | "guitar";
 type AppStage = "home" | "settings" | "processing" | "results";
@@ -36,6 +37,7 @@ function Wordmark() {
 export default function Home() {
   const [stage, setStage] = useState<AppStage>("home");
   const [url, setUrl] = useState("");
+  const [submissionError, setSubmissionError] = useState("");
   const [instrument, setInstrument] = useState<Instrument>("keyboard");
   const [bansuriKey, setBansuriKey] = useState("F");
   const [rootMidi, setRootMidi] = useState(62);
@@ -47,7 +49,11 @@ export default function Home() {
 
   function beginTranscription(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!url.trim()) return;
+    if (!normalizeYouTubeUrl(url)) {
+      setSubmissionError("Paste a valid https YouTube link to continue.");
+      return;
+    }
+    setSubmissionError("");
     setStage("settings");
   }
 
@@ -67,6 +73,7 @@ export default function Home() {
       await response.json();
       window.setTimeout(() => setStage("results"), 800);
     } catch {
+      setSubmissionError("We could not start that transcription. Please try another YouTube link.");
       setStage("home");
     }
   }
@@ -108,7 +115,7 @@ export default function Home() {
 
         <div className="relative mx-auto mt-12 max-w-4xl rounded-[2rem] bg-[#136052] p-5 shadow-[0_30px_90px_-28px_rgba(19,96,82,.7)] sm:p-8">
           <div className="floating-note absolute -left-7 top-8 hidden h-14 w-14 place-items-center rounded-2xl bg-white text-xl font-bold text-[#136052] shadow-lg lg:grid">S</div><div className="floating-note-delayed absolute -right-6 bottom-8 hidden h-12 w-12 place-items-center rounded-2xl bg-[#fff099] text-lg font-bold text-[#136052] shadow-lg lg:grid">R</div>
-          <div className="rounded-[1.4rem] border border-white/15 bg-white/[.07] p-6 sm:p-9"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#fff099] text-[#136052]"><Icon name="upload" className="h-6 w-6" /></div><h2 className="mt-5 text-center text-2xl font-semibold tracking-tight text-white">Drop a song. Get the notes.</h2><p className="mt-2 text-center text-sm text-white/65">Paste a YouTube link to begin your transcription</p><form onSubmit={beginTranscription} className="mx-auto mt-7 flex max-w-2xl flex-col gap-3 sm:flex-row"><label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-white px-4 py-3.5 shadow-sm"><Icon name="play" className="h-4 w-4 shrink-0 text-[#28b182]" /><input required value={url} onChange={(event) => setUrl(event.target.value)} className="min-w-0 flex-1 bg-transparent text-sm text-[#0f172a] outline-none placeholder:text-slate-400" placeholder="Paste a YouTube link..." aria-label="YouTube link" /></label><button type="submit" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#fff099] px-6 py-3.5 text-sm font-bold text-[#1e293b] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"><Icon name="spark" className="h-4 w-4" />Transcribe <Icon name="arrow" className="h-4 w-4" /></button></form><p className="mt-5 text-center text-xs text-white/45">No upload needed for this demo · Audio files coming soon</p></div>
+          <div className="rounded-[1.4rem] border border-white/15 bg-white/[.07] p-6 sm:p-9"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#fff099] text-[#136052]"><Icon name="upload" className="h-6 w-6" /></div><h2 className="mt-5 text-center text-2xl font-semibold tracking-tight text-white">Drop a song. Get the notes.</h2><p className="mt-2 text-center text-sm text-white/65">Paste a YouTube link to begin your transcription</p><form onSubmit={beginTranscription} className="mx-auto mt-7 flex max-w-2xl flex-col gap-3 sm:flex-row"><label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-white px-4 py-3.5 shadow-sm"><Icon name="play" className="h-4 w-4 shrink-0 text-[#28b182]" /><input required value={url} onChange={(event) => { setUrl(event.target.value); setSubmissionError(""); }} className="min-w-0 flex-1 bg-transparent text-sm text-[#0f172a] outline-none placeholder:text-slate-400" placeholder="Paste a YouTube link..." aria-label="YouTube link" aria-describedby={submissionError ? "source-url-error" : undefined} /></label><button type="submit" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#fff099] px-6 py-3.5 text-sm font-bold text-[#1e293b] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"><Icon name="spark" className="h-4 w-4" />Transcribe <Icon name="arrow" className="h-4 w-4" /></button></form>{submissionError ? <p id="source-url-error" role="alert" className="mt-3 text-center text-sm font-medium text-[#fff099]">{submissionError}</p> : <p className="mt-5 text-center text-xs text-white/45">No upload needed for this demo · Audio files coming soon</p>}</div>
         </div>
       </section>
 

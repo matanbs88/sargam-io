@@ -1,23 +1,34 @@
 import "server-only";
 
 import { mockSong } from "@/src/lib/mockTranscription";
-import type { TranscriptionStatus } from "@/src/lib/transcription";
+import type { CompletedTranscription, ProviderJob, TranscriptionProvider } from "./contracts";
 
-export type TranscriptionResult = {
-  status: TranscriptionStatus;
-  sourceUrl: string;
-  song: typeof mockSong;
+export const mockCompletedTranscription: CompletedTranscription = {
+  provider: "klangio",
+  providerJobId: "mock-job-1",
+  providerVersion: "mock-v1",
+  title: mockSong.title,
+  artist: mockSong.artist,
+  bpm: mockSong.bpm,
+  detectedKey: mockSong.detectedKey,
+  midiEvents: mockSong.midiNotes.map((midi, index) => ({
+    midi,
+    startMs: index * 500,
+    durationMs: 420,
+  })),
 };
 
-/**
- * The seam to replace with cache lookup + external audio-to-MIDI provider.
- * Keep credentials and provider responses on the server, and return only this
- * safe client DTO.
- */
-export async function transcribeWithMock(sourceUrl: string): Promise<TranscriptionResult> {
-  return {
-    status: "mock",
-    sourceUrl,
-    song: mockSong,
-  };
+/** Development-only provider that behaves like an already-completed async job. */
+export class MockTranscriptionProvider implements TranscriptionProvider {
+  async submitSource(): Promise<ProviderJob> {
+    return { provider: "klangio", providerJobId: mockCompletedTranscription.providerJobId, status: "completed" };
+  }
+
+  async getJob(): Promise<ProviderJob> {
+    return { provider: "klangio", providerJobId: mockCompletedTranscription.providerJobId, status: "completed" };
+  }
+
+  async getCompletedTranscription(): Promise<CompletedTranscription> {
+    return mockCompletedTranscription;
+  }
 }

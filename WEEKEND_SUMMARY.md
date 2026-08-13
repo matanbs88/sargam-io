@@ -15,12 +15,15 @@
 - Cache-first server-side orchestration contract with an in-memory test cache and provider interface
 - Reviewed PostgreSQL/Supabase baseline schema in `db/schema.sql`, including RLS and an immutable credit ledger
 - GitHub Actions CI runs lint, test, and production build for `main` pushes and pull requests
+- Mock API now demonstrates the production cache contract (`provider` then `cache_hit` for the same normalized source)
+- URL validation is enforced in both the accessible client UI and the server route; baseline response-security headers are configured
 
 ## Validation completed
 
 - `npm.cmd run lint` passes
 - `npm.cmd run test` passes (8 tests)
 - `npm.cmd run build` passes
+- API smoke tests confirmed a cache hit on repeated input and a `400` response for a non-YouTube URL
 - Manual local browser QA passed for link entry, settings selection, processing state, results, and notation toggle
 
 ## Required for live transcription

@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
+import { mockSong } from "@/src/lib/mockTranscription";
 import { normalizeYouTubeUrl } from "@/src/lib/transcription";
-import { transcribeWithMock } from "@/src/server/transcription/mockProvider";
+import { MockTranscriptionProvider } from "@/src/server/transcription/mockProvider";
+import { requestTranscription } from "@/src/server/transcription/service";
+import { InMemorySongCache } from "@/src/server/transcription/songCache";
+
+const cache = new InMemorySongCache();
+const provider = new MockTranscriptionProvider();
 
 export async function POST(request: Request) {
   let body: { sourceUrl?: unknown };
@@ -23,6 +29,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const result = await transcribeWithMock(normalizedUrl);
-  return NextResponse.json(result, { status: 200 });
+  const result = await requestTranscription(normalizedUrl, cache, provider);
+  return NextResponse.json(
+    {
+      status: result.status,
+      sourceUrl: normalizedUrl,
+      song: mockSong,
+    },
+    { status: 200 },
+  );
 }
