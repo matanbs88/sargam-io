@@ -9,10 +9,17 @@
 - Phase 3: mock song data and a working end-to-end client-side transcription experience
 - Result dashboard supports Sargam/ABC switching, root-note transposition, copy, and TXT export
 - Metadata, `robots.txt`, and `sitemap.xml` are generated via Next.js file conventions
+- Server-side `POST /api/transcriptions` validates and canonicalizes YouTube URLs before using the mock adapter
+- Automated test coverage for the conversion core, timing retention, source validation, and initial tāla structures
+- [MUSIC_DOMAIN.md](./MUSIC_DOMAIN.md) records research-backed notation/rhythm decisions and product constraints
+- Cache-first server-side orchestration contract with an in-memory test cache and provider interface
+- Reviewed PostgreSQL/Supabase baseline schema in `db/schema.sql`, including RLS and an immutable credit ledger
+- GitHub Actions CI runs lint, test, and production build for `main` pushes and pull requests
 
 ## Validation completed
 
 - `npm.cmd run lint` passes
+- `npm.cmd run test` passes (8 tests)
 - `npm.cmd run build` passes
 - Manual local browser QA passed for link entry, settings selection, processing state, results, and notation toggle
 
@@ -30,11 +37,11 @@ NEXT_PUBLIC_APP_URL=https://sargam.io
 
 ## Next implementation slice
 
-1. Add authentication and an account/credit model.
-2. Add `Song_Cache` persistence keyed by normalized source URL and provider/version metadata.
-3. Implement a server-side transcription adapter that checks the cache first, then calls the external provider only on a cache miss.
+1. Configure Supabase auth and apply the reviewed `db/schema.sql` migration.
+2. Implement the PostgreSQL `SongCache` adapter keyed by normalized URL and provider/version metadata.
+3. Replace `src/server/transcription/mockProvider.ts` with a cache-first live provider adapter. Klangio's current official OpenAPI exposes asynchronous transcription jobs and MIDI endpoints; verify its current auth and upload/link request requirements with supplied credentials before coding against it.
 4. Parse returned MIDI, preserve timing/duration, and pass note events to the existing conversion layer.
-5. Add Bansuri fingering rules per flute key as a separate, tested domain module.
+5. Add a player-calibrated Bansuri fingering profile; do not claim universal fingerings from flute key alone.
 
 ## Scope deliberately deferred
 
