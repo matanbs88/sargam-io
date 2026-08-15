@@ -1,0 +1,21 @@
+{
+  "navigation": {
+    "credits": "Credits",
+    "phase": "Phase 1 · Mock MVP"
+  },
+  "hero": {
+    "eyebrow": "Relative notation for Indian music",
+    "title": "Hear it. Play it in Sargam.",
+    "subtitle": "Turn a song into learner-friendly relative notes.",
+    "dropzone": "Drag and drop an audio file here",
+    "urlPlaceholder": "Paste a YouTube link (visual preview)",
+    "transcribe": "Transcribe"
+  },
+  "dashboard": {
+    "originalKey": "Original key",
+    "transposed": "Transposed",
+    "chooseSa": "Choose your Sa",
+    "notation": "Notation system",
+    "instrument": "Instrument reference"
+  }
+}

@@ -2,20 +2,20 @@
 
 Sargam.io turns songs into learner-friendly relative note notation for the way India learns music: Sargam ASCII and ABC-style letter notes for keyboard, harmonium, bansuri, and guitar.
 
-## Current prototype
+## Current local MVP
 
-The first interactive vertical slice is complete:
+The local, mock-driven demo includes:
 
-- Landing page and transcription entry flow
-- Instrument setup for keyboard/harmonium, bansuri, and guitar
-- Relative MIDI-to-Sargam conversion with komal/shuddh and octave markers
-- Instant Sargam / ABC notation toggle
-- Mock transcription flow, export to clipboard, and TXT download
-- A validated server-side transcription endpoint with a mock provider seam
+- Relative MIDI-to-Sargam conversion with komal/shuddh, Devanagari, and repeated octave markers
+- Instant ABC, Latin Sargam, and Devanagari Sargam switching
+- A local two-credit mock flow and a zero-credit guard
+- Mock note playback controls with active-note highlighting
+- Keyboard, seven-hole Bansuri, and standard-guitar visual references
+- A typed JSON i18n dictionary scaffold for English and Hindi
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file
 
-The external audio-to-MIDI provider and persistent cache are intentionally mocked for now; see [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md).
+The audio drop zone and YouTube input are intentionally visual only. See [TESTING_CHECKLIST.md](./TESTING_CHECKLIST.md) for the complete local QA path and [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries.
 
 ## Local development
 

@@ -2,6 +2,10 @@
 
 ## Completed
 
+- Local Phase 1 MVP: visual upload and YouTube-link entry, deterministic mock MIDI, relative root selection, local credits, and tri-state notation
+- Local Phase 2: synchronized mock-note player plus Keyboard, Bansuri, and Guitar visual references
+- Strict token-by-token Devanagari rendering; no chained replacement operations
+- Local English/Hindi JSON dictionaries and a handoff testing checklist
 - Next.js 16 App Router project initialized and pushed to GitHub
 - Secure Git exclusions for local environment variables and build output
 - Phase 1: responsive Sargam.io landing page, link entry flow, and instrument configuration modal
