@@ -1,292 +1,436 @@
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import "server-only";
+
+import { readFile } from "node:fs/promises";
+import { createRequire } from "node:module";
+import { PDFDocument, StandardFonts, rgb, type PDFPage, type PDFFont } from "pdf-lib";
 import {
-  formatRelativeMidiEvents,
+  formatRelativeNote,
+  midiToRelativeNote,
   type MidiNoteEvent,
+  type NotationSystem,
+  type RelativeMidiNote,
 } from "@/src/lib/midiToSargam";
+import type { ImportedScore } from "@/src/server/score-import/musicXml";
+
+const nodeRequire = createRequire(import.meta.url);
+const fontkit = nodeRequire("fontkit") as Parameters<PDFDocument["registerFontkit"]>[0];
+
+export type BhatkhandeTaal = {
+  /** Explicit matras per vibhag. Never inferred from a Western time signature. */
+  readonly vibhagMatras: readonly number[];
+  /** Zero-based vibhag index. Defaults to the first vibhag. */
+  readonly samVibhagIndex?: number;
+  /** Zero-based vibhag index, if the tala has a khali. */
+  readonly khaliVibhagIndex?: number;
+};
+
+export type SargamPdfScore = Pick<
+  ImportedScore,
+  "divisionsPerQuarter" | "measures" | "timeSignature" | "title"
+>;
 
 export type SargamPdfExportInput = {
-  readonly events: readonly MidiNoteEvent[];
+  readonly events?: readonly MidiNoteEvent[];
+  readonly notation?: NotationSystem;
   readonly rootLabel: string;
   readonly rootMidi: number;
-  readonly taalLabel: string;
-  readonly tempoBpm: number;
-  readonly timeSignature: string;
+  /** A label is informational. It does not authorize fabricating a tala grid. */
+  readonly taalLabel?: string;
+  readonly taal?: BhatkhandeTaal;
+  readonly tempoBpm?: number;
+  readonly timeSignature?: string;
   readonly title: string;
+  /** Parsed MusicXML/MXL data from the local score-import pilot. */
+  readonly score?: SargamPdfScore;
+};
+
+type RenderEvent = {
+  readonly duration: number;
+  readonly midi: number | null;
+  readonly start: number;
+  readonly tie: "none" | "start" | "stop" | "continue";
+};
+
+type RenderMeasure = {
+  readonly duration: number;
+  readonly events: readonly RenderEvent[];
+  readonly number: number;
+};
+
+export type NotationMeasureCell = {
+  readonly isContinuation: boolean;
+  readonly midi: number | null;
+  readonly isRest: boolean;
+};
+
+export type NotationMeasureLayout = {
+  readonly cells: readonly NotationMeasureCell[];
+  readonly duration: number;
+  readonly number: number;
+  readonly slots: number;
 };
 
 const PAGE_WIDTH = 595.28;
 const PAGE_HEIGHT = 841.89;
-const PAGE_MARGIN = 52;
-const NOTES_PER_BAR = 4;
-const BARS_PER_LINE = 3;
-const FIRST_PAGE_NOTES_Y = PAGE_HEIGHT - 376;
-const CONTINUATION_PAGE_NOTES_Y = PAGE_HEIGHT - 126;
-const NOTE_ROW_HEIGHT = 62;
-const FOOTER_Y = 85;
+const PAGE_MARGIN = 42;
+const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
+const FOOTER_Y = 43;
+const MEASURE_HEIGHT = 74;
+const ROW_GAP = 22;
+const MAX_SLOTS_PER_MEASURE = 16;
+const DEVANAGARI_FONT_URL = new URL("./fonts/NotoSansDevanagari-Regular.ttf", import.meta.url);
+
+const colors = {
+  charcoal: rgb(0.059, 0.09, 0.165),
+  darkTeal: rgb(0.075, 0.376, 0.322),
+  grid: rgb(0.73, 0.77, 0.74),
+  mint: rgb(0.157, 0.694, 0.51),
+  paper: rgb(0.98, 0.976, 0.95),
+  softTeal: rgb(0.9, 0.96, 0.93),
+  yellow: rgb(1, 0.94, 0.6),
+};
+
+type PdfFonts = {
+  readonly bold: PDFFont;
+  readonly devanagari: PDFFont;
+  readonly regular: PDFFont;
+  readonly serif: PDFFont;
+};
 
 function cleanText(value: string, fallback: string, maximumLength: number): string {
   const cleaned = value.replaceAll(/[\r\n\t]+/g, " ").trim();
   return cleaned.length === 0 ? fallback : cleaned.slice(0, maximumLength);
 }
 
+function greatestCommonDivisor(left: number, right: number): number {
+  let a = Math.abs(left);
+  let b = Math.abs(right);
+  while (b !== 0) [a, b] = [b, a % b];
+  return a || 1;
+}
+
+function parseTimeSignature(value: string | null | undefined): { readonly beats: number; readonly beatType: number } | null {
+  if (value === undefined || value === null) return null;
+  const match = /^(\d{1,2})\/(\d{1,2})$/.exec(value.trim());
+  if (match === null) return null;
+  const beats = Number(match[1]);
+  const beatType = Number(match[2]);
+  if (!Number.isInteger(beats) || !Number.isInteger(beatType) || beats < 1 || beats > 32 || ![1, 2, 4, 8, 16].includes(beatType)) {
+    return null;
+  }
+  return { beats, beatType };
+}
+
 function assertExportInput(input: SargamPdfExportInput): void {
   if (!Number.isInteger(input.rootMidi) || input.rootMidi < 0 || input.rootMidi > 127) {
     throw new RangeError("rootMidi must be an integer between 0 and 127.");
   }
-
-  if (!Number.isFinite(input.tempoBpm) || input.tempoBpm < 20 || input.tempoBpm > 320) {
-    throw new RangeError("tempoBpm must be between 20 and 320.");
+  if (input.events === undefined && input.score === undefined) {
+    throw new RangeError("A Sargam PDF needs either timeline events or an imported score.");
   }
-
-  if (input.events.length === 0 || input.events.length > 1_024) {
-    throw new RangeError("A Sargam PDF requires between 1 and 1024 note events.");
+  if (input.events !== undefined && input.score !== undefined) {
+    throw new RangeError("Provide either timeline events or an imported score, not both.");
+  }
+  if (input.events !== undefined) {
+    if (input.events.length === 0 || input.events.length > 1_024) {
+      throw new RangeError("A Sargam PDF requires between 1 and 1024 note events.");
+    }
+    if (!Number.isFinite(input.tempoBpm) || input.tempoBpm === undefined || input.tempoBpm < 20 || input.tempoBpm > 320) {
+      throw new RangeError("tempoBpm must be between 20 and 320 for timeline events.");
+    }
+    if (parseTimeSignature(input.timeSignature) === null) {
+      throw new RangeError("timeline events need a valid timeSignature such as 3/4 or 4/4.");
+    }
+  }
+  if (input.score !== undefined) {
+    if (!Number.isInteger(input.score.divisionsPerQuarter) || input.score.divisionsPerQuarter < 1) {
+      throw new RangeError("Imported score divisionsPerQuarter must be a positive integer.");
+    }
+    if (input.score.measures.length === 0 || input.score.measures.length > 512) {
+      throw new RangeError("An imported score requires between 1 and 512 measures.");
+    }
+  }
+  if (input.taal !== undefined) {
+    if (input.taal.vibhagMatras.length < 2 || input.taal.vibhagMatras.length > 8 || input.taal.vibhagMatras.some((matra) => !Number.isInteger(matra) || matra < 1 || matra > 16)) {
+      throw new RangeError("A Bhatkhande tala needs two to eight positive vibhag lengths.");
+    }
   }
 }
 
-function formatSargamLines(events: readonly MidiNoteEvent[], rootMidi: number): string[] {
-  const notes = formatRelativeMidiEvents(events, rootMidi, "Sargam_EN");
-  const bars = Array.from(
-    { length: Math.ceil(notes.length / NOTES_PER_BAR) },
-    (_, index) =>
-      notes
-        .slice(index * NOTES_PER_BAR, (index + 1) * NOTES_PER_BAR)
-        .join("  "),
-  );
+function timelineToMeasures(input: SargamPdfExportInput): RenderMeasure[] {
+  const signature = parseTimeSignature(input.timeSignature);
+  const events = input.events;
+  if (signature === null || events === undefined || input.tempoBpm === undefined) {
+    throw new Error("Timeline measure conversion requires valid event timing.");
+  }
+  const beatDuration = (60_000 / input.tempoBpm) * (4 / signature.beatType);
+  const measureDuration = beatDuration * signature.beats;
+  const totalDuration = Math.max(...events.map((event) => event.startMs + event.durationMs));
+  const count = Math.max(1, Math.ceil(totalDuration / measureDuration));
 
-  return Array.from(
-    { length: Math.ceil(bars.length / BARS_PER_LINE) },
-    (_, index) =>
-      bars
-        .slice(index * BARS_PER_LINE, (index + 1) * BARS_PER_LINE)
-        .join("    |    "),
-  );
-}
-
-type PdfFonts = {
-  readonly regular: Awaited<ReturnType<PDFDocument["embedFont"]>>;
-  readonly bold: Awaited<ReturnType<PDFDocument["embedFont"]>>;
-  readonly serif: Awaited<ReturnType<PDFDocument["embedFont"]>>;
-};
-
-const colors = {
-  darkTeal: rgb(0.075, 0.376, 0.322),
-  charcoal: rgb(0.059, 0.09, 0.165),
-  mint: rgb(0.157, 0.694, 0.51),
-  paper: rgb(0.98, 0.976, 0.95),
-  mutedText: rgb(0.3, 0.35, 0.39),
-  rule: rgb(0.74, 0.77, 0.72),
-};
-
-function drawPaper(page: ReturnType<PDFDocument["addPage"]>): void {
-  page.drawRectangle({
-    x: 0,
-    y: 0,
-    width: PAGE_WIDTH,
-    height: PAGE_HEIGHT,
-    color: colors.paper,
+  return Array.from({ length: count }, (_, index) => {
+    const measureStart = index * measureDuration;
+    const measureEvents = events
+      .filter((event) => event.startMs >= measureStart && event.startMs < measureStart + measureDuration)
+      .map((event) => ({
+        duration: Math.min(event.durationMs, measureDuration - (event.startMs - measureStart)),
+        midi: event.midi,
+        start: event.startMs - measureStart,
+        tie: "none" as const,
+      }));
+    return { duration: measureDuration, events: measureEvents, number: index + 1 };
   });
 }
 
-function drawFooter(page: ReturnType<PDFDocument["addPage"]>, fonts: PdfFonts, pageNumber: number): void {
-  page.drawLine({
-    start: { x: PAGE_MARGIN, y: FOOTER_Y },
-    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: FOOTER_Y },
-    thickness: 0.7,
-    color: rgb(0.76, 0.78, 0.73),
-  });
-  page.drawText(
-    "Educational relative-pitch reference - not a Raga classification, shruti analysis, or definitive instrument fingering.",
-    {
-      x: PAGE_MARGIN,
-      y: 63,
-      size: 7.5,
-      font: fonts.regular,
-      color: rgb(0.36, 0.4, 0.43),
-    },
-  );
-  page.drawText(`Sargam.io  /  ${pageNumber}`, {
-    x: PAGE_WIDTH - PAGE_MARGIN - 84,
-    y: 44,
-    size: 8,
-    font: fonts.bold,
-    color: colors.darkTeal,
-  });
+function importedScoreToMeasures(score: SargamPdfScore): RenderMeasure[] {
+  const signature = parseTimeSignature(score.timeSignature);
+  const nominalDuration = signature === null
+    ? 0
+    : score.divisionsPerQuarter * signature.beats * (4 / signature.beatType);
+
+  return score.measures.map((measure) => ({
+    duration: Math.max(
+      nominalDuration,
+      ...measure.events.map((event) => event.startDivisions + event.durationDivisions),
+    ),
+    events: measure.events.map((event) => ({
+      duration: event.durationDivisions,
+      midi: event.midi,
+      start: event.startDivisions,
+      tie: event.tie,
+    })),
+    number: measure.number,
+  }));
 }
 
-function drawContinuationHeader(page: ReturnType<PDFDocument["addPage"]>, fonts: PdfFonts, title: string): void {
-  page.drawText("sargam.io", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 48,
-    size: 13,
-    font: fonts.bold,
-    color: colors.darkTeal,
-  });
-  page.drawText(title, {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 79,
-    size: 18,
-    font: fonts.serif,
-    color: colors.charcoal,
-  });
-  page.drawText("SARGAM / CONTINUED", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 106,
-    size: 9,
-    font: fonts.bold,
-    color: colors.mint,
-  });
-}
-
-function drawSargamRow(
-  page: ReturnType<PDFDocument["addPage"]>,
-  fonts: PdfFonts,
-  line: string,
-  y: number,
-): void {
-  page.drawRectangle({
-    x: PAGE_MARGIN,
-    y: y - 13,
-    width: PAGE_WIDTH - PAGE_MARGIN * 2,
-    height: 42,
-    color: rgb(1, 1, 1),
-    borderColor: rgb(0.82, 0.84, 0.8),
-    borderWidth: 0.6,
-  });
-  page.drawText(line, {
-    x: PAGE_MARGIN + 14,
-    y,
-    size: 19,
-    font: fonts.serif,
-    color: colors.charcoal,
-  });
+function gridQuantum(measure: RenderMeasure): number {
+  const values = measure.events.flatMap((event) => [event.duration, event.start]).filter((value) => value > 0);
+  if (values.length === 0) return Math.max(1, measure.duration);
+  const exact = values.reduce(greatestCommonDivisor);
+  return Math.max(1, Math.ceil(measure.duration / MAX_SLOTS_PER_MEASURE), exact);
 }
 
 /**
- * Produces a compact, printable Latin-Sargam practice sheet. Devanagari PDF
- * export is intentionally deferred until a licensed, embeddable Unicode font
- * is part of the server bundle.
+ * Converts preserved measure timing into cells. A duration becomes a starting
+ * swara followed by hyphens; rests remain blank. This is the data model used
+ * by the print renderer and is deliberately independent of a guessed tala.
  */
-export async function createSargamPdf(
-  input: SargamPdfExportInput,
-): Promise<Uint8Array> {
-  assertExportInput(input);
+export function createNotationMeasureLayout(measure: RenderMeasure): NotationMeasureLayout {
+  const quantum = gridQuantum(measure);
+  const slots = Math.max(1, Math.ceil(measure.duration / quantum));
+  const cells: NotationMeasureCell[] = Array.from({ length: slots }, () => ({
+    isContinuation: false,
+    isRest: true,
+    midi: null,
+  }));
 
+  for (const event of measure.events) {
+    const start = Math.min(slots - 1, Math.floor(event.start / quantum));
+    const width = Math.max(1, Math.ceil(event.duration / quantum));
+    const continuationOnly = event.tie === "stop" || event.tie === "continue";
+    for (let offset = 0; offset < width && start + offset < slots; offset += 1) {
+      const index = start + offset;
+      if (index === undefined || !cells[index]?.isRest) continue;
+      cells[index] = {
+        isContinuation: continuationOnly || offset > 0,
+        isRest: event.midi === null,
+        midi: event.midi,
+      };
+    }
+  }
+
+  return { cells, duration: measure.duration, number: measure.number, slots };
+}
+
+function drawPaper(page: PDFPage): void {
+  page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: colors.paper });
+}
+
+function drawFooter(page: PDFPage, fonts: PdfFonts, pageNumber: number): void {
+  page.drawLine({ start: { x: PAGE_MARGIN, y: FOOTER_Y + 13 }, end: { x: PAGE_WIDTH - PAGE_MARGIN, y: FOOTER_Y + 13 }, thickness: 0.6, color: colors.grid });
+  page.drawText("Relative Sargam transcription. Review all imported scores before publishing or performance.", {
+    x: PAGE_MARGIN,
+    y: FOOTER_Y,
+    size: 7.4,
+    font: fonts.regular,
+    color: colors.charcoal,
+  });
+  page.drawText(`Sargam.io  /  ${pageNumber}`, {
+    x: PAGE_WIDTH - PAGE_MARGIN - 68,
+    y: FOOTER_Y,
+    size: 7.8,
+    font: fonts.bold,
+    color: colors.darkTeal,
+  });
+}
+
+function drawHeader(page: PDFPage, fonts: PdfFonts, input: SargamPdfExportInput, isContinuation: boolean): number {
+  page.drawRectangle({ x: 0, y: PAGE_HEIGHT - 102, width: PAGE_WIDTH, height: 102, color: colors.darkTeal });
+  page.drawText("sargam.io", { x: PAGE_MARGIN, y: PAGE_HEIGHT - 35, size: 14, font: fonts.bold, color: colors.yellow });
+  page.drawText(isContinuation ? "SARGAM NOTATION / CONTINUED" : "SARGAM NOTATION", {
+    x: PAGE_MARGIN,
+    y: PAGE_HEIGHT - 63,
+    size: 18,
+    font: fonts.bold,
+    color: rgb(1, 1, 1),
+  });
+  page.drawText(isContinuation ? cleanText(input.title, "Untitled score", 80) : "Measure-aware practice print", {
+    x: PAGE_MARGIN,
+    y: PAGE_HEIGHT - 83,
+    size: 8.5,
+    font: fonts.regular,
+    color: rgb(0.85, 0.94, 0.9),
+  });
+
+  if (isContinuation) return PAGE_HEIGHT - 138;
+
+  const title = cleanText(input.title, "Untitled Sargam score", 80);
+  page.drawText(title, { x: PAGE_MARGIN, y: PAGE_HEIGHT - 139, size: 24, font: fonts.serif, color: colors.charcoal });
+  const meter = input.score?.timeSignature ?? input.timeSignature ?? "Unmetered";
+  const notationName = input.notation === "Sargam_HI" ? "Bhatkhande / Devanagari" : "Bhatkhande / Roman Sargam";
+  const metadata = [
+    `Sa  ${cleanText(input.rootLabel, "Selected Sa", 24)}`,
+    `Meter  ${cleanText(meter, "Unmetered", 12)}`,
+    `Notation  ${notationName}`,
+  ];
+  metadata.forEach((item, index) => {
+    const x = PAGE_MARGIN + index * 166;
+    page.drawRectangle({ x, y: PAGE_HEIGHT - 187, width: 154, height: 28, color: index === 0 ? colors.softTeal : rgb(0.94, 0.94, 0.91) });
+    page.drawText(item, { x: x + 8, y: PAGE_HEIGHT - 176, size: 7.8, font: fonts.bold, color: index === 0 ? colors.darkTeal : colors.charcoal });
+  });
+  page.drawText(
+    input.taal === undefined
+      ? "Meter mode: no tala, raga, or vibhag has been inferred from the source."
+      : "Bhatkhande vibhag markers are printed only where the supplied tala matches the measure grid.",
+    { x: PAGE_MARGIN, y: PAGE_HEIGHT - 211, size: 8.2, font: fonts.regular, color: colors.charcoal },
+  );
+  // Leave a distinct reading gap after metadata and its no-inference notice.
+  return PAGE_HEIGHT - 306;
+}
+
+function notationBase(note: RelativeMidiNote, notation: NotationSystem): string {
+  return formatRelativeNote({ ...note, octaveMarker: "" }, notation);
+}
+
+function drawNotation(page: PDFPage, fonts: PdfFonts, midi: number, rootMidi: number, notation: NotationSystem, x: number, y: number, width: number): void {
+  const note = midiToRelativeNote(midi, rootMidi);
+  const useDevanagari = notation === "Sargam_HI";
+  const font = useDevanagari ? fonts.devanagari : fonts.serif;
+  const text = notationBase(note, notation);
+  const size = useDevanagari ? 14 : 16;
+  const textWidth = font.widthOfTextAtSize(text, size);
+  const textX = x + Math.max(2, (width - textWidth) / 2);
+  page.drawText(text, { x: textX, y, size, font, color: colors.charcoal });
+
+  // Traditional semantic markers are drawn as marks, not appended ASCII.
+  if (note.octaveShift !== 0) {
+    const dotY = note.octaveShift > 0 ? y + size + 2 : y - 4;
+    const dotCount = Math.abs(note.octaveShift);
+    for (let index = 0; index < dotCount; index += 1) {
+      page.drawCircle({ x: x + width / 2 + (index - (dotCount - 1) / 2) * 3.5, y: dotY, size: 1.15, color: colors.charcoal });
+    }
+  }
+}
+
+function vibhagBoundaries(layout: NotationMeasureLayout, taal: BhatkhandeTaal | undefined): number[] {
+  if (taal === undefined) return [];
+  const totalMatras = taal.vibhagMatras.reduce((total, matra) => total + matra, 0);
+  if (totalMatras !== layout.slots) return [];
+  return taal.vibhagMatras.slice(0, -1).reduce<number[]>((boundaries, matra) => {
+    boundaries.push((boundaries.at(-1) ?? 0) + matra);
+    return boundaries;
+  }, []);
+}
+
+function drawMeasure(page: PDFPage, fonts: PdfFonts, layout: NotationMeasureLayout, input: SargamPdfExportInput, x: number, y: number, width: number): void {
+  const notation = input.notation ?? "Sargam_EN";
+  const cellWidth = width / layout.slots;
+  const boundaries = vibhagBoundaries(layout, input.taal);
+  page.drawText(String(layout.number), { x, y: y + MEASURE_HEIGHT + 7, size: 7.2, font: fonts.bold, color: colors.darkTeal });
+  page.drawRectangle({ x, y, width, height: MEASURE_HEIGHT, color: rgb(1, 1, 1), borderColor: colors.grid, borderWidth: 0.65 });
+
+  for (let index = 0; index <= layout.slots; index += 1) {
+    const boundary = boundaries.includes(index);
+    page.drawLine({
+      start: { x: x + cellWidth * index, y },
+      end: { x: x + cellWidth * index, y: y + MEASURE_HEIGHT },
+      thickness: index === 0 || index === layout.slots ? 0.65 : boundary ? 1.35 : 0.34,
+      color: boundary ? colors.darkTeal : colors.grid,
+    });
+  }
+
+  const firstVibhagMarker = input.taal?.samVibhagIndex ?? 0;
+  if (input.taal !== undefined && input.taal.vibhagMatras.reduce((total, matra) => total + matra, 0) === layout.slots) {
+    let matraStart = 0;
+    input.taal.vibhagMatras.forEach((matras, index) => {
+      const mark = index === firstVibhagMarker ? "x" : index === input.taal?.khaliVibhagIndex ? "0" : String(index + 1);
+      page.drawText(mark, { x: x + matraStart * cellWidth + 3, y: y + MEASURE_HEIGHT - 11, size: 7.4, font: fonts.bold, color: colors.darkTeal });
+      matraStart += matras;
+    });
+  }
+
+  layout.cells.forEach((cell, index) => {
+    const cellX = x + index * cellWidth;
+    if (cell.isRest) return;
+    if (cell.isContinuation) {
+      page.drawText("-", { x: cellX + cellWidth / 2 - 2, y: y + 28, size: 14, font: fonts.serif, color: colors.charcoal });
+      return;
+    }
+    if (cell.midi !== null) drawNotation(page, fonts, cell.midi, input.rootMidi, notation, cellX, y + 26, cellWidth);
+  });
+}
+
+async function createFonts(document: PDFDocument): Promise<PdfFonts> {
+  document.registerFontkit(fontkit as Parameters<PDFDocument["registerFontkit"]>[0]);
+  const [regular, bold, serif, devanagariBytes] = await Promise.all([
+    document.embedFont(StandardFonts.Helvetica),
+    document.embedFont(StandardFonts.HelveticaBold),
+    document.embedFont(StandardFonts.TimesRoman),
+    readFile(DEVANAGARI_FONT_URL),
+  ]);
+  // fontkit v2 provides reliable Indic shaping but not the streaming subset
+  // interface expected by pdf-lib, so embed this small (141 KB) font whole.
+  const devanagari = await document.embedFont(devanagariBytes, { subset: false });
+  return { bold, devanagari, regular, serif };
+}
+
+/**
+ * Creates an A4, measure-aware Sargam score. It preserves source measures and
+ * durations, prints sustain hyphens, and never invents a tala from Western
+ * meter. Explicit tala metadata is rendered only when it exactly matches the
+ * supplied rhythmic grid.
+ */
+export async function createSargamPdf(input: SargamPdfExportInput): Promise<Uint8Array> {
+  assertExportInput(input);
+  const measures = input.score === undefined ? timelineToMeasures(input) : importedScoreToMeasures(input.score);
   const document = await PDFDocument.create();
   document.setTitle(cleanText(input.title, "Sargam Practice Sheet", 120));
   document.setAuthor("Sargam.io");
-  document.setSubject("Relative Sargam practice notation");
-  document.setKeywords(["Sargam", "Indian music", "practice notation"]);
+  document.setSubject("Measure-aware relative Sargam notation");
+  document.setKeywords(["Sargam", "Bhatkhande", "Indian music", "practice notation"]);
+  const fonts = await createFonts(document);
 
-  const regular = await document.embedFont(StandardFonts.Helvetica);
-  const bold = await document.embedFont(StandardFonts.HelveticaBold);
-  const serif = await document.embedFont(StandardFonts.TimesRoman);
-  const fonts: PdfFonts = { regular, bold, serif };
-  const page = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-
-  drawPaper(page);
-  page.drawRectangle({
-    x: 0,
-    y: PAGE_HEIGHT - 118,
-    width: PAGE_WIDTH,
-    height: 118,
-    color: colors.darkTeal,
-  });
-  page.drawText("sargam.io", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 47,
-    size: 13,
-    font: bold,
-    color: rgb(1, 0.94, 0.6),
-  });
-  page.drawText("RELATIVE SARGAM PRACTICE SHEET", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 82,
-    size: 20,
-    font: bold,
-    color: rgb(1, 1, 1),
-  });
-
-  const title = cleanText(input.title, "Untitled practice phrase", 80);
-  page.drawText(title, {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 164,
-    size: 23,
-    font: serif,
-    color: colors.charcoal,
-  });
-  page.drawText("A learner-facing relative pitch reference. Review before performance.", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 188,
-    size: 9.5,
-    font: regular,
-    color: rgb(0.28, 0.33, 0.38),
-  });
-
-  const metadata = [
-    `SA  ${cleanText(input.rootLabel, "Selected Sa", 32)}`,
-    `TAAL  ${cleanText(input.taalLabel, "Practice cycle", 32)}`,
-    `TEMPO  ${Math.round(input.tempoBpm)} BPM`,
-    `METER  ${cleanText(input.timeSignature, "4/4", 12)}`,
-  ];
-  const metadataY = PAGE_HEIGHT - 238;
-  metadata.forEach((entry, index) => {
-    const x = PAGE_MARGIN + index * 122;
-    page.drawRectangle({
-      x,
-      y: metadataY - 10,
-      width: 112,
-      height: 30,
-      color: index === 0 ? rgb(0.89, 0.97, 0.94) : rgb(0.94, 0.94, 0.91),
-    });
-    page.drawText(entry, {
-      x: x + 8,
-      y: metadataY,
-      size: 7.3,
-      font: bold,
-      color: index === 0 ? colors.darkTeal : colors.charcoal,
-    });
-  });
-
-  page.drawLine({
-    start: { x: PAGE_MARGIN, y: PAGE_HEIGHT - 274 },
-    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: PAGE_HEIGHT - 274 },
-    thickness: 0.8,
-    color: rgb(0.74, 0.77, 0.72),
-  });
-  page.drawText("SARGAM", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 306,
-    size: 10,
-    font: bold,
-    color: colors.mint,
-  });
-  page.drawText("Bars separate four-note practice groups. Apostrophes indicate taar saptak; periods indicate mandra saptak.", {
-    x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 323,
-    size: 8.5,
-    font: regular,
-    color: colors.mutedText,
-  });
-
-  let currentPage = page;
+  let page = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
   let pageNumber = 1;
-  let y = FIRST_PAGE_NOTES_Y;
+  drawPaper(page);
+  let y = drawHeader(page, fonts, input, false);
+  const measuresPerRow = 3;
+  const measureGap = 10;
+  const measureWidth = (CONTENT_WIDTH - measureGap * (measuresPerRow - 1)) / measuresPerRow;
 
-  for (const line of formatSargamLines(input.events, input.rootMidi)) {
-    if (y - 13 < FOOTER_Y + 30) {
-      drawFooter(currentPage, fonts, pageNumber);
-      currentPage = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+  for (let index = 0; index < measures.length; index += measuresPerRow) {
+    if (y - MEASURE_HEIGHT < FOOTER_Y + 32) {
+      drawFooter(page, fonts, pageNumber);
+      page = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
       pageNumber += 1;
-      drawPaper(currentPage);
-      drawContinuationHeader(currentPage, fonts, title);
-      y = CONTINUATION_PAGE_NOTES_Y;
+      drawPaper(page);
+      y = drawHeader(page, fonts, input, true);
     }
-
-    drawSargamRow(currentPage, fonts, line, y);
-    y -= NOTE_ROW_HEIGHT;
+    measures.slice(index, index + measuresPerRow).forEach((measure, offset) => {
+      drawMeasure(page, fonts, createNotationMeasureLayout(measure), input, PAGE_MARGIN + offset * (measureWidth + measureGap), y, measureWidth);
+    });
+    y -= MEASURE_HEIGHT + ROW_GAP;
   }
-
-  drawFooter(currentPage, fonts, pageNumber);
-
+  drawFooter(page, fonts, pageNumber);
   return document.save();
 }

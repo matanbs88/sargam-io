@@ -2,15 +2,23 @@
 
 ## What is live now
 
-The practice studio can export its current MIDI event sequence as a paginated,
-printable **Latin Sargam** PDF. It is deliberately a relative-practice sheet:
-the selected root is declared as Sa, notes use the canonical `S r R g G m M P
-d D n N` token system, and octave markers are preserved. The export also
-states the selected taal, tempo, and time signature.
+The practice studio exports a paginated, printable **measure-aware Sargam**
+PDF. The selected root is declared as Sa, durations become a starting swara
+followed by sustain hyphens, rests remain silent cells, and the grid preserves
+the source measure boundaries instead of grouping an arbitrary number of
+notes. It supports Latin Sargam and Devanagari Bhatkhande output with an
+embedded Noto Sans Devanagari font (SIL OFL 1.1; its license is kept alongside
+the font in `src/server/export/fonts/`).
 
-Devanagari PDF export is deferred until the server bundle carries a reviewed,
-licensed Unicode font. Standard built-in PDF fonts cannot accurately typeset
-the required Devanagari combining marks.
+The print renderer has two honest modes:
+
+1. **Meter mode** is the default for imported Western notation. It prints the
+   actual source meter, such as 3/4, and explicitly says that no taal or raga
+   was inferred.
+2. **Bhatkhande grid mode** adds `x` (Sam), `0` (Khali), and vibhag dividers
+   only if editorial input supplies vibhag lengths that exactly match the
+   printed rhythmic grid. A name such as "Teentaal" alone is never enough to
+   fabricate this structure.
 
 ## Current import seam
 
@@ -46,8 +54,8 @@ text.
 3. **Scanned or handwritten PDF:** accept only as a draft candidate. Require
    manual correction before it can be saved to the public catalog.
 
-No importer should infer a raga, microtonal shruti, stylistic ornamentation,
-or a definitive instrument fingering solely from staff notation.
+No importer should infer a raga, taal, microtonal shruti, stylistic
+ornamentation, or a definitive instrument fingering solely from staff notation.
 
 ## Catalog record needed before public launch
 

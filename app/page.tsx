@@ -369,6 +369,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           events: performanceEvents,
+          notation: notationSystem,
           rootLabel: selectedRoot.label + " is Sa",
           rootMidi: selectedRootMidi,
           taalLabel: selectedTaal.label,

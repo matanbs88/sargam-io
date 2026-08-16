@@ -8,8 +8,9 @@ The local, mock-driven demo includes:
 
 - Relative MIDI-to-Sargam conversion with komal/shuddh, Devanagari, and repeated octave markers
 - Instant ABC, Latin Sargam, and Devanagari Sargam switching
-- Downloadable, paginated Latin-Sargam practice sheets (PDF) for the current
-  demo phrase, including selected Sa, taal, tempo, and meter
+- Downloadable, measure-aware Sargam PDFs in Latin or embedded Devanagari;
+  imported 3/4 scores retain their three-beat measure grid, and a tala is
+  never invented from a Western meter
 - Typed MusicXML/MXL lead-sheet import foundation that preserves measures,
   rhythm, rests, and ties before converting notes to Sargam
 - A local two-credit mock flow and a zero-credit guard
