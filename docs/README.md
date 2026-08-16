@@ -34,6 +34,7 @@ src/
   lib/                       Pure music, mock-data, rhythm, and UI helpers
   server/transcription/      Provider contracts, cache boundary, mock adapter
   server/export/             Server-side Sargam PDF composition
+  server/score-import/       MusicXML parser and local-only OMR adapter
   test/                      Test-only server module shim
 db/                          Future Supabase/PostgreSQL baseline schema
 locales/                     Typed English and Hindi UI dictionaries
@@ -52,3 +53,6 @@ docs/                        Audit records and operating procedures
    positional guide or only a relative learning reference.
 5. `GEMINI_REVIEW_REPORT.md` is the current external-review handoff; replace
    its baseline details when a materially new capability is delivered.
+6. `src/server/score-import/musicXml.ts` is the source of truth for parsed
+   MusicXML/MXL score events. PDF recognition must pass through it rather than
+   inventing notes directly from a page image.

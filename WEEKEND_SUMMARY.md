@@ -16,6 +16,9 @@
 - Cinema performance view designed for clean screen capture and vertical use.
 - A server-side, paginated Latin-Sargam PDF export route for printable practice
   sheets. The sheet uses the currently selected Sa, taal, tempo, and meter.
+- Typed MusicXML/MXL lead-sheet import plus a guarded local Audiveris PDF pilot
+  that returns measures, pitches, rests, durations, and ties for review. The
+  PDF pilot is disabled on the public deployment.
 - A mock cache-first API route that validates/canonicalizes YouTube URLs;
   it uses the same fixture as the UI but is not connected from the page.
 - Future Supabase schema, provider/cache contracts, typed local dictionaries,
@@ -75,5 +78,6 @@ must be verified against the selected account contract before implementation.
 - Audio playback, video export, and creator assets/watermarks.
 - Automatic staff-PDF recognition/import. This needs a license-cleared OMR
   provider plus a mandatory musician-review workflow before public release.
+  A local Audiveris evaluation adapter exists but is not a public SaaS provider.
 - Accounts, subscriptions, payments, database persistence, and rate limits.
 - Raga, taal, shruti, meend, and gamak inference.

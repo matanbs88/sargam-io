@@ -10,6 +10,8 @@ The local, mock-driven demo includes:
 - Instant ABC, Latin Sargam, and Devanagari Sargam switching
 - Downloadable, paginated Latin-Sargam practice sheets (PDF) for the current
   demo phrase, including selected Sa, taal, tempo, and meter
+- Typed MusicXML/MXL lead-sheet import foundation that preserves measures,
+  rhythm, rests, and ties before converting notes to Sargam
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
 - MIDI-timed falling-note piano roll and a physical six-lane Bansuri fingering roll; every Bansuri cue is aligned to its real finger hole
@@ -24,8 +26,9 @@ The local, mock-driven demo includes:
 - Production-safe metadata, sitemap, and robots file
 
 The audio drop zone and YouTube input are intentionally visual only. Staff-PDF
-to Sargam import is a planned, review-first OMR workflow and is not yet offered
-as an automatic capability. See
+to Sargam import is a review-first OMR workflow. A development-only local
+Audiveris pilot exists behind explicit environment flags; it is not exposed on
+the public deployment. See
 [TESTING_CHECKLIST.md](./TESTING_CHECKLIST.md) for the complete local QA path,
 [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries, and
 the [project vault](./docs/README.md) for architecture, audit, and handoff docs.

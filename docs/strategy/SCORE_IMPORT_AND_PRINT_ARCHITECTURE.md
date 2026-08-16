@@ -12,6 +12,21 @@ Devanagari PDF export is deferred until the server bundle carries a reviewed,
 licensed Unicode font. Standard built-in PDF fonts cannot accurately typeset
 the required Devanagari combining marks.
 
+## Current import seam
+
+`src/server/score-import/musicXml.ts` now imports single-part MusicXML and MXL
+lead sheets into typed measures, events, rests, durations, ties, key metadata,
+and time signature. It then maps a selected MIDI Sa to Sargam without changing
+the source rhythm. This is portable server code and is the first production
+import format.
+
+For local evaluation only, `POST /api/imports/score-pdf` can run a locally
+installed Audiveris executable when both `SARGAM_LOCAL_OMR_ENABLED=true` and
+`AUDIVERIS_BIN` are set. It does not persist the source upload, returns a
+review draft, and is deliberately disabled by default. Do not enable that
+route on the public deployment: Audiveris is AGPL, and a public service needs
+a reviewed licensing/compliance decision or a replacement provider.
+
 ## The correct import pipeline
 
 `staff PDF -> MusicXML -> normalized note events -> Sargam conversion ->
