@@ -68,6 +68,7 @@ function isExportInput(value: unknown): value is SargamPdfExportInput {
     ((Array.isArray(input.events) && input.score === undefined) || (input.events === undefined && isImportedScore(input.score))) &&
     typeof input.rootLabel === "string" &&
     typeof input.rootMidi === "number" &&
+    (input.compact === undefined || typeof input.compact === "boolean") &&
     (input.taalLabel === undefined || typeof input.taalLabel === "string") &&
     (input.taal === undefined || isTaal(input.taal)) &&
     (input.notation === undefined || isNotationSystem(input.notation)) &&

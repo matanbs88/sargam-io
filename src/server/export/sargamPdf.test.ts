@@ -80,4 +80,25 @@ describe("createSargamPdf", () => {
     expect(document.getPageCount()).toBe(1);
     expect(document.getTitle()).toBe("Three beat source");
   });
+
+  it("fits 49 short 3/4 measures into one compact Roman Sargam page", async () => {
+    const measures = Array.from({ length: 49 }, (_, index) => ({
+      events: [
+        { durationDivisions: 2, midi: 65, startDivisions: 0, tie: "none" as const },
+        { durationDivisions: 2, midi: 67, startDivisions: 2, tie: "none" as const },
+        { durationDivisions: 2, midi: 69, startDivisions: 4, tie: "none" as const },
+      ],
+      number: index + 1,
+    }));
+    const bytes = await createSargamPdf({
+      compact: true,
+      rootLabel: "F4 is Sa",
+      rootMidi: 65,
+      score: { divisionsPerQuarter: 2, measures, timeSignature: "3/4", title: "Compact Roman score" },
+      title: "Compact Roman score",
+    });
+    const document = await PDFDocument.load(bytes);
+
+    expect(document.getPageCount()).toBe(1);
+  });
 });
