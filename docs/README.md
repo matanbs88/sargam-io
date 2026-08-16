@@ -14,6 +14,7 @@ root because they are linked directly from the public README.
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
+- [Indian music practice competitor research](./strategy/COMPETITIVE_PRODUCT_RESEARCH_2026-08-16.md)
 
 ## Project map
 

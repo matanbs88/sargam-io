@@ -26,6 +26,14 @@ community.
 We should treat both as proof that the market values serious practice tools;
 we should not copy their content, recordings, UX, or proprietary behaviour.
 
+Further research confirms the opportunity: SwarShala combines learning,
+practice, pitch analysis and composition, Bandish centers a reliable daily
+accompaniment ritual, and Riyaz builds habit through guided vocal feedback.
+Sargam should connect these ideas through its unique transcription-to-relative-
+notation-to-instrument practice path. See the maintained
+[competitive product research](COMPETITIVE_PRODUCT_RESEARCH_2026-08-16.md)
+for verified feature detail and product boundaries.
+
 | Existing expectation | Sargam.io advantage |
 | --- | --- |
 | Start a tanpura or tabla loop | Start from a song, phrase, or exercise and create a playable visual session |
@@ -65,6 +73,8 @@ Exit gate: mock-data scope and current conversion logic remain test-covered and 
 - Count-in, loop range, speed ladder, beat cursor and practice history.
 - Manual phrase editor to correct imperfect transcription.
 - Learner modes: listen, follow, slow practice, phrase loop and cinema/performance mode.
+- Resume-practice defaults, saved favourites and local session history so the
+  experience supports a repeatable daily riyaz, not a one-off dashboard visit.
 
 Exit gate: a complete exercise can run without a transcription provider or real accompaniment audio.
 
