@@ -11,6 +11,8 @@ root because they are linked directly from the public README.
 - [Manual QA checklist](../TESTING_CHECKLIST.md)
 - [Maintenance workflow](./operations/MAINTENANCE_WORKFLOW.md)
 - [Repository consistency audit](./audits/REPOSITORY_AUDIT_2026-08-16.md)
+- [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
+- [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 
 ## Project map
 
