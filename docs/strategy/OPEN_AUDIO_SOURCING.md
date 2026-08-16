@@ -35,6 +35,32 @@ The current browser-native theka engine remains the safe production fallback.
 Search results that contain generic percussion, "Indian-style" tracks or full
 compositions are not automatically suitable for a tabla practice instrument.
 
+## Partner API candidate: Epidemic Sound
+
+[Epidemic Sound's Partner API](https://developers.epidemicsound.com/) is a
+potential future provider for creator-facing music features. Its public Scale
+plan describes commercial application use and sublicensing for end users; its
+free API tier is evaluation-only and is not permitted to go live. Their ordinary
+single-track license specifically forbids a standalone music-listening
+experience, so a normal creator subscription must never be used as Sargam's
+Tanpura or Tabla source.
+
+Epidemic is therefore a possible provider for a future catalog, background
+soundtrack and user-created video workflow — not an automatic replacement for a
+purpose-built Indian accompaniment library. Before any integration, get written
+answers to all of these questions:
+
+1. Can a user trigger a selected track, stem or loop inside a practice session
+   where audio is a central product feature?
+2. May Sargam loop, tempo-adjust, trim, mix and cache the supplied audio?
+3. Does the contract cover the entire intended user base, streaming geography,
+   offline caching and creator-video export?
+4. Does the catalog include separately licensable Tanpura/Tabla assets with the
+   needed tonal/tempo metadata, rather than only complete Indian-classical
+   tracks?
+5. Can Sargam persist asset IDs and user selections while fetching playable
+   content only through the permitted API flow?
+
 ## Intake checklist
 
 For every adopted open file, create an entry in the future
@@ -55,4 +81,3 @@ The product data model must refer to an abstract voice (for example,
 browser-native engine is the default renderer. A reviewed open or licensed
 recording can replace that voice with no change to saved sessions, taal logic or
 the user interface.
-
