@@ -13,8 +13,8 @@ The product therefore uses a three-lane intake model.
 | Input | Provider lane | Expected behavior | Production status |
 | --- | --- | --- | --- |
 | MusicXML/MXL | Native parser | Immediate, measure-preserving import | Implemented at `POST /api/imports/musicxml` |
-| Digital vector PDF from notation software | Licensed vector-PDF converter | Fast worker job, export MusicXML, run validation | Candidate: PDFtoMusic Pro; license and CLI evaluation required |
-| Scanned/photo PDF | OMR provider plus review | Asynchronous job, never auto-publish | Local Audiveris evaluation only |
+| Digital vector PDF from notation software | Commercial OMR job API | Fast worker job, export MusicXML, run validation | Preferred candidate: Flat OMR / Opuscan; contract discovery required |
+| Scanned/photo PDF | Commercial OMR job API plus review | Asynchronous job, never auto-publish | Preferred candidate: Flat OMR / Opuscan; benchmark required |
 
 ## Why not infer the answer from the PDF directly?
 
@@ -32,6 +32,24 @@ Once MusicXML exists, Sargam.io does exactly the simple deterministic work:
 `MusicXML start + duration + meter -> measure grid + sustain cells`
 
 ## Candidate providers and license boundary
+
+### Preferred production candidate: Flat OMR / Opuscan (Tutteo)
+
+Flat's documented OMR Jobs API accepts a PDF or photo, supports an optional
+review/correction step, exposes progress, and exports MusicXML or MIDI. It is
+the strongest current fit for a Sargam.io user-facing workflow because it
+matches our review-first quality gate rather than pretending score recognition
+is instantaneous or infallible. The API is still marked Beta, bills per page,
+and keeps files/results for 30 days by default, so production adoption requires
+a contract review, DPA/retention agreement, an India-specific benchmark, and a
+provider fallback.
+
+### Secondary commercial candidate: ScoreFlow
+
+ScoreFlow documents an asynchronous PDF-to-MusicXML API with status polling,
+downloadable output, and public credit pricing. It is a useful lower-cost
+fallback candidate, but it has not yet passed our source-score benchmark or
+commercial/security review.
 
 - **PDFtoMusic Pro** is the first evaluation candidate for digital-native PDFs.
   Its vendor documents analysis of PDF graphic objects and batch/MusicXML
@@ -80,7 +98,9 @@ the existing review gate.
 
 Sources: [PDFtoMusic Pro product page](https://myriad-online.com/en/products/pdftomusicpro.htm),
 [PDFtoMusic Pro command-line terms](https://www.myriad-online.com/resources/docs/pdftomusicpro/english/command.htm),
-and [Audiveris documentation](https://audiveris.github.io/audiveris/).
+and [Audiveris documentation](https://audiveris.github.io/audiveris/),
+[Flat OMR API](https://flat.io/developers/docs/api/omr/), and
+[ScoreFlow API](https://scoreflow.app/api-docs).
 
 ## Quality gate
 

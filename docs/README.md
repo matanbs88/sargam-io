@@ -20,6 +20,8 @@ root because they are linked directly from the public README.
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 - [Indian music practice competitor research](./strategy/COMPETITIVE_PRODUCT_RESEARCH_2026-08-16.md)
 - [Score import and printable notation architecture](./strategy/SCORE_IMPORT_AND_PRINT_ARCHITECTURE.md)
+- [OMR provider strategy and benchmark](./strategy/OMR_PROVIDER_STRATEGY.md)
+- [Unified song-to-score product experience](./strategy/UNIFIED_SCORE_EXPERIENCE.md)
 
 ## Project map
 

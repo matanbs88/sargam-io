@@ -34,7 +34,9 @@ the public deployment. See
 [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries, and
 the [project vault](./docs/README.md) for architecture, audit, and handoff docs.
 The score-recognition provider and quality-gate decision is documented in
-[OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md).
+[OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md). The
+unified song-to-score and score-to-Sargam product flow is documented in
+[UNIFIED_SCORE_EXPERIENCE.md](./docs/strategy/UNIFIED_SCORE_EXPERIENCE.md).
 
 ## Local development
 
