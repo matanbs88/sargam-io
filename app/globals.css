@@ -12,6 +12,7 @@
 :root {
   --background: #faf9f6;
   --foreground: #0f172a;
+  color-scheme: light;
 }
 
 body {
@@ -40,4 +41,46 @@ body {
   border-radius: 9999px;
   filter: blur(55px);
   pointer-events: none;
+}
+
+html[data-theme="dark"] {
+  --background: #08111f;
+  --foreground: #e7edf7;
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] .bg-cream {
+  background-color: #0c1728;
+}
+
+html[data-theme="dark"] .studio-workspace {
+  background-color: #0a1424;
+}
+
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] [class~="bg-white/65"] {
+  background-color: #142137;
+}
+
+html[data-theme="dark"] .text-charcoal {
+  color: #edf3fb;
+}
+
+html[data-theme="dark"] [class*="text-charcoal/"] {
+  color: color-mix(in srgb, #e4edf9 66%, transparent);
+}
+
+html[data-theme="dark"] .border-teal\/10,
+html[data-theme="dark"] .border-teal\/15 {
+  border-color: rgba(92, 182, 163, 0.24);
+}
+
+html[data-theme="dark"] .shadow-sm,
+html[data-theme="dark"] .shadow-lg {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] ::selection {
+  background: #28b182;
+  color: #08111f;
 }

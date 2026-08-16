@@ -19,6 +19,7 @@ import { beatsInTaal, matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 type Visualizer = "Piano" | "Bansuri";
+type Theme = "light" | "dark";
 
 const ROOT_OPTIONS = [
   { midi: 60, label: "C4" },
@@ -129,6 +130,8 @@ export default function Home() {
   const [selectedVisualizer, setSelectedVisualizer] =
     useState<Visualizer>("Piano");
   const [isCinemaMode, setIsCinemaMode] = useState(false);
+  const [theme, setTheme] = useState<Theme>("light");
+  const [isThemeReady, setIsThemeReady] = useState(false);
   const [droneMode, setDroneMode] = useState<"SaPa" | "SaMa">("SaPa");
   const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
@@ -167,6 +170,30 @@ export default function Home() {
   const displayedMatra = isMetronomePlaying ? metronomeMatra : activeMatra;
   const playbackProgress =
     lastEventIndex > 0 ? (activeEventIndex / lastEventIndex) * 100 : 0;
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const savedTheme = window.localStorage.getItem("sargam-theme");
+      const resolvedTheme: Theme =
+        savedTheme === "dark" ||
+        (savedTheme === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+          ? "dark"
+          : "light";
+
+      setTheme(resolvedTheme);
+      setIsThemeReady(true);
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isThemeReady) return;
+
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem("sargam-theme", theme);
+  }, [isThemeReady, theme]);
 
   useEffect(() => {
     if (!isPlaying || !isTranscribed || activeEvent === undefined) {
@@ -312,6 +339,12 @@ export default function Home() {
     });
   }
 
+  function toggleTheme(): void {
+    setTheme((currentTheme) =>
+      currentTheme === "light" ? "dark" : "light",
+    );
+  }
+
   function renderPerformanceVisualizer() {
     return selectedVisualizer === "Piano" ? (
       <FallingNotesPianoRoll
@@ -329,7 +362,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-cream text-charcoal">
+    <main className="min-h-screen overflow-x-hidden bg-cream text-charcoal transition-colors duration-300">
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:py-7">
         <a className="flex items-center gap-3" href="#top">
           <StudioMark />
@@ -341,6 +374,15 @@ export default function Home() {
           <span className="hidden text-xs font-bold uppercase tracking-[0.16em] text-charcoal/45 sm:inline">
             Practice studio
           </span>
+          <button
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+            aria-pressed={theme === "dark"}
+            className="grid h-9 w-9 place-items-center rounded-full border border-teal/10 bg-white text-sm font-black text-teal shadow-sm transition hover:-translate-y-0.5 hover:border-mint-emerald focus:outline-none focus:ring-2 focus:ring-mint-emerald"
+            onClick={toggleTheme}
+            type="button"
+          >
+            <span aria-hidden="true">{theme === "light" ? "◐" : "☀"}</span>
+          </button>
           <span className="rounded-full border border-teal/10 bg-white px-3.5 py-2 text-xs font-extrabold text-teal shadow-sm">
             <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-mint-emerald" />
             {credits} credits
@@ -436,7 +478,7 @@ export default function Home() {
       </section>
 
       {isTranscribed ? (
-        <section aria-live="polite" className="border-t border-teal/10 bg-[#f3f1ea] px-5 py-16 sm:px-8 sm:py-20" id="studio">
+        <section aria-live="polite" className="studio-workspace border-t border-teal/10 bg-[#f3f1ea] px-5 py-16 sm:px-8 sm:py-20" id="studio">
           <div className="mx-auto max-w-7xl">
             <div className="mb-7 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>

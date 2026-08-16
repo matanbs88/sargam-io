@@ -28,6 +28,8 @@ npm.cmd run verify
    dashboard should remain usable.
 9. Check Harmonium drone, Taal selector, Tabla practice view, and all six
    instrument-reference buttons.
+10. Toggle light/dark mode in the header, refresh, and confirm the selected
+    appearance persists without degrading the visualizers or Cinema view.
 
 ## Narrow viewport / recording flow
 

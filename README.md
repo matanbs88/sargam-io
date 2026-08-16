@@ -12,6 +12,7 @@ The local, mock-driven demo includes:
 - Mock note playback controls with active-note highlighting
 - MIDI-timed falling-note piano roll and a physical six-lane Bansuri fingering roll; every Bansuri cue is aligned to its real finger hole
 - Cinema performance view for clean, recording-oriented visual practice
+- Persistent light/dark mode with a high-contrast creator-practice surface
 - Dedicated Harmonium mode with relative Sargam labels and visual Sa/Pa or Sa/Ma drone settings
 - Keyboard, six-hole Bansuri, standard-guitar, and Sitar visual references
 - Manual practice-taal cycles for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa; taal is never inferred from BPM alone
