@@ -9,8 +9,9 @@ import { mockMidiData } from "@/src/lib/mockMidiData";
 import { BansuriChartUI } from "@/src/components/instruments/BansuriChartUI";
 import { GuitarTabsUI } from "@/src/components/instruments/GuitarTabsUI";
 import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
+import { SitarUI } from "@/src/components/instruments/SitarUI";
 
-type Instrument = "Keyboard" | "Bansuri" | "Guitar" | "None";
+type Instrument = "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 
 const ROOT_OPTIONS = [
   { midi: 60, label: "C4" },
@@ -44,8 +45,9 @@ const INSTRUMENT_OPTIONS: readonly {
   readonly description: string;
 }[] = [
   { id: "None", label: "Score", description: "Note view" },
-  { id: "Keyboard", label: "Keys", description: "2 octaves" },
+  { id: "Keyboard", label: "Keys", description: "Keyboard / harmonium" },
   { id: "Bansuri", label: "Bansuri", description: "Fingering" },
+  { id: "Sitar", label: "Sitar", description: "Relative frets" },
   { id: "Guitar", label: "Guitar", description: "Fretboard" },
 ];
 
@@ -346,7 +348,7 @@ export default function Home() {
 
                   <div className="mt-8 border-t border-teal/10 pt-7">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Play it visually</p><p className="mt-1 text-sm font-medium text-charcoal/55">The highlighted note follows the player.</p></div></div>
-                    <div aria-label="Choose an instrument reference" className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4" role="group">
+                    <div aria-label="Choose an instrument reference" className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5" role="group">
                       {INSTRUMENT_OPTIONS.map((instrument) => {
                         const isActive = instrument.id === selectedInstrument;
                         return <button aria-pressed={isActive} className={["rounded-xl border p-3 text-left transition", isActive ? "border-teal bg-teal text-white shadow-lg shadow-teal/15" : "border-teal/10 bg-cream text-charcoal hover:border-teal/30 hover:bg-white"].join(" ")} key={instrument.id} onClick={() => setSelectedInstrument(instrument.id)} type="button"><span className="block text-sm font-black">{instrument.label}</span><span className={["mt-0.5 block text-[10px] font-bold", isActive ? "text-white/55" : "text-charcoal/40"].join(" ")}>{instrument.description}</span></button>;
@@ -356,6 +358,7 @@ export default function Home() {
                     {selectedInstrument === "Keyboard" ? <div className="mt-5"><KeyboardUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Bansuri" ? <div className="mt-5"><BansuriChartUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Guitar" ? <div className="mt-5"><GuitarTabsUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
+                    {selectedInstrument === "Sitar" ? <div className="mt-5"><SitarUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "None" ? <div className="mt-5 rounded-2xl border border-dashed border-teal/20 bg-cream p-6 text-center text-sm font-medium text-charcoal/50">Choose an instrument to see the current note on a playable reference.</div> : null}
                   </div>
                 </div>
