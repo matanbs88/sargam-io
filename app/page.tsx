@@ -393,8 +393,8 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-cream text-charcoal transition-colors duration-300">
-      <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:py-7">
+    <main className={`min-h-screen overflow-x-hidden text-charcoal transition-colors duration-300 ${isTranscribed ? "bg-[#07121f]" : "bg-cream"}`}>
+      <header className={`relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 ${isTranscribed ? "lg:py-4" : "lg:py-7"}`}>
         <a className="flex items-center gap-3" href="#top">
           <StudioMark />
           <span className="font-display text-2xl leading-none text-teal">
@@ -402,7 +402,7 @@ export default function Home() {
           </span>
         </a>
         <div className="flex items-center gap-3">
-          <span className="hidden text-xs font-bold uppercase tracking-[0.16em] text-charcoal/45 sm:inline">
+          <span className={`hidden text-xs font-bold uppercase tracking-[0.16em] sm:inline ${isTranscribed ? "text-white/45" : "text-charcoal/45"}`}>
             Practice studio
           </span>
           <button
@@ -421,6 +421,7 @@ export default function Home() {
         </div>
       </header>
 
+      {!isTranscribed ? (
       <section id="top" className="relative mx-auto max-w-7xl px-5 pb-20 pt-7 sm:px-8 sm:pt-12 lg:pb-28">
         <div aria-hidden="true" className="hero-orb left-[6%] top-8 bg-mint-emerald/20" />
         <div aria-hidden="true" className="hero-orb right-[7%] top-36 bg-yellow-soft/80" />
@@ -517,6 +518,7 @@ export default function Home() {
           <div><p className="text-lg font-black text-teal">0</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Upload cost now</p></div>
         </div>
       </section>
+      ) : null}
 
       {isTranscribed ? (
         <PracticeWorkspace
@@ -583,7 +585,7 @@ export default function Home() {
         </div>
       ) : null}
 
-      <footer className="border-t border-teal/10 px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-2 text-xs font-medium text-charcoal/45 sm:flex-row sm:items-center sm:justify-between"><span>Sargam.io — relative notation for Indian music.</span><span>Phase 1 local mock experience</span></div></footer>
+      {!isTranscribed ? <footer className="border-t border-teal/10 px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-2 text-xs font-medium text-charcoal/45 sm:flex-row sm:items-center sm:justify-between"><span>Sargam.io — relative notation for Indian music.</span><span>Phase 1 local mock experience</span></div></footer> : null}
     </main>
   );
 }

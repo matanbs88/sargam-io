@@ -123,16 +123,16 @@ export function PracticeWorkspace({
   return (
     <section
       aria-live="polite"
-      className="studio-workspace bg-[#07121f] px-3 py-7 text-white sm:px-5 sm:py-10"
+      className="studio-workspace bg-[#07121f] px-3 py-3 text-white sm:px-5 sm:py-4"
       id="studio"
     >
       <div className="mx-auto max-w-[1580px]">
-        <header className="mb-6 flex flex-wrap items-end justify-between gap-4 px-1">
+        <header className="hidden">
           <div className="min-w-0">
             <p className="text-[10px] font-black uppercase tracking-[0.22em] text-mint-emerald">
               Practice session
             </p>
-            <h2 className="mt-1 truncate font-display text-3xl leading-none text-white sm:text-4xl">
+            <h2 className="mt-1 truncate font-display text-2xl leading-none text-white sm:text-3xl">
               {songTitle}
             </h2>
           </div>
@@ -160,7 +160,7 @@ export function PracticeWorkspace({
 
         <section
           aria-label="Practice controls"
-          className="studio-control-rail mb-3 flex flex-col gap-4 px-4 py-3 sm:px-5 lg:flex-row lg:items-center lg:justify-between"
+          className="studio-control-rail mb-0 flex flex-col gap-4 px-4 py-3 sm:px-5 lg:flex-row lg:items-center lg:justify-between"
         >
           <label className="flex items-center gap-3 text-xs font-black text-white/75" htmlFor="root-midi">
             <span className="text-[10px] uppercase tracking-[0.16em] text-mint-emerald">Sa</span>
@@ -212,7 +212,7 @@ export function PracticeWorkspace({
           </div>
         </section>
 
-        <section aria-label="Melody line" className="studio-melody-strip mb-3 px-4 py-3 sm:px-5">
+        <section aria-label="Melody line" className="studio-melody-strip mb-2 px-4 py-3 sm:px-5">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
             <div className="flex items-center gap-2">
               <p className="text-[10px] font-black uppercase tracking-[0.17em] text-mint-emerald">Melody</p>
@@ -260,8 +260,8 @@ export function PracticeWorkspace({
         <main className="studio-stage min-w-0 overflow-hidden">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-performance-blue">Performance</p>
-              <p className="mt-1 text-xs font-medium text-white/45">Follow the note beams. Land every phrase with intention.</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-performance-blue">Sargam canvas</p>
+              <p className="mt-1 text-xs font-medium text-white/45">Your phrase, mapped through time.</p>
             </div>
             <div aria-label="Choose a falling note visualizer" className="flex rounded-md bg-white/[0.05] p-1" role="group">
               {(["Piano", "Bansuri"] as const).map((visualizer) => {
@@ -284,6 +284,13 @@ export function PracticeWorkspace({
                 );
               })}
             </div>
+            <button
+              className="rounded-md bg-white/[0.06] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/65 transition hover:bg-white/[0.12] hover:text-white"
+              onClick={onStartAnother}
+              type="button"
+            >
+              New
+            </button>
           </div>
           <div className="px-3 pb-3 sm:px-4 sm:pb-4">{performanceVisualizer}</div>
           <div className="stage-transport px-4 py-3 sm:px-5">
@@ -315,10 +322,18 @@ export function PracticeWorkspace({
           </div>
         </main>
 
-        <section aria-label="Practice layers" className="workspace-controls studio-utility-band mt-4 p-4 sm:p-5">
+        <details aria-label="Practice layers" className="workspace-controls studio-utility-band group mt-3">
+          <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5">
+            <span>
+              <span className="block text-[10px] font-black uppercase tracking-[0.19em] text-mint-emerald">Practice layers</span>
+              <span className="mt-1 block text-[10px] font-medium text-white/42">Taal, tabla, tanpura and instrument reference</span>
+            </span>
+            <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.13em] text-white/60 transition group-open:bg-mint-emerald group-open:text-white">Open</span>
+          </summary>
+          <div className="border-t border-white/[0.08] px-4 pb-4 pt-4 sm:px-5 sm:pb-5">
           <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/[0.08] pb-4">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.19em] text-mint-emerald">Practice layers</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.19em] text-mint-emerald">Rhythm and reference</p>
               <p className="mt-1 text-xs text-white/45">Rhythm, drone and instrument reference stay available without competing with the performance.</p>
             </div>
             <label className="text-[10px] font-black uppercase tracking-[0.12em] text-white/45" htmlFor="taal-select">
@@ -348,7 +363,8 @@ export function PracticeWorkspace({
               <div className="border-t border-white/[0.08] p-2">{instrumentPanel}</div>
             </details>
           </div>
-        </section>
+          </div>
+        </details>
       </div>
     </section>
   );

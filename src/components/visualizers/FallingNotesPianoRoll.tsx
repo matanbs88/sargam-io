@@ -18,7 +18,7 @@ const WHITE_NOTES = new Set([0, 2, 4, 5, 7, 9, 11]);
 const BLACK_KEY_CENTER_OFFSET = 0.69;
 const FIRST_MIDI = 60;
 const LAST_MIDI = 84;
-const ROLL_HEIGHT = 312;
+const ROLL_HEIGHT = 332;
 const LOOK_AHEAD_MS = 4_000;
 
 function getBarHeight(durationMs: number): number {
@@ -88,9 +88,9 @@ export function FallingNotesPianoRoll({
   return (
     <section
       aria-label="Falling MIDI piano roll"
-      className="overflow-hidden rounded-[1.15rem] border border-white/10 bg-[#06090e] shadow-[0_24px_54px_rgba(1,6,13,0.42)]"
+      className="relative overflow-hidden rounded-[0.9rem] border border-white/[0.08] bg-[#06090e]"
     >
-      <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#0b111a] px-4 py-3 sm:px-5">
+      <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between bg-[linear-gradient(180deg,rgba(5,9,14,0.76),transparent)] px-4 py-3 sm:px-5">
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/85">Performance piano roll</p>
           <p className="mt-0.5 text-[10px] font-bold text-white/45">
@@ -102,7 +102,7 @@ export function FallingNotesPianoRoll({
         </span>
       </div>
 
-      <div className="relative h-[410px] overflow-hidden bg-[#070a0f]">
+      <div className="relative h-[440px] overflow-hidden bg-[#070a0f] sm:h-[clamp(420px,52svh,520px)]">
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[88px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_52px]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[88px] top-0">
           {PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
@@ -130,8 +130,8 @@ export function FallingNotesPianoRoll({
                 "absolute z-10 flex items-start justify-center rounded-md border border-white/30 pt-1.5 text-[9px] font-black backdrop-blur-md transition-[top,background-color,opacity,box-shadow] duration-[420ms] ease-linear",
                 key.isBlack ? "min-w-3" : "min-w-4",
                 isActive
-                  ? "bg-[linear-gradient(180deg,rgba(255,248,197,0.92),rgba(255,213,75,0.72))] text-charcoal shadow-[0_0_30px_rgba(255,240,153,0.62),inset_0_1px_0_rgba(255,255,255,0.82)]"
-                  : "bg-[linear-gradient(180deg,rgba(129,199,255,0.78),rgba(49,122,208,0.62))] text-white shadow-[0_0_24px_rgba(88,166,255,0.5),inset_0_1px_0_rgba(255,255,255,0.52)]",
+                  ? "bg-[linear-gradient(180deg,rgba(255,248,197,0.94),rgba(255,218,104,0.78))] text-charcoal shadow-[0_8px_20px_rgba(255,240,153,0.28),inset_0_1px_0_rgba(255,255,255,0.82)]"
+                  : "bg-[linear-gradient(180deg,rgba(63,170,153,0.84),rgba(19,96,82,0.68))] text-white shadow-[0_6px_16px_rgba(40,177,130,0.22),inset_0_1px_0_rgba(255,255,255,0.38)]",
               ].join(" ")}
               key={`${event.startMs}-${event.midi}`}
               style={{

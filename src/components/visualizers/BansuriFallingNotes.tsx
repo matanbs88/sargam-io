@@ -86,9 +86,9 @@ export function BansuriFallingNotes({
   return (
     <section
       aria-label="Bansuri melody runway"
-      className="overflow-hidden rounded-[1.15rem] border border-white/10 bg-[#06090e] shadow-[0_24px_54px_rgba(1,6,13,0.42)]"
+      className="relative overflow-hidden rounded-[0.9rem] border border-white/[0.08] bg-[#06090e]"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] bg-[#0b111a] px-4 py-3 sm:px-5">
+      <div className="absolute inset-x-0 top-0 z-30 flex flex-wrap items-center justify-between gap-3 bg-[linear-gradient(180deg,rgba(5,9,14,0.82),transparent)] px-4 py-3 sm:px-5">
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/85">
             Bansuri melody runway
@@ -104,7 +104,7 @@ export function BansuriFallingNotes({
         </div>
       </div>
 
-      <div className="grid min-h-[330px] grid-cols-[72px_minmax(0,1fr)] bg-[#070a0f] sm:grid-cols-[92px_minmax(0,1fr)]">
+      <div className="grid h-[440px] grid-cols-[72px_minmax(0,1fr)] bg-[#070a0f] sm:h-[clamp(420px,52svh,520px)] sm:grid-cols-[92px_minmax(0,1fr)]">
         <div className="relative flex flex-col items-center justify-center border-r border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.018),transparent_34%,rgba(255,255,255,0.01))] px-2">
           <VerticalBansuri holes={activeFingering?.holes ?? []} />
           <span className="mt-2 text-center text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
@@ -154,8 +154,8 @@ export function BansuriFallingNotes({
                 className={[
                   "absolute z-10 flex h-[19px] items-center rounded-full border px-2 text-[9px] font-black backdrop-blur-md transition-[left,background-color,box-shadow] duration-[420ms] ease-linear sm:h-[22px]",
                   isActive
-                    ? "border-yellow-soft/90 bg-[linear-gradient(90deg,rgba(255,226,104,0.94),rgba(255,246,184,0.82))] text-charcoal shadow-[0_0_26px_rgba(255,240,153,0.62),inset_0_1px_0_rgba(255,255,255,0.8)]"
-                    : "border-mint-emerald/60 bg-[linear-gradient(90deg,rgba(40,177,130,0.76),rgba(89,212,172,0.48))] text-white shadow-[0_0_20px_rgba(40,177,130,0.38),inset_0_1px_0_rgba(255,255,255,0.38)]",
+                    ? "border-yellow-soft/90 bg-[linear-gradient(90deg,rgba(255,226,104,0.94),rgba(255,246,184,0.82))] text-charcoal shadow-[0_7px_18px_rgba(255,240,153,0.28),inset_0_1px_0_rgba(255,255,255,0.8)]"
+                    : "border-mint-emerald/60 bg-[linear-gradient(90deg,rgba(38,145,126,0.82),rgba(67,178,151,0.6))] text-white shadow-[0_5px_14px_rgba(40,177,130,0.2),inset_0_1px_0_rgba(255,255,255,0.3)]",
                 ].join(" ")}
                 key={`${event.startMs}-${event.midi}`}
                 style={{
