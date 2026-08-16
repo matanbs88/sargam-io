@@ -1,33 +1,52 @@
-# Sargam.io local MVP testing checklist
+# Sargam.io QA checklist
 
-This build is entirely local and mock-driven. It does not upload files, fetch
-YouTube audio, or contact an external transcription service.
+This build is local and mock-driven. The YouTube/audio entry is visual only;
+the separate mock API route is not wired into the page.
 
-## Happy path
+## Automated checks
 
-1. Start the app with npm.cmd run dev.
-2. Confirm the header displays Credits: 2.
-3. Click Transcribe. Credits should become 1 and the mock dashboard should
-   appear.
-4. Change Sa from D4 to another value and confirm the Transposed badge appears.
-5. Switch among ABC, Sa Re Ga, and the Devanagari tab. The note text should
-   change immediately, without a request.
-6. Click a note, or use Previous, Next, and Play mock. The selected note should
-   update in the notation pane.
-7. Select Keyboard, Bansuri, and Guitar. Each reference should follow the
-   active mock note and the selected Sa.
+```powershell
+npm.cmd run audit:repo
+npm.cmd run verify
+```
+
+## Desktop practice flow
+
+1. Start the app and confirm the header shows 2 credits.
+2. Click **Transcribe melody**. Credits become 1 and the mock dashboard opens.
+3. Change Sa from D4 and confirm the **Transposed** badge appears.
+4. Switch ABC, Latin Sargam, and Devanagari. Notes must update without a page
+   reload or request.
+5. Click a note, Previous, Next, and Play. The notation, transport progress,
+   selected visual instrument, Taal matra, and performance deck must stay in
+   sync.
+6. Open Piano roll. Bars must land on matching white/black keys and use note
+   duration for their height.
+7. Open Bansuri roll. Verify all six cue lanes terminate directly over the six
+   finger holes; the holes show open/closed/half-open state for the active note.
+8. Open **Cinema view**, switch visualizer, advance a note, and exit. The
+   dashboard should remain usable.
+9. Check Harmonium drone, Taal selector, Tabla practice view, and all six
+   instrument-reference buttons.
+
+## Narrow viewport / recording flow
+
+1. Test at approximately 390×844.
+2. Open Bansuri roll and Cinema view.
+3. Confirm the flute, six cue lanes, controls, and exit button remain visible
+   without horizontal clipping.
 
 ## Credit guard
 
-1. Use Transcribe another to return to the hero.
-2. Run one more mock transcription. Credits should become 0.
-3. Return to the hero again and click Transcribe. The app should display its
-   no-credit alert and should not show a new dashboard.
+1. Use **New transcription** to return to the hero.
+2. Consume the second mock credit.
+3. On the next click, confirm that the no-credit alert appears and no new
+   dashboard opens.
 
 ## Known mock-only limits
 
-- The audio drop zone and YouTube field are visual placeholders.
-- Play mock advances visual note events only; it does not play audio.
-- Bansuri and guitar diagrams are reference visualizations, not calibrated
+- Mock playback moves visual MIDI events only; it does not play a song.
+- Cinema view is presentation framing, not recording/export.
+- Bansuri, Guitar, and Sitar views are learning references, not calibrated
   performance prescriptions.
-- Credits reset when the browser refreshes.
+- Credits and selections reset after a browser refresh.

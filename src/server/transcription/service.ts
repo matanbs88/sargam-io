@@ -15,9 +15,9 @@ function fingerprint(sourceUrl: string): string {
 }
 
 /**
- * Cache-first orchestration for the live provider. It is intentionally not
- * called by the current mock route, since a real provider requires credentials
- * and asynchronous job polling. This is the production seam for Phase 4.
+ * Cache-first orchestration shared by the local mock route and the future live
+ * provider adapter. A live provider must add queue polling before it returns a
+ * completed job to this service.
  */
 export async function requestTranscription(
   sourceUrl: string,
@@ -45,4 +45,3 @@ export async function requestTranscription(
 
   return { status: "provider", transcription };
 }
-

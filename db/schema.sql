@@ -48,7 +48,7 @@ create table public.transcription_requests (
   song_cache_id uuid references public.song_cache(id) on delete set null,
   normalized_source_url text not null,
   root_midi smallint not null check (root_midi between 0 and 127),
-  instrument text not null check (instrument in ('keyboard', 'bansuri', 'guitar')),
+  instrument text not null check (instrument in ('harmonium', 'keyboard', 'bansuri', 'guitar', 'sitar')),
   created_at timestamptz not null default now()
 );
 

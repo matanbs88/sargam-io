@@ -1,21 +1,16 @@
 import "server-only";
 
-import { mockSong } from "@/src/lib/mockTranscription";
+import { mockMidiData } from "@/src/lib/mockMidiData";
 import type { CompletedTranscription, ProviderJob, TranscriptionProvider } from "./contracts";
 
 export const mockCompletedTranscription: CompletedTranscription = {
   provider: "klangio",
   providerJobId: "mock-job-1",
   providerVersion: "mock-v1",
-  title: mockSong.title,
-  artist: mockSong.artist,
-  bpm: mockSong.bpm,
-  detectedKey: mockSong.detectedKey,
-  midiEvents: mockSong.midiNotes.map((midi, index) => ({
-    midi,
-    startMs: index * 500,
-    durationMs: 420,
-  })),
+  title: mockMidiData.title,
+  bpm: mockMidiData.tempoBpm,
+  detectedKey: mockMidiData.detectedKey.displayName,
+  midiEvents: mockMidiData.noteEvents.map((event) => ({ ...event })),
 };
 
 /** Development-only provider that behaves like an already-completed async job. */

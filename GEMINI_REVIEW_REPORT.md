@@ -1,255 +1,177 @@
-# Sargam.io engineering review report
+# Sargam.io — Gemini engineering, product, and QA handoff
 
-## Purpose
+## Review request
 
-This report is a handoff for an independent Gemini code and architecture review.
-The repository currently contains a complete local, mock-driven MVP. It is not
-connected to a real transcription provider, YouTube, a database, authentication,
-payments, or a hosted GPU model.
+Act as an independent staff-level reviewer. Review the repository as a local,
+mock-driven Indian-music practice MVP. Do not assume a live audio
+transcription, YouTube ingestion, payment, database, user account, or video
+export capability exists.
 
-## Review baseline
+Please first run:
 
-- Repository: matanbs88/sargam-io
-- Branch: main
-- Current implementation commit: 5574e0d
-- Framework: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4
-- Test runner: Vitest
-- Validation completed: ESLint, 17 unit tests, Next production build, manual
-  local browser QA
+```powershell
+npm.cmd run audit:repo
+npm.cmd run verify
+```
 
-## Product goal
+Then review code, product claims, musical safety, UI quality, and the proposed
+next slice. Report concrete defects by severity, with exact file paths and
+minimal safe fixes. Do not implement external integrations without an explicit
+product decision and credentials.
 
-Sargam.io is intended to turn audio-derived MIDI note events into learner-facing
-relative notation for Indian music:
+## Baseline and environment
 
-- Latin Sargam: S r R g G m M P d D n N
-- Devanagari Sargam
-- Relative ABC display
-- Visual references for keyboard, bansuri, and guitar
+- Repository: `matanbs88/sargam-io`
+- Branch: `main`
+- Pre-audit implementation baseline: `ccfe7d3`
+- Current stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4,
+  Vitest, Node 24 in CI
+- Public deployment: <https://sargam-io.vercel.app>
+- Quality baseline after this audit: lint, production build, and 23 tests pass
 
-The current MVP uses deterministic local MIDI events. The app deliberately does
-not claim raga detection, accurate ornament recognition, an exact bansuri
-fingering for every instrument, or live audio transcription.
+## Product intent
 
-## Current user flow
+Sargam.io turns a melody represented as MIDI note events into learner-facing
+relative notation for Indian music. Its core audience includes keyboard,
+harmonium, Bansuri, guitar, and Sitar learners who need to choose a comfortable
+Sa and see a simple physical reference.
 
-1. The visitor sees a visual-only audio drop zone and YouTube URL field.
-2. Clicking Transcribe consumes one local credit and reveals a mock result.
-3. The user chooses Sa from MIDI 60 through 72.
-4. The Transposed badge appears when selected Sa differs from mock detected Sa.
-5. The user switches instantly among ABC, Latin Sargam, and Devanagari.
-6. Mock playback moves the active MIDI event through the phrase.
-7. Keyboard, Bansuri, and Guitar references react to that active note.
-8. Transcribe another returns the user to the hero. Two local credits can be
-   consumed, then the zero-credit alert can be tested.
+The current product convention is an equal-tempered 12-position mapping:
 
-No request is made when changing notation, root, active note, or instrument.
+```text
+S r R g G m M P d D n N
+```
 
-## File map
+Lowercase `r/g/d/n` are komal and uppercase `M` is tivra Ma. This is an
+explicit product convention for MIDI-derived notes, not a claim to full raga
+analysis or traditional engraved notation.
 
-### App UI
+## Current user experience
 
-- app/page.tsx
-  - Client Component.
-  - Owns local UI state: isTranscribed, notationSystem, selectedRootMidi,
-    credits, selectedInstrument, activeEventIndex, and isPlaying.
-  - Formats note events with useMemo.
-  - Uses a timer only for local mock playback.
-  - Contains no fetch call or external API invocation.
+1. Visitor sees a high-end landing panel with a visual-only link/audio entry.
+2. **Transcribe melody** consumes one local credit and opens a deterministic
+   local mock transcription.
+3. User selects Sa (MIDI 60–72), toggles ABC / Latin Sargam / Devanagari, and
+   controls a mock event transport.
+4. The active note drives Taal/Tabla practice and all selected instrument
+   references.
+5. The performance deck exposes two timing visualizers:
+   - **Piano roll:** onset/duration bars fall onto the exact white or black key.
+   - **Bansuri fingering roll:** six time lanes terminate at the six drawn
+     finger holes; each cue represents closed, half-open, or open state.
+6. **Cinema view** gives a clean, dark, responsive performance frame designed
+   for screen capture. It is not an exporter.
 
-- app/globals.css and tailwind.config.ts
-  - Declare the prescribed palette:
-    - cream: #FAF9F6
-    - teal: #136052
-    - yellow-soft: #FFF099
-    - mint-emerald: #28B182
-    - charcoal: #0F172A
-  - The CSS theme tokens are present because Tailwind 4 requires CSS-first
-    registration for utility generation.
+No browser request is made when toggling notation, Sa, instrument, visualizer,
+or active note. The page currently does not call the API route.
 
-### Notation engine
+## Architecture map
 
-- src/lib/midiToSargam.ts
-  - Validates MIDI values and event timings.
-  - Uses relative interval:
-    interval = ((midi - rootMidi) % 12 + 12) % 12
-  - Uses octave shift:
-    octaveShift = floor((midi - rootMidi) / 12)
-  - Repeats apostrophes for upper octaves and periods for lower octaves.
-  - Exposes ABC, Sargam_EN, and Sargam_HI render modes.
+| Area | Key files | Responsibility |
+| --- | --- | --- |
+| App shell | `app/layout.tsx`, `app/globals.css`, `tailwind.config.ts` | Metadata, visual system, theme |
+| Practice UI | `app/page.tsx` | Client-only state, mock transport, dashboard, Cinema dialog |
+| Notation engine | `src/lib/midiToSargam.ts` | Validated relative pitch math and display formatting |
+| Canonical fixture | `src/lib/mockMidiData.ts` | Single mock phrase for UI and provider seam |
+| Instrument refs | `src/components/instruments/` | Keyboard, Harmonium, Bansuri, Guitar, Sitar displays |
+| Visualizers | `src/components/visualizers/` | Piano roll and six-lane Bansuri finger-cue display |
+| Bansuri rules | `src/lib/bansuriFingering.ts`, `src/lib/bansuri.ts` | Generic six-hole map, timeline positions, future profile model |
+| Rhythm | `src/lib/taal.ts`, `src/lib/tabla.ts`, related components | Manual Taal structures and basic practice thekas |
+| Future API seam | `app/api/transcriptions/`, `src/server/transcription/` | URL validation, mock provider, cache contract, normalized result |
+| Future persistence | `db/schema.sql` | Supabase/PostgreSQL draft with RLS and credit ledger |
+| Locales | `locales/`, `src/lib/localization.ts` | Typed dictionary scaffold; no locale routing yet |
+| Quality | `*.test.ts`, `.github/workflows/ci.yml`, `scripts/repository-audit.mjs` | Unit/API tests, CI, repository-vault existence check |
 
-- src/lib/mockMidiData.ts
-  - Contains the full local Phase 1 data fixture.
-  - D4, MIDI 62, is the mock detected Sa.
-  - The phrase intentionally covers all twelve semitone positions.
+## Core correctness rules
 
-### Devanagari safety rule
+### Relative MIDI conversion
 
-The Devanagari renderer is a direct lookup table from already-tokenized Latin
-Sargam values. It does not perform chained replacements on strings.
+`src/lib/midiToSargam.ts` uses:
 
-Approved dictionary:
+```ts
+interval = ((incomingMidi - rootMidi) % 12 + 12) % 12
+octaveShift = Math.floor((incomingMidi - rootMidi) / 12)
+```
 
-- S: सा
-- r: रे॒
-- R: रे
-- g: ग॒
-- G: ग
-- m: म
-- M: म॑
-- P: प
-- d: ध॒
-- D: ध
-- n: नि॒
-- N: नि
+Positive octaves append repeated apostrophes; negative octaves append repeated
+periods. Inputs and event timing are validated.
 
-This prevents a translated token from being reprocessed by a later rule.
+### Devanagari safety
 
-### Instrument components
+The Devanagari renderer accepts an already-tokenized Sargam value and performs
+one dictionary lookup. It never chains string replacements. Please inspect the
+Unicode dictionary directly in `src/lib/midiToSargam.ts` and verify it against
+the approved Bhatkhande convention.
 
-- src/components/instruments/KeyboardUI.tsx
-  - Static two-octave C4 through C6 visual.
-  - Active MIDI note uses yellow-soft.
-  - Selected Sa uses a mint dot.
+### Bansuri boundary
 
-- src/components/instruments/BansuriChartUI.tsx
-  - Six-finger-hole vertical visual (the mouthpiece is excluded).
-  - Renders closed, open, and half-open states.
-  - Exposes getBansuriReferenceFingering for unit testing.
-  - Uses a generic Hindustani reference map, not a player-calibrated claim.
+The six-lane visual alignment is deliberately exact: both the falling lanes and
+the flute holes derive from `getBansuriTimelineXPosition`. The generic
+fingering map is still not a universal prescription. Maker, flute key, octave,
+embouchure, half-hole technique, and gharana need a user/profile calibration
+before the product calls it definitive.
 
-- src/components/instruments/GuitarTabsUI.tsx
-  - Standard-tuning fretboard view through fret 12.
-  - Active MIDI note uses yellow-soft.
-  - Selected Sa uses a mint dot.
+### Taal boundary
 
-- src/lib/guitar.ts
-  - Standard tuning: E4, B3, G3, D3, A2, E2.
-  - midiToGuitarString chooses a legal string/fret candidate nearest a preferred
-    hand position.
-  - It is deterministic and suitable for UI reference, but not yet a
-    full phrase-level fingering optimizer.
+The user chooses a Taal. BPM is never treated as enough information to infer
+Taal; basic thekas are practice prompts with legitimate variations.
 
-### Localization scaffold
+## Recent consistency audit changes
 
-- locales/en.json
-- locales/hi.json
-- src/lib/localization.ts
+1. Consolidated UI and mock-provider transcription data on
+   `mockMidiData.ts`.
+2. Changed `POST /api/transcriptions` to return the service result rather than
+   an unrelated hard-coded fixture.
+3. Added API fixture-parity and invalid-URL tests.
+4. Updated the future request schema for Harmonium and Sitar.
+5. Added an auditable project-vault workflow and corrected stale status/QA docs.
 
-The JSON dictionaries are typed and tested. Locale routing, persistence, and
-browser-language detection are intentionally not implemented yet.
+See `docs/audits/REPOSITORY_AUDIT_2026-08-16.md` for the full record.
 
-## Automated quality gates
+## Explicitly deferred capabilities
 
-Run from the repository root:
+- Audio upload, download, or YouTube ingestion.
+- A real transcription provider, job polling, billing, retries, and confidence
+  metadata.
+- Authentication, database persistence, subscriptions, payment, rate limiting,
+  and persistent credits.
+- Song/audio playback, audio pitch shifting, export, watermarking, and creator
+  asset uploads.
+- Raga, shruti, meend, gamak, or automatic Taal recognition.
+- Player-specific Bansuri calibration and phrase-level guitar/sitar fingering.
 
-1. npm.cmd run lint
-2. npm.cmd run test
-3. npm.cmd run build
+## Review questions for Gemini
 
-At the handoff baseline:
-
-- 7 test files passed
-- 17 tests passed
-- Production build passed
-
-Unit coverage includes:
-
-- all twelve Sargam mappings
-- upper and lower repeated octave markers
-- Devanagari dictionary rendering
-- MIDI event timing preservation
-- invalid MIDI rejection
-- Bansuri relative-note normalization
-- guitar string/fret position selection
-- local dictionary resolution
-- existing URL normalization and server mock contracts
-
-## Manual QA script
-
-Use TESTING_CHECKLIST.md in the repository. It covers:
-
-- local credits and zero-credit alert
-- root note and Transposed state
-- all three notation modes
-- note selection and mock playback
-- all three visual instrument references
-
-## Explicitly deferred boundaries
-
-These are not defects in the local MVP. They require a product decision,
-credentials, or a commercial/legal integration agreement:
-
-1. Audio upload and YouTube ingestion.
-2. External audio-to-MIDI provider selection and job polling.
-3. Persistent song cache and database migration.
-4. Authentication, persistent credit ledger, and payments.
-5. Geo-IP purchasing-power pricing.
-6. Actual audio playback and synchronized YouTube playback.
-7. User-specific bansuri calibration.
-8. Raga, taal, shruti, meend, and gamak inference.
-9. Model hosting, training data collection, or fine-tuning.
-
-There is an older local mock API route in app/api/transcriptions from an earlier
-prototype. The current page does not call it. Gemini should confirm whether to
-retain it as a future integration seam or remove it to make the mock-only
-boundary stricter.
-
-## Important domain caveats
-
-### Relative notation is not raga classification
-
-The engine maps equal-tempered MIDI pitch classes to the agreed 12-token
-product convention. It cannot derive raga grammar, shruti, melodic direction,
-or ornamentation from MIDI alone.
-
-### Selected Sa changes notation, not audio
-
-Changing selectedRootMidi recomputes relative labels and visual references. It
-does not pitch-shift audio, because the MVP has no audio pipeline.
-
-### Bansuri fingering is reference-only
-
-The map is intentionally labeled as a reference. Bansuri designs may have six
-or seven holes; precise fingerings also depend on construction, flute key,
-octave, breath, partial-hole technique, and player style. External references:
-
-- https://oneworldflutes.com/PDF/FlutesFingeringChart.pdf
-- https://www.sundaris.eu/blog/2026/06/04/bansuri-the-indian-bamboo-flute-with-a-thousand-year-tradition/
-
-### Guitar mapping is note-local
-
-The algorithm chooses a position for one note. A later phrase optimizer should
-minimize total hand movement across an event sequence and incorporate a
-player's preferred register.
-
-## Suggested Gemini review questions
-
-1. Is the relative MIDI and octave calculation correct for negative distances?
-2. Does the Devanagari dictionary match the intended Bhatkhande display
-   convention, including the selected combining marks?
-3. Should the current generic Bansuri reference map be reduced to diatonic
-   notes until a musician validates all chromatic fingerings?
-4. Does a CSS-based Tailwind 4 theme plus tailwind.config.ts provide the
-   cleanest configuration approach for this repository?
-5. Should the obsolete local mock API route remain while the UI is intentionally
-   mock-only?
-6. Is the mock player state effect robust under React Strict Mode and rapid
-   control changes?
-7. Does the Guitar position function need a configurable maximum fret or a
-   multi-note optimization API before it is exposed to real users?
-8. Which of the deferred items should become the next vertical production slice?
+1. Is the MIDI distance/octave behavior correct at all negative boundaries?
+2. Does the current Devanagari dictionary exactly match the approved glyphs
+   and combining marks?
+3. Does the generic six-hole Bansuri reference map need musician validation
+   before the chromatic positions remain visible in product UI?
+4. Is the current client-page state model sustainable, or should the dashboard
+   be split into a stateful feature component before API wiring?
+5. Should the API mock seam remain while the page stays intentionally local,
+   or should it be feature-flagged until the live slice begins?
+6. Is the PostgreSQL cache key sufficient for provider/model-version changes?
+7. What test coverage is missing for the Cinema dialog, visualizer geometry,
+   and cache route behavior?
+8. Does the UI look coherent at creator-quality desktop and vertical capture
+   sizes, without making functionality claims it cannot yet meet?
 
 ## Recommended next production slice
 
-Do not begin a live provider implementation until a vendor contract and
-credentials exist. The next safe engineering slice is:
+1. Make a provider/ingestion/legal decision and document it.
+2. Implement authentication plus a server-owned credit ledger.
+3. Apply a reviewed database migration and replace the in-memory cache.
+4. Add a typed client/API result contract and explicit loading, error, retry,
+   and cache-hit states.
+5. Integrate one approved provider with job polling and cost controls.
+6. Add confidence-aware review tools and instrument/player calibration before
+   presenting any transcription as ready-to-play fact.
 
-1. Decide whether the active mock API route is retained or removed.
-2. Add Supabase authentication and a persistent credit ledger.
-3. Add a real SongCache adapter with provider/version cache keys.
-4. Integrate one approved transcription provider through the existing provider
-   contract.
-5. Preserve returned MIDI timing and confidence metadata.
-6. Run musician-led validation before presenting Bansuri fingerings as
-   instrument-specific guidance.
+## Required reviewer references
+
+- `README.md` — user-facing capabilities
+- `MUSIC_DOMAIN.md` — musical/product claims and research sources
+- `INSTRUMENT_STRATEGY.md` — scope by instrument family
+- `TESTING_CHECKLIST.md` — manual regression script
+- `docs/operations/MAINTENANCE_WORKFLOW.md` — recurring maintenance gate

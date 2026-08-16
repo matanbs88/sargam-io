@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { mockSong } from "@/src/lib/mockTranscription";
 import { normalizeYouTubeUrl } from "@/src/lib/transcription";
 import { MockTranscriptionProvider } from "@/src/server/transcription/mockProvider";
 import { requestTranscription } from "@/src/server/transcription/service";
@@ -34,7 +33,7 @@ export async function POST(request: Request) {
     {
       status: result.status,
       sourceUrl: normalizedUrl,
-      song: mockSong,
+      song: result.transcription,
     },
     { status: 200 },
   );

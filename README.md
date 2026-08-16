@@ -20,7 +20,10 @@ The local, mock-driven demo includes:
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file
 
-The audio drop zone and YouTube input are intentionally visual only. See [TESTING_CHECKLIST.md](./TESTING_CHECKLIST.md) for the complete local QA path and [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries.
+The audio drop zone and YouTube input are intentionally visual only. See
+[TESTING_CHECKLIST.md](./TESTING_CHECKLIST.md) for the complete local QA path,
+[WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries, and
+the [project vault](./docs/README.md) for architecture, audit, and handoff docs.
 
 ## Local development
 
@@ -33,9 +36,8 @@ Then open `http://localhost:3000`.
 ## Checks
 
 ```bash
-npm.cmd run lint
-npm.cmd run test
-npm.cmd run build
+npm.cmd run audit:repo
+npm.cmd run verify
 ```
 
 ## Environment

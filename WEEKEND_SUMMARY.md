@@ -1,42 +1,36 @@
-# Weekend build summary
+# Sargam.io current build status
 
-## Completed
+## Delivered local MVP
 
-- Local Phase 1 MVP: visual upload and YouTube-link entry, deterministic mock MIDI, relative root selection, local credits, and tri-state notation
-- Local Phase 2: synchronized mock-note player plus Keyboard, Bansuri, and Guitar visual references
-- Dedicated Harmonium mode with relative Sargam key labels and visual Sa/Pa or Sa/Ma drone selection
-- Manual Taal practice layer with active-matra progress for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa
-- Tabla practice workspace with basic Theka prompts, tempo control, and a Sam-accented local metronome
-- Local synthesized Sa/Pa and Sa/Ma reference drone for Harmonium mode (not a sampled Tanpura)
-- Strict token-by-token Devanagari rendering; no chained replacement operations
-- Local English/Hindi JSON dictionaries and a handoff testing checklist
-- Next.js 16 App Router project initialized and pushed to GitHub
-- Secure Git exclusions for local environment variables and build output
-- Phase 1: responsive Sargam.io landing page, link entry flow, and instrument configuration modal
-- Phase 2: `src/lib/midiToSargam.ts` implements the specified 12-semitone relative Sargam conversion and octave notation
-- Phase 3: mock song data and a working end-to-end client-side transcription experience
-- Result dashboard supports Sargam/ABC switching, root-note transposition, copy, and TXT export
-- Metadata, `robots.txt`, and `sitemap.xml` are generated via Next.js file conventions
-- Server-side `POST /api/transcriptions` validates and canonicalizes YouTube URLs before using the mock adapter
-- Automated test coverage for the conversion core, timing retention, source validation, and initial tāla structures
-- [MUSIC_DOMAIN.md](./MUSIC_DOMAIN.md) records research-backed notation/rhythm decisions and product constraints
-- Cache-first server-side orchestration contract with an in-memory test cache and provider interface
-- Reviewed PostgreSQL/Supabase baseline schema in `db/schema.sql`, including RLS and an immutable credit ledger
-- GitHub Actions CI runs lint, test, and production build for `main` pushes and pull requests
-- Mock API now demonstrates the production cache contract (`provider` then `cache_hit` for the same normalized source)
-- URL validation is enforced in both the accessible client UI and the server route; baseline response-security headers are configured
+- Next.js 16 App Router application with a responsive Sargam practice studio.
+- Deterministic mock MIDI phrase with a local two-credit preview flow.
+- Relative 12-semitone MIDI-to-Sargam conversion, repeated octave markers,
+  and strict token-by-token Devanagari dictionary lookup.
+- Instant ABC, Latin Sargam, and Devanagari switching plus selected-Sa
+  transposition.
+- Mock note transport, Taal cycles, basic Tabla practice prompts, a synthesized
+  Sa/Pa or Sa/Ma drone, and Keyboard/Harmonium/Bansuri/Guitar/Sitar references.
+- MIDI-timed piano roll and physically aligned six-hole Bansuri fingering roll.
+- Cinema performance view designed for clean screen capture and vertical use.
+- A mock cache-first API route that validates/canonicalizes YouTube URLs;
+  it uses the same fixture as the UI but is not connected from the page.
+- Future Supabase schema, provider/cache contracts, typed local dictionaries,
+  metadata, robots, sitemap, response-security headers, and GitHub Actions CI.
 
-## Validation completed
+## Validation at the current baseline
 
-- `npm.cmd run lint` passes
-- `npm.cmd run test` passes (20 tests)
-- `npm.cmd run build` passes
-- API smoke tests confirmed a cache hit on repeated input and a `400` response for a non-YouTube URL
-- Manual local browser QA passed for link entry, settings selection, processing state, results, and notation toggle
+- `npm.cmd run audit:repo` passes.
+- `npm.cmd run lint` passes.
+- `npm.cmd run test` passes (23 tests).
+- `npm.cmd run build` passes.
+- Manual browser QA passed for desktop and 390×844 vertical layouts, Bansuri
+  cue alignment, Cinema view, transport sync, and no console errors.
+- Production is deployed at <https://sargam-io.vercel.app>.
 
-## Required for live transcription
+## Required before live transcription
 
-No secrets have been created or committed. Create `.env.local` from `.env.example` and provide:
+No production secrets exist in the repository. Copy `.env.example` to
+`.env.local` only when a provider/database integration has been approved:
 
 ```bash
 KLANG_API_KEY=
@@ -44,19 +38,25 @@ DATABASE_URL=
 NEXT_PUBLIC_APP_URL=https://sargam.io
 ```
 
-`KLANG_API_KEY` and the provider adapter must be verified against the selected transcription provider's current API documentation before implementation. `DATABASE_URL` should point to the selected managed PostgreSQL/Supabase database.
+Credentials alone are insufficient. The provider's allowed input sources,
+YouTube policy, job polling, cost model, and returned confidence/timing data
+must be verified against the selected account contract before implementation.
 
-## Next implementation slice
+## Next safe production slice
 
-1. Configure Supabase auth and apply the reviewed `db/schema.sql` migration.
-2. Implement the PostgreSQL `SongCache` adapter keyed by normalized URL and provider/version metadata.
-3. Replace `src/server/transcription/mockProvider.ts` with a cache-first live provider adapter. Klangio's current official OpenAPI exposes asynchronous transcription jobs and MIDI endpoints; verify its current auth and upload/link request requirements with supplied credentials before coding against it.
-4. Parse returned MIDI, preserve timing/duration, and pass note events to the existing conversion layer.
-5. Add a player-calibrated Bansuri fingering profile; do not claim universal fingerings from flute key alone.
+1. Choose the live transcription provider and document permitted ingestion.
+2. Add Supabase authentication, server-side authorization, and a persistent
+   credit ledger.
+3. Implement a PostgreSQL cache adapter keyed by normalized source, provider,
+   and provider version.
+4. Wire the page to the existing API seam with loading/error/retry states.
+5. Preserve MIDI timing and confidence metadata in the client result model.
+6. Validate Bansuri profiles with players before offering instrument-specific
+   guidance as definitive.
 
-## Scope deliberately deferred
+## Deliberately deferred
 
-- Real YouTube/audio ingestion
-- External transcription API billing and retries
-- Database cache, subscriptions, and user accounts
-- Copyright/licensing policy and upload/link terms
+- Real YouTube/audio ingestion and external-provider billing.
+- Audio playback, video export, and creator assets/watermarks.
+- Accounts, subscriptions, payments, database persistence, and rate limits.
+- Raga, taal, shruti, meend, and gamak inference.
