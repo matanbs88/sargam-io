@@ -125,11 +125,12 @@ the approved Bhatkhande convention.
 
 ### Bansuri boundary
 
-The six-lane visual alignment is deliberately exact: both the falling lanes and
-the flute holes derive from `getBansuriTimelineXPosition`. The generic
-fingering map is still not a universal prescription. Maker, flute key, octave,
-embouchure, half-hole technique, and gharana need a user/profile calibration
-before the product calls it definitive.
+The Bansuri runway uses shared, named swara anchors rather than a generic
+twelve-row piano grid: Sa is the three-closed-hole midpoint and natural
+swaras sit at their opening/closing landmarks. Komal/tivra variants occupy the
+spaces between them. The generic fingering map is still not a universal
+prescription. Maker, flute key, octave, embouchure, half-hole technique, and
+gharana need a user/profile calibration before the product calls it definitive.
 
 ### Taal boundary
 

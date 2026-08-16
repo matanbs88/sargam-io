@@ -20,7 +20,7 @@ needs, not simply place every Indian instrument in one selector.
 | Keyboard | Exact chromatic key reference | High |
 | Harmonium | Relative Sargam key reference with synthesized Sa/Pa or Sa/Ma reference drone | High for the local reference; sampled Tanpura remains deferred |
 | Tabla | Basic practice theka, metronome, and active-matra view | High for practice timing; it is not recorded Tabla audio or stroke recognition |
-| Bansuri | Generic six-finger-hole reference plus a physically aligned six-lane fingering timeline | Conditional: UI alignment is exact; player/flute profile is required for definitive output |
+| Bansuri | Generic six-finger-hole reference with natural-swara landmarks; Sa is the three-closed-hole midpoint and altered swaras sit between landmarks | Conditional: UI geometry is deliberate; player/flute profile is required for definitive output |
 | Guitar | Standard-tuning fretboard reference | High for configured tuning/range |
 | Sitar | Relative swara/fret learning reference | Conditional: actual string setup, raga, and movable fret positions vary |
 

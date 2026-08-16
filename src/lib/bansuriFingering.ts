@@ -15,7 +15,36 @@ export type BansuriFingering = {
 };
 
 /** Hole centers on the horizontal flute. Hole 1 is nearest the embouchure. */
-export const BANSURI_FINGER_HOLE_POSITIONS = [35, 43, 51, 59, 67, 75] as const;
+/** Vertical centers for the six playable holes, nearest embouchure first. */
+export const BANSURI_FINGER_HOLE_POSITIONS = [34, 42, 50, 58, 66, 74] as const;
+
+export type BansuriRunwayLane = {
+  readonly interval: number;
+  readonly top: number;
+  readonly isNaturalAnchor: boolean;
+};
+
+/**
+ * Visual swara anchors for the six-hole reference profile. The natural swaras
+ * are tied to their opening/closing landmark rather than being spaced as an
+ * unrelated chromatic piano grid: Sa is the midpoint landmark (three upper
+ * holes closed, three lower holes open). Komal and tivra variants remain
+ * between the surrounding natural landmarks.
+ */
+export const BANSURI_RUNWAY_LANES: readonly BansuriRunwayLane[] = [
+  { interval: 6, top: 18, isNaturalAnchor: false }, // tivra Ma
+  { interval: 5, top: 26, isNaturalAnchor: true }, // shuddh Ma, first hole half-open
+  { interval: 4, top: 34, isNaturalAnchor: true }, // Ga, one closed
+  { interval: 3, top: 38, isNaturalAnchor: false },
+  { interval: 2, top: 42, isNaturalAnchor: true }, // Re, two closed
+  { interval: 1, top: 46, isNaturalAnchor: false },
+  { interval: 0, top: 50, isNaturalAnchor: true }, // Sa, three closed
+  { interval: 11, top: 58, isNaturalAnchor: true }, // Ni, four closed
+  { interval: 10, top: 62, isNaturalAnchor: false },
+  { interval: 9, top: 66, isNaturalAnchor: true }, // Dha, five closed
+  { interval: 8, top: 70, isNaturalAnchor: false },
+  { interval: 7, top: 74, isNaturalAnchor: true }, // Pa, six closed
+];
 
 const REFERENCE_FINGERINGS: readonly BansuriFingering[] = [
   { label: "S · Sa", holes: ["closed", "closed", "closed", "open", "open", "open"] },
@@ -43,6 +72,19 @@ export function getBansuriReferenceFingering(
 ): BansuriFingering | null {
   if (activeMidi === null) return null;
   return REFERENCE_FINGERINGS[getRelativeInterval(activeMidi, rootMidi)] ?? null;
+}
+
+export function getBansuriRunwayLane(interval: number): BansuriRunwayLane {
+  const normalizedInterval = ((interval % 12) + 12) % 12;
+  const lane = BANSURI_RUNWAY_LANES.find(
+    (candidate) => candidate.interval === normalizedInterval,
+  );
+
+  if (lane === undefined) {
+    throw new RangeError("Bansuri runway interval must resolve to 0 through 11.");
+  }
+
+  return lane;
 }
 
 /** Converts a flute-body-relative percentage into a percentage of the stage. */

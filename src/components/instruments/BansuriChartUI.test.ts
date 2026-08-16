@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  getBansuriRunwayLane,
   getBansuriReferenceFingering,
   getBansuriTimelineXPosition,
 } from "../../lib/bansuriFingering";
@@ -21,10 +22,17 @@ describe("getBansuriReferenceFingering", () => {
     expect(getBansuriReferenceFingering(null, 62)).toBeNull();
   });
 
-  it("places every timeline lane over a distinct physical hole", () => {
+  it("keeps the six physical holes distinct", () => {
     const positions = Array.from({ length: 6 }, (_, index) => getBansuriTimelineXPosition(index));
     expect(new Set(positions).size).toBe(6);
     expect(positions[0]).toBeGreaterThan(0);
     expect(positions[5]).toBeLessThan(100);
+  });
+
+  it("places Sa at the three-closed-hole midpoint landmark", () => {
+    expect(getBansuriRunwayLane(0)).toMatchObject({
+      top: 50,
+      isNaturalAnchor: true,
+    });
   });
 });
