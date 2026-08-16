@@ -15,6 +15,7 @@ const config: Config = {
         "teal-deep": "#0B4038",
         "yellow-soft": "#FFF099",
         "mint-emerald": "#28B182",
+        "performance-blue": "#58A6FF",
         charcoal: "#0F172A",
       },
       fontFamily: {

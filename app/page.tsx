@@ -11,8 +11,7 @@ import { GuitarTabsUI } from "@/src/components/instruments/GuitarTabsUI";
 import { HarmoniumUI } from "@/src/components/instruments/HarmoniumUI";
 import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
 import { SitarUI } from "@/src/components/instruments/SitarUI";
-import { TaalCycle } from "@/src/components/TaalCycle";
-import { TablaPracticeUI } from "@/src/components/TablaPracticeUI";
+import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
 import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
 import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
@@ -318,6 +317,30 @@ export default function Home() {
     );
   }
 
+  function renderInstrumentPanel() {
+    if (selectedInstrument === "Keyboard") {
+      return <KeyboardUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
+    }
+
+    if (selectedInstrument === "Harmonium") {
+      return <HarmoniumUI activeMidi={activeMidi} droneMode={droneMode} isDronePlaying={isDronePlaying} onDroneModeChange={setDroneMode} onToggleDrone={handleToggleDrone} rootMidi={selectedRootMidi} />;
+    }
+
+    if (selectedInstrument === "Bansuri") {
+      return <BansuriChartUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
+    }
+
+    if (selectedInstrument === "Guitar") {
+      return <GuitarTabsUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
+    }
+
+    if (selectedInstrument === "Sitar") {
+      return <SitarUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
+    }
+
+    return <div className="rounded-lg border border-dashed border-white/15 bg-white/[0.04] p-4 text-center text-xs font-medium text-white/45">Choose an instrument to see the current note.</div>;
+  }
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-cream text-charcoal transition-colors duration-300">
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:py-7">
@@ -434,141 +457,44 @@ export default function Home() {
       </section>
 
       {isTranscribed ? (
-        <section aria-live="polite" className="studio-workspace border-t border-teal/10 bg-[#f3f1ea] px-5 py-16 sm:px-8 sm:py-20" id="studio">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-7 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-mint-emerald">Practice session</p>
-                <h2 className="mt-2 font-display text-4xl leading-none tracking-[-0.035em] text-charcoal sm:text-5xl">{mockMidiData.title}</h2>
-                <p className="mt-2 text-sm font-medium text-charcoal/55">{mockMidiData.detectedKey.displayName} original key <span className="mx-1.5 text-teal/30">·</span> {mockMidiData.tempoBpm} BPM <span className="mx-1.5 text-teal/30">·</span> {mockMidiData.timeSignature}</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {isTransposed ? <span className="rounded-full bg-mint-emerald px-3 py-2 text-xs font-black text-white">Transposed</span> : null}
-                <button className="rounded-full border border-teal/15 bg-white px-4 py-2 text-xs font-black text-teal transition hover:bg-cream" onClick={handleStartAnother} type="button">New transcription</button>
-              </div>
-            </div>
-
-            <div className="overflow-hidden rounded-[1.4rem] bg-white shadow-teal-float">
-              <div className="flex flex-col gap-4 border-b border-teal/10 bg-teal px-6 py-5 text-white sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-yellow-soft text-sm font-black text-charcoal">01</span>
-                  <div><p className="text-sm font-black">Relative transcription</p><p className="text-xs text-white/55">Click any note to make it active</p></div>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-bold text-white/65"><span className="h-2 w-2 animate-pulse rounded-full bg-mint-emerald" /> Local mock session</div>
-              </div>
-
-              <div className="grid lg:grid-cols-[270px_minmax(0,1fr)]">
-                <aside className="border-b border-teal/10 bg-cream p-6 lg:border-b-0 lg:border-r">
-                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Your reference</p>
-                  <label className="mt-5 block text-sm font-black text-teal" htmlFor="root-midi">Choose your Sa</label>
-                  <div className="relative mt-2">
-                    <select className="w-full appearance-none rounded-xl border border-teal/15 bg-white px-3 py-3 text-sm font-bold text-charcoal outline-none focus:ring-2 focus:ring-mint-emerald" id="root-midi" onChange={(event) => setSelectedRootMidi(Number(event.target.value))} value={selectedRootMidi}>
-                      {ROOT_OPTIONS.map((option) => <option key={option.midi} value={option.midi}>{option.label} is Sa</option>)}
-                    </select>
-                    <span aria-hidden="true" className="pointer-events-none absolute right-3 top-3.5 text-teal">⌄</span>
-                  </div>
-                  <div className="mt-6 rounded-xl border border-teal/10 bg-white p-4">
-                    <p className="text-xs font-bold text-charcoal/50">Current setting</p>
-                    <p className="mt-1 text-2xl font-black text-teal">{selectedRoot.label}<span className="ml-1 text-sm font-bold text-mint-emerald">= Sa</span></p>
-                    <p className="mt-2 text-xs leading-5 text-charcoal/55">Transpose the whole score instantly to a comfortable singing or playing range.</p>
-                  </div>
-                </aside>
-
-                <div className="min-w-0 p-6 sm:p-8">
-                  <div className="flex flex-col gap-5 border-b border-teal/10 pb-6 xl:flex-row xl:items-center xl:justify-between">
-                    <div><p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Notation</p><p className="mt-1 text-sm font-medium text-charcoal/55">Switch notation without reprocessing.</p></div>
-                    <div aria-label="Notation system" className="flex w-full rounded-xl bg-cream p-1 sm:w-auto" role="group">
-                      {NOTATION_OPTIONS.map((option) => {
-                        const isActive = option.id === notationSystem;
-                        return <button aria-pressed={isActive} className={["flex-1 rounded-lg px-3 py-2 text-center transition sm:flex-none", isActive ? "bg-teal text-white shadow-sm" : "text-charcoal/55 hover:text-teal"].join(" ")} key={option.id} onClick={() => setNotationSystem(option.id)} type="button"><span className="block text-xs font-black">{option.label}</span><span className={["mt-0.5 block text-[9px] font-bold", isActive ? "text-white/55" : "text-charcoal/35"].join(" ")}>{option.detail}</span></button>;
-                      })}
-                    </div>
-                  </div>
-
-                  <div aria-label="Transcription notation" className="relative mt-7 overflow-hidden rounded-[1.1rem] bg-cream p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] sm:p-6">
-                    <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-mint-emerald via-yellow-soft to-teal" />
-                    <div className="mb-5 flex items-center justify-between"><p className="text-xs font-black uppercase tracking-[0.16em] text-charcoal/45">Melody line</p><span className="text-xs font-bold text-teal/60">{formattedNotes.length} notes</span></div>
-                    <div className="flex max-h-72 flex-wrap gap-2.5 overflow-y-auto pr-1 sm:gap-3">
-                      {formattedNotes.map((note, index) => {
-                        const isActive = index === activeEventIndex;
-                        return <button aria-label={"Set active note " + String(index + 1)} aria-pressed={isActive} className={["group relative min-w-12 rounded-lg px-3 py-3 text-xl font-black transition sm:min-w-14 sm:text-2xl", notationSystem === "Sargam_HI" ? "font-devanagari leading-none" : "font-mono", isActive ? "bg-yellow-soft text-charcoal shadow-[0_5px_0_#d8ca70]" : "bg-white text-teal shadow-sm ring-1 ring-teal/10 hover:-translate-y-0.5 hover:bg-teal hover:text-white"].join(" ")} key={String(mockMidiData.noteEvents[index]?.startMs) + "-" + note + "-" + String(index)} onClick={() => transport.selectEvent(index)} type="button"><span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-mint-emerald px-1.5 py-0.5 text-[8px] font-sans font-black text-white opacity-0 transition group-hover:opacity-100">{index + 1}</span>{note}</button>;
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="mt-5 rounded-2xl bg-charcoal px-4 py-3.5 text-white sm:px-5">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <button aria-label={isPlaying ? "Pause mock playback" : "Play mock playback"} className="grid h-10 w-10 place-items-center rounded-full bg-yellow-soft text-sm font-black text-charcoal transition hover:scale-105" onClick={togglePlayback} type="button">{isPlaying ? "Ⅱ" : "▶"}</button>
-                      <button aria-label="Previous note" className="rounded-lg px-2 py-1 text-sm font-bold text-white/65 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-30" disabled={activeEventIndex === 0} onClick={() => moveActiveNote(-1)} type="button">‹ Prev</button>
-                      <button aria-label="Next note" className="rounded-lg px-2 py-1 text-sm font-bold text-white/65 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-30" disabled={activeEventIndex === lastEventIndex} onClick={() => moveActiveNote(1)} type="button">Next ›</button>
-                      <div className="ml-auto min-w-32 flex-1 sm:max-w-xs"><div className="h-1.5 overflow-hidden rounded-full bg-white/15"><div className="h-full rounded-full bg-mint-emerald transition-all duration-300" style={{ width: `${playbackProgress}%` }} /></div><p className="mt-1.5 text-right text-[10px] font-bold text-white/45">NOTE {activeEventIndex + 1} / {mockMidiData.noteEvents.length}</p></div>
-                    </div>
-                  </div>
-
-                  <div className="mt-7 border-t border-teal/10 pt-7">
-                    <div className="overflow-hidden rounded-[1.5rem] border border-teal/10 bg-charcoal p-4 shadow-[0_16px_36px_rgba(15,47,42,0.16)] sm:p-5">
-                      <div className="flex flex-col gap-4 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-mint-emerald">Creator performance deck</p>
-                          <p className="mt-1 text-sm font-bold text-white">Timing that is clear enough to practice, clean enough to film.</p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-[0.1em]">
-                          <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/55">{selectedRoot.label} = Sa</span>
-                          <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/55">{mockMidiData.tempoBpm} BPM</span>
-                          <button className="rounded-full bg-yellow-soft px-3 py-1.5 text-charcoal transition hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-white/70" onClick={() => setIsCinemaMode(true)} type="button">Cinema view</button>
-                        </div>
-                      </div>
-                      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="text-xs font-medium text-white/50">Bars preserve note onset and duration. Bansuri mode maps every cue to a physical hole.</p>
-                        <div aria-label="Choose a falling note visualizer" className="flex shrink-0 rounded-xl bg-white/10 p-1" role="group">
-                          {(["Piano", "Bansuri"] as const).map((visualizer) => {
-                            const isActive = selectedVisualizer === visualizer;
-                            return <button aria-pressed={isActive} className={["rounded-lg px-3 py-2 text-xs font-black transition", isActive ? "bg-mint-emerald text-white shadow-sm" : "text-white/55 hover:text-white"].join(" ")} key={visualizer} onClick={() => setSelectedVisualizer(visualizer)} type="button">{visualizer === "Piano" ? "Piano roll" : "Bansuri roll"}</button>;
-                          })}
-                        </div>
-                      </div>
-                      <div className="mt-4">{renderPerformanceVisualizer()}</div>
-                    </div>
-                  </div>
-
-                  <div className="mt-7 border-t border-teal/10 pt-7">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                      <div>
-                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-teal/70">Rhythm framework</p>
-                        <p className="mt-1 text-sm font-medium text-charcoal/55">Use a chosen taal to organize your practice cycle.</p>
-                      </div>
-                      <label className="text-xs font-black text-teal" htmlFor="taal-select">
-                        Practice taal
-                        <select className="ml-2 rounded-lg border border-teal/15 bg-white px-2 py-1.5 text-xs font-bold text-charcoal outline-none focus:ring-2 focus:ring-mint-emerald" id="taal-select" onChange={(event) => handleTaalChange(event.target.value as TaalId)} value={selectedTaalId}>
-                          {Object.values(TAALS).map((taal) => <option key={taal.id} value={taal.id}>{taal.label} ({taal.matras})</option>)}
-                        </select>
-                      </label>
-                    </div>
-                    <div className="mt-4"><TaalCycle activeMatra={displayedMatra} taal={selectedTaal} /></div>
-                    <div className="mt-4"><TablaPracticeUI activeMatra={displayedMatra} isPlaying={isMetronomePlaying} onTempoChange={setPracticeTempoBpm} onToggle={handleToggleMetronome} taal={selectedTaal} tempoBpm={practiceTempoBpm} /></div>
-                  </div>
-
-                  <div className="mt-8 border-t border-teal/10 pt-7">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Play it visually</p><p className="mt-1 text-sm font-medium text-charcoal/55">The highlighted note follows the player.</p></div></div>
-                    <div aria-label="Choose an instrument reference" className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6" role="group">
-                      {INSTRUMENT_OPTIONS.map((instrument) => {
-                        const isActive = instrument.id === selectedInstrument;
-                        return <button aria-pressed={isActive} className={["rounded-xl border p-3 text-left transition", isActive ? "border-teal bg-teal text-white shadow-lg shadow-teal/15" : "border-teal/10 bg-cream text-charcoal hover:border-teal/30 hover:bg-white"].join(" ")} key={instrument.id} onClick={() => setSelectedInstrument(instrument.id)} type="button"><span className="block text-sm font-black">{instrument.label}</span><span className={["mt-0.5 block text-[10px] font-bold", isActive ? "text-white/55" : "text-charcoal/40"].join(" ")}>{instrument.description}</span></button>;
-                      })}
-                    </div>
-
-                    {selectedInstrument === "Keyboard" ? <div className="mt-5"><KeyboardUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
-                    {selectedInstrument === "Harmonium" ? <div className="mt-5"><HarmoniumUI activeMidi={activeMidi} droneMode={droneMode} isDronePlaying={isDronePlaying} onDroneModeChange={setDroneMode} onToggleDrone={handleToggleDrone} rootMidi={selectedRootMidi} /></div> : null}
-                    {selectedInstrument === "Bansuri" ? <div className="mt-5"><BansuriChartUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
-                    {selectedInstrument === "Guitar" ? <div className="mt-5"><GuitarTabsUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
-                    {selectedInstrument === "Sitar" ? <div className="mt-5"><SitarUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
-                    {selectedInstrument === "None" ? <div className="mt-5 rounded-2xl border border-dashed border-teal/20 bg-cream p-6 text-center text-sm font-medium text-charcoal/50">Choose an instrument to see the current note on a playable reference.</div> : null}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PracticeWorkspace
+          activeEventIndex={activeEventIndex}
+          displayedMatra={displayedMatra}
+          formattedNotes={formattedNotes}
+          instrumentOptions={INSTRUMENT_OPTIONS}
+          instrumentPanel={renderInstrumentPanel()}
+          isMetronomePlaying={isMetronomePlaying}
+          isPlaying={isPlaying}
+          isTransposed={isTransposed}
+          lastEventIndex={lastEventIndex}
+          notationOptions={NOTATION_OPTIONS}
+          notationSystem={notationSystem}
+          onCinemaView={() => setIsCinemaMode(true)}
+          onInstrumentChange={setSelectedInstrument}
+          onMoveNote={moveActiveNote}
+          onNotationChange={setNotationSystem}
+          onRootChange={setSelectedRootMidi}
+          onSelectEvent={transport.selectEvent}
+          onStartAnother={handleStartAnother}
+          onTaalChange={handleTaalChange}
+          onTempoChange={setPracticeTempoBpm}
+          onToggleMetronome={handleToggleMetronome}
+          onTogglePlayback={togglePlayback}
+          onVisualizerChange={setSelectedVisualizer}
+          performanceVisualizer={renderPerformanceVisualizer()}
+          playbackProgress={playbackProgress}
+          practiceTempoBpm={practiceTempoBpm}
+          rootOptions={ROOT_OPTIONS}
+          selectedInstrument={selectedInstrument}
+          selectedRootLabel={selectedRoot.label}
+          selectedRootMidi={selectedRootMidi}
+          selectedTaal={selectedTaal}
+          selectedTaalId={selectedTaalId}
+          selectedVisualizer={selectedVisualizer}
+          songTitle={mockMidiData.title}
+          taalOptions={Object.values(TAALS)}
+          tempoBpm={mockMidiData.tempoBpm}
+        />
       ) : null}
 
       {isCinemaMode ? (
