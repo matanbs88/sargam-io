@@ -73,7 +73,7 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
       </div>
 
       <div className="relative h-44 select-none">
-        <div className="grid h-full grid-cols-[repeat(15,minmax(0,1fr))] overflow-hidden rounded-b-xl border border-teal/25">
+        <div className="grid h-full grid-cols-[repeat(15,minmax(0,1fr))] overflow-hidden rounded-b-[0.9rem] border border-teal/20 bg-[#ece8de] shadow-[inset_0_-8px_14px_rgba(70,55,32,0.14)]">
           {WHITE_KEYS.map((key) => {
             const isActive = key.midi === activeMidi;
 
@@ -85,8 +85,10 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
                   (key.midi === rootMidi ? ", Sa" : "")
                 }
                 className={[
-                  "relative border-r border-teal/20 last:border-r-0",
-                  isActive ? "bg-yellow-soft" : "bg-white",
+                  "relative rounded-b-md border-r border-teal/15 bg-[#fffefa] shadow-[inset_0_-7px_9px_rgba(67,52,28,0.11),inset_0_1px_0_rgba(255,255,255,0.98)] transition duration-150 last:border-r-0",
+                  isActive
+                    ? "translate-y-1 bg-yellow-soft shadow-[inset_0_3px_10px_rgba(135,111,19,0.25),inset_0_-3px_5px_rgba(255,255,255,0.52)]"
+                    : "",
                 ].join(" ")}
                 key={key.midi}
                 role="img"
@@ -111,8 +113,10 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
                 (key.midi === rootMidi ? ", Sa" : "")
               }
               className={[
-                "absolute top-0 z-10 h-[62%] w-[4.2%] rounded-b-lg shadow-md",
-                isActive ? "bg-yellow-soft" : "bg-charcoal",
+                "absolute top-0 z-10 h-[62%] w-[4.2%] rounded-b-lg border border-white/10 bg-charcoal shadow-[0_9px_10px_rgba(0,0,0,0.42),inset_0_2px_1px_rgba(255,255,255,0.14)] transition duration-150",
+                isActive
+                  ? "translate-y-1 border-yellow-soft/70 bg-yellow-soft text-charcoal shadow-[0_3px_5px_rgba(0,0,0,0.3),inset_0_3px_9px_rgba(135,111,19,0.24)]"
+                  : "",
               ].join(" ")}
               key={key.midi}
               role="img"

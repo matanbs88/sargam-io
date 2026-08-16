@@ -116,11 +116,11 @@ export function FallingNotesPianoRoll({
             <div
               aria-hidden="true"
               className={[
-                "absolute z-10 flex items-start justify-center rounded-t-md border border-white/15 pt-1 text-[9px] font-black transition-[top,background-color,opacity] duration-[420ms] ease-linear",
+                "absolute z-10 flex items-start justify-center rounded-t-lg border border-white/25 pt-1 text-[9px] font-black backdrop-blur-[2px] transition-[top,background-color,opacity,box-shadow] duration-[420ms] ease-linear",
                 key.isBlack ? "min-w-3" : "min-w-4",
                 isActive
-                  ? "bg-yellow-soft text-charcoal shadow-[0_0_20px_rgba(255,240,153,0.45)]"
-                  : "bg-mint-emerald/90 text-white",
+                  ? "bg-[rgba(255,240,153,0.86)] text-charcoal shadow-[0_0_24px_rgba(255,240,153,0.56),inset_0_1px_0_rgba(255,255,255,0.7)]"
+                  : "bg-[rgba(40,177,130,0.74)] text-white shadow-[0_0_20px_rgba(40,177,130,0.32),inset_0_1px_0_rgba(255,255,255,0.34)]",
               ].join(" ")}
               key={`${event.startMs}-${event.midi}`}
               style={{
@@ -142,7 +142,7 @@ export function FallingNotesPianoRoll({
             return (
               <div
                 aria-hidden="true"
-                className="absolute bottom-0 h-14 border-r border-teal/15 bg-white"
+                className="absolute bottom-0 h-14 rounded-b-sm border-r border-teal/15 bg-[#fffefa] shadow-[inset_0_-5px_7px_rgba(67,52,28,0.1)]"
                 key={key.midi}
                 style={{ left: `${key.left}%`, width: `${key.width}%` }}
               >
@@ -157,8 +157,8 @@ export function FallingNotesPianoRoll({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute top-0 z-20 h-8 -translate-x-1/2 rounded-b border border-white/15 bg-teal",
-                  isActive ? "bg-yellow-soft" : "",
+                  "absolute top-0 z-20 h-8 -translate-x-1/2 rounded-b-md border border-white/10 bg-charcoal shadow-[0_5px_7px_rgba(0,0,0,0.38),inset_0_2px_1px_rgba(255,255,255,0.12)]",
+                  isActive ? "translate-y-0.5 border-yellow-soft/70 bg-yellow-soft shadow-[0_2px_4px_rgba(0,0,0,0.3),inset_0_2px_6px_rgba(135,111,19,0.22)]" : "",
                 ].join(" ")}
                 key={key.midi}
                 style={{ left: `${key.left + key.width / 2}%`, width: `${key.width}%` }}
