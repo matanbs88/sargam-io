@@ -17,25 +17,24 @@ needs, not simply place every Indian instrument in one selector.
 
 | Instrument | Experience | Confidence |
 | --- | --- | --- |
-| Keyboard / harmonium | Exact chromatic key reference | High |
+| Keyboard | Exact chromatic key reference | High |
+| Harmonium | Relative Sargam key reference with visual Sa/Pa or Sa/Ma drone choice | High for the local visual reference; audio drone is deferred |
 | Bansuri | Generic six-finger-hole relative fingering reference | Conditional: flute profile required for exact output |
 | Guitar | Standard-tuning fretboard reference | High for configured tuning/range |
 | Sitar | Relative swara/fret learning reference | Conditional: actual string setup, raga, and movable fret positions vary |
 
 ## Next instruments to prioritize
 
-1. **Harmonium mode** — reuse the keyboard geometry, add an Indian pedagogical
-   label mode, comfortable Sa range, and optional left-hand drone/chord hints.
-   It is the most direct continuation of the existing keyboard system.
-2. **Venu / Carnatic flute** — model separately from Hindustani bansuri. It
+1. **Venu / Carnatic flute** — model separately from Hindustani bansuri. It
    needs its own hole conventions, notation vocabulary, and eventually
    Carnatic raga support.
-3. **Tabla** — add a dedicated taal workspace (theka, sam, khali, vibhag,
-   bols, tempo and loop), not a melody fingering card.
-4. **Tanpura** — add a Sa/Pa or Sa/Ma drone configuration and tuning reference.
+2. **Tabla** — add a dedicated taal workspace (theka, sam, khali, vibhag,
+   bols, tempo and loop), not a melody fingering card. The current manual taal
+   cycle is the visual foundation, not a Tabla simulator.
+3. **Tanpura** — add an audible Sa/Pa or Sa/Ma drone configuration and tuning reference.
    It supports every melodic learner without pretending to transcribe notes on
    the instrument.
-5. **Santoor** — build only after its tuning layout is configurable; a fixed
+4. **Santoor** — build only after its tuning layout is configurable; a fixed
    visual grid would misrepresent instruments with different tunings.
 
 ## Deliberately later

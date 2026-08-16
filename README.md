@@ -10,7 +10,9 @@ The local, mock-driven demo includes:
 - Instant ABC, Latin Sargam, and Devanagari Sargam switching
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
-- Keyboard / harmonium, six-hole Bansuri, standard-guitar, and Sitar visual references
+- Dedicated Harmonium mode with relative Sargam labels and visual Sa/Pa or Sa/Ma drone settings
+- Keyboard, six-hole Bansuri, standard-guitar, and Sitar visual references
+- Manual practice-taal cycles for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa; taal is never inferred from BPM alone
 - A typed JSON i18n dictionary scaffold for English and Hindi
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file

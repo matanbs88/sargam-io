@@ -89,3 +89,21 @@ export function beatsInTaal(taal: TaalDefinition): number {
 export function validateTaal(taal: TaalDefinition): boolean {
   return beatsInTaal(taal) === taal.matras;
 }
+
+/** Returns the zero-based matra in a manually selected taal cycle at a time. */
+export function matraAtTime(
+  timeMs: number,
+  tempoBpm: number,
+  taal: TaalDefinition,
+): number {
+  if (!Number.isFinite(timeMs) || timeMs < 0) {
+    throw new RangeError("timeMs must be a non-negative finite number.");
+  }
+
+  if (!Number.isFinite(tempoBpm) || tempoBpm <= 0) {
+    throw new RangeError("tempoBpm must be a positive finite number.");
+  }
+
+  const millisecondsPerMatra = 60_000 / tempoBpm;
+  return Math.floor(timeMs / millisecondsPerMatra) % beatsInTaal(taal);
+}

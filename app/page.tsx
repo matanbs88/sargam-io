@@ -8,10 +8,13 @@ import {
 import { mockMidiData } from "@/src/lib/mockMidiData";
 import { BansuriChartUI } from "@/src/components/instruments/BansuriChartUI";
 import { GuitarTabsUI } from "@/src/components/instruments/GuitarTabsUI";
+import { HarmoniumUI } from "@/src/components/instruments/HarmoniumUI";
 import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
 import { SitarUI } from "@/src/components/instruments/SitarUI";
+import { TaalCycle } from "@/src/components/TaalCycle";
+import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
-type Instrument = "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
+type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 
 const ROOT_OPTIONS = [
   { midi: 60, label: "C4" },
@@ -45,7 +48,8 @@ const INSTRUMENT_OPTIONS: readonly {
   readonly description: string;
 }[] = [
   { id: "None", label: "Score", description: "Note view" },
-  { id: "Keyboard", label: "Keys", description: "Keyboard / harmonium" },
+  { id: "Harmonium", label: "Harmonium", description: "Sargam keys" },
+  { id: "Keyboard", label: "Keys", description: "Chromatic keys" },
   { id: "Bansuri", label: "Bansuri", description: "Fingering" },
   { id: "Sitar", label: "Sitar", description: "Relative frets" },
   { id: "Guitar", label: "Guitar", description: "Fretboard" },
@@ -84,7 +88,9 @@ export default function Home() {
   );
   const [credits, setCredits] = useState(2);
   const [selectedInstrument, setSelectedInstrument] =
-    useState<Instrument>("Keyboard");
+    useState<Instrument>("Harmonium");
+  const [droneMode, setDroneMode] = useState<"SaPa" | "SaMa">("SaPa");
+  const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
   const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -106,6 +112,10 @@ export default function Home() {
   const activeEvent = mockMidiData.noteEvents[activeEventIndex];
   const activeMidi = activeEvent?.midi ?? null;
   const lastEventIndex = mockMidiData.noteEvents.length - 1;
+  const selectedTaal = TAALS[selectedTaalId];
+  const activeMatra = activeEvent
+    ? matraAtTime(activeEvent.startMs, mockMidiData.tempoBpm, selectedTaal)
+    : 0;
   const playbackProgress =
     lastEventIndex > 0 ? (activeEventIndex / lastEventIndex) * 100 : 0;
 
@@ -206,7 +216,7 @@ export default function Home() {
               </h1>
               <p className="mt-6 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
                 Turn a melody into relative notes, then see exactly where to
-                play it on keys, bansuri, or guitar.
+                play it on harmonium, bansuri, sitar, or guitar.
               </p>
               <div className="mt-8 flex flex-wrap gap-2 text-xs font-bold text-white/75">
                 {["Instant transposition", "Sargam + ABC", "Instrument view"].map((feature) => (
@@ -346,9 +356,25 @@ export default function Home() {
                     </div>
                   </div>
 
+                  <div className="mt-7 border-t border-teal/10 pt-7">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                      <div>
+                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Rhythm framework</p>
+                        <p className="mt-1 text-sm font-medium text-charcoal/55">Use a chosen taal to organize your practice cycle.</p>
+                      </div>
+                      <label className="text-xs font-black text-teal" htmlFor="taal-select">
+                        Practice taal
+                        <select className="ml-2 rounded-lg border border-teal/15 bg-white px-2 py-1.5 text-xs font-bold text-charcoal outline-none focus:ring-2 focus:ring-mint-emerald" id="taal-select" onChange={(event) => setSelectedTaalId(event.target.value as TaalId)} value={selectedTaalId}>
+                          {Object.values(TAALS).map((taal) => <option key={taal.id} value={taal.id}>{taal.label} ({taal.matras})</option>)}
+                        </select>
+                      </label>
+                    </div>
+                    <div className="mt-4"><TaalCycle activeMatra={activeMatra} taal={selectedTaal} /></div>
+                  </div>
+
                   <div className="mt-8 border-t border-teal/10 pt-7">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Play it visually</p><p className="mt-1 text-sm font-medium text-charcoal/55">The highlighted note follows the player.</p></div></div>
-                    <div aria-label="Choose an instrument reference" className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5" role="group">
+                    <div aria-label="Choose an instrument reference" className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6" role="group">
                       {INSTRUMENT_OPTIONS.map((instrument) => {
                         const isActive = instrument.id === selectedInstrument;
                         return <button aria-pressed={isActive} className={["rounded-xl border p-3 text-left transition", isActive ? "border-teal bg-teal text-white shadow-lg shadow-teal/15" : "border-teal/10 bg-cream text-charcoal hover:border-teal/30 hover:bg-white"].join(" ")} key={instrument.id} onClick={() => setSelectedInstrument(instrument.id)} type="button"><span className="block text-sm font-black">{instrument.label}</span><span className={["mt-0.5 block text-[10px] font-bold", isActive ? "text-white/55" : "text-charcoal/40"].join(" ")}>{instrument.description}</span></button>;
@@ -356,6 +382,7 @@ export default function Home() {
                     </div>
 
                     {selectedInstrument === "Keyboard" ? <div className="mt-5"><KeyboardUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
+                    {selectedInstrument === "Harmonium" ? <div className="mt-5"><HarmoniumUI activeMidi={activeMidi} droneMode={droneMode} onDroneModeChange={setDroneMode} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Bansuri" ? <div className="mt-5"><BansuriChartUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Guitar" ? <div className="mt-5"><GuitarTabsUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Sitar" ? <div className="mt-5"><SitarUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
