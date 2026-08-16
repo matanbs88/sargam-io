@@ -3,14 +3,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { MidiNoteEvent } from "@/src/lib/midiToSargam";
 import {
+  getNextEventIndex,
+  getPlaybackDelay,
   getLastEventIndex,
   getPlaybackProgress,
+  normalizeLoopRange,
   stepEventIndex,
+  type EventLoopRange,
 } from "@/src/lib/playback";
 
 type UseMockTransportOptions = {
   readonly events: readonly MidiNoteEvent[];
   readonly isEnabled: boolean;
+  readonly loopRange: EventLoopRange | null;
+  readonly playbackRate: number;
 };
 
 /**
@@ -21,10 +27,16 @@ type UseMockTransportOptions = {
 export function useMockTransport({
   events,
   isEnabled,
+  loopRange,
+  playbackRate,
 }: UseMockTransportOptions) {
   const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const lastEventIndex = getLastEventIndex(events.length);
+  const normalizedLoopRange = useMemo(
+    () => normalizeLoopRange(loopRange, events.length),
+    [events.length, loopRange],
+  );
   const activeEvent = events[activeEventIndex];
   const playbackProgress = getPlaybackProgress(activeEventIndex, events.length);
 
@@ -56,28 +68,45 @@ export function useMockTransport({
   const togglePlayback = useCallback(() => {
     if (lastEventIndex < 0) return;
 
-    if (activeEventIndex >= lastEventIndex) {
-      setActiveEventIndex(0);
+    const phraseStartIndex = normalizedLoopRange?.startIndex ?? 0;
+    const phraseEndIndex = normalizedLoopRange?.endIndex ?? lastEventIndex;
+
+    if (activeEventIndex >= phraseEndIndex) {
+      setActiveEventIndex(phraseStartIndex);
       setIsPlaying(true);
       return;
     }
 
     setIsPlaying((currentValue) => !currentValue);
-  }, [activeEventIndex, lastEventIndex]);
+  }, [activeEventIndex, lastEventIndex, normalizedLoopRange]);
 
   useEffect(() => {
     if (!isPlaying || !isEnabled || activeEvent === undefined) return;
 
     const timer = window.setTimeout(() => {
-      if (activeEventIndex >= lastEventIndex) {
+      const nextEventIndex = getNextEventIndex(
+        activeEventIndex,
+        events.length,
+        normalizedLoopRange,
+      );
+
+      if (nextEventIndex === null) {
         setIsPlaying(false);
         return;
       }
-      setActiveEventIndex((currentIndex) => currentIndex + 1);
-    }, Math.max(activeEvent.durationMs, 160));
+      setActiveEventIndex(nextEventIndex);
+    }, getPlaybackDelay(activeEvent.durationMs, playbackRate));
 
     return () => window.clearTimeout(timer);
-  }, [activeEvent, activeEventIndex, isEnabled, isPlaying, lastEventIndex]);
+  }, [
+    activeEvent,
+    activeEventIndex,
+    events.length,
+    isEnabled,
+    isPlaying,
+    normalizedLoopRange,
+    playbackRate,
+  ]);
 
   return useMemo(
     () => ({

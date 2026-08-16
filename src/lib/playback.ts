@@ -28,3 +28,49 @@ export function getPlaybackProgress(
   if (lastEventIndex <= 0) return 0;
   return (clampEventIndex(activeEventIndex, eventCount) / lastEventIndex) * 100;
 }
+
+export type EventLoopRange = {
+  readonly endIndex: number;
+  readonly startIndex: number;
+};
+
+/** Normalizes a selected phrase boundary to valid, ascending event indices. */
+export function normalizeLoopRange(
+  range: EventLoopRange | null,
+  eventCount: number,
+): EventLoopRange | null {
+  if (range === null || eventCount === 0) return null;
+
+  const startIndex = clampEventIndex(range.startIndex, eventCount);
+  const endIndex = clampEventIndex(range.endIndex, eventCount);
+
+  return {
+    startIndex: Math.min(startIndex, endIndex),
+    endIndex: Math.max(startIndex, endIndex),
+  };
+}
+
+/** Resolves the next event, returning null when an unlooped phrase has ended. */
+export function getNextEventIndex(
+  activeEventIndex: number,
+  eventCount: number,
+  loopRange: EventLoopRange | null,
+): number | null {
+  const normalizedLoop = normalizeLoopRange(loopRange, eventCount);
+  const lastEventIndex = normalizedLoop?.endIndex ?? getLastEventIndex(eventCount);
+
+  if (lastEventIndex < 0 || activeEventIndex >= lastEventIndex) {
+    return normalizedLoop?.startIndex ?? null;
+  }
+
+  return activeEventIndex + 1;
+}
+
+/** Keeps practice-speed controls from producing unusably short visual notes. */
+export function getPlaybackDelay(durationMs: number, playbackRate: number): number {
+  const safeRate = Number.isFinite(playbackRate)
+    ? Math.min(Math.max(playbackRate, 0.25), 2)
+    : 1;
+
+  return Math.max(120, durationMs / safeRate);
+}

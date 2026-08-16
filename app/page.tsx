@@ -18,11 +18,25 @@ import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotes
 import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
+import type { EventLoopRange } from "@/src/lib/playback";
 import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 type Visualizer = "Piano" | "Bansuri";
 type Theme = "light" | "dark";
+
+type SavedPracticeSession = {
+  readonly instrument: Instrument;
+  readonly notation: NotationSystem;
+  readonly playbackRate: number;
+  readonly rootMidi: number;
+  readonly taalId: TaalId;
+  readonly tempoBpm: number;
+  readonly visualizer: Visualizer;
+};
+
+const PRACTICE_SESSION_STORAGE_KEY = "sargam-practice-session-v1";
+const PRACTICE_SPEEDS = [0.5, 0.75, 1, 1.25] as const;
 
 const ROOT_OPTIONS = [
   { midi: 60, label: "C4" },
@@ -91,9 +105,16 @@ export default function Home() {
   const [practiceTempoBpm, setPracticeTempoBpm] = useState(
     mockMidiData.tempoBpm,
   );
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [loopRange, setLoopRange] = useState<EventLoopRange | null>(null);
+  const [loopAnchorIndex, setLoopAnchorIndex] = useState<number | null>(null);
+  const [hasSavedPractice, setHasSavedPractice] = useState(false);
+  const [isPracticeSessionReady, setIsPracticeSessionReady] = useState(false);
   const transport = useMockTransport({
     events: mockMidiData.noteEvents,
     isEnabled: isTranscribed,
+    loopRange,
+    playbackRate,
   });
 
   const formattedNotes = useMemo(
@@ -161,10 +182,75 @@ export default function Home() {
   }, [isThemeReady, theme]);
 
   useEffect(() => {
+    const storedSession = window.localStorage.getItem(PRACTICE_SESSION_STORAGE_KEY);
+
+    let parsedSession: Partial<SavedPracticeSession> | null = null;
+    if (storedSession !== null) {
+      try {
+        parsedSession = JSON.parse(storedSession);
+      } catch {
+        window.localStorage.removeItem(PRACTICE_SESSION_STORAGE_KEY);
+      }
+    }
+
+    const timer = window.setTimeout(() => {
+      if (parsedSession !== null) {
+        const savedVisualizer = parsedSession.visualizer;
+        const isRoot = ROOT_OPTIONS.some((option) => option.midi === parsedSession?.rootMidi);
+        const isInstrument = INSTRUMENT_OPTIONS.some((option) => option.id === parsedSession?.instrument);
+        const isVisualizer = savedVisualizer === "Piano" || savedVisualizer === "Bansuri";
+        const isNotation = NOTATION_OPTIONS.some((option) => option.id === parsedSession?.notation);
+        const isTaal = typeof parsedSession.taalId === "string" && parsedSession.taalId in TAALS;
+        const isTempo = typeof parsedSession.tempoBpm === "number" && parsedSession.tempoBpm >= 30 && parsedSession.tempoBpm <= 300;
+        const isPlaybackRate = typeof parsedSession.playbackRate === "number" && PRACTICE_SPEEDS.includes(parsedSession.playbackRate as (typeof PRACTICE_SPEEDS)[number]);
+
+        if (isRoot && parsedSession.rootMidi !== undefined) setSelectedRootMidi(parsedSession.rootMidi);
+        if (isInstrument && parsedSession.instrument !== undefined) setSelectedInstrument(parsedSession.instrument);
+        if (isVisualizer) setSelectedVisualizer(savedVisualizer);
+        if (isNotation && parsedSession.notation !== undefined) setNotationSystem(parsedSession.notation);
+        if (isTaal) setSelectedTaalId(parsedSession.taalId as TaalId);
+        if (isTempo && parsedSession.tempoBpm !== undefined) setPracticeTempoBpm(parsedSession.tempoBpm);
+        if (isPlaybackRate && parsedSession.playbackRate !== undefined) setPlaybackRate(parsedSession.playbackRate);
+        setHasSavedPractice(true);
+      }
+
+      setIsPracticeSessionReady(true);
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isPracticeSessionReady || !isTranscribed) return;
+
+    const session: SavedPracticeSession = {
+      instrument: selectedInstrument,
+      notation: notationSystem,
+      playbackRate,
+      rootMidi: selectedRootMidi,
+      taalId: selectedTaalId,
+      tempoBpm: practiceTempoBpm,
+      visualizer: selectedVisualizer,
+    };
+
+    window.localStorage.setItem(PRACTICE_SESSION_STORAGE_KEY, JSON.stringify(session));
+  }, [
+    isPracticeSessionReady,
+    isTranscribed,
+    notationSystem,
+    playbackRate,
+    practiceTempoBpm,
+    selectedInstrument,
+    selectedRootMidi,
+    selectedTaalId,
+    selectedVisualizer,
+  ]);
+
+  useEffect(() => {
     if (!isPlaying || activeEvent === undefined) return;
 
-    playGuideNote(activeEvent.midi, activeEvent.durationMs);
-  }, [activeEvent, isPlaying, playGuideNote]);
+    playGuideNote(activeEvent.midi, activeEvent.durationMs / playbackRate);
+  }, [activeEvent, isPlaying, playbackRate, playGuideNote]);
 
   function handleTranscribe(): void {
     if (isTranscribed) return;
@@ -176,6 +262,16 @@ export default function Home() {
 
     setCredits((currentCredits) => currentCredits - 1);
     transport.reset();
+    setHasSavedPractice(true);
+    setIsTranscribed(true);
+    window.setTimeout(() => {
+      document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  }
+
+  function handleResumePractice(): void {
+    transport.reset();
+    setHasSavedPractice(true);
     setIsTranscribed(true);
     window.setTimeout(() => {
       document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
@@ -195,6 +291,24 @@ export default function Home() {
     transport.reset();
     setIsTranscribed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handleSetLoopPoint(): void {
+    if (loopAnchorIndex === null) {
+      setLoopAnchorIndex(activeEventIndex);
+      return;
+    }
+
+    const startIndex = Math.min(loopAnchorIndex, activeEventIndex);
+    const endIndex = Math.max(loopAnchorIndex, activeEventIndex);
+    setLoopRange({ startIndex, endIndex });
+    setLoopAnchorIndex(null);
+    transport.selectEvent(startIndex);
+  }
+
+  function handleClearLoop(): void {
+    setLoopRange(null);
+    setLoopAnchorIndex(null);
   }
 
   function handleTaalChange(taalId: TaalId): void {
@@ -349,13 +463,24 @@ export default function Home() {
                 />
                 <span className="hidden rounded-md bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-charcoal/40 sm:inline">Mock</span>
               </div>
-              <button
-                className="group inline-flex items-center justify-center gap-3 rounded-lg bg-yellow-soft px-6 py-4 text-sm font-black text-charcoal shadow-yellow-glow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_15px_32px_rgba(255,240,153,0.42)] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95"
-                onClick={handleTranscribe}
-                type="button"
-              >
-                Transcribe melody <span className="transition-transform group-hover:translate-x-0.5">→</span>
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="group inline-flex items-center justify-center gap-3 rounded-lg bg-yellow-soft px-6 py-4 text-sm font-black text-charcoal shadow-yellow-glow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_15px_32px_rgba(255,240,153,0.42)] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95"
+                  onClick={handleTranscribe}
+                  type="button"
+                >
+                  Transcribe melody <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                </button>
+                {hasSavedPractice ? (
+                  <button
+                    className="rounded-lg border border-teal/15 bg-white px-4 py-3 text-xs font-black text-teal transition hover:-translate-y-0.5 hover:border-mint-emerald hover:bg-mint-emerald/10 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
+                    onClick={handleResumePractice}
+                    type="button"
+                  >
+                    Resume practice
+                  </button>
+                ) : null}
+              </div>
             </div>
             <p className="mt-3 px-1 text-xs font-medium text-charcoal/45">
               Phase 1 preview — it opens a local example transcription and does not upload anything.
@@ -381,6 +506,8 @@ export default function Home() {
           isPlaying={isPlaying}
           isTransposed={isTransposed}
           lastEventIndex={lastEventIndex}
+          loopAnchorIndex={loopAnchorIndex}
+          loopRange={loopRange}
           notationOptions={NOTATION_OPTIONS}
           notationSystem={notationSystem}
           onCinemaView={() => setIsCinemaMode(true)}
@@ -388,7 +515,9 @@ export default function Home() {
           onMoveNote={moveActiveNote}
           onNotationChange={setNotationSystem}
           onRootChange={setSelectedRootMidi}
+          onClearLoop={handleClearLoop}
           onSelectEvent={transport.selectEvent}
+          onSetLoopPoint={handleSetLoopPoint}
           onStartAnother={handleStartAnother}
           onTaalChange={handleTaalChange}
           onTempoChange={setPracticeTempoBpm}
@@ -397,6 +526,7 @@ export default function Home() {
           onVisualizerChange={setSelectedVisualizer}
           performanceVisualizer={renderPerformanceVisualizer()}
           playbackProgress={playbackProgress}
+          playbackRate={playbackRate}
           practiceTempoBpm={practiceTempoBpm}
           rootOptions={ROOT_OPTIONS}
           selectedInstrument={selectedInstrument}
@@ -406,6 +536,8 @@ export default function Home() {
           selectedTaalId={selectedTaalId}
           selectedVisualizer={selectedVisualizer}
           songTitle={mockMidiData.title}
+          speedOptions={PRACTICE_SPEEDS}
+          onPlaybackRateChange={setPlaybackRate}
           taalOptions={Object.values(TAALS)}
           tanpuraControl={<TanpuraControl droneMode={droneMode} isPlaying={isDronePlaying} onModeChange={setDroneMode} onToggle={handleToggleDrone} rootLabel={selectedRoot.label} />}
           tempoBpm={mockMidiData.tempoBpm}

@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   clampEventIndex,
+  getNextEventIndex,
+  getPlaybackDelay,
   getLastEventIndex,
   getPlaybackProgress,
+  normalizeLoopRange,
   stepEventIndex,
 } from "./playback";
 
@@ -28,5 +31,22 @@ describe("note-event playback helpers", () => {
     expect(getPlaybackProgress(12, 13)).toBe(100);
     expect(getPlaybackProgress(99, 13)).toBe(100);
     expect(getPlaybackProgress(0, 1)).toBe(0);
+  });
+
+  it("normalizes phrase-loop boundaries and returns to the loop start", () => {
+    expect(normalizeLoopRange({ startIndex: 8, endIndex: 4 }, 13)).toEqual({
+      startIndex: 4,
+      endIndex: 8,
+    });
+    expect(getNextEventIndex(7, 13, { startIndex: 4, endIndex: 8 })).toBe(8);
+    expect(getNextEventIndex(8, 13, { startIndex: 4, endIndex: 8 })).toBe(4);
+    expect(getNextEventIndex(12, 13, null)).toBeNull();
+  });
+
+  it("uses stable, bounded delays for the speed ladder", () => {
+    expect(getPlaybackDelay(420, 0.5)).toBe(840);
+    expect(getPlaybackDelay(420, 2)).toBe(210);
+    expect(getPlaybackDelay(40, 2)).toBe(120);
+    expect(getPlaybackDelay(420, Number.NaN)).toBe(420);
   });
 });
