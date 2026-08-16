@@ -18,6 +18,11 @@ import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotes
 import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
+import {
+  adjustMidiEvent,
+  applyMidiOverrides,
+  hasValidMidiOverrides,
+} from "@/src/lib/editableMidi";
 import type { EventLoopRange } from "@/src/lib/playback";
 import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
@@ -27,6 +32,7 @@ type Theme = "light" | "dark";
 
 type SavedPracticeSession = {
   readonly instrument: Instrument;
+  readonly midiOverrides: readonly number[];
   readonly notation: NotationSystem;
   readonly playbackRate: number;
   readonly rootMidi: number;
@@ -105,13 +111,14 @@ export default function Home() {
   const [practiceTempoBpm, setPracticeTempoBpm] = useState(
     mockMidiData.tempoBpm,
   );
+  const [practiceEvents, setPracticeEvents] = useState(mockMidiData.noteEvents);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [loopRange, setLoopRange] = useState<EventLoopRange | null>(null);
   const [loopAnchorIndex, setLoopAnchorIndex] = useState<number | null>(null);
   const [hasSavedPractice, setHasSavedPractice] = useState(false);
   const [isPracticeSessionReady, setIsPracticeSessionReady] = useState(false);
   const transport = useMockTransport({
-    events: mockMidiData.noteEvents,
+    events: practiceEvents,
     isEnabled: isTranscribed,
     loopRange,
     playbackRate,
@@ -120,11 +127,11 @@ export default function Home() {
   const formattedNotes = useMemo(
     () =>
       formatRelativeMidiEvents(
-        mockMidiData.noteEvents,
+        practiceEvents,
         selectedRootMidi,
         notationSystem,
       ),
-    [notationSystem, selectedRootMidi],
+    [notationSystem, practiceEvents, selectedRootMidi],
   );
 
   const selectedRoot =
@@ -211,6 +218,9 @@ export default function Home() {
         if (isTaal) setSelectedTaalId(parsedSession.taalId as TaalId);
         if (isTempo && parsedSession.tempoBpm !== undefined) setPracticeTempoBpm(parsedSession.tempoBpm);
         if (isPlaybackRate && parsedSession.playbackRate !== undefined) setPlaybackRate(parsedSession.playbackRate);
+        if (hasValidMidiOverrides(parsedSession.midiOverrides, mockMidiData.noteEvents.length)) {
+          setPracticeEvents(applyMidiOverrides(mockMidiData.noteEvents, parsedSession.midiOverrides));
+        }
         setHasSavedPractice(true);
       }
 
@@ -225,6 +235,7 @@ export default function Home() {
 
     const session: SavedPracticeSession = {
       instrument: selectedInstrument,
+      midiOverrides: practiceEvents.map((event) => event.midi),
       notation: notationSystem,
       playbackRate,
       rootMidi: selectedRootMidi,
@@ -239,6 +250,7 @@ export default function Home() {
     isTranscribed,
     notationSystem,
     playbackRate,
+    practiceEvents,
     practiceTempoBpm,
     selectedInstrument,
     selectedRootMidi,
@@ -262,6 +274,7 @@ export default function Home() {
 
     setCredits((currentCredits) => currentCredits - 1);
     transport.reset();
+    setPracticeEvents(mockMidiData.noteEvents);
     setHasSavedPractice(true);
     setIsTranscribed(true);
     window.setTimeout(() => {
@@ -311,6 +324,16 @@ export default function Home() {
     setLoopAnchorIndex(null);
   }
 
+  function handleAdjustActiveNote(semitones: -1 | 1): void {
+    setPracticeEvents((currentEvents) =>
+      adjustMidiEvent(currentEvents, activeEventIndex, semitones),
+    );
+  }
+
+  function handleResetNoteEdits(): void {
+    setPracticeEvents(mockMidiData.noteEvents);
+  }
+
   function handleTaalChange(taalId: TaalId): void {
     setSelectedTaalId(taalId);
   }
@@ -333,13 +356,13 @@ export default function Home() {
     return selectedVisualizer === "Piano" ? (
       <FallingNotesPianoRoll
         activeEventIndex={activeEventIndex}
-        events={mockMidiData.noteEvents}
+        events={practiceEvents}
         rootMidi={selectedRootMidi}
       />
     ) : (
       <BansuriFallingNotes
         activeEventIndex={activeEventIndex}
-        events={mockMidiData.noteEvents}
+        events={practiceEvents}
         rootMidi={selectedRootMidi}
       />
     );
@@ -498,6 +521,7 @@ export default function Home() {
       {isTranscribed ? (
         <PracticeWorkspace
           activeEventIndex={activeEventIndex}
+          hasManualEdits={practiceEvents.some((event, index) => event.midi !== mockMidiData.noteEvents[index]?.midi)}
           displayedMatra={displayedMatra}
           formattedNotes={formattedNotes}
           instrumentOptions={INSTRUMENT_OPTIONS}
@@ -511,6 +535,7 @@ export default function Home() {
           notationOptions={NOTATION_OPTIONS}
           notationSystem={notationSystem}
           onCinemaView={() => setIsCinemaMode(true)}
+          onAdjustActiveNote={handleAdjustActiveNote}
           onInstrumentChange={setSelectedInstrument}
           onMoveNote={moveActiveNote}
           onNotationChange={setNotationSystem}
@@ -538,6 +563,7 @@ export default function Home() {
           songTitle={mockMidiData.title}
           speedOptions={PRACTICE_SPEEDS}
           onPlaybackRateChange={setPlaybackRate}
+          onResetNoteEdits={handleResetNoteEdits}
           taalOptions={Object.values(TAALS)}
           tanpuraControl={<TanpuraControl droneMode={droneMode} isPlaying={isDronePlaying} onModeChange={setDroneMode} onToggle={handleToggleDrone} rootLabel={selectedRoot.label} />}
           tempoBpm={mockMidiData.tempoBpm}

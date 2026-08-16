@@ -24,6 +24,7 @@ type PracticeWorkspaceProps = {
   readonly activeEventIndex: number;
   readonly displayedMatra: number;
   readonly formattedNotes: readonly string[];
+  readonly hasManualEdits: boolean;
   readonly instrumentOptions: readonly InstrumentOption[];
   readonly instrumentPanel: ReactNode;
   readonly isMetronomePlaying: boolean;
@@ -35,12 +36,14 @@ type PracticeWorkspaceProps = {
   readonly notationOptions: readonly NotationOption[];
   readonly notationSystem: NotationSystem;
   readonly onCinemaView: () => void;
+  readonly onAdjustActiveNote: (semitones: -1 | 1) => void;
   readonly onClearLoop: () => void;
   readonly onInstrumentChange: (instrument: Instrument) => void;
   readonly onMoveNote: (direction: -1 | 1) => void;
   readonly onNotationChange: (notation: NotationSystem) => void;
   readonly onPlaybackRateChange: (rate: number) => void;
   readonly onRootChange: (midi: number) => void;
+  readonly onResetNoteEdits: () => void;
   readonly onSelectEvent: (index: number) => void;
   readonly onSetLoopPoint: () => void;
   readonly onStartAnother: () => void;
@@ -72,6 +75,7 @@ export function PracticeWorkspace({
   activeEventIndex,
   displayedMatra,
   formattedNotes,
+  hasManualEdits,
   instrumentOptions,
   instrumentPanel,
   isMetronomePlaying,
@@ -83,12 +87,14 @@ export function PracticeWorkspace({
   notationOptions,
   notationSystem,
   onCinemaView,
+  onAdjustActiveNote,
   onClearLoop,
   onInstrumentChange,
   onMoveNote,
   onNotationChange,
   onPlaybackRateChange,
   onRootChange,
+  onResetNoteEdits,
   onSelectEvent,
   onSetLoopPoint,
   onStartAnother,
@@ -244,6 +250,12 @@ export function PracticeWorkspace({
                   </button>
                 );
               })}
+            </div>
+            <div aria-label="Manual note correction" className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/[0.04] p-1" role="group">
+              <button aria-label="Lower active note by one semitone" className="rounded-md px-2 py-1.5 text-xs font-black text-white/65 transition hover:bg-white/10 hover:text-white" onClick={() => onAdjustActiveNote(-1)} type="button">−</button>
+              <span className="px-1 text-[9px] font-black uppercase tracking-[0.1em] text-white/35">Correct</span>
+              <button aria-label="Raise active note by one semitone" className="rounded-md px-2 py-1.5 text-xs font-black text-white/65 transition hover:bg-white/10 hover:text-white" onClick={() => onAdjustActiveNote(1)} type="button">+</button>
+              {hasManualEdits ? <button aria-label="Reset manual note edits" className="rounded-md bg-white/[0.08] px-2 py-1.5 text-[9px] font-black text-mint-emerald transition hover:bg-mint-emerald hover:text-white" onClick={onResetNoteEdits} type="button">Reset</button> : null}
             </div>
           </div>
         </section>
