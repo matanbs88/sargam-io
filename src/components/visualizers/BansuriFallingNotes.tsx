@@ -29,14 +29,14 @@ function getNoteLeft(startMs: number, currentTimeMs: number): number {
 
 function holeClass(state: BansuriHoleState): string {
   if (state === "closed") {
-    return "border-mint-emerald/70 bg-teal shadow-[0_5px_8px_rgba(3,44,37,0.42),inset_0_1px_1px_rgba(255,255,255,0.24)]";
+    return "border-mint-emerald/70 bg-teal shadow-[0_2px_5px_rgba(3,44,37,0.32),inset_0_1px_1px_rgba(255,255,255,0.2)]";
   }
 
   if (state === "half-open") {
-    return "border-charcoal/80 bg-[linear-gradient(to_top,#136052_50%,#141b23_50%)] shadow-[inset_0_4px_6px_rgba(0,0,0,0.6)]";
+    return "border-charcoal/80 bg-[linear-gradient(to_top,#136052_50%,#141b23_50%)] shadow-[inset_0_3px_5px_rgba(0,0,0,0.6)]";
   }
 
-  return "border-charcoal/85 bg-charcoal shadow-[inset_0_4px_6px_rgba(0,0,0,0.65),inset_0_-1px_1px_rgba(255,255,255,0.08)]";
+  return "border-charcoal/85 bg-charcoal shadow-[inset_0_3px_5px_rgba(0,0,0,0.65),inset_0_-1px_1px_rgba(255,255,255,0.08)]";
 }
 
 function VerticalBansuri({
@@ -45,24 +45,24 @@ function VerticalBansuri({
   readonly holes: readonly BansuriHoleState[];
 }) {
   return (
-    <div aria-label="Active bansuri fingering" className="relative mx-auto h-[272px] w-20 sm:w-24">
-      <span aria-hidden="true" className="absolute inset-x-2 top-0 h-7 rounded-t-full border border-[#8d4b1d]/50 bg-[repeating-linear-gradient(0deg,#b43b2a_0_3px,#f17e2e_3px_6px,#dcb43f_6px_8px)] shadow-[inset_0_2px_2px_rgba(255,255,255,0.4),0_3px_8px_rgba(80,33,14,0.25)]" />
-      <div className="absolute inset-x-3 bottom-0 top-5 rounded-b-full border border-[#8b5629]/55 bg-[linear-gradient(90deg,#754117_0%,#c77d30_18%,#f8df91_49%,#d88d3c_77%,#754117_100%)] shadow-[inset_3px_0_5px_rgba(255,255,255,0.3),inset_-6px_0_10px_rgba(70,35,8,0.25),0_12px_24px_rgba(0,0,0,0.3)]">
-        <span aria-label="Embouchure hole" className="absolute left-1/2 top-[9%] h-4 w-4 -translate-x-1/2 rounded-full border-2 border-charcoal/90 bg-charcoal shadow-[inset_0_4px_6px_rgba(0,0,0,0.7)]" />
+    <div aria-label="Active bansuri fingering" className="relative mx-auto h-[270px] w-12">
+      <div className="absolute inset-x-1 bottom-0 top-0 rounded-full border border-[#dfbd79]/25 bg-[linear-gradient(90deg,#62421f_0%,#9c6933_18%,#d9b574_50%,#9d6933_78%,#60401e_100%)] shadow-[inset_1px_0_2px_rgba(255,255,255,0.2),inset_-3px_0_5px_rgba(35,21,8,0.2),0_7px_16px_rgba(0,0,0,0.22)]">
+        <span aria-hidden="true" className="absolute inset-x-0 top-[3%] border-t border-[#402610]/35" />
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-[3%] border-t border-[#402610]/35" />
+        <span aria-label="Embouchure hole" className="absolute left-1/2 top-[10%] h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-charcoal/90 bg-charcoal shadow-[inset_0_3px_5px_rgba(0,0,0,0.72)]" />
         {Array.from({ length: 6 }, (_, index) => (
           <span
             aria-label={`Finger hole ${index + 1}: ${holes[index] ?? "open"}`}
             className={[
-              "absolute left-1/2 h-5 w-5 -translate-x-1/2 rounded-full border-2 transition duration-200",
+              "absolute left-1/2 h-4 w-4 -translate-x-1/2 rounded-full border transition duration-200",
               holeClass(holes[index] ?? "open"),
             ].join(" ")}
             key={index}
             role="img"
-            style={{ top: `${27 + index * 11}%` }}
+            style={{ top: `${28 + index * 11}%` }}
           />
         ))}
       </div>
-      <span aria-hidden="true" className="absolute inset-x-2 bottom-2 h-7 rounded-b-full border border-[#8d4b1d]/50 bg-[repeating-linear-gradient(0deg,#b43b2a_0_3px,#f17e2e_3px_6px,#dcb43f_6px_8px)] shadow-[inset_0_2px_2px_rgba(255,255,255,0.4),0_3px_8px_rgba(80,33,14,0.25)]" />
     </div>
   );
 }
@@ -101,17 +101,14 @@ export function BansuriFallingNotes({
           <span className="rounded-full bg-yellow-soft px-2.5 py-1 text-[10px] font-black text-charcoal">
             {activeFingering?.label ?? "Choose a note"}
           </span>
-          <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[10px] font-bold text-white/60">
-            vertical fingering
-          </span>
         </div>
       </div>
 
-      <div className="grid min-h-[330px] grid-cols-[96px_minmax(0,1fr)] bg-[#070a0f] sm:grid-cols-[124px_minmax(0,1fr)]">
-        <div className="relative flex flex-col items-center justify-center border-r border-white/[0.08] bg-[radial-gradient(ellipse_at_center,rgba(40,177,130,0.1),transparent_70%)] px-2">
+      <div className="grid min-h-[330px] grid-cols-[72px_minmax(0,1fr)] bg-[#070a0f] sm:grid-cols-[92px_minmax(0,1fr)]">
+        <div className="relative flex flex-col items-center justify-center border-r border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.018),transparent_34%,rgba(255,255,255,0.01))] px-2">
           <VerticalBansuri holes={activeFingering?.holes ?? []} />
-          <span className="mt-1 text-center text-[9px] font-black uppercase tracking-[0.14em] text-white/45">
-            Bansuri
+          <span className="mt-2 text-center text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
+            Fingering
           </span>
         </div>
 

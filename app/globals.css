@@ -58,54 +58,37 @@ body::before {
   box-shadow: inset 0 2px 7px rgba(137, 112, 20, 0.22), 0 0 0 5px rgba(255, 240, 153, 0.28), 0 10px 20px rgba(215, 190, 72, 0.24);
 }
 
-.workspace-controls .rhythm-surface,
-.workspace-controls .rhythm-surface.bg-white {
-  background: rgba(255, 255, 255, 0.045);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 12px 25px rgba(0, 0, 0, 0.16);
+.studio-control-rail,
+.studio-melody-strip,
+.studio-utility-band {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  background:
+    linear-gradient(120deg, rgba(14, 29, 48, 0.94), rgba(8, 18, 31, 0.94));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 14px 34px rgba(0, 0, 0, 0.15);
 }
 
-.workspace-controls .rhythm-surface .bg-cream,
-.workspace-controls .rhythm-surface .bg-white {
-  background-color: rgba(255, 255, 255, 0.055);
+.studio-stage {
+  border: 1px solid rgba(145, 199, 219, 0.14);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at 70% 0%, rgba(40, 177, 130, 0.09), transparent 28%),
+    linear-gradient(140deg, #0b1829 0%, #07111f 75%);
+  box-shadow: 0 28px 68px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
 }
 
-.workspace-controls .rhythm-surface .text-charcoal {
-  color: rgba(239, 246, 255, 0.92);
+.stage-transport {
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+  background: rgba(2, 8, 16, 0.32);
 }
 
-.workspace-controls .rhythm-surface [class*="text-charcoal/"] {
-  color: rgba(226, 232, 240, 0.56);
-}
-
-.workspace-controls .rhythm-surface .text-teal,
-.workspace-controls .rhythm-surface [class*="text-teal/"] {
-  color: #7ed9c5;
-}
-
-.workspace-controls .rhythm-surface .tactile-beat {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 3px 9px rgba(0, 0, 0, 0.2);
-}
-
-.workspace-controls [aria-label$="taal cycle"] > p:last-child,
-.workspace-controls [aria-label="Tabla practice workspace"] > div > div > p:last-child {
-  display: none;
-}
-
-.workspace-controls [aria-label$="taal cycle"] [role="img"] {
-  font-size: 0.5rem;
-  letter-spacing: -0.06em;
-}
-
-.workspace-controls [aria-label="Tabla practice workspace"] [role="img"] {
-  font-size: 0;
-}
-
-.workspace-controls [aria-label="Tabla practice workspace"] [role="img"]::first-letter {
-  font-size: 0.6rem;
-}
-
-.workspace-controls [aria-label="Tabla practice workspace"] > div.mt-5:last-child {
-  display: none;
+.studio-rhythm-card {
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(40, 177, 130, 0.08), transparent 35%),
+    rgba(255, 255, 255, 0.028);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
 }
 
 ::selection {
