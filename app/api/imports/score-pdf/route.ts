@@ -1,4 +1,5 @@
 import { importPdfWithLocalAudiveris } from "@/src/server/score-import/localAudiveris";
+import { validateImportedScore } from "@/src/server/score-import/scoreValidation";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
     return Response.json({
       importMode: "local-audiveris-pilot",
       score: imported,
+      validation: validateImportedScore(imported),
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unable to import this score PDF.";

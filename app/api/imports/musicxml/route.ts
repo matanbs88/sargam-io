@@ -1,4 +1,5 @@
 import { parseMusicXmlScore } from "@/src/server/score-import/musicXml";
+import { validateImportedScore } from "@/src/server/score-import/scoreValidation";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -36,7 +37,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    return Response.json({ score: parseMusicXmlScore(new Uint8Array(await score.arrayBuffer())) });
+    const importedScore = parseMusicXmlScore(new Uint8Array(await score.arrayBuffer()));
+    return Response.json({ score: importedScore, validation: validateImportedScore(importedScore) });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unable to read this score file.";
     return Response.json({ error: message }, { status: 422 });
