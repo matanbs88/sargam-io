@@ -10,6 +10,7 @@ The local, mock-driven demo includes:
 - Instant ABC, Latin Sargam, and Devanagari Sargam switching
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
+- MIDI-timed falling-note piano roll and horizontal Bansuri roll, with bars sized by event duration
 - Dedicated Harmonium mode with relative Sargam labels and visual Sa/Pa or Sa/Ma drone settings
 - Keyboard, six-hole Bansuri, standard-guitar, and Sitar visual references
 - Manual practice-taal cycles for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa; taal is never inferred from BPM alone

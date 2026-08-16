@@ -13,9 +13,12 @@ import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
 import { SitarUI } from "@/src/components/instruments/SitarUI";
 import { TaalCycle } from "@/src/components/TaalCycle";
 import { TablaPracticeUI } from "@/src/components/TablaPracticeUI";
+import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
+import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
 import { beatsInTaal, matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
+type Visualizer = "Piano" | "Bansuri";
 
 const ROOT_OPTIONS = [
   { midi: 60, label: "C4" },
@@ -123,6 +126,8 @@ export default function Home() {
   const [credits, setCredits] = useState(2);
   const [selectedInstrument, setSelectedInstrument] =
     useState<Instrument>("Harmonium");
+  const [selectedVisualizer, setSelectedVisualizer] =
+    useState<Visualizer>("Piano");
   const [droneMode, setDroneMode] = useState<"SaPa" | "SaMa">("SaPa");
   const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
@@ -482,6 +487,24 @@ export default function Home() {
                       <button aria-label="Previous note" className="rounded-lg px-2 py-1 text-sm font-bold text-white/65 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-30" disabled={activeEventIndex === 0} onClick={() => moveActiveNote(-1)} type="button">‹ Prev</button>
                       <button aria-label="Next note" className="rounded-lg px-2 py-1 text-sm font-bold text-white/65 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-30" disabled={activeEventIndex === lastEventIndex} onClick={() => moveActiveNote(1)} type="button">Next ›</button>
                       <div className="ml-auto min-w-32 flex-1 sm:max-w-xs"><div className="h-1.5 overflow-hidden rounded-full bg-white/15"><div className="h-full rounded-full bg-mint-emerald transition-all duration-300" style={{ width: `${playbackProgress}%` }} /></div><p className="mt-1.5 text-right text-[10px] font-bold text-white/45">NOTE {activeEventIndex + 1} / {mockMidiData.noteEvents.length}</p></div>
+                    </div>
+                  </div>
+
+                  <div className="mt-7 border-t border-teal/10 pt-7">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                      <div>
+                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Performance visualizer</p>
+                        <p className="mt-1 text-sm font-medium text-charcoal/55">Each bar uses the mock MIDI onset and duration, then lands on the selected instrument.</p>
+                      </div>
+                      <div aria-label="Choose a falling note visualizer" className="flex rounded-xl bg-cream p-1" role="group">
+                        {(["Piano", "Bansuri"] as const).map((visualizer) => {
+                          const isActive = selectedVisualizer === visualizer;
+                          return <button aria-pressed={isActive} className={["rounded-lg px-3 py-2 text-xs font-black transition", isActive ? "bg-teal text-white shadow-sm" : "text-charcoal/55 hover:text-teal"].join(" ")} key={visualizer} onClick={() => setSelectedVisualizer(visualizer)} type="button">{visualizer === "Piano" ? "Piano roll" : "Bansuri roll"}</button>;
+                        })}
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      {selectedVisualizer === "Piano" ? <FallingNotesPianoRoll activeEventIndex={activeEventIndex} events={mockMidiData.noteEvents} rootMidi={selectedRootMidi} /> : <BansuriFallingNotes activeEventIndex={activeEventIndex} events={mockMidiData.noteEvents} rootMidi={selectedRootMidi} />}
                     </div>
                   </div>
 
