@@ -117,8 +117,18 @@ export default function Home() {
   const [loopAnchorIndex, setLoopAnchorIndex] = useState<number | null>(null);
   const [hasSavedPractice, setHasSavedPractice] = useState(false);
   const [isPracticeSessionReady, setIsPracticeSessionReady] = useState(false);
+  const transpositionSemitones =
+    selectedRootMidi - mockMidiData.detectedKey.rootMidi;
+  const performanceEvents = useMemo(
+    () =>
+      practiceEvents.map((event) => ({
+        ...event,
+        midi: event.midi + transpositionSemitones,
+      })),
+    [practiceEvents, transpositionSemitones],
+  );
   const transport = useMockTransport({
-    events: practiceEvents,
+    events: performanceEvents,
     isEnabled: isTranscribed,
     loopRange,
     playbackRate,
@@ -127,11 +137,11 @@ export default function Home() {
   const formattedNotes = useMemo(
     () =>
       formatRelativeMidiEvents(
-        practiceEvents,
+        performanceEvents,
         selectedRootMidi,
         notationSystem,
       ),
-    [notationSystem, practiceEvents, selectedRootMidi],
+    [notationSystem, performanceEvents, selectedRootMidi],
   );
 
   const selectedRoot =
@@ -356,13 +366,13 @@ export default function Home() {
     return selectedVisualizer === "Piano" ? (
       <FallingNotesPianoRoll
         activeEventIndex={activeEventIndex}
-        events={practiceEvents}
+        events={performanceEvents}
         rootMidi={selectedRootMidi}
       />
     ) : (
       <BansuriFallingNotes
         activeEventIndex={activeEventIndex}
-        events={practiceEvents}
+        events={performanceEvents}
         rootMidi={selectedRootMidi}
       />
     );
