@@ -41,8 +41,12 @@ export function validateImportedScore(score: ImportedScore): ScoreValidationRepo
       severity: "warning",
     });
   } else {
-    const expectedDuration = score.divisionsPerQuarter * signature.beats * (4 / signature.beatType);
     score.measures.forEach((measure) => {
+      const measureSignature = parseTimeSignature(measure.timeSignature) ?? signature;
+      const expectedDuration =
+        measure.divisionsPerQuarter *
+        measureSignature.beats *
+        (4 / measureSignature.beatType);
       const actualDuration = Math.max(
         0,
         ...measure.events.map((event) => event.startDivisions + event.durationDivisions),
@@ -51,7 +55,7 @@ export function validateImportedScore(score: ImportedScore): ScoreValidationRepo
         issues.push({
           code: "meter-mismatch",
           measure: measure.number,
-          message: `Measure ${measure.number} spans ${actualDuration} divisions; ${score.timeSignature} expects ${expectedDuration}.`,
+          message: `Measure ${measure.number} spans ${actualDuration} divisions; ${measureSignature.beats}/${measureSignature.beatType} expects ${expectedDuration}.`,
           severity: "warning",
         });
       }

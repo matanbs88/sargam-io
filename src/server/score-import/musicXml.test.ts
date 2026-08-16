@@ -29,6 +29,22 @@ describe("parseMusicXmlScore", () => {
       { durationDivisions: 1, midi: 65, startDivisions: 3, tie: "start" },
       { durationDivisions: 2, midi: 65, startDivisions: 4, tie: "stop" },
     ]);
+    expect(score.measures[0]).toMatchObject({
+      divisionsPerQuarter: 2,
+      timeSignature: "3/4",
+    });
+  });
+
+  it("rejects score files above the beta measure limit", () => {
+    const measures = Array.from(
+      { length: 201 },
+      (_, index) => `<measure number="${index + 1}" />`,
+    ).join("");
+    const oversizedScore = `<score-partwise><part id="P1">${measures}</part></score-partwise>`;
+
+    expect(() => parseMusicXmlScore(strToU8(oversizedScore))).toThrow(
+      "up to 200 measures",
+    );
   });
 
   it("reads compressed MXL and maps pitches relative to the selected Sa", () => {

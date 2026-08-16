@@ -169,6 +169,9 @@ export function BansuriFallingNotes({
           <p className="mt-0.5 text-[10px] font-bold text-white/45">
             Natural swaras align to fingering landmarks · beam width = duration
           </p>
+          <p className="mt-1 max-w-md text-[9px] font-semibold leading-4 text-yellow-soft/75">
+            Generic six-hole reference — adjust for flute key, maker, embouchure, and half-hole technique.
+          </p>
         </div>
         <span
           className={[

@@ -8,6 +8,7 @@ root because they are linked directly from the public README.
 
 - [Gemini engineering handoff](../GEMINI_REVIEW_REPORT.md)
 - [Current full Gemini product and launch handoff](./reviews/GEMINI_FULL_PRODUCT_HANDOFF_2026-08-16.md)
+- [Disposition of the current Gemini full-product review](./reviews/GEMINI_FULL_HANDOFF_DISPOSITION_2026-08-16.md)
 - [Current build status](../WEEKEND_SUMMARY.md)
 - [Manual QA checklist](../TESTING_CHECKLIST.md)
 - [Maintenance workflow](./operations/MAINTENANCE_WORKFLOW.md)

@@ -54,7 +54,13 @@ function isImportedScore(value: unknown): value is SargamPdfScore {
     score.measures.every((measure) => {
       if (typeof measure !== "object" || measure === null) return false;
       const value = measure as Record<string, unknown>;
-      return typeof value.number === "number" && Array.isArray(value.events) && value.events.every(isImportedScoreEvent);
+      return (
+        typeof value.divisionsPerQuarter === "number" &&
+        typeof value.number === "number" &&
+        (value.timeSignature === null || typeof value.timeSignature === "string") &&
+        Array.isArray(value.events) &&
+        value.events.every(isImportedScoreEvent)
+      );
     })
   );
 }

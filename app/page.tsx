@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   formatRelativeMidiEvents,
+  type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
 import { mockMidiData } from "@/src/lib/mockMidiData";
@@ -12,12 +13,14 @@ import { HarmoniumUI } from "@/src/components/instruments/HarmoniumUI";
 import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
 import { SitarUI } from "@/src/components/instruments/SitarUI";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
+import { ScoreImportPanel } from "@/src/components/ScoreImportPanel";
 import { TanpuraControl } from "@/src/components/TanpuraControl";
 import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
 import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
 import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
+import type { ImportedPracticeScore } from "@/src/lib/importedScoreTimeline";
 import {
   adjustMidiEvent,
   applyMidiOverrides,
@@ -29,6 +32,15 @@ import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 type Visualizer = "Piano" | "Bansuri";
 type Theme = "light" | "dark";
+
+type PracticeSource = {
+  readonly kind: "mock" | "musicxml";
+  readonly noteEvents: readonly MidiNoteEvent[];
+  readonly rootMidi: number;
+  readonly tempoBpm: number;
+  readonly timeSignature: string;
+  readonly title: string;
+};
 
 type SavedPracticeSession = {
   readonly instrument: Instrument;
@@ -43,6 +55,14 @@ type SavedPracticeSession = {
 
 const PRACTICE_SESSION_STORAGE_KEY = "sargam-practice-session-v1";
 const PRACTICE_SPEEDS = [0.5, 0.75, 1, 1.25] as const;
+const DEMO_PRACTICE_SOURCE: PracticeSource = {
+  kind: "mock",
+  noteEvents: mockMidiData.noteEvents,
+  rootMidi: mockMidiData.detectedKey.rootMidi,
+  tempoBpm: mockMidiData.tempoBpm,
+  timeSignature: mockMidiData.timeSignature,
+  title: mockMidiData.title,
+};
 
 const ROOT_OPTIONS = [
   { midi: 60, label: "C4" },
@@ -96,7 +116,7 @@ export default function Home() {
   const [notationSystem, setNotationSystem] =
     useState<NotationSystem>("Sargam_EN");
   const [selectedRootMidi, setSelectedRootMidi] = useState(
-    mockMidiData.detectedKey.rootMidi,
+    DEMO_PRACTICE_SOURCE.rootMidi,
   );
   const [credits, setCredits] = useState(2);
   const [selectedInstrument, setSelectedInstrument] =
@@ -109,16 +129,21 @@ export default function Home() {
   const [droneMode, setDroneMode] = useState<DroneMode>("SaPa");
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
   const [practiceTempoBpm, setPracticeTempoBpm] = useState(
-    mockMidiData.tempoBpm,
+    DEMO_PRACTICE_SOURCE.tempoBpm,
   );
-  const [practiceEvents, setPracticeEvents] = useState(mockMidiData.noteEvents);
+  const [practiceSource, setPracticeSource] = useState<PracticeSource>(
+    DEMO_PRACTICE_SOURCE,
+  );
+  const [practiceEvents, setPracticeEvents] = useState(
+    DEMO_PRACTICE_SOURCE.noteEvents,
+  );
   const [playbackRate, setPlaybackRate] = useState(1);
   const [loopRange, setLoopRange] = useState<EventLoopRange | null>(null);
   const [loopAnchorIndex, setLoopAnchorIndex] = useState<number | null>(null);
   const [hasSavedPractice, setHasSavedPractice] = useState(false);
   const [isPracticeSessionReady, setIsPracticeSessionReady] = useState(false);
   const transpositionSemitones =
-    selectedRootMidi - mockMidiData.detectedKey.rootMidi;
+    selectedRootMidi - practiceSource.rootMidi;
   const performanceEvents = useMemo(
     () =>
       practiceEvents.map((event) => ({
@@ -148,7 +173,7 @@ export default function Home() {
     ROOT_OPTIONS.find((option) => option.midi === selectedRootMidi) ??
     ROOT_OPTIONS[0];
   const isTransposed =
-    selectedRootMidi !== mockMidiData.detectedKey.rootMidi;
+    selectedRootMidi !== practiceSource.rootMidi;
   const { activeEvent, activeEventIndex, isPlaying, lastEventIndex, playbackProgress } =
     transport;
   const activeMidi = activeEvent?.midi ?? null;
@@ -168,7 +193,7 @@ export default function Home() {
     tempoBpm: practiceTempoBpm,
   });
   const activeMatra = activeEvent
-    ? matraAtTime(activeEvent.startMs, mockMidiData.tempoBpm, selectedTaal)
+    ? matraAtTime(activeEvent.startMs, practiceTempoBpm, selectedTaal)
     : 0;
   const displayedMatra = isTablaPlaying
     ? accompanimentMatra
@@ -228,8 +253,8 @@ export default function Home() {
         if (isTaal) setSelectedTaalId(parsedSession.taalId as TaalId);
         if (isTempo && parsedSession.tempoBpm !== undefined) setPracticeTempoBpm(parsedSession.tempoBpm);
         if (isPlaybackRate && parsedSession.playbackRate !== undefined) setPlaybackRate(parsedSession.playbackRate);
-        if (hasValidMidiOverrides(parsedSession.midiOverrides, mockMidiData.noteEvents.length)) {
-          setPracticeEvents(applyMidiOverrides(mockMidiData.noteEvents, parsedSession.midiOverrides));
+        if (hasValidMidiOverrides(parsedSession.midiOverrides, DEMO_PRACTICE_SOURCE.noteEvents.length)) {
+          setPracticeEvents(applyMidiOverrides(DEMO_PRACTICE_SOURCE.noteEvents, parsedSession.midiOverrides));
         }
         setHasSavedPractice(true);
       }
@@ -241,7 +266,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!isPracticeSessionReady || !isTranscribed) return;
+    if (!isPracticeSessionReady || !isTranscribed || practiceSource.kind !== "mock") return;
 
     const session: SavedPracticeSession = {
       instrument: selectedInstrument,
@@ -266,6 +291,7 @@ export default function Home() {
     selectedRootMidi,
     selectedTaalId,
     selectedVisualizer,
+    practiceSource.kind,
   ]);
 
   useEffect(() => {
@@ -284,8 +310,41 @@ export default function Home() {
 
     setCredits((currentCredits) => currentCredits - 1);
     transport.reset();
-    setPracticeEvents(mockMidiData.noteEvents);
+    setPracticeSource(DEMO_PRACTICE_SOURCE);
+    setPracticeEvents(DEMO_PRACTICE_SOURCE.noteEvents);
+    setSelectedRootMidi(DEMO_PRACTICE_SOURCE.rootMidi);
+    setPracticeTempoBpm(DEMO_PRACTICE_SOURCE.tempoBpm);
     setHasSavedPractice(true);
+    setIsTranscribed(true);
+    window.setTimeout(() => {
+      document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  }
+
+  function handleImportedScore(importedScore: ImportedPracticeScore): void {
+    if (importedScore.timeSignature === null) {
+      window.alert(
+        "This score needs a readable time signature before it can open a practice timeline.",
+      );
+      return;
+    }
+
+    const importedSource: PracticeSource = {
+      kind: "musicxml",
+      noteEvents: importedScore.noteEvents,
+      rootMidi: selectedRootMidi,
+      tempoBpm: 96,
+      timeSignature: importedScore.timeSignature,
+      title: importedScore.title,
+    };
+
+    transport.reset();
+    setLoopAnchorIndex(null);
+    setLoopRange(null);
+    setPracticeSource(importedSource);
+    setPracticeEvents(importedScore.noteEvents);
+    setPracticeTempoBpm(importedSource.tempoBpm);
+    setHasSavedPractice(false);
     setIsTranscribed(true);
     window.setTimeout(() => {
       document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
@@ -341,7 +400,7 @@ export default function Home() {
   }
 
   function handleResetNoteEdits(): void {
-    setPracticeEvents(mockMidiData.noteEvents);
+    setPracticeEvents(practiceSource.noteEvents);
   }
 
   function handleTaalChange(taalId: TaalId): void {
@@ -375,8 +434,8 @@ export default function Home() {
           rootMidi: selectedRootMidi,
           taalLabel: selectedTaal.label,
           tempoBpm: practiceTempoBpm,
-          timeSignature: mockMidiData.timeSignature,
-          title: mockMidiData.title,
+          timeSignature: practiceSource.timeSignature,
+          title: practiceSource.title,
         }),
       });
 
@@ -561,6 +620,7 @@ export default function Home() {
             <p className="mt-3 px-1 text-xs font-medium text-charcoal/45">
               Phase 1 preview — it opens a local example transcription and does not upload anything.
             </p>
+            <ScoreImportPanel onImported={handleImportedScore} />
           </div>
         </div>
 
@@ -575,7 +635,7 @@ export default function Home() {
       {isTranscribed ? (
         <PracticeWorkspace
           activeEventIndex={activeEventIndex}
-          hasManualEdits={practiceEvents.some((event, index) => event.midi !== mockMidiData.noteEvents[index]?.midi)}
+          hasManualEdits={practiceEvents.some((event, index) => event.midi !== practiceSource.noteEvents[index]?.midi)}
           displayedMatra={displayedMatra}
           formattedNotes={formattedNotes}
           instrumentOptions={INSTRUMENT_OPTIONS}
@@ -615,13 +675,13 @@ export default function Home() {
           selectedTaal={selectedTaal}
           selectedTaalId={selectedTaalId}
           selectedVisualizer={selectedVisualizer}
-          songTitle={mockMidiData.title}
+          songTitle={practiceSource.title}
           speedOptions={PRACTICE_SPEEDS}
           onPlaybackRateChange={setPlaybackRate}
           onResetNoteEdits={handleResetNoteEdits}
           taalOptions={Object.values(TAALS)}
           tanpuraControl={<TanpuraControl droneMode={droneMode} isPlaying={isDronePlaying} onModeChange={setDroneMode} onToggle={handleToggleDrone} rootLabel={selectedRoot.label} />}
-          tempoBpm={mockMidiData.tempoBpm}
+          tempoBpm={practiceTempoBpm}
         />
       ) : null}
 
@@ -629,11 +689,11 @@ export default function Home() {
         <div aria-label="Cinema performance view" aria-modal="true" className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/95 p-4 backdrop-blur-md sm:p-8" role="dialog">
           <div className="mx-auto flex min-h-full max-w-6xl flex-col justify-center">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div><p className="text-xs font-black uppercase tracking-[0.18em] text-mint-emerald">Sargam.io · performance view</p><h2 className="mt-1 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">{mockMidiData.title}</h2></div>
+              <div><p className="text-xs font-black uppercase tracking-[0.18em] text-mint-emerald">Sargam.io · performance view</p><h2 className="mt-1 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">{practiceSource.title}</h2></div>
               <button aria-label="Exit cinema view" className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-black text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-yellow-soft" onClick={() => setIsCinemaMode(false)} type="button">Exit view</button>
             </div>
             <div className="rounded-[2rem] border border-white/10 bg-[#0b1626] p-3 shadow-[0_28px_100px_rgba(0,0,0,0.48)] sm:p-5">{renderPerformanceVisualizer()}</div>
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-white/45"><span>{selectedRoot.label} = Sa · {mockMidiData.tempoBpm} BPM · {selectedVisualizer} mode</span><span>Mock transcription · performance framing</span></div>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-white/45"><span>{selectedRoot.label} = Sa · {practiceTempoBpm} BPM · {selectedVisualizer} mode</span><span>{practiceSource.kind === "mock" ? "Prepared demo · performance framing" : "Imported MusicXML draft · performance framing"}</span></div>
           </div>
         </div>
       ) : null}

@@ -16,8 +16,10 @@ export type ImportedScoreEvent = {
 };
 
 export type ImportedScoreMeasure = {
+  readonly divisionsPerQuarter: number;
   readonly events: readonly ImportedScoreEvent[];
   readonly number: number;
+  readonly timeSignature: string | null;
 };
 
 export type ImportedScore = {
@@ -53,6 +55,9 @@ const STEP_TO_SEMITONES: Readonly<Record<string, number>> = {
   F: 5,
   G: 7,
 };
+
+/** Lead-sheet beta guardrail; larger scores need a dedicated async workflow. */
+const MAX_IMPORTED_MEASURES = 200;
 
 function asArray(value: unknown): unknown[] {
   if (value === undefined || value === null) return [];
@@ -164,6 +169,11 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
   const measures: ImportedScoreMeasure[] = [];
 
   for (const [index, rawMeasure] of asArray(part.measure).entries()) {
+    if (index >= MAX_IMPORTED_MEASURES) {
+      throw new Error(
+        `This beta import supports up to ${MAX_IMPORTED_MEASURES} measures.`,
+      );
+    }
     const measure = asNode(rawMeasure);
     if (measure === null) continue;
     const attributes = getSingleNode(measure.attributes);
@@ -213,7 +223,12 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
       if (!isChordTone) cursor += durationDivisions;
     }
 
-    measures.push({ events, number: index + 1 });
+    measures.push({
+      divisionsPerQuarter,
+      events,
+      number: index + 1,
+      timeSignature,
+    });
   }
 
   if (measures.length === 0) throw new Error("No readable measures were found in the score.");

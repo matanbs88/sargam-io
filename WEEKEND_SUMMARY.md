@@ -16,9 +16,9 @@
 - Cinema performance view designed for clean screen capture and vertical use.
 - A server-side, paginated Latin-Sargam PDF export route for printable practice
   sheets. The sheet uses the currently selected Sa, taal, tempo, and meter.
-- Typed MusicXML/MXL lead-sheet import plus a guarded local Audiveris PDF pilot
-  that returns measures, pitches, rests, durations, and ties for review. The
-  PDF pilot is disabled on the public deployment.
+- User-facing MusicXML/MXL lead-sheet upload that validates a score and opens a
+  temporary practice-review session, plus a guarded local Audiveris PDF pilot
+  for research only. The PDF pilot is disabled on the public deployment.
 - A mock cache-first API route that validates/canonicalizes YouTube URLs;
   it uses the same fixture as the UI but is not connected from the page.
 - Future Supabase schema, provider/cache contracts, typed local dictionaries,
@@ -28,7 +28,7 @@
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes (38 tests).
+- `npm.cmd run test` passes (49 tests).
 - `npm.cmd run build` passes.
 - Manual browser QA passed for desktop and 390×844 vertical layouts, Bansuri
   cue alignment, Cinema view, transport sync, and no console errors.

@@ -11,8 +11,8 @@ The local, mock-driven demo includes:
 - Downloadable, measure-aware Sargam PDFs in Latin or embedded Devanagari;
   imported 3/4 scores retain their three-beat measure grid, and a tala is
   never invented from a Western meter
-- Typed MusicXML/MXL lead-sheet import foundation that preserves measures,
-  rhythm, rests, and ties before converting notes to Sargam
+- MusicXML/MXL lead-sheet upload that preserves measures, rhythm, rests, and
+  ties, validates the score, and opens a temporary practice-review session
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
 - MIDI-timed falling-note piano roll and a physical six-lane Bansuri fingering roll; every Bansuri cue is aligned to its real finger hole
@@ -37,6 +37,8 @@ The score-recognition provider and quality-gate decision is documented in
 [OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md). The
 unified song-to-score and score-to-Sargam product flow is documented in
 [UNIFIED_SCORE_EXPERIENCE.md](./docs/strategy/UNIFIED_SCORE_EXPERIENCE.md).
+The disposition of the latest independent product review is recorded in
+[GEMINI_FULL_HANDOFF_DISPOSITION_2026-08-16.md](./docs/reviews/GEMINI_FULL_HANDOFF_DISPOSITION_2026-08-16.md).
 
 ## Local development
 
