@@ -13,7 +13,7 @@ npm.cmd run verify
 ## Desktop practice flow
 
 1. Start the app and confirm the header shows 2 credits.
-2. Click **Transcribe melody**. Credits become 1 and the mock dashboard opens.
+2. Click **Open practice demo**. Credits become 1 and the mock dashboard opens.
 3. Change Sa from D4 and confirm the **Transposed** badge appears.
 4. Switch ABC, Latin Sargam, and Devanagari. The melody line, falling piano
    bars, Bansuri lane labels, Bansuri beams, and active Bansuri badge must all

@@ -448,15 +448,15 @@ export default function Home() {
                 Indian music, made playable
               </div>
               <h1 className="mt-6 font-display text-6xl leading-[0.86] tracking-[-0.045em] text-white sm:text-7xl lg:text-8xl">
-                Every song,
+                Every melody,
                 <span className="block text-yellow-soft">in your Sa.</span>
               </h1>
               <p className="mt-6 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
-                Turn a melody into relative notes, then see exactly where to
-                play it on harmonium, bansuri, sitar, or guitar.
+                Explore a relative-note practice canvas, then see where to
+                play a prepared melody on your instrument.
               </p>
               <div className="mt-8 flex flex-wrap gap-2 text-xs font-bold text-white/75">
-                {["Instant transposition", "Sargam + ABC", "Instrument view"].map((feature) => (
+                {["Choose your Sa", "Sargam + ABC", "Instrument view"].map((feature) => (
                   <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2" key={feature}>
                     {feature}
                   </span>
@@ -492,9 +492,9 @@ export default function Home() {
               <div className="flex min-w-0 flex-1 items-center gap-3 rounded-lg border border-teal/10 bg-cream px-4 py-3.5">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-teal/10 text-teal">↗</span>
                 <input
-                  aria-label="YouTube URL"
+                  aria-label="Future transcription source"
                   className="min-w-0 flex-1 bg-transparent text-sm font-medium text-charcoal outline-none placeholder:text-charcoal/40"
-                  placeholder="Paste a YouTube link or drop an audio file"
+                  placeholder="YouTube and audio upload are coming in private alpha"
                   type="url"
                 />
                 <span className="hidden rounded-md bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-charcoal/40 sm:inline">Mock</span>
@@ -505,7 +505,7 @@ export default function Home() {
                   onClick={handleTranscribe}
                   type="button"
                 >
-                  Transcribe melody <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                  Open practice demo <span className="transition-transform group-hover:translate-x-0.5">→</span>
                 </button>
                 {hasSavedPractice ? (
                   <button

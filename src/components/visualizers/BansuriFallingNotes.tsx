@@ -180,7 +180,10 @@ export function BansuriFallingNotes({
         </span>
       </div>
 
-      <div className="grid h-[500px] grid-cols-[132px_minmax(0,1fr)] bg-[#070a0f] sm:h-[560px] sm:grid-cols-[176px_minmax(0,1fr)]">
+      <div
+        aria-hidden="true"
+        className="grid h-[500px] grid-cols-[132px_minmax(0,1fr)] bg-[#070a0f] sm:h-[560px] sm:grid-cols-[176px_minmax(0,1fr)]"
+      >
         <BansuriFingeringRail
           activeInterval={activeInterval}
           holes={activeFingering?.holes ?? []}

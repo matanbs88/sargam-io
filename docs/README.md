@@ -15,6 +15,7 @@ root because they are linked directly from the public README.
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Waitlist-first launch strategy](./strategy/LAUNCH_STRATEGY.md)
 - [Gemini launch review request](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-16.md)
+- [Principal review disposition](./reviews/PRINCIPAL_REVIEW_DISPOSITION_2026-08-16.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 - [Indian music practice competitor research](./strategy/COMPETITIVE_PRODUCT_RESEARCH_2026-08-16.md)

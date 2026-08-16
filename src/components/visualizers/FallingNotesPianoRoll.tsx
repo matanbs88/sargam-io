@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
   formatRelativeNote,
   midiToRelativeNote,
@@ -92,6 +93,30 @@ export function FallingNotesPianoRoll({
 }: FallingNotesPianoRollProps) {
   const currentTimeMs = events[activeEventIndex]?.startMs ?? 0;
   const keyByMidi = new Map(PIANO_KEYS.map((key) => [key.midi, key]));
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const activeMidi = events[activeEventIndex]?.midi ?? rootMidi;
+  const activeKey = PIANO_KEYS.find((key) => key.midi === activeMidi);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (
+      scrollContainer === null ||
+      activeKey === undefined ||
+      scrollContainer.scrollWidth <= scrollContainer.clientWidth
+    ) {
+      return;
+    }
+
+    const activeKeyCenter =
+      ((activeKey.left + activeKey.width / 2) / 100) *
+      scrollContainer.scrollWidth;
+    const targetScrollLeft = Math.max(
+      0,
+      activeKeyCenter - scrollContainer.clientWidth / 2,
+    );
+
+    scrollContainer.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
+  }, [activeKey]);
 
   return (
     <section
@@ -114,7 +139,11 @@ export function FallingNotesPianoRoll({
         C3 — C7
       </span>
 
-      <div className="relative h-[520px] overflow-hidden bg-[#070a0f] sm:h-[620px]">
+      <div
+        className="h-[520px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[620px]"
+        ref={scrollContainerRef}
+      >
+      <div className="relative h-full min-w-[840px] bg-[#070a0f] sm:min-w-0">
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_64px]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0">
           {PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
@@ -175,7 +204,7 @@ export function FallingNotesPianoRoll({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute bottom-0 h-[108px] rounded-b-[0.42rem] border-r border-[#1f2937]/65 bg-[linear-gradient(90deg,#e7e5df_0%,#fffefa_45%,#d8d5cf_100%)] shadow-[inset_0_-11px_13px_rgba(38,32,24,0.18),inset_0_1px_0_rgba(255,255,255,0.98)] transition-[transform,box-shadow,background] duration-150 sm:h-[138px]",
+                  "absolute bottom-0 h-[108px] snap-start rounded-b-[0.42rem] border-r border-[#1f2937]/65 bg-[linear-gradient(90deg,#e7e5df_0%,#fffefa_45%,#d8d5cf_100%)] shadow-[inset_0_-11px_13px_rgba(38,32,24,0.18),inset_0_1px_0_rgba(255,255,255,0.98)] transition-[transform,box-shadow,background] duration-150 sm:h-[138px]",
                   isActive
                     ? "translate-y-1 bg-[linear-gradient(90deg,#bad6ed_0%,#eaf8ff_45%,#9fc8e6_100%)] shadow-[inset_0_-5px_8px_rgba(26,76,115,0.32),inset_0_2px_8px_rgba(255,255,255,0.95),0_0_18px_rgba(88,166,255,0.42)]"
                     : "",
@@ -208,6 +237,7 @@ export function FallingNotesPianoRoll({
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );
