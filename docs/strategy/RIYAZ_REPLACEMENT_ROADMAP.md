@@ -52,6 +52,10 @@ we should not copy their content, recordings, UX, or proprietary behaviour.
 - Mock transcription, selectable Sa, notation switching, credits and session UI.
 - Visual performance workspace with piano and six playable bansuri finger-hole references.
 - Mock transport, note timing, taal and tabla-oriented practice surfaces.
+- Browser-native, asset-free practice audio: generated Sa–Pa/Sa–Ma drone,
+  tabla-shaped theka cues, Sam accents and relative melody guide tones. The
+  sound engine is modular so licensed recordings can replace a voice later
+  without changing session or rhythm logic.
 
 Exit gate: mock-data scope and current conversion logic remain test-covered and clearly labelled.
 
@@ -140,4 +144,3 @@ minimum work needed from people and the exact recording package to request.
 - [RiyazStudio tips](https://www.riyazstudio.com/tips.html)
 - [SurSadhak product site](https://sursadhak.com/)
 - [SurSadhak App Store listing](https://apps.apple.com/ca/app/sursadhak/id1499799176)
-

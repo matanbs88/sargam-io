@@ -28,6 +28,20 @@ license explicitly permits this SaaS use.
 - Content review UI, asset manifests, rights-expiry alerts and regression fixtures.
 - Provisional instrument UX labelled as draft until player sign-off.
 
+## Asset-free practice audio now
+
+The current product direction includes a browser-native practice-sound engine:
+a tonic drone, relative guide notes and tabla-shaped cues scheduled against the
+selected theka. It does not ship a copied recording or claim to be an authentic
+recorded tabla/tanpura performance. Its role is to make early sessions musical,
+responsive and fully legal while the product earns evidence for a future content
+investment.
+
+The engine must stay modular: selected Sa, taal, tempo and bol metadata are
+separate from the voice that renders them. A licensed sample or commissioned
+recording can replace a generated voice later without breaking saved sessions
+or changing the interface.
+
 ## What cannot come from the internet by default
 
 Do not scrape, sample, download or repackage publicly accessible performances
@@ -153,4 +167,3 @@ then be carried forward autonomously.
 - [SurSadhak product site](https://sursadhak.com/)
 - [SurSadhak App Store listing](https://apps.apple.com/ca/app/sursadhak/id1499799176)
 - [SurSadhak terms](https://sursadhak.com/terms-of-service/)
-

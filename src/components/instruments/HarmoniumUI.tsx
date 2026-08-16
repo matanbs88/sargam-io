@@ -103,9 +103,9 @@ export function HarmoniumUI({
 
       <div className="mt-5 flex flex-wrap items-center gap-2 text-xs font-bold text-charcoal/60">
         <span className="rounded-full bg-mint-emerald px-2.5 py-1 text-white">Sa: MIDI {rootMidi}</span>
-        <span className="rounded-full border border-teal/10 bg-white px-2.5 py-1">Synth drone: {droneLabel}</span>
+        <span className="rounded-full border border-teal/10 bg-white px-2.5 py-1">Practice drone: {droneLabel}</span>
         <button aria-pressed={isDronePlaying} className={["rounded-full px-3 py-1.5 text-xs font-black transition", isDronePlaying ? "bg-yellow-soft text-charcoal shadow-[0_2px_0_#d8ca70]" : "bg-teal text-white hover:brightness-95"].join(" ")} onClick={onToggleDrone} type="button">{isDronePlaying ? "Stop drone" : "Start drone"}</button>
-        <span className="text-charcoal/40">Synth reference only; sampled Tanpura is future work.</span>
+        <span className="text-charcoal/40">Tonic reference follows your selected Sa.</span>
       </div>
 
       <div className="relative mt-5 h-44 select-none overflow-x-auto">

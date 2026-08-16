@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   formatRelativeMidiEvents,
   type NotationSystem,
@@ -14,8 +14,10 @@ import { SitarUI } from "@/src/components/instruments/SitarUI";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
 import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
 import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
+import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
-import { beatsInTaal, matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
+import type { DroneMode } from "@/src/lib/digitalAccompaniment";
+import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 type Visualizer = "Piano" | "Bansuri";
@@ -68,39 +70,6 @@ function StudioMark() {
   );
 }
 
-function midiToFrequency(midi: number): number {
-  return 440 * 2 ** ((midi - 69) / 12);
-}
-
-function getAudioContext(
-  contextRef: { current: AudioContext | null },
-): AudioContext | null {
-  if (typeof window === "undefined" || !("AudioContext" in window)) {
-    return null;
-  }
-
-  if (contextRef.current === null) {
-    contextRef.current = new window.AudioContext();
-  }
-
-  return contextRef.current;
-}
-
-function playMetronomeClick(context: AudioContext, accent: boolean): void {
-  const oscillator = context.createOscillator();
-  const gain = context.createGain();
-  const now = context.currentTime;
-
-  oscillator.frequency.setValueAtTime(accent ? 1_100 : 740, now);
-  oscillator.type = "sine";
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(accent ? 0.14 : 0.08, now + 0.006);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075);
-  oscillator.connect(gain).connect(context.destination);
-  oscillator.start(now);
-  oscillator.stop(now + 0.08);
-}
-
 export default function Home() {
   const [isTranscribed, setIsTranscribed] = useState(false);
   const [notationSystem, setNotationSystem] =
@@ -116,16 +85,11 @@ export default function Home() {
   const [isCinemaMode, setIsCinemaMode] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [isThemeReady, setIsThemeReady] = useState(false);
-  const [droneMode, setDroneMode] = useState<"SaPa" | "SaMa">("SaPa");
-  const [isDronePlaying, setIsDronePlaying] = useState(false);
+  const [droneMode, setDroneMode] = useState<DroneMode>("SaPa");
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
-  const [isMetronomePlaying, setIsMetronomePlaying] = useState(false);
-  const [metronomeMatra, setMetronomeMatra] = useState(0);
   const [practiceTempoBpm, setPracticeTempoBpm] = useState(
     mockMidiData.tempoBpm,
   );
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const metronomeMatraRef = useRef(0);
   const transport = useMockTransport({
     events: mockMidiData.noteEvents,
     isEnabled: isTranscribed,
@@ -150,10 +114,26 @@ export default function Home() {
     transport;
   const activeMidi = activeEvent?.midi ?? null;
   const selectedTaal = TAALS[selectedTaalId];
+  const {
+    activeMatra: accompanimentMatra,
+    isDronePlaying,
+    isTablaPlaying,
+    playGuideNote,
+    resumeAudio,
+    toggleDrone,
+    toggleTabla,
+  } = useDigitalAccompaniment({
+    droneMode,
+    rootMidi: selectedRootMidi,
+    taal: selectedTaal,
+    tempoBpm: practiceTempoBpm,
+  });
   const activeMatra = activeEvent
     ? matraAtTime(activeEvent.startMs, mockMidiData.tempoBpm, selectedTaal)
     : 0;
-  const displayedMatra = isMetronomePlaying ? metronomeMatra : activeMatra;
+  const displayedMatra = isTablaPlaying
+    ? accompanimentMatra
+    : activeMatra;
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -180,65 +160,10 @@ export default function Home() {
   }, [isThemeReady, theme]);
 
   useEffect(() => {
-    if (!isDronePlaying) return;
+    if (!isPlaying || activeEvent === undefined) return;
 
-    const context = getAudioContext(audioContextRef);
-    if (context === null) return;
-
-    void context.resume();
-    const gain = context.createGain();
-    const now = context.currentTime;
-    const secondMidi = selectedRootMidi + (droneMode === "SaPa" ? 7 : 5);
-    const oscillators = [selectedRootMidi, secondMidi].map((midi, index) => {
-      const oscillator = context.createOscillator();
-      oscillator.type = index === 0 ? "sine" : "triangle";
-      oscillator.frequency.setValueAtTime(midiToFrequency(midi), now);
-      oscillator.connect(gain);
-      oscillator.start(now);
-      return oscillator;
-    });
-
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.045, now + 0.08);
-    gain.connect(context.destination);
-
-    return () => {
-      gain.gain.cancelScheduledValues(context.currentTime);
-      gain.gain.setTargetAtTime(0.0001, context.currentTime, 0.04);
-      window.setTimeout(() => oscillators.forEach((oscillator) => oscillator.stop()), 160);
-    };
-  }, [droneMode, isDronePlaying, selectedRootMidi]);
-
-  useEffect(() => {
-    if (!isMetronomePlaying) return;
-
-    const context = getAudioContext(audioContextRef);
-    if (context === null) return;
-
-    void context.resume();
-    const matras = beatsInTaal(selectedTaal);
-    const tick = () => {
-      const currentMatra = metronomeMatraRef.current;
-      playMetronomeClick(context, currentMatra === 0);
-      const nextMatra = (currentMatra + 1) % matras;
-      metronomeMatraRef.current = nextMatra;
-      setMetronomeMatra(nextMatra);
-    };
-
-    tick();
-    const interval = window.setInterval(tick, 60_000 / practiceTempoBpm);
-    return () => window.clearInterval(interval);
-  }, [isMetronomePlaying, practiceTempoBpm, selectedTaal]);
-
-  useEffect(
-    () => () => {
-      const context = audioContextRef.current;
-      if (context !== null && context.state !== "closed") {
-        void context.close();
-      }
-    },
-    [],
-  );
+    playGuideNote(activeEvent.midi, activeEvent.durationMs);
+  }, [activeEvent, isPlaying, playGuideNote]);
 
   function handleTranscribe(): void {
     if (isTranscribed) return;
@@ -261,6 +186,7 @@ export default function Home() {
   }
 
   function togglePlayback(): void {
+    resumeAudio();
     transport.togglePlayback();
   }
 
@@ -271,28 +197,15 @@ export default function Home() {
   }
 
   function handleTaalChange(taalId: TaalId): void {
-    metronomeMatraRef.current = 0;
-    setMetronomeMatra(0);
     setSelectedTaalId(taalId);
   }
 
   function handleToggleDrone(): void {
-    const context = getAudioContext(audioContextRef);
-    if (context !== null) void context.resume();
-    setIsDronePlaying((currentValue) => !currentValue);
+    toggleDrone();
   }
 
   function handleToggleMetronome(): void {
-    const context = getAudioContext(audioContextRef);
-    if (context !== null) void context.resume();
-
-    setIsMetronomePlaying((currentValue) => {
-      if (!currentValue) {
-        metronomeMatraRef.current = 0;
-        setMetronomeMatra(0);
-      }
-      return !currentValue;
-    });
+    toggleTabla();
   }
 
   function toggleTheme(): void {
@@ -463,7 +376,7 @@ export default function Home() {
           formattedNotes={formattedNotes}
           instrumentOptions={INSTRUMENT_OPTIONS}
           instrumentPanel={renderInstrumentPanel()}
-          isMetronomePlaying={isMetronomePlaying}
+          isMetronomePlaying={isTablaPlaying}
           isPlaying={isPlaying}
           isTransposed={isTransposed}
           lastEventIndex={lastEventIndex}
