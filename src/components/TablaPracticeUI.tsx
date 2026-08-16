@@ -32,23 +32,23 @@ export function TablaPracticeUI({
   const bols = BASIC_THEKAS[taal.id];
 
   return (
-    <section aria-label="Tabla practice workspace" className="rounded-2xl border border-teal/10 bg-cream p-4 sm:p-6">
+    <section aria-label="Tabla practice workspace" className="rhythm-surface rounded-[1.15rem] bg-white p-5 sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-black text-teal">Tabla practice</p>
+          <p className="font-display text-2xl leading-none text-teal">Tabla practice</p>
           <p className="mt-1 text-xs text-charcoal/60">Basic {taal.label} theka — bols are a practice prompt and may vary by style.</p>
         </div>
-        <button aria-pressed={isPlaying} className={["inline-flex w-fit items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition", isPlaying ? "bg-yellow-soft text-charcoal shadow-[0_3px_0_#d8ca70]" : "bg-teal text-white hover:brightness-95"].join(" ")} onClick={onToggle} type="button">
-          <span className={isPlaying ? "text-base" : "text-sm"}>{isPlaying ? "||" : ">"}</span>
+        <button aria-pressed={isPlaying} className={["inline-flex w-fit items-center gap-2 rounded-full px-4 py-2.5 text-xs font-black transition duration-200 active:scale-95", isPlaying ? "bg-yellow-soft text-charcoal shadow-yellow-glow" : "bg-teal text-white shadow-[0_10px_22px_rgba(15,96,82,0.24)] hover:bg-teal-deep"].join(" ")} onClick={onToggle} type="button">
+          <span className={["grid h-5 w-5 place-items-center rounded-full text-[10px]", isPlaying ? "bg-charcoal/10" : "bg-white/15"].join(" ")}>{isPlaying ? "||" : ">"}</span>
           {isPlaying ? "Stop metronome" : "Start metronome"}
         </button>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-3 rounded-xl bg-white p-3 shadow-sm">
+      <div className="mt-5 flex flex-wrap items-center gap-3 rounded-xl bg-cream p-3">
         <span className="text-xs font-bold text-charcoal/55">Tempo</span>
-        <button aria-label="Decrease tempo" className="grid h-8 w-8 place-items-center rounded-lg bg-cream text-sm font-black text-teal" disabled={tempoBpm <= 40} onClick={() => onTempoChange(tempoBpm - 5)} type="button">-</button>
+        <button aria-label="Decrease tempo" className="grid h-8 w-8 place-items-center rounded-full bg-white text-sm font-black text-teal shadow-sm transition active:scale-95" disabled={tempoBpm <= 40} onClick={() => onTempoChange(tempoBpm - 5)} type="button">-</button>
         <span className="min-w-14 text-center text-lg font-black text-teal">{tempoBpm}</span>
-        <button aria-label="Increase tempo" className="grid h-8 w-8 place-items-center rounded-lg bg-cream text-sm font-black text-teal" disabled={tempoBpm >= 200} onClick={() => onTempoChange(tempoBpm + 5)} type="button">+</button>
+        <button aria-label="Increase tempo" className="grid h-8 w-8 place-items-center rounded-full bg-white text-sm font-black text-teal shadow-sm transition active:scale-95" disabled={tempoBpm >= 200} onClick={() => onTempoChange(tempoBpm + 5)} type="button">+</button>
         <span className="text-[10px] font-bold uppercase tracking-wide text-charcoal/40">BPM · click accents Sam</span>
       </div>
 
@@ -62,8 +62,8 @@ export function TablaPracticeUI({
           return (
             <div className="min-w-0 text-center" key={`${index}-${bol}`}>
               <span className={["mb-1 block h-1.5 rounded-full", isSam ? "bg-mint-emerald" : isKhali ? "border border-dashed border-teal/45" : gesture ? "bg-teal/35" : "bg-transparent"].join(" ")} />
-              <span aria-label={`Matra ${index + 1}: ${bol}${isActive ? ", active" : ""}`} className={["grid aspect-square min-h-9 place-items-center rounded-lg px-0.5 text-[9px] font-black transition sm:text-xs", isActive ? "bg-yellow-soft text-charcoal shadow-[0_3px_0_#d8ca70]" : isSam ? "bg-mint-emerald text-white" : "bg-white text-teal shadow-sm"].join(" ")} role="img">{bol}</span>
-              {gesture ? <span className="mt-1 block truncate text-[8px] font-black uppercase tracking-wide text-charcoal/45">{gesture}</span> : null}
+              <span aria-label={`Matra ${index + 1}: ${bol}${isActive ? ", active" : ""}`} className={["tactile-beat grid aspect-square min-h-9 place-items-center rounded-full px-0.5 text-[9px] font-black transition duration-300 sm:text-xs", isActive ? "tactile-beat-active scale-105 bg-yellow-soft text-charcoal" : isSam ? "bg-mint-emerald text-white" : "bg-cream text-teal"].join(" ")} role="img">{bol}</span>
+              {gesture ? <span className="mt-2 block truncate text-[8px] font-black uppercase tracking-[0.16em] text-teal/70">{gesture}</span> : null}
             </div>
           );
         })}

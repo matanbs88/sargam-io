@@ -69,22 +69,6 @@ function StudioMark() {
   );
 }
 
-function Waveform() {
-  const bars = [18, 32, 52, 28, 66, 86, 46, 72, 100, 64, 38, 78, 56, 30, 48, 26];
-
-  return (
-    <div aria-hidden="true" className="flex h-24 items-center gap-1.5">
-      {bars.map((height, index) => (
-        <span
-          className={index === 8 ? "w-1.5 rounded-full bg-yellow-soft" : "w-1.5 rounded-full bg-white/35"}
-          key={index}
-          style={{ height: `${height}%` }}
-        />
-      ))}
-    </div>
-  );
-}
-
 function midiToFrequency(midi: number): number {
   return 440 * 2 ** ((midi - 69) / 12);
 }
@@ -339,7 +323,7 @@ export default function Home() {
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:py-7">
         <a className="flex items-center gap-3" href="#top">
           <StudioMark />
-          <span className="text-lg font-black tracking-[-0.04em] text-teal">
+          <span className="font-display text-2xl leading-none text-teal">
             sargam<span className="text-mint-emerald">.io</span>
           </span>
         </a>
@@ -367,7 +351,7 @@ export default function Home() {
         <div aria-hidden="true" className="hero-orb left-[6%] top-8 bg-mint-emerald/20" />
         <div aria-hidden="true" className="hero-orb right-[7%] top-36 bg-yellow-soft/80" />
 
-        <div className="relative overflow-hidden rounded-[2.25rem] bg-teal px-6 py-8 shadow-[0_30px_80px_rgba(15,61,54,0.24)] sm:rounded-[3rem] sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+        <div className="hero-surface relative overflow-hidden rounded-[1.6rem] px-6 py-8 shadow-[0_30px_80px_rgba(15,61,54,0.24)] sm:rounded-[2rem] sm:px-10 sm:py-12 lg:px-14 lg:py-16">
           <div aria-hidden="true" className="absolute inset-0 studio-grid opacity-40" />
           <div aria-hidden="true" className="absolute -right-20 top-0 h-72 w-72 rounded-full bg-mint-emerald/15 blur-3xl" />
           <div className="relative grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -376,7 +360,7 @@ export default function Home() {
                 <span className="h-1.5 w-1.5 rounded-full bg-yellow-soft" />
                 Indian music, made playable
               </div>
-              <h1 className="mt-6 text-5xl font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
+              <h1 className="mt-6 font-display text-6xl leading-[0.86] tracking-[-0.045em] text-white sm:text-7xl lg:text-8xl">
                 Every song,
                 <span className="block text-yellow-soft">in your Sa.</span>
               </h1>
@@ -393,33 +377,32 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-md rounded-[1.75rem] border border-white/15 bg-[#0d4d42]/80 p-5 shadow-2xl backdrop-blur sm:p-6">
-              <div className="flex items-center justify-between text-xs font-bold text-white/55">
-                <span>NOW PLAYING</span>
+            <div className="glass-melody relative mx-auto w-full max-w-md rounded-[1.15rem] border border-white/20 p-5 backdrop-blur-xl sm:p-6">
+              <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/60">
+                <span>Now playing</span>
                 <span className="rounded-full bg-white/10 px-2.5 py-1 text-white/75">D is Sa</span>
               </div>
               <div className="mt-5 flex items-center gap-4">
-                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-yellow-soft text-xl text-charcoal shadow-lg">♪</div>
+                <div className="grid h-14 w-14 place-items-center rounded-[0.9rem] border border-yellow-soft/35 bg-yellow-soft/15 font-display text-3xl text-yellow-soft">S</div>
                 <div>
-                  <p className="text-lg font-black text-white">Your melody</p>
+                  <p className="font-display text-2xl leading-none text-white">Your melody</p>
                   <p className="mt-0.5 text-sm text-white/55">Relative note preview</p>
                 </div>
               </div>
-              <Waveform />
-              <div className="flex items-center justify-between border-t border-white/10 pt-4">
-                <div className="flex gap-1.5">
+              <div className="mt-8 flex items-end justify-between border-t border-white/15 pt-5">
+                <div aria-label="Preview notes" className="flex gap-1.5">
                   {["S", "R", "G", "m", "P"].map((note) => (
-                    <span className="grid h-7 w-7 place-items-center rounded-md bg-white/10 text-xs font-black text-white" key={note}>{note}</span>
+                    <span className="grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-white/10 text-xs font-black text-white" key={note}>{note}</span>
                   ))}
                 </div>
-                <span className="text-xs font-bold text-yellow-soft">102 BPM</span>
+                <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-yellow-soft">102 BPM</span>
               </div>
             </div>
           </div>
 
-          <div className="relative mt-12 rounded-[1.5rem] bg-white p-4 shadow-[0_12px_32px_rgba(0,0,0,0.12)] sm:p-5">
+          <div className="relative mt-12 rounded-[1.1rem] bg-white/95 p-3 shadow-[0_18px_40px_rgba(3,35,30,0.22)] sm:p-4">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-              <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-teal/10 bg-cream px-4 py-3.5">
+              <div className="flex min-w-0 flex-1 items-center gap-3 rounded-lg border border-teal/10 bg-cream px-4 py-3.5">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-teal/10 text-teal">↗</span>
                 <input
                   aria-label="YouTube URL"
@@ -430,7 +413,7 @@ export default function Home() {
                 <span className="hidden rounded-md bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-charcoal/40 sm:inline">Mock</span>
               </div>
               <button
-                className="group inline-flex items-center justify-center gap-3 rounded-xl bg-yellow-soft px-6 py-4 text-sm font-black text-charcoal shadow-[0_8px_0_#d8ca70] transition hover:-translate-y-0.5 hover:shadow-[0_10px_0_#d8ca70] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:translate-y-1 active:shadow-none"
+                className="group inline-flex items-center justify-center gap-3 rounded-lg bg-yellow-soft px-6 py-4 text-sm font-black text-charcoal shadow-yellow-glow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_15px_32px_rgba(255,240,153,0.42)] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95"
                 onClick={handleTranscribe}
                 type="button"
               >
@@ -443,7 +426,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative mx-auto mt-7 grid max-w-4xl grid-cols-3 divide-x divide-teal/10 rounded-2xl border border-teal/10 bg-white/65 px-3 py-4 text-center shadow-sm backdrop-blur">
+        <div className="relative mx-auto mt-7 grid max-w-4xl grid-cols-3 divide-x divide-teal/10 rounded-xl bg-white/65 px-3 py-4 text-center shadow-teal-soft backdrop-blur">
           <div><p className="text-lg font-black text-teal">12</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Swaras</p></div>
           <div><p className="text-lg font-black text-teal">3</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Notation views</p></div>
           <div><p className="text-lg font-black text-teal">0</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Upload cost now</p></div>
@@ -456,7 +439,7 @@ export default function Home() {
             <div className="mb-7 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-mint-emerald">Practice session</p>
-                <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] text-charcoal sm:text-4xl">{mockMidiData.title}</h2>
+                <h2 className="mt-2 font-display text-4xl leading-none tracking-[-0.035em] text-charcoal sm:text-5xl">{mockMidiData.title}</h2>
                 <p className="mt-2 text-sm font-medium text-charcoal/55">{mockMidiData.detectedKey.displayName} original key <span className="mx-1.5 text-teal/30">·</span> {mockMidiData.tempoBpm} BPM <span className="mx-1.5 text-teal/30">·</span> {mockMidiData.timeSignature}</p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -465,7 +448,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[2rem] border border-teal/10 bg-white shadow-[0_20px_55px_rgba(15,47,42,0.1)]">
+            <div className="overflow-hidden rounded-[1.4rem] bg-white shadow-teal-float">
               <div className="flex flex-col gap-4 border-b border-teal/10 bg-teal px-6 py-5 text-white sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <span className="grid h-9 w-9 place-items-center rounded-xl bg-yellow-soft text-sm font-black text-charcoal">01</span>
@@ -502,13 +485,13 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div aria-label="Transcription notation" className="relative mt-7 overflow-hidden rounded-2xl border border-teal/10 bg-cream p-4 sm:p-6">
+                  <div aria-label="Transcription notation" className="relative mt-7 overflow-hidden rounded-[1.1rem] bg-cream p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] sm:p-6">
                     <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-mint-emerald via-yellow-soft to-teal" />
                     <div className="mb-5 flex items-center justify-between"><p className="text-xs font-black uppercase tracking-[0.16em] text-charcoal/45">Melody line</p><span className="text-xs font-bold text-teal/60">{formattedNotes.length} notes</span></div>
                     <div className="flex max-h-72 flex-wrap gap-2.5 overflow-y-auto pr-1 sm:gap-3">
                       {formattedNotes.map((note, index) => {
                         const isActive = index === activeEventIndex;
-                        return <button aria-label={"Set active note " + String(index + 1)} aria-pressed={isActive} className={["group relative min-w-12 rounded-xl px-3 py-3 font-mono text-xl font-black transition sm:min-w-14 sm:text-2xl", isActive ? "bg-yellow-soft text-charcoal shadow-[0_5px_0_#d8ca70]" : "bg-white text-teal shadow-sm ring-1 ring-teal/10 hover:-translate-y-0.5 hover:bg-teal hover:text-white"].join(" ")} key={String(mockMidiData.noteEvents[index]?.startMs) + "-" + note + "-" + String(index)} onClick={() => transport.selectEvent(index)} type="button"><span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-mint-emerald px-1.5 py-0.5 text-[8px] font-sans font-black text-white opacity-0 transition group-hover:opacity-100">{index + 1}</span>{note}</button>;
+                        return <button aria-label={"Set active note " + String(index + 1)} aria-pressed={isActive} className={["group relative min-w-12 rounded-lg px-3 py-3 text-xl font-black transition sm:min-w-14 sm:text-2xl", notationSystem === "Sargam_HI" ? "font-devanagari leading-none" : "font-mono", isActive ? "bg-yellow-soft text-charcoal shadow-[0_5px_0_#d8ca70]" : "bg-white text-teal shadow-sm ring-1 ring-teal/10 hover:-translate-y-0.5 hover:bg-teal hover:text-white"].join(" ")} key={String(mockMidiData.noteEvents[index]?.startMs) + "-" + note + "-" + String(index)} onClick={() => transport.selectEvent(index)} type="button"><span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-mint-emerald px-1.5 py-0.5 text-[8px] font-sans font-black text-white opacity-0 transition group-hover:opacity-100">{index + 1}</span>{note}</button>;
                       })}
                     </div>
                   </div>
@@ -551,7 +534,7 @@ export default function Home() {
                   <div className="mt-7 border-t border-teal/10 pt-7">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                       <div>
-                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Rhythm framework</p>
+                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-teal/70">Rhythm framework</p>
                         <p className="mt-1 text-sm font-medium text-charcoal/55">Use a chosen taal to organize your practice cycle.</p>
                       </div>
                       <label className="text-xs font-black text-teal" htmlFor="taal-select">

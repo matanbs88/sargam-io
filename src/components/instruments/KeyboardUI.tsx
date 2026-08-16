@@ -58,7 +58,7 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
   return (
     <section
       aria-label="Two-octave keyboard"
-      className="rounded-2xl border border-teal/10 bg-cream p-4 sm:p-6"
+      className="rounded-[1.15rem] bg-white p-4 shadow-teal-soft sm:p-6"
     >
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>

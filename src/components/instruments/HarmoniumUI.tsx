@@ -71,7 +71,7 @@ export function HarmoniumUI({
   const droneLabel = droneMode === "SaPa" ? "Sa + Pa" : "Sa + Ma";
 
   return (
-    <section aria-label="Harmonium reference" className="rounded-2xl border border-teal/10 bg-cream p-4 sm:p-6">
+    <section aria-label="Harmonium reference" className="rounded-[1.15rem] bg-white p-4 shadow-teal-soft sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-sm font-bold text-teal">Harmonium mode</p>

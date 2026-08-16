@@ -45,7 +45,7 @@ export function SitarUI({ activeMidi, rootMidi }: SitarUIProps) {
   return (
     <section
       aria-label="Sitar relative fret reference"
-      className="rounded-2xl border border-teal/10 bg-cream p-5 sm:p-6"
+      className="rounded-[1.15rem] bg-white p-5 shadow-teal-soft sm:p-6"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>

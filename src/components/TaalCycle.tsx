@@ -39,13 +39,13 @@ export function TaalCycle({ activeMatra, taal }: TaalCycleProps) {
   const normalizedActiveMatra = activeMatra % beatsInTaal(taal);
 
   return (
-    <section aria-label={taal.label + " taal cycle"} className="rounded-2xl border border-teal/10 bg-cream p-4 sm:p-5">
+    <section aria-label={taal.label + " taal cycle"} className="rhythm-surface rounded-[1.15rem] bg-white p-5 sm:p-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-sm font-black text-teal">{taal.label} cycle</p>
+          <p className="font-display text-2xl leading-none text-teal">{taal.label} cycle</p>
           <p className="mt-1 text-xs text-charcoal/60">{taal.matras} matras · {taal.divisions.map((division) => division.beats).join(" + ")}</p>
         </div>
-        <span className="w-fit rounded-full bg-white px-2.5 py-1 text-xs font-bold text-charcoal/60 shadow-sm">Matra {normalizedActiveMatra + 1}</span>
+        <span className="w-fit rounded-full bg-cream px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.16em] text-teal/70">Matra {normalizedActiveMatra + 1}</span>
       </div>
 
       <div className="mt-5 grid gap-1.5" style={{ gridTemplateColumns: `repeat(${taal.matras}, minmax(0, 1fr))` }}>
@@ -57,8 +57,8 @@ export function TaalCycle({ activeMatra, taal }: TaalCycleProps) {
           return (
             <div className="min-w-0 text-center" key={matra.number}>
               <span className={["mb-1 block h-1.5 rounded-full", isSam ? "bg-mint-emerald" : isKhali ? "border border-dashed border-teal/45" : matra.isDivisionStart ? "bg-teal/35" : "bg-transparent"].join(" ")} />
-              <span aria-label={`Matra ${matra.number}${matra.isDivisionStart ? ", " + gestureLabel(matra.gesture) : ""}${isActive ? ", active" : ""}`} className={["grid aspect-square min-h-8 place-items-center rounded-lg text-xs font-black transition", isActive ? "bg-yellow-soft text-charcoal shadow-[0_3px_0_#d8ca70]" : isSam ? "bg-mint-emerald text-white" : "bg-white text-teal shadow-sm"].join(" ")} role="img">{matra.number}</span>
-              {matra.isDivisionStart ? <span className="mt-1 block truncate text-[8px] font-black uppercase tracking-wide text-charcoal/45">{gestureLabel(matra.gesture)}</span> : null}
+              <span aria-label={`Matra ${matra.number}${matra.isDivisionStart ? ", " + gestureLabel(matra.gesture) : ""}${isActive ? ", active" : ""}`} className={["tactile-beat grid aspect-square min-h-8 place-items-center rounded-full text-xs font-black transition duration-300", isActive ? "tactile-beat-active scale-105 bg-yellow-soft text-charcoal" : isSam ? "bg-mint-emerald text-white" : "bg-cream text-teal"].join(" ")} role="img">{matra.number}</span>
+              {matra.isDivisionStart ? <span className="mt-2 block truncate text-[8px] font-black uppercase tracking-[0.16em] text-teal/70">{gestureLabel(matra.gesture)}</span> : null}
             </div>
           );
         })}
