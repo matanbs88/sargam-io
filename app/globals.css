@@ -17,9 +17,27 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-feature-settings: "ss01" 1, "cv02" 1;
 }
 
 ::selection {
   background: #fff099;
   color: #0f172a;
+}
+
+.studio-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.hero-orb {
+  position: absolute;
+  height: 16rem;
+  width: 16rem;
+  border-radius: 9999px;
+  filter: blur(55px);
+  pointer-events: none;
 }
