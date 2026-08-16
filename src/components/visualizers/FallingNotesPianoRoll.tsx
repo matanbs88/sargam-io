@@ -127,11 +127,11 @@ export function FallingNotesPianoRoll({
             <div
               aria-hidden="true"
               className={[
-                "absolute z-10 flex items-start justify-center rounded-md border border-white/25 pt-1.5 text-[9px] font-black backdrop-blur-[2px] transition-[top,background-color,opacity,box-shadow] duration-[420ms] ease-linear",
+                "absolute z-10 flex items-start justify-center rounded-md border border-white/30 pt-1.5 text-[9px] font-black backdrop-blur-md transition-[top,background-color,opacity,box-shadow] duration-[420ms] ease-linear",
                 key.isBlack ? "min-w-3" : "min-w-4",
                 isActive
-                  ? "bg-[linear-gradient(180deg,rgba(255,244,177,0.98),rgba(255,218,93,0.88))] text-charcoal shadow-[0_0_28px_rgba(255,240,153,0.56),inset_0_1px_0_rgba(255,255,255,0.74)]"
-                  : "bg-[linear-gradient(180deg,rgba(105,183,255,0.96),rgba(49,122,208,0.82))] text-white shadow-[0_0_22px_rgba(88,166,255,0.44),inset_0_1px_0_rgba(255,255,255,0.4)]",
+                  ? "bg-[linear-gradient(180deg,rgba(255,248,197,0.92),rgba(255,213,75,0.72))] text-charcoal shadow-[0_0_30px_rgba(255,240,153,0.62),inset_0_1px_0_rgba(255,255,255,0.82)]"
+                  : "bg-[linear-gradient(180deg,rgba(129,199,255,0.78),rgba(49,122,208,0.62))] text-white shadow-[0_0_24px_rgba(88,166,255,0.5),inset_0_1px_0_rgba(255,255,255,0.52)]",
               ].join(" ")}
               key={`${event.startMs}-${event.midi}`}
               style={{

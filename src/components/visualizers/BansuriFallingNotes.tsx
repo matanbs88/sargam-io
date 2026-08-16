@@ -89,11 +89,13 @@ export function BansuriFallingNotes({
           const height = getBarHeight(event.durationMs);
 
           return fingering.holes.map((state, holeIndex) => (
-            <div aria-hidden="true" className={["absolute z-10 flex w-7 min-w-7 -translate-x-1/2 items-start justify-center rounded-t-full border pt-1 text-[8px] font-black backdrop-blur-[2px] transition-[top,background-color,border-color,opacity,box-shadow] duration-[420ms] ease-linear sm:w-8 sm:min-w-8", holeStateClass(state, isActive)].join(" ")} key={`${event.startMs}-${holeIndex}`} style={{ height: `${height}px`, left: `${getBansuriTimelineXPosition(holeIndex)}%`, top: `${top}px` }}>{holeIndex === 0 ? fingering.label.slice(0, 1) : ""}</div>
+            <div aria-hidden="true" className={["absolute z-10 flex w-7 min-w-7 -translate-x-1/2 items-start justify-center rounded-t-full border border-white/25 pt-1 text-[8px] font-black backdrop-blur-md transition-[top,background-color,border-color,opacity,box-shadow] duration-[420ms] ease-linear sm:w-8 sm:min-w-8", holeStateClass(state, isActive)].join(" ")} key={`${event.startMs}-${holeIndex}`} style={{ height: `${height}px`, left: `${getBansuriTimelineXPosition(holeIndex)}%`, top: `${top}px` }}>{holeIndex === 0 ? fingering.label.slice(0, 1) : ""}</div>
           ));
         })}
 
         <div className="absolute inset-x-[7%] bottom-3 h-14 rounded-full border-2 border-[#8b5629]/60 bg-[linear-gradient(180deg,#9b5d28_0%,#d8903e_18%,#f5d687_50%,#c77b30_80%,#754319_100%)] shadow-[inset_0_2px_3px_rgba(255,255,255,0.38),inset_0_-8px_11px_rgba(69,36,8,0.22),0_8px_20px_rgba(0,0,0,0.24)]">
+          <span aria-hidden="true" className="absolute -left-2 inset-y-1 w-3 rounded-l-full bg-[repeating-linear-gradient(90deg,#b43b2a_0_3px,#f17e2e_3px_6px,#dcb43f_6px_8px)] shadow-[0_2px_5px_rgba(76,32,12,0.28)]" />
+          <span aria-hidden="true" className="absolute -right-2 inset-y-1 w-3 rounded-r-full bg-[repeating-linear-gradient(90deg,#b43b2a_0_3px,#f17e2e_3px_6px,#dcb43f_6px_8px)] shadow-[0_2px_5px_rgba(76,32,12,0.28)]" />
           <span className="absolute left-[8%] top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-charcoal/90 bg-charcoal shadow-[inset_0_3px_5px_rgba(0,0,0,0.6)]" />
           <span className="absolute -top-4 left-[5.5%] text-[9px] font-black uppercase tracking-[0.12em] text-white/45">embouchure</span>
           {Array.from({ length: 6 }, (_, holeIndex) => <span aria-label={`Finger hole ${holeIndex + 1}: ${activeFingering?.holes[holeIndex] ?? "open"}`} className="absolute top-1/2" key={holeIndex} role="img" style={{ left: `${35 + holeIndex * 8}%` }}><FingerHole state={activeFingering?.holes[holeIndex] ?? "open"} /></span>)}

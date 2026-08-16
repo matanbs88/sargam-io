@@ -72,8 +72,8 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
         </span>
       </div>
 
-      <div className="relative h-44 select-none">
-        <div className="grid h-full grid-cols-[repeat(15,minmax(0,1fr))] overflow-hidden rounded-b-[0.9rem] border border-teal/20 bg-[#ece8de] shadow-[inset_0_-8px_14px_rgba(70,55,32,0.14)]">
+      <div className="relative h-44 select-none rounded-b-[1rem] bg-[#d9d5cb] p-[2px] shadow-[inset_0_-9px_14px_rgba(70,55,32,0.17),0_10px_20px_rgba(20,35,31,0.12)]">
+        <div className="grid h-full grid-cols-[repeat(15,minmax(0,1fr))] overflow-hidden rounded-b-[0.9rem] border border-teal/20 bg-[#ece8de]">
           {WHITE_KEYS.map((key) => {
             const isActive = key.midi === activeMidi;
 
@@ -85,9 +85,9 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
                   (key.midi === rootMidi ? ", Sa" : "")
                 }
                 className={[
-                  "relative rounded-b-md border-r border-teal/15 bg-[#fffefa] shadow-[inset_0_-7px_9px_rgba(67,52,28,0.11),inset_0_1px_0_rgba(255,255,255,0.98)] transition duration-150 last:border-r-0",
+                  "relative rounded-b-lg border-r border-teal/15 bg-[linear-gradient(90deg,#f0eee8_0%,#fffefa_46%,#e6e2d9_100%)] shadow-[inset_0_-9px_10px_rgba(67,52,28,0.14),inset_0_1px_0_rgba(255,255,255,0.98)] transition duration-150 last:border-r-0",
                   isActive
-                    ? "translate-y-1 bg-yellow-soft shadow-[inset_0_3px_10px_rgba(135,111,19,0.25),inset_0_-3px_5px_rgba(255,255,255,0.52)]"
+                    ? "translate-y-1 bg-[linear-gradient(180deg,#fff6b8_0%,#ffe88a_100%)] shadow-[inset_0_3px_12px_rgba(135,111,19,0.3),inset_0_-3px_5px_rgba(255,255,255,0.52),0_0_12px_rgba(255,240,153,0.42)]"
                     : "",
                 ].join(" ")}
                 key={key.midi}
@@ -113,9 +113,9 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
                 (key.midi === rootMidi ? ", Sa" : "")
               }
               className={[
-                "absolute top-0 z-10 h-[62%] w-[4.2%] rounded-b-lg border border-white/10 bg-charcoal shadow-[0_9px_10px_rgba(0,0,0,0.42),inset_0_2px_1px_rgba(255,255,255,0.14)] transition duration-150",
+                "absolute top-0 z-10 h-[62%] w-[4.2%] rounded-b-lg border border-white/10 border-t-white/20 bg-[linear-gradient(90deg,#070b11_0%,#263342_48%,#070b11_100%)] shadow-[0_10px_12px_rgba(0,0,0,0.5),inset_0_2px_1px_rgba(255,255,255,0.16)] transition duration-150",
                 isActive
-                  ? "translate-y-1 border-yellow-soft/70 bg-yellow-soft text-charcoal shadow-[0_3px_5px_rgba(0,0,0,0.3),inset_0_3px_9px_rgba(135,111,19,0.24)]"
+                  ? "translate-y-1 border-yellow-soft/70 bg-[linear-gradient(90deg,#d9bb48_0%,#fff09a_50%,#d9bb48_100%)] text-charcoal shadow-[0_3px_5px_rgba(0,0,0,0.3),inset_0_3px_10px_rgba(255,255,255,0.52),0_0_14px_rgba(255,240,153,0.45)]"
                   : "",
               ].join(" ")}
               key={key.midi}

@@ -25,14 +25,11 @@ function Hole({
         : "border-charcoal/80 bg-charcoal shadow-[inset_0_4px_6px_rgba(0,0,0,0.6),inset_0_-1px_1px_rgba(255,255,255,0.08)]";
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="w-12 text-right text-xs font-bold text-charcoal/55">
-        {index}
-      </span>
+    <div className="relative flex flex-col items-center gap-2">
       <span
         aria-label={`Hole ${index}: ${state}`}
         className={[
-          "relative grid h-9 w-9 place-items-center overflow-hidden rounded-full border-2",
+          "relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border-2",
           holeClass,
         ].join(" ")}
         role="img"
@@ -41,6 +38,7 @@ function Hole({
           <span className="absolute bottom-0 h-1/2 w-full bg-teal/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.22)]" />
         ) : null}
       </span>
+      <span className="text-[9px] font-black uppercase tracking-[0.12em] text-charcoal/55">{index}</span>
     </div>
   );
 }
@@ -69,14 +67,15 @@ export function BansuriChartUI({
         </span>
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-xs flex-col gap-2 rounded-[1.1rem] border border-[#8b5629]/35 bg-[linear-gradient(90deg,#8b5223_0%,#d28d3c_18%,#f6d985_48%,#d28d3c_77%,#78451e_100%)] p-4 shadow-[inset_0_2px_3px_rgba(255,255,255,0.42),inset_0_-8px_12px_rgba(73,39,12,0.2),0_12px_24px_rgba(68,43,14,0.18)]">
-        {Array.from({ length: 6 }, (_, index) => (
-          <Hole
-            index={index + 1}
-            key={index}
-            state={fingering?.holes[index] ?? "open"}
-          />
-        ))}
+      <div className="relative mx-auto mt-7 max-w-2xl px-3 py-10">
+        <div aria-hidden="true" className="absolute inset-y-7 left-0 w-8 rounded-l-full border border-[#8d4b1d]/45 bg-[repeating-linear-gradient(90deg,#b43b2a_0_3px,#f17e2e_3px_6px,#dcb43f_6px_8px)] shadow-[inset_0_2px_2px_rgba(255,255,255,0.42),0_3px_8px_rgba(80,33,14,0.26)]" />
+        <div aria-hidden="true" className="absolute inset-y-7 right-0 w-8 rounded-r-full border border-[#8d4b1d]/45 bg-[repeating-linear-gradient(90deg,#b43b2a_0_3px,#f17e2e_3px_6px,#dcb43f_6px_8px)] shadow-[inset_0_2px_2px_rgba(255,255,255,0.42),0_3px_8px_rgba(80,33,14,0.26)]" />
+        <div className="relative flex min-h-28 items-center justify-evenly rounded-full border border-[#8b5629]/40 bg-[linear-gradient(180deg,#8e4f20_0%,#c77d30_16%,#f8df91_48%,#d88d3c_78%,#754117_100%)] px-12 shadow-[inset_0_3px_5px_rgba(255,255,255,0.48),inset_0_-10px_14px_rgba(70,35,8,0.27),0_14px_25px_rgba(68,43,14,0.2)]">
+          <span aria-label="Embouchure hole" className="absolute left-[9%] h-5 w-5 rounded-full border-2 border-charcoal/85 bg-charcoal shadow-[inset_0_4px_6px_rgba(0,0,0,0.65),inset_0_-1px_1px_rgba(255,255,255,0.08)]" />
+          {Array.from({ length: 6 }, (_, index) => <Hole index={index + 1} key={index} state={fingering?.holes[index] ?? "open"} />)}
+        </div>
+        <span className="absolute bottom-0 left-[8%] text-[9px] font-black uppercase tracking-[0.12em] text-charcoal/45">embouchure</span>
+        <span className="absolute bottom-0 right-[7%] text-[9px] font-black uppercase tracking-[0.12em] text-charcoal/45">hand-tied threads</span>
       </div>
 
       <p className="mt-5 text-xs leading-5 text-charcoal/60">
