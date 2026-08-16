@@ -367,12 +367,14 @@ export default function Home() {
       <FallingNotesPianoRoll
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
+        notationSystem={notationSystem}
         rootMidi={selectedRootMidi}
       />
     ) : (
       <BansuriFallingNotes
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
+        notationSystem={notationSystem}
         rootMidi={selectedRootMidi}
       />
     );

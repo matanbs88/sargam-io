@@ -1,9 +1,14 @@
-import type { MidiNoteEvent } from "@/src/lib/midiToSargam";
-import { midiToRelativeNote } from "@/src/lib/midiToSargam";
+import {
+  formatRelativeNote,
+  midiToRelativeNote,
+  type MidiNoteEvent,
+  type NotationSystem,
+} from "@/src/lib/midiToSargam";
 
 type FallingNotesPianoRollProps = {
   readonly activeEventIndex: number;
   readonly events: readonly MidiNoteEvent[];
+  readonly notationSystem: NotationSystem;
   readonly rootMidi: number;
 };
 
@@ -80,6 +85,7 @@ function getBarTop(event: MidiNoteEvent, currentTimeMs: number): number {
 export function FallingNotesPianoRoll({
   activeEventIndex,
   events,
+  notationSystem,
   rootMidi,
 }: FallingNotesPianoRollProps) {
   const currentTimeMs = events[activeEventIndex]?.startMs ?? 0;
@@ -141,7 +147,15 @@ export function FallingNotesPianoRoll({
                 width: `${key.width}%`,
               }}
             >
-              <span className="hidden sm:inline">{note.sargamToken}</span>
+              <span
+                className={
+                  notationSystem === "Sargam_HI"
+                    ? "hidden font-devanagari sm:inline"
+                    : "hidden sm:inline"
+                }
+              >
+                {formatRelativeNote(note, notationSystem)}
+              </span>
             </div>
           );
         })}

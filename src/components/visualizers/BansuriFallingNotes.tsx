@@ -2,12 +2,17 @@ import {
   getBansuriReferenceFingering,
   type BansuriHoleState,
 } from "@/src/lib/bansuriFingering";
-import type { MidiNoteEvent } from "@/src/lib/midiToSargam";
-import { midiToRelativeNote } from "@/src/lib/midiToSargam";
+import {
+  formatRelativeNote,
+  midiToRelativeNote,
+  type MidiNoteEvent,
+  type NotationSystem,
+} from "@/src/lib/midiToSargam";
 
 type BansuriFallingNotesProps = {
   readonly activeEventIndex: number;
   readonly events: readonly MidiNoteEvent[];
+  readonly notationSystem: NotationSystem;
   readonly rootMidi: number;
 };
 
@@ -74,6 +79,7 @@ function VerticalBansuri({
 export function BansuriFallingNotes({
   activeEventIndex,
   events,
+  notationSystem,
   rootMidi,
 }: BansuriFallingNotesProps) {
   const currentTimeMs = events[activeEventIndex]?.startMs ?? 0;
@@ -82,6 +88,12 @@ export function BansuriFallingNotes({
     activeEvent?.midi ?? null,
     rootMidi,
   );
+  const activeNotation = activeEvent
+    ? formatRelativeNote(
+        midiToRelativeNote(activeEvent.midi, rootMidi),
+        notationSystem,
+      )
+    : "Choose a note";
 
   return (
     <section
@@ -98,8 +110,13 @@ export function BansuriFallingNotes({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="rounded-full bg-yellow-soft px-2.5 py-1 text-[10px] font-black text-charcoal">
-            {activeFingering?.label ?? "Choose a note"}
+          <span
+            className={[
+              "rounded-full bg-yellow-soft px-2.5 py-1 text-[10px] font-black text-charcoal",
+              notationSystem === "Sargam_HI" ? "font-devanagari" : "",
+            ].join(" ")}
+          >
+            {activeNotation}
           </span>
         </div>
       </div>
@@ -116,7 +133,10 @@ export function BansuriFallingNotes({
           <div aria-hidden="true" className="absolute inset-y-4 left-0 w-9 border-r border-white/[0.08] bg-[#0a0e15]/80 sm:w-11" />
           {Array.from({ length: NOTE_LANES }, (_, lane) => {
             const interval = NOTE_LANES - lane - 1;
-            const label = midiToRelativeNote(rootMidi + interval, rootMidi).sargamToken;
+            const label = formatRelativeNote(
+              midiToRelativeNote(rootMidi + interval, rootMidi),
+              notationSystem,
+            );
             const isSa = interval === 0;
             return (
               <div
@@ -128,7 +148,14 @@ export function BansuriFallingNotes({
                 key={interval}
                 style={{ top: `${(lane / NOTE_LANES) * 100}%`, height: `${100 / NOTE_LANES}%` }}
               >
-                <span className={isSa ? "absolute left-2 top-1/2 -translate-y-1/2 text-[9px] font-black text-mint-emerald sm:left-3" : "absolute left-2 top-1/2 -translate-y-1/2 text-[9px] font-bold text-white/30 sm:left-3"}>
+                <span
+                  className={[
+                    isSa
+                      ? "absolute left-2 top-1/2 -translate-y-1/2 text-[9px] font-black text-mint-emerald sm:left-3"
+                      : "absolute left-2 top-1/2 -translate-y-1/2 text-[9px] font-bold text-white/30 sm:left-3",
+                    notationSystem === "Sargam_HI" ? "font-devanagari" : "",
+                  ].join(" ")}
+                >
                   {label}
                 </span>
               </div>
@@ -164,7 +191,15 @@ export function BansuriFallingNotes({
                   width: `${width}%`,
                 }}
               >
-                <span className="truncate">{note.sargamToken}</span>
+                <span
+                  className={
+                    notationSystem === "Sargam_HI"
+                      ? "truncate font-devanagari"
+                      : "truncate"
+                  }
+                >
+                  {formatRelativeNote(note, notationSystem)}
+                </span>
               </div>
             );
           })}
