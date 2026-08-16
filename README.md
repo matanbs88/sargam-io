@@ -10,7 +10,7 @@ The local, mock-driven demo includes:
 - Instant ABC, Latin Sargam, and Devanagari Sargam switching
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
-- Keyboard, seven-hole Bansuri, and standard-guitar visual references
+- Keyboard / harmonium, six-hole Bansuri, standard-guitar, and Sitar visual references
 - A typed JSON i18n dictionary scaffold for English and Hindi
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file

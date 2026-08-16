@@ -18,7 +18,7 @@ needs, not simply place every Indian instrument in one selector.
 | Instrument | Experience | Confidence |
 | --- | --- | --- |
 | Keyboard / harmonium | Exact chromatic key reference | High |
-| Bansuri | Generic seven-hole relative fingering reference | Conditional: flute profile required for exact output |
+| Bansuri | Generic six-finger-hole relative fingering reference | Conditional: flute profile required for exact output |
 | Guitar | Standard-tuning fretboard reference | High for configured tuning/range |
 | Sitar | Relative swara/fret learning reference | Conditional: actual string setup, raga, and movable fret positions vary |
 

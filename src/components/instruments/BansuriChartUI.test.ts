@@ -5,8 +5,12 @@ describe("getBansuriReferenceFingering", () => {
   it("maps the selected Sa to the Sa reference fingering", () => {
     expect(getBansuriReferenceFingering(62, 62)).toMatchObject({
       label: "S · Sa",
-      holes: ["closed", "closed", "closed", "open", "open", "open", "closed"],
+      holes: ["closed", "closed", "closed", "open", "open", "open"],
     });
+  });
+
+  it("uses the six finger holes of a standard Hindustani bansuri", () => {
+    expect(getBansuriReferenceFingering(62, 62)?.holes).toHaveLength(6);
   });
 
   it("normalizes notes below Sa into the same twelve-semitone reference map", () => {

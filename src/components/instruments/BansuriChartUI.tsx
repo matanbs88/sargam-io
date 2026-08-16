@@ -1,7 +1,6 @@
 export type BansuriHoleState = "closed" | "open" | "half-open";
 
-type SevenHolePattern = readonly [
-  BansuriHoleState,
+type SixHolePattern = readonly [
   BansuriHoleState,
   BansuriHoleState,
   BansuriHoleState,
@@ -12,7 +11,7 @@ type SevenHolePattern = readonly [
 
 export type BansuriFingering = {
   readonly label: string;
-  readonly holes: SevenHolePattern;
+  readonly holes: SixHolePattern;
 };
 
 type BansuriChartUIProps = {
@@ -21,23 +20,24 @@ type BansuriChartUIProps = {
 };
 
 /**
- * Phase 2 reference map for a seven-hole Hindustani bansuri. Hole 1 is
- * nearest the embouchure; the seventh hole is shown as the lower tuning hole.
- * Exact fingerings vary by flute construction, octave, breath, and gharana.
+ * Reference map for a six-finger-hole Hindustani bansuri. Hole 1 is nearest
+ * the embouchure; the blowing hole is intentionally not included because the
+ * player does not finger it. Exact fingerings vary by flute, octave, breath,
+ * and gharana.
  */
 const REFERENCE_FINGERINGS: readonly BansuriFingering[] = [
-  { label: "S · Sa", holes: ["closed", "closed", "closed", "open", "open", "open", "closed"] },
-  { label: "r · Komal Re", holes: ["closed", "closed", "half-open", "open", "open", "open", "closed"] },
-  { label: "R · Re", holes: ["closed", "closed", "open", "open", "open", "open", "closed"] },
-  { label: "g · Komal Ga", holes: ["closed", "half-open", "open", "open", "open", "open", "closed"] },
-  { label: "G · Ga", holes: ["closed", "open", "open", "open", "open", "open", "closed"] },
-  { label: "m · Ma", holes: ["open", "open", "open", "open", "open", "open", "closed"] },
-  { label: "M · Teevra Ma", holes: ["open", "open", "open", "open", "open", "half-open", "closed"] },
-  { label: "P · Pa", holes: ["closed", "closed", "closed", "closed", "closed", "closed", "closed"] },
-  { label: "d · Komal Dha", holes: ["closed", "closed", "closed", "closed", "closed", "half-open", "closed"] },
-  { label: "D · Dha", holes: ["closed", "closed", "closed", "closed", "closed", "open", "closed"] },
-  { label: "n · Komal Ni", holes: ["closed", "closed", "closed", "closed", "half-open", "open", "closed"] },
-  { label: "N · Ni", holes: ["closed", "closed", "closed", "closed", "open", "open", "closed"] },
+  { label: "S · Sa", holes: ["closed", "closed", "closed", "open", "open", "open"] },
+  { label: "r · Komal Re", holes: ["closed", "closed", "half-open", "open", "open", "open"] },
+  { label: "R · Re", holes: ["closed", "closed", "open", "open", "open", "open"] },
+  { label: "g · Komal Ga", holes: ["closed", "half-open", "open", "open", "open", "open"] },
+  { label: "G · Ga", holes: ["closed", "open", "open", "open", "open", "open"] },
+  { label: "m · Ma", holes: ["half-open", "open", "open", "open", "open", "open"] },
+  { label: "M · Teevra Ma", holes: ["open", "open", "open", "open", "open", "open"] },
+  { label: "P · Pa", holes: ["closed", "closed", "closed", "closed", "closed", "closed"] },
+  { label: "d · Komal Dha", holes: ["closed", "closed", "closed", "closed", "closed", "half-open"] },
+  { label: "D · Dha", holes: ["closed", "closed", "closed", "closed", "closed", "open"] },
+  { label: "n · Komal Ni", holes: ["closed", "closed", "closed", "closed", "half-open", "open"] },
+  { label: "N · Ni", holes: ["closed", "closed", "closed", "closed", "open", "open"] },
 ];
 
 function getRelativeInterval(activeMidi: number, rootMidi: number): number {
@@ -102,14 +102,14 @@ export function BansuriChartUI({
 
   return (
     <section
-      aria-label="Seven-hole bansuri fingering reference"
+      aria-label="Six-hole bansuri fingering reference"
       className="rounded-2xl border border-teal/10 bg-cream p-5 sm:p-6"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-sm font-bold text-teal">Bansuri reference</p>
           <p className="mt-1 text-xs text-charcoal/60">
-            Seven-hole reference chart relative to Sa.
+            Six finger-hole chart relative to Sa.
           </p>
         </div>
         <span className="w-fit rounded-full bg-mint-emerald px-2.5 py-1 text-xs font-bold text-white">
@@ -118,7 +118,7 @@ export function BansuriChartUI({
       </div>
 
       <div className="mx-auto mt-6 flex max-w-xs flex-col gap-2 rounded-2xl bg-white p-4 shadow-sm">
-        {Array.from({ length: 7 }, (_, index) => (
+        {Array.from({ length: 6 }, (_, index) => (
           <Hole
             index={index + 1}
             key={index}
@@ -129,8 +129,9 @@ export function BansuriChartUI({
 
       <p className="mt-5 text-xs leading-5 text-charcoal/60">
         Closed holes are teal, open holes are empty, and half-open holes are
-        half filled. This is a learning reference; exact fingerings depend on
-        flute design, octave, breath, and playing style.
+        half filled. The mouthpiece is not a finger hole. This is a learning
+        reference; exact fingerings depend on flute design, octave, breath, and
+        playing style.
       </p>
     </section>
   );

@@ -113,7 +113,7 @@ This prevents a translated token from being reprocessed by a later rule.
   - Selected Sa uses a mint dot.
 
 - src/components/instruments/BansuriChartUI.tsx
-  - Seven-hole vertical visual.
+  - Six-finger-hole vertical visual (the mouthpiece is excluded).
   - Renders closed, open, and half-open states.
   - Exposes getBansuriReferenceFingering for unit testing.
   - Uses a generic Hindustani reference map, not a player-calibrated claim.
