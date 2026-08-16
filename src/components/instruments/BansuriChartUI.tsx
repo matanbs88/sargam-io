@@ -1,59 +1,14 @@
-export type BansuriHoleState = "closed" | "open" | "half-open";
+import {
+  getBansuriReferenceFingering,
+  type BansuriHoleState,
+} from "@/src/lib/bansuriFingering";
 
-type SixHolePattern = readonly [
-  BansuriHoleState,
-  BansuriHoleState,
-  BansuriHoleState,
-  BansuriHoleState,
-  BansuriHoleState,
-  BansuriHoleState,
-];
-
-export type BansuriFingering = {
-  readonly label: string;
-  readonly holes: SixHolePattern;
-};
+export { getBansuriReferenceFingering } from "@/src/lib/bansuriFingering";
 
 type BansuriChartUIProps = {
   readonly activeMidi: number | null;
   readonly rootMidi: number;
 };
-
-/**
- * Reference map for a six-finger-hole Hindustani bansuri. Hole 1 is nearest
- * the embouchure; the blowing hole is intentionally not included because the
- * player does not finger it. Exact fingerings vary by flute, octave, breath,
- * and gharana.
- */
-const REFERENCE_FINGERINGS: readonly BansuriFingering[] = [
-  { label: "S · Sa", holes: ["closed", "closed", "closed", "open", "open", "open"] },
-  { label: "r · Komal Re", holes: ["closed", "closed", "half-open", "open", "open", "open"] },
-  { label: "R · Re", holes: ["closed", "closed", "open", "open", "open", "open"] },
-  { label: "g · Komal Ga", holes: ["closed", "half-open", "open", "open", "open", "open"] },
-  { label: "G · Ga", holes: ["closed", "open", "open", "open", "open", "open"] },
-  { label: "m · Ma", holes: ["half-open", "open", "open", "open", "open", "open"] },
-  { label: "M · Teevra Ma", holes: ["open", "open", "open", "open", "open", "open"] },
-  { label: "P · Pa", holes: ["closed", "closed", "closed", "closed", "closed", "closed"] },
-  { label: "d · Komal Dha", holes: ["closed", "closed", "closed", "closed", "closed", "half-open"] },
-  { label: "D · Dha", holes: ["closed", "closed", "closed", "closed", "closed", "open"] },
-  { label: "n · Komal Ni", holes: ["closed", "closed", "closed", "closed", "half-open", "open"] },
-  { label: "N · Ni", holes: ["closed", "closed", "closed", "closed", "open", "open"] },
-];
-
-function getRelativeInterval(activeMidi: number, rootMidi: number): number {
-  return ((activeMidi - rootMidi) % 12 + 12) % 12;
-}
-
-export function getBansuriReferenceFingering(
-  activeMidi: number | null,
-  rootMidi: number,
-): BansuriFingering | null {
-  if (activeMidi === null) {
-    return null;
-  }
-
-  return REFERENCE_FINGERINGS[getRelativeInterval(activeMidi, rootMidi)] ?? null;
-}
 
 function Hole({
   index,
@@ -75,7 +30,7 @@ function Hole({
         {index}
       </span>
       <span
-        aria-label={"Hole " + index + ": " + state}
+        aria-label={`Hole ${index}: ${state}`}
         className={[
           "relative grid h-9 w-9 place-items-center overflow-hidden rounded-full border-2 border-teal/60",
           holeClass,
@@ -90,10 +45,7 @@ function Hole({
   );
 }
 
-/**
- * A visual reference only. Future calibration will attach this map to a
- * specific bansuri scale and player-preferred fingering system.
- */
+/** A visual learning reference; calibration follows a player-specific profile. */
 export function BansuriChartUI({
   activeMidi,
   rootMidi,
@@ -129,7 +81,7 @@ export function BansuriChartUI({
 
       <p className="mt-5 text-xs leading-5 text-charcoal/60">
         Closed holes are teal, open holes are empty, and half-open holes are
-        half filled. The mouthpiece is not a finger hole. This is a learning
+        half filled. The embouchure is not a finger hole. This is a learning
         reference; exact fingerings depend on flute design, octave, breath, and
         playing style.
       </p>

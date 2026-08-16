@@ -128,6 +128,7 @@ export default function Home() {
     useState<Instrument>("Harmonium");
   const [selectedVisualizer, setSelectedVisualizer] =
     useState<Visualizer>("Piano");
+  const [isCinemaMode, setIsCinemaMode] = useState(false);
   const [droneMode, setDroneMode] = useState<"SaPa" | "SaMa">("SaPa");
   const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
@@ -311,6 +312,22 @@ export default function Home() {
     });
   }
 
+  function renderPerformanceVisualizer() {
+    return selectedVisualizer === "Piano" ? (
+      <FallingNotesPianoRoll
+        activeEventIndex={activeEventIndex}
+        events={mockMidiData.noteEvents}
+        rootMidi={selectedRootMidi}
+      />
+    ) : (
+      <BansuriFallingNotes
+        activeEventIndex={activeEventIndex}
+        events={mockMidiData.noteEvents}
+        rootMidi={selectedRootMidi}
+      />
+    );
+  }
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-cream text-charcoal">
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:py-7">
@@ -491,20 +508,28 @@ export default function Home() {
                   </div>
 
                   <div className="mt-7 border-t border-teal/10 pt-7">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                      <div>
-                        <p className="text-[11px] font-black uppercase tracking-[0.16em] text-charcoal/45">Performance visualizer</p>
-                        <p className="mt-1 text-sm font-medium text-charcoal/55">Each bar uses the mock MIDI onset and duration, then lands on the selected instrument.</p>
+                    <div className="overflow-hidden rounded-[1.5rem] border border-teal/10 bg-charcoal p-4 shadow-[0_16px_36px_rgba(15,47,42,0.16)] sm:p-5">
+                      <div className="flex flex-col gap-4 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-mint-emerald">Creator performance deck</p>
+                          <p className="mt-1 text-sm font-bold text-white">Timing that is clear enough to practice, clean enough to film.</p>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-[0.1em]">
+                          <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/55">{selectedRoot.label} = Sa</span>
+                          <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/55">{mockMidiData.tempoBpm} BPM</span>
+                          <button className="rounded-full bg-yellow-soft px-3 py-1.5 text-charcoal transition hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-white/70" onClick={() => setIsCinemaMode(true)} type="button">Cinema view</button>
+                        </div>
                       </div>
-                      <div aria-label="Choose a falling note visualizer" className="flex rounded-xl bg-cream p-1" role="group">
-                        {(["Piano", "Bansuri"] as const).map((visualizer) => {
-                          const isActive = selectedVisualizer === visualizer;
-                          return <button aria-pressed={isActive} className={["rounded-lg px-3 py-2 text-xs font-black transition", isActive ? "bg-teal text-white shadow-sm" : "text-charcoal/55 hover:text-teal"].join(" ")} key={visualizer} onClick={() => setSelectedVisualizer(visualizer)} type="button">{visualizer === "Piano" ? "Piano roll" : "Bansuri roll"}</button>;
-                        })}
+                      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="text-xs font-medium text-white/50">Bars preserve note onset and duration. Bansuri mode maps every cue to a physical hole.</p>
+                        <div aria-label="Choose a falling note visualizer" className="flex shrink-0 rounded-xl bg-white/10 p-1" role="group">
+                          {(["Piano", "Bansuri"] as const).map((visualizer) => {
+                            const isActive = selectedVisualizer === visualizer;
+                            return <button aria-pressed={isActive} className={["rounded-lg px-3 py-2 text-xs font-black transition", isActive ? "bg-mint-emerald text-white shadow-sm" : "text-white/55 hover:text-white"].join(" ")} key={visualizer} onClick={() => setSelectedVisualizer(visualizer)} type="button">{visualizer === "Piano" ? "Piano roll" : "Bansuri roll"}</button>;
+                          })}
+                        </div>
                       </div>
-                    </div>
-                    <div className="mt-4">
-                      {selectedVisualizer === "Piano" ? <FallingNotesPianoRoll activeEventIndex={activeEventIndex} events={mockMidiData.noteEvents} rootMidi={selectedRootMidi} /> : <BansuriFallingNotes activeEventIndex={activeEventIndex} events={mockMidiData.noteEvents} rootMidi={selectedRootMidi} />}
+                      <div className="mt-4">{renderPerformanceVisualizer()}</div>
                     </div>
                   </div>
 
@@ -546,6 +571,19 @@ export default function Home() {
             </div>
           </div>
         </section>
+      ) : null}
+
+      {isCinemaMode ? (
+        <div aria-label="Cinema performance view" aria-modal="true" className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/95 p-4 backdrop-blur-md sm:p-8" role="dialog">
+          <div className="mx-auto flex min-h-full max-w-6xl flex-col justify-center">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <div><p className="text-xs font-black uppercase tracking-[0.18em] text-mint-emerald">Sargam.io · performance view</p><h2 className="mt-1 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">{mockMidiData.title}</h2></div>
+              <button aria-label="Exit cinema view" className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-black text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-yellow-soft" onClick={() => setIsCinemaMode(false)} type="button">Exit view</button>
+            </div>
+            <div className="rounded-[2rem] border border-white/10 bg-[#0b1626] p-3 shadow-[0_28px_100px_rgba(0,0,0,0.48)] sm:p-5">{renderPerformanceVisualizer()}</div>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-white/45"><span>{selectedRoot.label} = Sa · {mockMidiData.tempoBpm} BPM · {selectedVisualizer} mode</span><span>Mock transcription · performance framing</span></div>
+          </div>
+        </div>
       ) : null}
 
       <footer className="border-t border-teal/10 px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-2 text-xs font-medium text-charcoal/45 sm:flex-row sm:items-center sm:justify-between"><span>Sargam.io — relative notation for Indian music.</span><span>Phase 1 local mock experience</span></div></footer>
