@@ -6,6 +6,8 @@
 - Local Phase 2: synchronized mock-note player plus Keyboard, Bansuri, and Guitar visual references
 - Dedicated Harmonium mode with relative Sargam key labels and visual Sa/Pa or Sa/Ma drone selection
 - Manual Taal practice layer with active-matra progress for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa
+- Tabla practice workspace with basic Theka prompts, tempo control, and a Sam-accented local metronome
+- Local synthesized Sa/Pa and Sa/Ma reference drone for Harmonium mode (not a sampled Tanpura)
 - Strict token-by-token Devanagari rendering; no chained replacement operations
 - Local English/Hindi JSON dictionaries and a handoff testing checklist
 - Next.js 16 App Router project initialized and pushed to GitHub
@@ -27,7 +29,7 @@
 ## Validation completed
 
 - `npm.cmd run lint` passes
-- `npm.cmd run test` passes (19 tests)
+- `npm.cmd run test` passes (20 tests)
 - `npm.cmd run build` passes
 - API smoke tests confirmed a cache hit on repeated input and a `400` response for a non-YouTube URL
 - Manual local browser QA passed for link entry, settings selection, processing state, results, and notation toggle

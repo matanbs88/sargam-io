@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   formatRelativeMidiEvents,
   type NotationSystem,
@@ -12,7 +12,8 @@ import { HarmoniumUI } from "@/src/components/instruments/HarmoniumUI";
 import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
 import { SitarUI } from "@/src/components/instruments/SitarUI";
 import { TaalCycle } from "@/src/components/TaalCycle";
-import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
+import { TablaPracticeUI } from "@/src/components/TablaPracticeUI";
+import { beatsInTaal, matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 
@@ -79,6 +80,39 @@ function Waveform() {
   );
 }
 
+function midiToFrequency(midi: number): number {
+  return 440 * 2 ** ((midi - 69) / 12);
+}
+
+function getAudioContext(
+  contextRef: { current: AudioContext | null },
+): AudioContext | null {
+  if (typeof window === "undefined" || !("AudioContext" in window)) {
+    return null;
+  }
+
+  if (contextRef.current === null) {
+    contextRef.current = new window.AudioContext();
+  }
+
+  return contextRef.current;
+}
+
+function playMetronomeClick(context: AudioContext, accent: boolean): void {
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+  const now = context.currentTime;
+
+  oscillator.frequency.setValueAtTime(accent ? 1_100 : 740, now);
+  oscillator.type = "sine";
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(accent ? 0.14 : 0.08, now + 0.006);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075);
+  oscillator.connect(gain).connect(context.destination);
+  oscillator.start(now);
+  oscillator.stop(now + 0.08);
+}
+
 export default function Home() {
   const [isTranscribed, setIsTranscribed] = useState(false);
   const [notationSystem, setNotationSystem] =
@@ -90,9 +124,17 @@ export default function Home() {
   const [selectedInstrument, setSelectedInstrument] =
     useState<Instrument>("Harmonium");
   const [droneMode, setDroneMode] = useState<"SaPa" | "SaMa">("SaPa");
+  const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
+  const [isMetronomePlaying, setIsMetronomePlaying] = useState(false);
+  const [metronomeMatra, setMetronomeMatra] = useState(0);
+  const [practiceTempoBpm, setPracticeTempoBpm] = useState(
+    mockMidiData.tempoBpm,
+  );
   const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const metronomeMatraRef = useRef(0);
 
   const formattedNotes = useMemo(
     () =>
@@ -116,6 +158,7 @@ export default function Home() {
   const activeMatra = activeEvent
     ? matraAtTime(activeEvent.startMs, mockMidiData.tempoBpm, selectedTaal)
     : 0;
+  const displayedMatra = isMetronomePlaying ? metronomeMatra : activeMatra;
   const playbackProgress =
     lastEventIndex > 0 ? (activeEventIndex / lastEventIndex) * 100 : 0;
 
@@ -134,6 +177,67 @@ export default function Home() {
 
     return () => window.clearTimeout(timer);
   }, [activeEvent, activeEventIndex, isPlaying, isTranscribed, lastEventIndex]);
+
+  useEffect(() => {
+    if (!isDronePlaying) return;
+
+    const context = getAudioContext(audioContextRef);
+    if (context === null) return;
+
+    void context.resume();
+    const gain = context.createGain();
+    const now = context.currentTime;
+    const secondMidi = selectedRootMidi + (droneMode === "SaPa" ? 7 : 5);
+    const oscillators = [selectedRootMidi, secondMidi].map((midi, index) => {
+      const oscillator = context.createOscillator();
+      oscillator.type = index === 0 ? "sine" : "triangle";
+      oscillator.frequency.setValueAtTime(midiToFrequency(midi), now);
+      oscillator.connect(gain);
+      oscillator.start(now);
+      return oscillator;
+    });
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.045, now + 0.08);
+    gain.connect(context.destination);
+
+    return () => {
+      gain.gain.cancelScheduledValues(context.currentTime);
+      gain.gain.setTargetAtTime(0.0001, context.currentTime, 0.04);
+      window.setTimeout(() => oscillators.forEach((oscillator) => oscillator.stop()), 160);
+    };
+  }, [droneMode, isDronePlaying, selectedRootMidi]);
+
+  useEffect(() => {
+    if (!isMetronomePlaying) return;
+
+    const context = getAudioContext(audioContextRef);
+    if (context === null) return;
+
+    void context.resume();
+    const matras = beatsInTaal(selectedTaal);
+    const tick = () => {
+      const currentMatra = metronomeMatraRef.current;
+      playMetronomeClick(context, currentMatra === 0);
+      const nextMatra = (currentMatra + 1) % matras;
+      metronomeMatraRef.current = nextMatra;
+      setMetronomeMatra(nextMatra);
+    };
+
+    tick();
+    const interval = window.setInterval(tick, 60_000 / practiceTempoBpm);
+    return () => window.clearInterval(interval);
+  }, [isMetronomePlaying, practiceTempoBpm, selectedTaal]);
+
+  useEffect(
+    () => () => {
+      const context = audioContextRef.current;
+      if (context !== null && context.state !== "closed") {
+        void context.close();
+      }
+    },
+    [],
+  );
 
   function handleTranscribe(): void {
     if (isTranscribed) return;
@@ -175,6 +279,31 @@ export default function Home() {
     setActiveEventIndex(0);
     setIsTranscribed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handleTaalChange(taalId: TaalId): void {
+    metronomeMatraRef.current = 0;
+    setMetronomeMatra(0);
+    setSelectedTaalId(taalId);
+  }
+
+  function handleToggleDrone(): void {
+    const context = getAudioContext(audioContextRef);
+    if (context !== null) void context.resume();
+    setIsDronePlaying((currentValue) => !currentValue);
+  }
+
+  function handleToggleMetronome(): void {
+    const context = getAudioContext(audioContextRef);
+    if (context !== null) void context.resume();
+
+    setIsMetronomePlaying((currentValue) => {
+      if (!currentValue) {
+        metronomeMatraRef.current = 0;
+        setMetronomeMatra(0);
+      }
+      return !currentValue;
+    });
   }
 
   return (
@@ -364,12 +493,13 @@ export default function Home() {
                       </div>
                       <label className="text-xs font-black text-teal" htmlFor="taal-select">
                         Practice taal
-                        <select className="ml-2 rounded-lg border border-teal/15 bg-white px-2 py-1.5 text-xs font-bold text-charcoal outline-none focus:ring-2 focus:ring-mint-emerald" id="taal-select" onChange={(event) => setSelectedTaalId(event.target.value as TaalId)} value={selectedTaalId}>
+                        <select className="ml-2 rounded-lg border border-teal/15 bg-white px-2 py-1.5 text-xs font-bold text-charcoal outline-none focus:ring-2 focus:ring-mint-emerald" id="taal-select" onChange={(event) => handleTaalChange(event.target.value as TaalId)} value={selectedTaalId}>
                           {Object.values(TAALS).map((taal) => <option key={taal.id} value={taal.id}>{taal.label} ({taal.matras})</option>)}
                         </select>
                       </label>
                     </div>
-                    <div className="mt-4"><TaalCycle activeMatra={activeMatra} taal={selectedTaal} /></div>
+                    <div className="mt-4"><TaalCycle activeMatra={displayedMatra} taal={selectedTaal} /></div>
+                    <div className="mt-4"><TablaPracticeUI activeMatra={displayedMatra} isPlaying={isMetronomePlaying} onTempoChange={setPracticeTempoBpm} onToggle={handleToggleMetronome} taal={selectedTaal} tempoBpm={practiceTempoBpm} /></div>
                   </div>
 
                   <div className="mt-8 border-t border-teal/10 pt-7">
@@ -382,7 +512,7 @@ export default function Home() {
                     </div>
 
                     {selectedInstrument === "Keyboard" ? <div className="mt-5"><KeyboardUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
-                    {selectedInstrument === "Harmonium" ? <div className="mt-5"><HarmoniumUI activeMidi={activeMidi} droneMode={droneMode} onDroneModeChange={setDroneMode} rootMidi={selectedRootMidi} /></div> : null}
+                    {selectedInstrument === "Harmonium" ? <div className="mt-5"><HarmoniumUI activeMidi={activeMidi} droneMode={droneMode} isDronePlaying={isDronePlaying} onDroneModeChange={setDroneMode} onToggleDrone={handleToggleDrone} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Bansuri" ? <div className="mt-5"><BansuriChartUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Guitar" ? <div className="mt-5"><GuitarTabsUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}
                     {selectedInstrument === "Sitar" ? <div className="mt-5"><SitarUI activeMidi={activeMidi} rootMidi={selectedRootMidi} /></div> : null}

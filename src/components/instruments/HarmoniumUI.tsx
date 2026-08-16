@@ -5,7 +5,9 @@ type DroneMode = "SaPa" | "SaMa";
 type HarmoniumUIProps = {
   readonly activeMidi: number | null;
   readonly droneMode: DroneMode;
+  readonly isDronePlaying: boolean;
   readonly onDroneModeChange: (mode: DroneMode) => void;
+  readonly onToggleDrone: () => void;
   readonly rootMidi: number;
 };
 
@@ -60,7 +62,9 @@ function SargamLabel({ midi, rootMidi }: { readonly midi: number; readonly rootM
 export function HarmoniumUI({
   activeMidi,
   droneMode,
+  isDronePlaying,
   onDroneModeChange,
+  onToggleDrone,
   rootMidi,
 }: HarmoniumUIProps) {
   const droneInterval = droneMode === "SaPa" ? 7 : 5;
@@ -75,7 +79,7 @@ export function HarmoniumUI({
             Relative Sargam labels for right-hand melody practice.
           </p>
         </div>
-        <div aria-label="Visual drone setting" className="flex rounded-xl bg-white p-1 shadow-sm" role="group">
+        <div aria-label="Drone setting" className="flex rounded-xl bg-white p-1 shadow-sm" role="group">
           {(["SaPa", "SaMa"] as const).map((mode) => {
             const isActive = droneMode === mode;
 
@@ -99,8 +103,9 @@ export function HarmoniumUI({
 
       <div className="mt-5 flex flex-wrap items-center gap-2 text-xs font-bold text-charcoal/60">
         <span className="rounded-full bg-mint-emerald px-2.5 py-1 text-white">Sa: MIDI {rootMidi}</span>
-        <span className="rounded-full border border-teal/10 bg-white px-2.5 py-1">Visual drone: {droneLabel}</span>
-        <span className="text-charcoal/40">Audio drone is a future integration.</span>
+        <span className="rounded-full border border-teal/10 bg-white px-2.5 py-1">Synth drone: {droneLabel}</span>
+        <button aria-pressed={isDronePlaying} className={["rounded-full px-3 py-1.5 text-xs font-black transition", isDronePlaying ? "bg-yellow-soft text-charcoal shadow-[0_2px_0_#d8ca70]" : "bg-teal text-white hover:brightness-95"].join(" ")} onClick={onToggleDrone} type="button">{isDronePlaying ? "Stop drone" : "Start drone"}</button>
+        <span className="text-charcoal/40">Synth reference only; sampled Tanpura is future work.</span>
       </div>
 
       <div className="relative mt-5 h-44 select-none overflow-x-auto">

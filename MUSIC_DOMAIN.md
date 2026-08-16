@@ -28,9 +28,21 @@ This document is the working domain boundary for the product. It covers a learne
 | Dadra | 6 | 3 + 3 |
 | Keherwa | 8 | 4 + 4 |
 
+## Practice Theka boundary
+
+The current Tabla workspace displays one basic practice theka per selected
+taal and accents Sam in a synthesized metronome. A theka is a recurring
+rhythmic support pattern, but it has legitimate stylistic and performance
+variations. The product must not claim to recognize tabla strokes, choose a
+canonical theka, or infer taal from BPM alone.
+
 ## Research references
 
 - [Frontiers: tempo and rhythmic elaboration in Hindustani music](https://www.frontiersin.org/journals/digital-humanities/articles/10.3389/fdigh.2017.00020/full) documents the vibhag/matra groupings for Teentaal, Jhaptal, Rupak, and Ektal.
+- [Sharda Music: common taals](https://www.sharda.org/about-taal/) gives
+  learner-facing Teentaal, Dadra, and Keherwa structures and basic bols;
+  [TaalGyan: Keherwa](https://www.taalgyan.com/taals/keherwa/) documents the
+  frequently used `Dha Ge Na Ti | Na Ka Dhi Na` practice theka.
 - [Sharda Music: Hindustani raga classification](https://www.sharda.org/music_theory/raga-classification-systems/) provides the requested uppercase/lowercase-style thaat examples and the ten Bhatkhande parent scales.
 - [University of HNB Garhwal Hindustani music syllabus](https://www.hnbgu.ac.in/sites/default/files/2025-06/Univerity%20Entrance%20Test%20%28UET%29%202025-26%20Syllabus%20for%20Diffrent%20Programmes.pdf) treats swara, thaat, raga, laya, taal, matra, tali, khali, sam, and vibhag as distinct concepts.
 - [UC eScholarship on Bhatkhande](https://escholarship.org/uc/item/7r7315x6) gives historical context for the Bhatkhande classification/notation system.

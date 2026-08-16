@@ -13,6 +13,7 @@ The local, mock-driven demo includes:
 - Dedicated Harmonium mode with relative Sargam labels and visual Sa/Pa or Sa/Ma drone settings
 - Keyboard, six-hole Bansuri, standard-guitar, and Sitar visual references
 - Manual practice-taal cycles for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa; taal is never inferred from BPM alone
+- Synthesized Sa/Pa or Sa/Ma reference drone, plus a Tabla practice workspace with basic theka prompts and a Sam-accented metronome
 - A typed JSON i18n dictionary scaffold for English and Hindi
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file

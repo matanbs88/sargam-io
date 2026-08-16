@@ -18,7 +18,8 @@ needs, not simply place every Indian instrument in one selector.
 | Instrument | Experience | Confidence |
 | --- | --- | --- |
 | Keyboard | Exact chromatic key reference | High |
-| Harmonium | Relative Sargam key reference with visual Sa/Pa or Sa/Ma drone choice | High for the local visual reference; audio drone is deferred |
+| Harmonium | Relative Sargam key reference with synthesized Sa/Pa or Sa/Ma reference drone | High for the local reference; sampled Tanpura remains deferred |
+| Tabla | Basic practice theka, metronome, and active-matra view | High for practice timing; it is not recorded Tabla audio or stroke recognition |
 | Bansuri | Generic six-finger-hole relative fingering reference | Conditional: flute profile required for exact output |
 | Guitar | Standard-tuning fretboard reference | High for configured tuning/range |
 | Sitar | Relative swara/fret learning reference | Conditional: actual string setup, raga, and movable fret positions vary |
@@ -28,10 +29,11 @@ needs, not simply place every Indian instrument in one selector.
 1. **Venu / Carnatic flute** — model separately from Hindustani bansuri. It
    needs its own hole conventions, notation vocabulary, and eventually
    Carnatic raga support.
-2. **Tabla** — add a dedicated taal workspace (theka, sam, khali, vibhag,
-   bols, tempo and loop), not a melody fingering card. The current manual taal
-   cycle is the visual foundation, not a Tabla simulator.
-3. **Tanpura** — add an audible Sa/Pa or Sa/Ma drone configuration and tuning reference.
+2. **Tabla** — expand the existing workspace with a real loop-range selector,
+   theka variations, and eventually licensed/sample-based Tabla sounds. Do not
+   treat its current synthesized metronome as Tabla stroke recognition.
+3. **Tanpura** — replace the existing synthesized Sa/Pa or Sa/Ma reference
+   drone with a licensed/sample-based Tanpura experience and tuning reference.
    It supports every melodic learner without pretending to transcribe notes on
    the instrument.
 4. **Santoor** — build only after its tuning layout is configurable; a fixed
