@@ -11,6 +11,8 @@
 - Mock note transport, Taal cycles, basic Tabla practice prompts, a synthesized
   Sa/Pa or Sa/Ma drone, and Keyboard/Harmonium/Bansuri/Guitar/Sitar references.
 - MIDI-timed piano roll and physically aligned six-hole Bansuri fingering roll.
+- Isolated, testable mock transport state for bounded note navigation and
+  playback progress.
 - Cinema performance view designed for clean screen capture and vertical use.
 - A mock cache-first API route that validates/canonicalizes YouTube URLs;
   it uses the same fixture as the UI but is not connected from the page.
@@ -21,7 +23,7 @@
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes (23 tests).
+- `npm.cmd run test` passes (27 tests).
 - `npm.cmd run build` passes.
 - Manual browser QA passed for desktop and 390×844 vertical layouts, Bansuri
   cue alignment, Cinema view, transport sync, and no console errors.

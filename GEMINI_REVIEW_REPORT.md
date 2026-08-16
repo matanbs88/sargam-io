@@ -27,7 +27,8 @@ product decision and credentials.
 - Current stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4,
   Vitest, Node 24 in CI
 - Public deployment: <https://sargam-io.vercel.app>
-- Quality baseline after this audit: lint, production build, and 23 tests pass
+- Quality baseline after the follow-up transport refactor: lint, production
+  build, and 27 tests pass
 
 ## Product intent
 
@@ -70,7 +71,8 @@ or active note. The page currently does not call the API route.
 | Area | Key files | Responsibility |
 | --- | --- | --- |
 | App shell | `app/layout.tsx`, `app/globals.css`, `tailwind.config.ts` | Metadata, visual system, theme |
-| Practice UI | `app/page.tsx` | Client-only state, mock transport, dashboard, Cinema dialog |
+| Practice UI | `app/page.tsx` | Client-only composition state, dashboard, Cinema dialog |
+| Mock transport | `src/features/practice/useMockTransport.ts`, `src/lib/playback.ts` | Playback lifecycle plus tested, bounded event navigation |
 | Notation engine | `src/lib/midiToSargam.ts` | Validated relative pitch math and display formatting |
 | Canonical fixture | `src/lib/mockMidiData.ts` | Single mock phrase for UI and provider seam |
 | Instrument refs | `src/components/instruments/` | Keyboard, Harmonium, Bansuri, Guitar, Sitar displays |
@@ -127,6 +129,8 @@ Taal; basic thekas are practice prompts with legitimate variations.
 5. Added an auditable project-vault workflow and corrected stale status/QA docs.
 
 See `docs/audits/REPOSITORY_AUDIT_2026-08-16.md` for the full record.
+See `docs/reviews/GEMINI_REVIEW_RESPONSE_2026-08-16.md` for the review
+disposition and the future live-processing UX decision.
 
 ## Explicitly deferred capabilities
 

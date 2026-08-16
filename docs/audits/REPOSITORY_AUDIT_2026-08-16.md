@@ -47,3 +47,15 @@ deployment workflow.
 - Any change to Sargam/Devanagari notation mapping.
 - Any new instrument that claims physical fingering or tuning.
 - Any release that introduces video export, audio playback, or user data.
+
+## Gemini review follow-up
+
+- Extracted the mock transport into `src/features/practice/useMockTransport.ts`
+  and added pure playback-boundary tests in `src/lib/playback.test.ts`.
+- The future cache schema already keys records by source fingerprint, provider,
+  and provider version; the live-adapter invalidation policy remains a future
+  decision.
+- The DOM/CSS visualizers do not use Canvas or `ResizeObserver`; add resize
+  mocks only if runtime geometry is introduced.
+- The tested mock API route remains a documented future integration seam while
+  the visible MVP stays local-only.

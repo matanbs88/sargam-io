@@ -15,6 +15,7 @@ import { TaalCycle } from "@/src/components/TaalCycle";
 import { TablaPracticeUI } from "@/src/components/TablaPracticeUI";
 import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
 import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
+import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import { beatsInTaal, matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
@@ -140,10 +141,12 @@ export default function Home() {
   const [practiceTempoBpm, setPracticeTempoBpm] = useState(
     mockMidiData.tempoBpm,
   );
-  const [activeEventIndex, setActiveEventIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const metronomeMatraRef = useRef(0);
+  const transport = useMockTransport({
+    events: mockMidiData.noteEvents,
+    isEnabled: isTranscribed,
+  });
 
   const formattedNotes = useMemo(
     () =>
@@ -160,16 +163,14 @@ export default function Home() {
     ROOT_OPTIONS[0];
   const isTransposed =
     selectedRootMidi !== mockMidiData.detectedKey.rootMidi;
-  const activeEvent = mockMidiData.noteEvents[activeEventIndex];
+  const { activeEvent, activeEventIndex, isPlaying, lastEventIndex, playbackProgress } =
+    transport;
   const activeMidi = activeEvent?.midi ?? null;
-  const lastEventIndex = mockMidiData.noteEvents.length - 1;
   const selectedTaal = TAALS[selectedTaalId];
   const activeMatra = activeEvent
     ? matraAtTime(activeEvent.startMs, mockMidiData.tempoBpm, selectedTaal)
     : 0;
   const displayedMatra = isMetronomePlaying ? metronomeMatra : activeMatra;
-  const playbackProgress =
-    lastEventIndex > 0 ? (activeEventIndex / lastEventIndex) * 100 : 0;
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -194,22 +195,6 @@ export default function Home() {
     document.documentElement.dataset.theme = theme;
     window.localStorage.setItem("sargam-theme", theme);
   }, [isThemeReady, theme]);
-
-  useEffect(() => {
-    if (!isPlaying || !isTranscribed || activeEvent === undefined) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      if (activeEventIndex >= lastEventIndex) {
-        setIsPlaying(false);
-        return;
-      }
-      setActiveEventIndex((currentIndex) => currentIndex + 1);
-    }, Math.max(activeEvent.durationMs, 160));
-
-    return () => window.clearTimeout(timer);
-  }, [activeEvent, activeEventIndex, isPlaying, isTranscribed, lastEventIndex]);
 
   useEffect(() => {
     if (!isDronePlaying) return;
@@ -281,8 +266,7 @@ export default function Home() {
     }
 
     setCredits((currentCredits) => currentCredits - 1);
-    setActiveEventIndex(0);
-    setIsPlaying(false);
+    transport.reset();
     setIsTranscribed(true);
     window.setTimeout(() => {
       document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
@@ -290,26 +274,15 @@ export default function Home() {
   }
 
   function moveActiveNote(direction: -1 | 1): void {
-    setIsPlaying(false);
-    setActiveEventIndex((currentIndex) =>
-      Math.min(Math.max(currentIndex + direction, 0), lastEventIndex),
-    );
+    transport.step(direction);
   }
 
   function togglePlayback(): void {
-    if (lastEventIndex < 0) return;
-
-    if (activeEventIndex >= lastEventIndex) {
-      setActiveEventIndex(0);
-      setIsPlaying(true);
-      return;
-    }
-    setIsPlaying((currentValue) => !currentValue);
+    transport.togglePlayback();
   }
 
   function handleStartAnother(): void {
-    setIsPlaying(false);
-    setActiveEventIndex(0);
+    transport.reset();
     setIsTranscribed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -535,7 +508,7 @@ export default function Home() {
                     <div className="flex max-h-72 flex-wrap gap-2.5 overflow-y-auto pr-1 sm:gap-3">
                       {formattedNotes.map((note, index) => {
                         const isActive = index === activeEventIndex;
-                        return <button aria-label={"Set active note " + String(index + 1)} aria-pressed={isActive} className={["group relative min-w-12 rounded-xl px-3 py-3 font-mono text-xl font-black transition sm:min-w-14 sm:text-2xl", isActive ? "bg-yellow-soft text-charcoal shadow-[0_5px_0_#d8ca70]" : "bg-white text-teal shadow-sm ring-1 ring-teal/10 hover:-translate-y-0.5 hover:bg-teal hover:text-white"].join(" ")} key={String(mockMidiData.noteEvents[index]?.startMs) + "-" + note + "-" + String(index)} onClick={() => { setIsPlaying(false); setActiveEventIndex(index); }} type="button"><span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-mint-emerald px-1.5 py-0.5 text-[8px] font-sans font-black text-white opacity-0 transition group-hover:opacity-100">{index + 1}</span>{note}</button>;
+                        return <button aria-label={"Set active note " + String(index + 1)} aria-pressed={isActive} className={["group relative min-w-12 rounded-xl px-3 py-3 font-mono text-xl font-black transition sm:min-w-14 sm:text-2xl", isActive ? "bg-yellow-soft text-charcoal shadow-[0_5px_0_#d8ca70]" : "bg-white text-teal shadow-sm ring-1 ring-teal/10 hover:-translate-y-0.5 hover:bg-teal hover:text-white"].join(" ")} key={String(mockMidiData.noteEvents[index]?.startMs) + "-" + note + "-" + String(index)} onClick={() => transport.selectEvent(index)} type="button"><span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-mint-emerald px-1.5 py-0.5 text-[8px] font-sans font-black text-white opacity-0 transition group-hover:opacity-100">{index + 1}</span>{note}</button>;
                       })}
                     </div>
                   </div>

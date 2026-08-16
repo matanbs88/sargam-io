@@ -17,9 +17,10 @@ npm.cmd run verify
 3. Change Sa from D4 and confirm the **Transposed** badge appears.
 4. Switch ABC, Latin Sargam, and Devanagari. Notes must update without a page
    reload or request.
-5. Click a note, Previous, Next, and Play. The notation, transport progress,
-   selected visual instrument, Taal matra, and performance deck must stay in
-   sync.
+5. Click a note, Previous, Next, and Play. At the first and last note, confirm
+   Previous/Next cannot move beyond the phrase. The notation, transport
+   progress, selected visual instrument, Taal matra, and performance deck must
+   stay in sync.
 6. Open Piano roll. Bars must land on matching white/black keys and use note
    duration for their height.
 7. Open Bansuri roll. Verify all six cue lanes terminate directly over the six
