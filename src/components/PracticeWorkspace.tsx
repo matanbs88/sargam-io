@@ -38,6 +38,7 @@ type PracticeWorkspaceProps = {
   readonly onAdjustActiveNote: (semitones: -1 | 1) => void;
   readonly onCinemaView: () => void;
   readonly onClearLoop: () => void;
+  readonly onDownloadSargamPdf: () => void;
   readonly onInstrumentChange: (instrument: Instrument) => void;
   readonly onMoveNote: (direction: -1 | 1) => void;
   readonly onNotationChange: (notation: NotationSystem) => void;
@@ -89,6 +90,7 @@ export function PracticeWorkspace({
   onAdjustActiveNote,
   onCinemaView,
   onClearLoop,
+  onDownloadSargamPdf,
   onInstrumentChange,
   onMoveNote,
   onNotationChange,
@@ -318,6 +320,7 @@ export function PracticeWorkspace({
                 <p className="mt-1.5 text-right text-[9px] font-black uppercase tracking-[0.12em] text-white/35">Note {activeEventIndex + 1} / {formattedNotes.length}</p>
               </div>
               <button className="rounded-full bg-white/[0.06] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/70 transition hover:bg-white/[0.1] hover:text-white" onClick={onCinemaView} type="button">Cinema</button>
+              <button aria-label="Download Sargam PDF" className="rounded-full border border-mint-emerald/45 bg-mint-emerald/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-mint-emerald transition hover:bg-mint-emerald hover:text-white" onClick={onDownloadSargamPdf} type="button">PDF</button>
             </div>
           </div>
         </main>

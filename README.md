@@ -8,6 +8,8 @@ The local, mock-driven demo includes:
 
 - Relative MIDI-to-Sargam conversion with komal/shuddh, Devanagari, and repeated octave markers
 - Instant ABC, Latin Sargam, and Devanagari Sargam switching
+- Downloadable, paginated Latin-Sargam practice sheets (PDF) for the current
+  demo phrase, including selected Sa, taal, tempo, and meter
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
 - MIDI-timed falling-note piano roll and a physical six-lane Bansuri fingering roll; every Bansuri cue is aligned to its real finger hole
@@ -21,7 +23,9 @@ The local, mock-driven demo includes:
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file
 
-The audio drop zone and YouTube input are intentionally visual only. See
+The audio drop zone and YouTube input are intentionally visual only. Staff-PDF
+to Sargam import is a planned, review-first OMR workflow and is not yet offered
+as an automatic capability. See
 [TESTING_CHECKLIST.md](./TESTING_CHECKLIST.md) for the complete local QA path,
 [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries, and
 the [project vault](./docs/README.md) for architecture, audit, and handoff docs.

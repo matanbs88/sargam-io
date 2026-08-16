@@ -19,18 +19,21 @@ root because they are linked directly from the public README.
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 - [Indian music practice competitor research](./strategy/COMPETITIVE_PRODUCT_RESEARCH_2026-08-16.md)
+- [Score import and printable notation architecture](./strategy/SCORE_IMPORT_AND_PRINT_ARCHITECTURE.md)
 
 ## Project map
 
 ```text
 app/                         Next.js App Router entry points and API route
   api/transcriptions/        Mock, cache-first server integration seam
+  api/exports/               Printable Sargam PDF route
   page.tsx                   Interactive practice studio
 src/
   components/instruments/    Keyboard, Harmonium, Bansuri, Guitar, Sitar views
   components/visualizers/    Piano roll and physical Bansuri fingering roll
   lib/                       Pure music, mock-data, rhythm, and UI helpers
   server/transcription/      Provider contracts, cache boundary, mock adapter
+  server/export/             Server-side Sargam PDF composition
   test/                      Test-only server module shim
 db/                          Future Supabase/PostgreSQL baseline schema
 locales/                     Typed English and Hindi UI dictionaries

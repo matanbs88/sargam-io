@@ -362,6 +362,44 @@ export default function Home() {
     );
   }
 
+  async function handleDownloadSargamPdf(): Promise<void> {
+    try {
+      const response = await fetch("/api/exports/sargam-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          events: performanceEvents,
+          rootLabel: selectedRoot.label + " is Sa",
+          rootMidi: selectedRootMidi,
+          taalLabel: selectedTaal.label,
+          tempoBpm: practiceTempoBpm,
+          timeSignature: mockMidiData.timeSignature,
+          title: mockMidiData.title,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("The Sargam PDF could not be prepared.");
+      }
+
+      const file = await response.blob();
+      const downloadUrl = URL.createObjectURL(file);
+      const anchor = document.createElement("a");
+      anchor.href = downloadUrl;
+      anchor.download = "sargam-practice-sheet.pdf";
+      document.body.append(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "The Sargam PDF could not be prepared.",
+      );
+    }
+  }
+
   function renderPerformanceVisualizer() {
     return selectedVisualizer === "Piano" ? (
       <FallingNotesPianoRoll
@@ -550,6 +588,7 @@ export default function Home() {
           notationSystem={notationSystem}
           onCinemaView={() => setIsCinemaMode(true)}
           onAdjustActiveNote={handleAdjustActiveNote}
+          onDownloadSargamPdf={handleDownloadSargamPdf}
           onInstrumentChange={setSelectedInstrument}
           onMoveNote={moveActiveNote}
           onNotationChange={setNotationSystem}

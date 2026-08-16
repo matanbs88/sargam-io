@@ -14,6 +14,8 @@
 - Isolated, testable mock transport state for bounded note navigation and
   playback progress.
 - Cinema performance view designed for clean screen capture and vertical use.
+- A server-side, paginated Latin-Sargam PDF export route for printable practice
+  sheets. The sheet uses the currently selected Sa, taal, tempo, and meter.
 - A mock cache-first API route that validates/canonicalizes YouTube URLs;
   it uses the same fixture as the UI but is not connected from the page.
 - Future Supabase schema, provider/cache contracts, typed local dictionaries,
@@ -23,7 +25,7 @@
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes (27 tests).
+- `npm.cmd run test` passes (38 tests).
 - `npm.cmd run build` passes.
 - Manual browser QA passed for desktop and 390×844 vertical layouts, Bansuri
   cue alignment, Cinema view, transport sync, and no console errors.
@@ -71,5 +73,7 @@ must be verified against the selected account contract before implementation.
 
 - Real YouTube/audio ingestion and external-provider billing.
 - Audio playback, video export, and creator assets/watermarks.
+- Automatic staff-PDF recognition/import. This needs a license-cleared OMR
+  provider plus a mandatory musician-review workflow before public release.
 - Accounts, subscriptions, payments, database persistence, and rate limits.
 - Raga, taal, shruti, meend, and gamak inference.
