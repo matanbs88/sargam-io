@@ -61,6 +61,18 @@ answers to all of these questions:
 5. Can Sargam persist asset IDs and user selections while fetching playable
    content only through the permitted API flow?
 
+## Rejected for interactive instrument playback: LANDR Samples
+
+[LANDR's Bansuri collection](https://samples.landr.com/collections/royalty-free-bansuri-samples)
+may be useful to produce a finished promotional video or an exported soundtrack.
+It cannot be used as the playable Bansuri voice inside Sargam. LANDR's Samples
+License restricts samples to incorporation in a finished recording and expressly
+prohibits standalone use, loops and use in a synthesizer, virtual instrument,
+sample library, sample-based product or other musical instrument.
+
+Status: **do not ingest for interactive playback**. Re-evaluate only if LANDR
+offers a separate written platform/OEM license for this use case.
+
 ## Intake checklist
 
 For every adopted open file, create an entry in the future
