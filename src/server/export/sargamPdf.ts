@@ -282,7 +282,7 @@ function drawHeader(page: PDFPage, fonts: PdfFonts, input: SargamPdfExportInput,
     color: rgb(0.85, 0.94, 0.9),
   });
 
-  if (isContinuation) return PAGE_HEIGHT - 138;
+  if (isContinuation) return PAGE_HEIGHT - 194;
 
   const title = cleanText(input.title, "Untitled Sargam score", 80);
   page.drawText(title, { x: PAGE_MARGIN, y: PAGE_HEIGHT - 139, size: 24, font: fonts.serif, color: colors.charcoal });
