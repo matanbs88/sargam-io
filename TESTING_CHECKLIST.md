@@ -15,14 +15,16 @@ npm.cmd run verify
 1. Start the app and confirm the header shows 2 credits.
 2. Click **Transcribe melody**. Credits become 1 and the mock dashboard opens.
 3. Change Sa from D4 and confirm the **Transposed** badge appears.
-4. Switch ABC, Latin Sargam, and Devanagari. Notes must update without a page
-   reload or request.
+4. Switch ABC, Latin Sargam, and Devanagari. The melody line, falling piano
+   bars, Bansuri lane labels, Bansuri beams, and active Bansuri badge must all
+   update without a page reload or request.
 5. Click a note, Previous, Next, and Play. At the first and last note, confirm
    Previous/Next cannot move beyond the phrase. The notation, transport
    progress, selected visual instrument, Taal matra, and performance deck must
    stay in sync.
-6. Open Piano roll. Bars must land on matching white/black keys and use note
-   duration for their height.
+6. Open Piano roll. It must display the C3–C7 keyboard range. Bars must land
+   on matching white/black keys, use note duration for their height, and press
+   the active physical key without clipping.
 7. Open Bansuri roll. Verify all six cue lanes terminate directly over the six
    finger holes; the holes show open/closed/half-open state for the active note.
 8. Open **Cinema view**, switch visualizer, advance a note, and exit. The

@@ -14,6 +14,24 @@ npm.cmd run audit:repo
 npm.cmd run verify
 ```
 
+For the latest session baseline, launch strategy, and precise review questions,
+also read `docs/reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-16.md` and run
+`npm.cmd run closeout`.
+
+## Current closeout addendum — 2026-08-16
+
+- Current `main` baseline: `7b0e8b2 feat: expand piano performance canvas`.
+- The automated gate is now lint, 36 tests, Next.js production build, vault
+  audit, and Git whitespace validation via `npm.cmd run closeout`.
+- The selected notation system is now used by every visible label in the
+  melody line, piano falling notes, Bansuri lanes, Bansuri beams, and active
+  Bansuri badge.
+- The Piano Canvas now spans C3–C7; this is a DOM/CSS visualizer and not an
+  audio keyboard or a copied implementation of any competitor.
+- Public launch recommendation: a rights-safe landing/waitlist plus
+  interactive demo. Live YouTube/audio transcription is still explicitly
+  deferred. See `docs/strategy/LAUNCH_STRATEGY.md`.
+
 Then review code, product claims, musical safety, UI quality, and the proposed
 next slice. Report concrete defects by severity, with exact file paths and
 minimal safe fixes. Do not implement external integrations without an explicit

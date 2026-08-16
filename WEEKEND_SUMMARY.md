@@ -56,6 +56,17 @@ must be verified against the selected account contract before implementation.
 6. Validate Bansuri profiles with players before offering instrument-specific
    guidance as definitive.
 
+## Latest visual and launch closeout
+
+- The performance Piano Canvas spans C3–C7 with larger physical key geometry.
+- ABC, Latin Sargam, and Devanagari labels stay in parity across the melody
+  line and both falling-note visualizers.
+- The repository has a repeatable closeout command (`npm.cmd run closeout`)
+  plus a documented manual/product release gate.
+- Launch should begin with a rights-safe landing page and founding waitlist,
+  not an unready promise of arbitrary YouTube transcription. See
+  `docs/strategy/LAUNCH_STRATEGY.md`.
+
 ## Deliberately deferred
 
 - Real YouTube/audio ingestion and external-provider billing.

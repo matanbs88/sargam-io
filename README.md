@@ -39,6 +39,7 @@ Then open `http://localhost:3000`.
 ```bash
 npm.cmd run audit:repo
 npm.cmd run verify
+npm.cmd run closeout
 ```
 
 ## Environment
