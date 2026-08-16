@@ -79,8 +79,8 @@ const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
 const FOOTER_Y = 43;
 const MEASURE_HEIGHT = 74;
 const ROW_GAP = 22;
-const COMPACT_MEASURE_HEIGHT = 50;
-const COMPACT_ROW_GAP = 9;
+const BHATKHANDE_ROW_GAP = 32;
+const BHATKHANDE_MEASURES_PER_ROW = 4;
 const MAX_SLOTS_PER_MEASURE = 16;
 const DEVANAGARI_FONT_URL = new URL("./fonts/NotoSansDevanagari-Regular.ttf", import.meta.url);
 
@@ -121,17 +121,6 @@ const STANDARD_MEASURE_DRAWING: MeasureDrawing = {
   notationSize: 16,
   notationY: 26,
   vibhagMarkerSize: 7.4,
-};
-
-const COMPACT_MEASURE_DRAWING: MeasureDrawing = {
-  continuationSize: 10,
-  continuationY: 18,
-  height: COMPACT_MEASURE_HEIGHT,
-  hiNotationSize: 9.5,
-  measureNumberSize: 5.8,
-  notationSize: 10.5,
-  notationY: 16,
-  vibhagMarkerSize: 5.8,
 };
 
 function cleanText(value: string, fallback: string, maximumLength: number): string {
@@ -346,14 +335,14 @@ function drawHeader(page: PDFPage, fonts: PdfFonts, input: SargamPdfExportInput,
 }
 
 /**
- * A deliberately restrained header used for long score imports. Seven 3/4
- * measures fit per row, allowing a common 49-measure song to print on one
- * readable A4 page without changing its musical grid.
+ * A restrained, Bhatkhande-style header for long score imports. It leaves the
+ * actual notation as a continuous swara line rather than a Western piano-roll
+ * grid of boxes.
  */
 function drawCompactHeader(page: PDFPage, fonts: PdfFonts, input: SargamPdfExportInput, isContinuation: boolean): number {
   page.drawRectangle({ x: 0, y: PAGE_HEIGHT - 62, width: PAGE_WIDTH, height: 62, color: colors.darkTeal });
   page.drawText("sargam.io", { x: PAGE_MARGIN, y: PAGE_HEIGHT - 26, size: 12, font: fonts.bold, color: colors.yellow });
-  page.drawText(isContinuation ? "COMPACT PRACTICE PRINT / CONTINUED" : "COMPACT PRACTICE PRINT", {
+  page.drawText(isContinuation ? "BHATKHANDE-STYLE PRINT / CONTINUED" : "BHATKHANDE-STYLE PRINT", {
     x: PAGE_WIDTH - PAGE_MARGIN - 174,
     y: PAGE_HEIGHT - 25,
     size: 7.2,
@@ -366,7 +355,7 @@ function drawCompactHeader(page: PDFPage, fonts: PdfFonts, input: SargamPdfExpor
   const notationName = input.notation === "Sargam_HI" ? "Devanagari" : input.notation === "ABC" ? "Pitch names" : "Roman Sargam";
   page.drawText(title, { x: PAGE_MARGIN, y: PAGE_HEIGHT - 91, size: 16.5, font: fonts.serif, color: colors.charcoal });
   page.drawText(
-    `Sa  ${cleanText(input.rootLabel, "Selected Sa", 24)}   ·   Meter  ${cleanText(meter, "Unmetered", 12)}   ·   ${notationName}`,
+    `Sa  ${cleanText(input.rootLabel, "Selected Sa", 24)}   /   Meter  ${cleanText(meter, "Unmetered", 12)}   /   ${notationName}`,
     { x: PAGE_MARGIN, y: PAGE_HEIGHT - 109, size: 7.8, font: fonts.bold, color: colors.darkTeal },
   );
   page.drawText(
@@ -463,6 +452,89 @@ function drawMeasure(page: PDFPage, fonts: PdfFonts, layout: NotationMeasureLayo
   });
 }
 
+function sourceBeatsPerMeasure(input: SargamPdfExportInput, layout: NotationMeasureLayout): number {
+  const signature = parseTimeSignature(input.score?.timeSignature ?? input.timeSignature);
+  if (signature !== null && signature.beats <= layout.slots) return signature.beats;
+  return Math.min(4, layout.slots);
+}
+
+function beatTokens(
+  layout: NotationMeasureLayout,
+  input: SargamPdfExportInput,
+  beatIndex: number,
+  beatsPerMeasure: number,
+): string[] {
+  const notation = input.notation ?? "Sargam_EN";
+  const start = Math.floor((beatIndex * layout.slots) / beatsPerMeasure);
+  const end = Math.floor(((beatIndex + 1) * layout.slots) / beatsPerMeasure);
+  return layout.cells.slice(start, Math.max(start + 1, end)).flatMap((cell) => {
+    if (cell.isRest) return [];
+    if (cell.isContinuation) return ["-"];
+    if (cell.midi === null) return [];
+    return [formatRelativeNote(midiToRelativeNote(cell.midi, input.rootMidi), notation)];
+  });
+}
+
+function drawBeatTokens(
+  page: PDFPage,
+  fonts: PdfFonts,
+  input: SargamPdfExportInput,
+  tokens: readonly string[],
+  x: number,
+  y: number,
+  width: number,
+): void {
+  if (tokens.length === 0) return;
+  const useDevanagari = input.notation === "Sargam_HI";
+  const font = useDevanagari ? fonts.devanagari : fonts.serif;
+  const size = useDevanagari ? 10.5 : 11.2;
+  // A deliberately tight intra-matra gap: "S R" is visibly a double-speed
+  // beat, while the space between matras remains much wider.
+  const gap = Math.max(1.4, size * 0.24);
+  const textWidths = tokens.map((token) => font.widthOfTextAtSize(token, size));
+  const totalWidth = textWidths.reduce((total, tokenWidth) => total + tokenWidth, 0) + gap * (tokens.length - 1);
+  let tokenX = x + Math.max(1.5, (width - totalWidth) / 2);
+  tokens.forEach((token, index) => {
+    page.drawText(token, { x: tokenX, y, size, font, color: colors.charcoal });
+    tokenX += (textWidths[index] ?? 0) + gap;
+  });
+}
+
+/**
+ * Draws a continuous Roman/Devanagari sargam line. The internal beat spacing
+ * remains proportional, but there are no per-note boxes: this is the key
+ * difference between a Bhatkhande practice line and a Western grid.
+ */
+function drawBhatkhandeRow(
+  page: PDFPage,
+  fonts: PdfFonts,
+  measures: readonly RenderMeasure[],
+  input: SargamPdfExportInput,
+  y: number,
+): void {
+  const measureWidth = CONTENT_WIDTH / measures.length;
+  measures.forEach((measure, measureIndex) => {
+    const layout = createNotationMeasureLayout(measure);
+    const beats = sourceBeatsPerMeasure(input, layout);
+    const x = PAGE_MARGIN + measureIndex * measureWidth;
+    const beatWidth = measureWidth / beats;
+    page.drawText(String(layout.number), { x, y: y + 13, size: 5.8, font: fonts.bold, color: colors.darkTeal });
+
+    for (let beatIndex = 0; beatIndex < beats; beatIndex += 1) {
+      drawBeatTokens(page, fonts, input, beatTokens(layout, input, beatIndex, beats), x + beatIndex * beatWidth, y, beatWidth);
+    }
+
+    // A single barline preserves the imported measure. It is intentionally
+    // not a cell border. If a caller supplied an explicit compatible tala,
+    // the same visual language can carry vibhag dividers in a later pass.
+    const barX = x + measureWidth;
+    page.drawLine({ start: { x: barX, y: y - 4 }, end: { x: barX, y: y + 12 }, thickness: 0.72, color: colors.darkTeal });
+    if (measureIndex === measures.length - 1) {
+      page.drawLine({ start: { x: barX + 2.4, y: y - 4 }, end: { x: barX + 2.4, y: y + 12 }, thickness: 0.72, color: colors.darkTeal });
+    }
+  });
+}
+
 async function createFonts(document: PDFDocument): Promise<PdfFonts> {
   document.registerFontkit(fontkit as Parameters<PDFDocument["registerFontkit"]>[0]);
   const [regular, bold, serif, devanagariBytes] = await Promise.all([
@@ -493,30 +565,42 @@ export async function createSargamPdf(input: SargamPdfExportInput): Promise<Uint
   document.setKeywords(["Sargam", "Bhatkhande", "Indian music", "practice notation"]);
   const fonts = await createFonts(document);
 
-  const compact = input.compact === true;
-  const drawing = compact ? COMPACT_MEASURE_DRAWING : STANDARD_MEASURE_DRAWING;
-  const measuresPerRow = compact ? 7 : 3;
-  const measureGap = compact ? 4 : 10;
-  const rowGap = compact ? COMPACT_ROW_GAP : ROW_GAP;
-  const measureWidth = (CONTENT_WIDTH - measureGap * (measuresPerRow - 1)) / measuresPerRow;
-
   let page = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
   let pageNumber = 1;
   drawPaper(page);
+  const compact = input.compact === true;
   let y = compact ? drawCompactHeader(page, fonts, input, false) : drawHeader(page, fonts, input, false);
 
-  for (let index = 0; index < measures.length; index += measuresPerRow) {
-    if (y - drawing.height < FOOTER_Y + 32) {
+  if (compact) {
+    for (let index = 0; index < measures.length; index += BHATKHANDE_MEASURES_PER_ROW) {
+      if (y - 16 < FOOTER_Y + 32) {
+        drawFooter(page, fonts, pageNumber);
+        page = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+        pageNumber += 1;
+        drawPaper(page);
+        y = drawCompactHeader(page, fonts, input, true);
+      }
+      drawBhatkhandeRow(page, fonts, measures.slice(index, index + BHATKHANDE_MEASURES_PER_ROW), input, y);
+      y -= BHATKHANDE_ROW_GAP;
+    }
+  } else {
+    const drawing = STANDARD_MEASURE_DRAWING;
+    const measuresPerRow = 3;
+    const measureGap = 10;
+    const measureWidth = (CONTENT_WIDTH - measureGap * (measuresPerRow - 1)) / measuresPerRow;
+    for (let index = 0; index < measures.length; index += measuresPerRow) {
+      if (y - drawing.height < FOOTER_Y + 32) {
       drawFooter(page, fonts, pageNumber);
       page = document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
       pageNumber += 1;
       drawPaper(page);
-      y = compact ? drawCompactHeader(page, fonts, input, true) : drawHeader(page, fonts, input, true);
+        y = drawHeader(page, fonts, input, true);
+      }
+      measures.slice(index, index + measuresPerRow).forEach((measure, offset) => {
+        drawMeasure(page, fonts, createNotationMeasureLayout(measure), input, drawing, PAGE_MARGIN + offset * (measureWidth + measureGap), y, measureWidth);
+      });
+      y -= drawing.height + ROW_GAP;
     }
-    measures.slice(index, index + measuresPerRow).forEach((measure, offset) => {
-      drawMeasure(page, fonts, createNotationMeasureLayout(measure), input, drawing, PAGE_MARGIN + offset * (measureWidth + measureGap), y, measureWidth);
-    });
-    y -= drawing.height + rowGap;
   }
   drawFooter(page, fonts, pageNumber);
   return document.save();
