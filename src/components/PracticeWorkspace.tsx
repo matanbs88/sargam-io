@@ -60,6 +60,7 @@ type PracticeWorkspaceProps = {
   readonly selectedVisualizer: Visualizer;
   readonly songTitle: string;
   readonly taalOptions: readonly TaalDefinition[];
+  readonly tanpuraControl: ReactNode;
   readonly tempoBpm: number;
 };
 
@@ -100,6 +101,7 @@ export function PracticeWorkspace({
   selectedVisualizer,
   songTitle,
   taalOptions,
+  tanpuraControl,
   tempoBpm,
 }: PracticeWorkspaceProps) {
   return (
@@ -173,6 +175,7 @@ export function PracticeWorkspace({
             <div className="px-1 pt-1"><p className="text-[10px] font-black uppercase tracking-[0.17em] text-mint-emerald">Rhythm</p><label className="mt-2 block text-[10px] font-black uppercase tracking-[0.12em] text-white/50" htmlFor="taal-select">Practice taal<select className="mt-1.5 w-full rounded-lg border border-white/10 bg-white/[0.06] px-2 py-2 text-xs font-bold text-white outline-none focus:ring-2 focus:ring-mint-emerald" id="taal-select" onChange={(event) => onTaalChange(event.target.value as TaalId)} value={selectedTaalId}>{taalOptions.map((taal) => <option className="text-charcoal" key={taal.id} value={taal.id}>{taal.label} ({taal.matras})</option>)}</select></label></div>
             <TaalCycle activeMatra={displayedMatra} taal={selectedTaal} />
             <TablaPracticeUI activeMatra={displayedMatra} isPlaying={isMetronomePlaying} onTempoChange={onTempoChange} onToggle={onToggleMetronome} taal={selectedTaal} tempoBpm={practiceTempoBpm} />
+            {tanpuraControl}
             <div className="border-t border-white/10 pt-4"><p className="px-1 text-[10px] font-black uppercase tracking-[0.17em] text-mint-emerald">Instrument</p><div aria-label="Choose an instrument reference" className="mt-3 grid grid-cols-3 gap-1.5" role="group">{instrumentOptions.map((instrument) => { const isActive = instrument.id === selectedInstrument; return <button aria-pressed={isActive} className={["rounded-md px-2 py-2 text-left transition", isActive ? "bg-mint-emerald text-white" : "bg-white/[0.05] text-white/55 hover:bg-white/[0.1] hover:text-white"].join(" ")} key={instrument.id} onClick={() => onInstrumentChange(instrument.id)} type="button"><span className="block text-[10px] font-black">{instrument.label}</span><span className={isActive ? "mt-0.5 block text-[8px] font-bold text-white/65" : "mt-0.5 block text-[8px] font-bold text-white/30"}>{instrument.description}</span></button>; })}</div><details className="mt-3 rounded-lg border border-white/10 bg-white/[0.04] open:bg-white/[0.06]"><summary className="cursor-pointer px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/65">Open {selectedInstrument} reference</summary><div className="border-t border-white/10 p-2">{instrumentPanel}</div></details></div>
           </aside>
         </div>

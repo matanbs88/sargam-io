@@ -135,29 +135,64 @@ function playTablaBol(
 
 function playDronePluck(context: AudioContext, midi: number, when: number): void {
   const oscillator = context.createOscillator();
-  const shimmer = context.createOscillator();
+  const companion = context.createOscillator();
+  const buzz = context.createOscillator();
   const filter = context.createBiquadFilter();
+  const colour = context.createBiquadFilter();
+  const drive = context.createWaveShaper();
+  const delay = context.createDelay(0.32);
+  const feedback = context.createGain();
+  const ambience = context.createGain();
   const gain = context.createGain();
   const frequency = midiToFrequency(midi);
+  const real = new Float32Array(9);
+  const imag = new Float32Array([0, 0.86, 0.56, 0.37, 0.24, 0.17, 0.12, 0.08, 0.05]);
+  const curve = new Float32Array(256);
 
-  oscillator.type = "triangle";
+  for (let index = 0; index < curve.length; index += 1) {
+    const value = (index * 2) / (curve.length - 1) - 1;
+    curve[index] = Math.tanh(value * 1.45);
+  }
+
+  oscillator.setPeriodicWave(context.createPeriodicWave(real, imag));
   oscillator.frequency.setValueAtTime(frequency, when);
-  shimmer.type = "sine";
-  shimmer.frequency.setValueAtTime(frequency * 2.01, when);
+  companion.setPeriodicWave(context.createPeriodicWave(real, imag));
+  companion.detune.setValueAtTime(3.5, when);
+  companion.frequency.setValueAtTime(frequency, when);
+  buzz.type = "sine";
+  buzz.frequency.setValueAtTime(frequency * 2.96, when);
   filter.type = "lowpass";
-  filter.frequency.setValueAtTime(Math.min(frequency * 9, 2_800), when);
-  filter.Q.setValueAtTime(1.8, when);
+  filter.frequency.setValueAtTime(Math.min(frequency * 13, 3_400), when);
+  filter.Q.setValueAtTime(2.2, when);
+  colour.type = "peaking";
+  colour.frequency.setValueAtTime(Math.min(frequency * 4.8, 1_900), when);
+  colour.Q.setValueAtTime(1.4, when);
+  colour.gain.setValueAtTime(4.5, when);
+  drive.curve = curve;
+  drive.oversample = "2x";
+  delay.delayTime.setValueAtTime(0.17, when);
+  feedback.gain.setValueAtTime(0.17, when);
+  feedback.gain.exponentialRampToValueAtTime(0.0001, when + 2.5);
+  ambience.gain.setValueAtTime(0.12, when);
   gain.gain.setValueAtTime(0.0001, when);
-  gain.gain.exponentialRampToValueAtTime(0.06, when + 0.025);
-  gain.gain.exponentialRampToValueAtTime(0.0001, when + 1.7);
+  gain.gain.exponentialRampToValueAtTime(0.07, when + 0.012);
+  gain.gain.exponentialRampToValueAtTime(0.019, when + 0.32);
+  gain.gain.exponentialRampToValueAtTime(0.0001, when + 2.45);
 
   oscillator.connect(filter);
-  shimmer.connect(filter);
-  filter.connect(gain).connect(context.destination);
+  companion.connect(filter);
+  buzz.connect(colour);
+  colour.connect(filter);
+  filter.connect(drive).connect(gain);
+  gain.connect(context.destination);
+  gain.connect(delay).connect(ambience).connect(context.destination);
+  delay.connect(feedback).connect(delay);
   oscillator.start(when);
-  shimmer.start(when);
-  oscillator.stop(when + 1.75);
-  shimmer.stop(when + 1.75);
+  companion.start(when);
+  buzz.start(when);
+  oscillator.stop(when + 2.5);
+  companion.stop(when + 2.5);
+  buzz.stop(when + 0.48);
 }
 
 /**
@@ -223,7 +258,7 @@ export function useDigitalAccompaniment({
     };
 
     pluck();
-    const interval = window.setInterval(pluck, 880);
+    const interval = window.setInterval(pluck, 1_120);
     return () => window.clearInterval(interval);
   }, [droneMode, isDronePlaying, rootMidi]);
 

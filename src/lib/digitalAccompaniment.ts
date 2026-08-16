@@ -37,14 +37,14 @@ const DEFAULT_BOL_PROFILE: TablaBolProfile = {
   decayMs: 150,
 };
 
-/** Returns the tonic-relative four-string pattern used by the generated drone. */
+/** Returns the standard Pa/Ma–Sa–Sa–upper Sa sequence for a four-string Tanpura. */
 export function getDroneStringMidis(
   rootMidi: number,
   mode: DroneMode,
 ): readonly number[] {
   const fifthOrFourth = mode === "SaPa" ? 7 : 5;
 
-  return [rootMidi - 12, rootMidi + fifthOrFourth - 12, rootMidi, rootMidi];
+  return [rootMidi + fifthOrFourth - 12, rootMidi, rootMidi, rootMidi + 12];
 }
 
 /** Keeps the audio engine aligned with the same displayed theka as the UI. */

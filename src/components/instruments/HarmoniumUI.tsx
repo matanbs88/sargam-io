@@ -1,13 +1,7 @@
 import { midiToRelativeNote } from "@/src/lib/midiToSargam";
 
-type DroneMode = "SaPa" | "SaMa";
-
 type HarmoniumUIProps = {
   readonly activeMidi: number | null;
-  readonly droneMode: DroneMode;
-  readonly isDronePlaying: boolean;
-  readonly onDroneModeChange: (mode: DroneMode) => void;
-  readonly onToggleDrone: () => void;
   readonly rootMidi: number;
 };
 
@@ -61,15 +55,8 @@ function SargamLabel({ midi, rootMidi }: { readonly midi: number; readonly rootM
 /** A presentational harmonium reference with relative Sargam labels. */
 export function HarmoniumUI({
   activeMidi,
-  droneMode,
-  isDronePlaying,
-  onDroneModeChange,
-  onToggleDrone,
   rootMidi,
 }: HarmoniumUIProps) {
-  const droneInterval = droneMode === "SaPa" ? 7 : 5;
-  const droneLabel = droneMode === "SaPa" ? "Sa + Pa" : "Sa + Ma";
-
   return (
     <section aria-label="Harmonium reference" className="rounded-[1.15rem] bg-white p-4 shadow-teal-soft sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -79,33 +66,12 @@ export function HarmoniumUI({
             Relative Sargam labels for right-hand melody practice.
           </p>
         </div>
-        <div aria-label="Drone setting" className="flex rounded-xl bg-white p-1 shadow-sm" role="group">
-          {(["SaPa", "SaMa"] as const).map((mode) => {
-            const isActive = droneMode === mode;
-
-            return (
-              <button
-                aria-pressed={isActive}
-                className={[
-                  "rounded-lg px-3 py-1.5 text-xs font-black transition",
-                  isActive ? "bg-teal text-white" : "text-charcoal/55 hover:text-teal",
-                ].join(" ")}
-                key={mode}
-                onClick={() => onDroneModeChange(mode)}
-                type="button"
-              >
-                {mode === "SaPa" ? "Sa + Pa" : "Sa + Ma"}
-              </button>
-            );
-          })}
-        </div>
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-2 text-xs font-bold text-charcoal/60">
         <span className="rounded-full bg-mint-emerald px-2.5 py-1 text-white">Sa: MIDI {rootMidi}</span>
-        <span className="rounded-full border border-teal/10 bg-white px-2.5 py-1">Practice drone: {droneLabel}</span>
-        <button aria-pressed={isDronePlaying} className={["rounded-full px-3 py-1.5 text-xs font-black transition", isDronePlaying ? "bg-yellow-soft text-charcoal shadow-[0_2px_0_#d8ca70]" : "bg-teal text-white hover:brightness-95"].join(" ")} onClick={onToggleDrone} type="button">{isDronePlaying ? "Stop drone" : "Start drone"}</button>
-        <span className="text-charcoal/40">Tonic reference follows your selected Sa.</span>
+        <span className="rounded-full border border-teal/10 bg-white px-2.5 py-1">Relative melody reference</span>
+        <span className="text-charcoal/40">Tanpura controls live in the practice layer.</span>
       </div>
 
       <div className="relative mt-5 h-44 select-none overflow-x-auto">
@@ -114,7 +80,6 @@ export function HarmoniumUI({
             {WHITE_KEYS.map((key) => {
               const isActive = key.midi === activeMidi;
               const isSa = key.midi === rootMidi;
-              const isDrone = key.midi === rootMidi + droneInterval;
 
               return (
                 <div
@@ -128,7 +93,6 @@ export function HarmoniumUI({
                 >
                   <SargamLabel midi={key.midi} rootMidi={rootMidi} />
                   {isSa ? <span aria-label="Sa" className="absolute bottom-8 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-mint-emerald ring-2 ring-white" /> : null}
-                  {isDrone ? <span aria-label="Drone note" className="absolute bottom-8 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-teal/45" /> : null}
                 </div>
               );
             })}

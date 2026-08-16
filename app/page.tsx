@@ -12,6 +12,7 @@ import { HarmoniumUI } from "@/src/components/instruments/HarmoniumUI";
 import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
 import { SitarUI } from "@/src/components/instruments/SitarUI";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
+import { TanpuraControl } from "@/src/components/TanpuraControl";
 import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
 import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
 import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
@@ -236,7 +237,7 @@ export default function Home() {
     }
 
     if (selectedInstrument === "Harmonium") {
-      return <HarmoniumUI activeMidi={activeMidi} droneMode={droneMode} isDronePlaying={isDronePlaying} onDroneModeChange={setDroneMode} onToggleDrone={handleToggleDrone} rootMidi={selectedRootMidi} />;
+      return <HarmoniumUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
     }
 
     if (selectedInstrument === "Bansuri") {
@@ -406,6 +407,7 @@ export default function Home() {
           selectedVisualizer={selectedVisualizer}
           songTitle={mockMidiData.title}
           taalOptions={Object.values(TAALS)}
+          tanpuraControl={<TanpuraControl droneMode={droneMode} isPlaying={isDronePlaying} onModeChange={setDroneMode} onToggle={handleToggleDrone} rootLabel={selectedRoot.label} />}
           tempoBpm={mockMidiData.tempoBpm}
         />
       ) : null}

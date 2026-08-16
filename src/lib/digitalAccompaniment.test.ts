@@ -7,11 +7,11 @@ import {
 
 describe("digital accompaniment configuration", () => {
   it("creates a Sa-Pa drone pattern around the selected tonic", () => {
-    expect(getDroneStringMidis(62, "SaPa")).toEqual([50, 57, 62, 62]);
+    expect(getDroneStringMidis(62, "SaPa")).toEqual([57, 62, 62, 74]);
   });
 
   it("uses Ma instead of Pa for the Sa-Ma pattern", () => {
-    expect(getDroneStringMidis(60, "SaMa")).toEqual([48, 53, 60, 60]);
+    expect(getDroneStringMidis(60, "SaMa")).toEqual([53, 60, 60, 72]);
   });
 
   it("uses the same theka sequence shown in the practice UI", () => {

@@ -13,6 +13,7 @@ root because they are linked directly from the public README.
 - [Repository consistency audit](./audits/REPOSITORY_AUDIT_2026-08-16.md)
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
+- [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 
 ## Project map
 
