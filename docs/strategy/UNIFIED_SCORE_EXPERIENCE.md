@@ -90,7 +90,7 @@ two honest stages:
 
 | Need | Preferred provider | Why | Boundary |
 | --- | --- | --- |
-| PDF/photo -> MusicXML/MIDI | Flat OMR / Opuscan | Job API, progress, optional review, MusicXML/MIDI output | API is Beta; contract, DPA, retention, and benchmark required. |
+| PDF/photo -> MusicXML/MIDI | Flat OMR / Opuscan | Job API, progress, optional review, MusicXML/MIDI output | API is Beta; begin with self-service credits, then validate retention and benchmark quality. |
 | PDF/photo fallback | ScoreFlow | Public asynchronous API, MusicXML/MIDI output and documented per-page credits | Needs a quality, security, and support benchmark. |
 | Audio -> MIDI/MusicXML | Klangio | Transcription, beat tracking, source separation, MIDI/MusicXML job output | Need commercial quote, Indian-repertoire benchmark, and rights policy. |
 | Audio stem preparation | Moises Developer Platform | Stem separation before melody extraction | It separates stems; it is not the score-transcription provider. |
@@ -106,8 +106,11 @@ saved to the library.
 
 ## What must happen before production launch
 
-1. Get a written SaaS/DPA/retention quote from Flat and Klangio; do not enter
-   customer audio or scores into a personal trial account.
+1. Open a standard provider account, buy a deliberately small credit pack, and
+   test with rights-cleared material. A bespoke SaaS/DPA agreement is a scale
+   decision, not a beta-launch prerequisite. Do not place customer content in a
+   personal desktop licence or a provider path whose standard terms do not
+   permit API use.
 2. Benchmark both providers on a rights-cleared set including Indian melody,
    Bollywood arrangements, accidentals, ties, 3/4 and 4/4 scores, and lower
    quality phone captures.

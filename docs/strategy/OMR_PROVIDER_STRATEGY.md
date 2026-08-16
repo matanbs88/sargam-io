@@ -13,7 +13,7 @@ The product therefore uses a three-lane intake model.
 | Input | Provider lane | Expected behavior | Production status |
 | --- | --- | --- | --- |
 | MusicXML/MXL | Native parser | Immediate, measure-preserving import | Implemented at `POST /api/imports/musicxml` |
-| Digital vector PDF from notation software | Commercial OMR job API | Fast worker job, export MusicXML, run validation | Preferred candidate: Flat OMR / Opuscan; contract discovery required |
+| Digital vector PDF from notation software | Commercial OMR job API | Fast worker job, export MusicXML, run validation | Preferred candidate: Flat OMR / Opuscan; self-service evaluation first |
 | Scanned/photo PDF | Commercial OMR job API plus review | Asynchronous job, never auto-publish | Preferred candidate: Flat OMR / Opuscan; benchmark required |
 
 ## Why not infer the answer from the PDF directly?
@@ -40,9 +40,11 @@ review/correction step, exposes progress, and exports MusicXML or MIDI. It is
 the strongest current fit for a Sargam.io user-facing workflow because it
 matches our review-first quality gate rather than pretending score recognition
 is instantaneous or infallible. The API is still marked Beta, bills per page,
-and keeps files/results for 30 days by default, so production adoption requires
-a contract review, DPA/retention agreement, an India-specific benchmark, and a
-provider fallback.
+and keeps files/results for 30 days by default. Start through its standard
+self-service account and credits; a bespoke enterprise agreement is not a
+prerequisite for the closed beta. Production adoption still requires an
+India-specific benchmark, a provider fallback, and an explicit check that the
+selected retention/settings fit the beta promise.
 
 ### Secondary commercial candidate: ScoreFlow
 
@@ -60,8 +62,9 @@ commercial/security review.
   product, so they are benchmark and editorial-tool candidates, not embedded
   SaaS dependencies.
 - **Audiveris** and **homr** are useful local benchmarks but AGPL-licensed.
-  Do not deploy either as a public Sargam.io service without legal review of
-  the complete network-service obligations.
+  Audiveris is too slow for the interactive user path measured below. It is a
+  development and recovery tool, not the public primary provider. Any future
+  network deployment must include the required source offer and notices.
 
 ## Local benchmark: `Shoshanim Atsuvot` (2026-08-16)
 
@@ -95,6 +98,31 @@ the existing review gate.
 4. **Scan/photo fallback:** keep it asynchronous and review-required. It
    needs a separate commercial provider decision; local AGPL tools remain
    benchmarks only.
+
+## Non-negotiable quality standard
+
+Sargam.io will not select a recognition engine because it is free, locally
+convenient, or merely produces *some* MusicXML. The selected engine must be
+the best performer on our rights-cleared score corpus for the user journey it
+serves.
+
+1. **No interactive Audiveris path.** A local OMR result taking about a minute
+   for two clean pages is unacceptable for the product's main upload flow.
+2. **Commercial cloud OMR is the primary path.** Flat OMR / Opuscan is the
+   first candidate because of its structured-job API, MusicXML output, progress
+   states, and in-context recognition model. ScoreFlow is retained only as an
+   economical fallback candidate; it must not become the default merely on
+   price.
+3. **Ship only after an evidence-based bake-off.** For each supplier, run the
+   same benchmark and record accuracy, correction burden, median and p95 job
+   time, failure rate, cost, retention, and support quality. A provider that
+   materially damages pitch or rhythm cannot ship, even if it is cheaper.
+4. **Honest quality gates.** Clean vector scores must meet the launch accuracy
+   target set from the benchmark; scans, dense polyphony, and low-confidence
+   output must enter the Review Studio rather than be silently published.
+5. **Provider-neutral architecture.** The application owns the canonical
+   MusicXML, validation, Sargam conversion, practice canvas, and printable
+   notation. A provider can be changed without rewriting the product.
 
 Sources: [PDFtoMusic Pro product page](https://myriad-online.com/en/products/pdftomusicpro.htm),
 [PDFtoMusic Pro command-line terms](https://www.myriad-online.com/resources/docs/pdftomusicpro/english/command.htm),
