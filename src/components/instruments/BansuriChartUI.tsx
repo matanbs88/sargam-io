@@ -1,3 +1,4 @@
+import { BansuriFlute } from "@/src/components/instruments/BansuriFlute";
 import {
   getBansuriReferenceFingering,
   type BansuriHoleState,
@@ -10,78 +11,63 @@ type BansuriChartUIProps = {
   readonly rootMidi: number;
 };
 
-function Hole({
-  index,
-  state,
-}: {
-  readonly index: number;
-  readonly state: BansuriHoleState;
-}) {
-  const holeClass =
-    state === "closed"
-      ? "border-mint-emerald/60 bg-teal shadow-[0_5px_8px_rgba(9,63,54,0.34),inset_0_1px_1px_rgba(255,255,255,0.2)]"
-      : state === "half-open"
-        ? "border-charcoal/75 bg-[linear-gradient(to_top,#136052_50%,#121a25_50%)] shadow-[inset_0_4px_6px_rgba(0,0,0,0.58)]"
-        : "border-charcoal/80 bg-charcoal shadow-[inset_0_4px_6px_rgba(0,0,0,0.6),inset_0_-1px_1px_rgba(255,255,255,0.08)]";
-
-  return (
-    <div className="relative flex flex-col items-center gap-2">
-      <span
-        aria-label={`Hole ${index}: ${state}`}
-        className={[
-          "relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border-2",
-          holeClass,
-        ].join(" ")}
-        role="img"
-      >
-        {state === "half-open" ? (
-          <span className="absolute bottom-0 h-1/2 w-full bg-teal/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.22)]" />
-        ) : null}
-      </span>
-      <span className="text-[9px] font-black uppercase tracking-[0.12em] text-charcoal/55">{index}</span>
-    </div>
-  );
+function stateLabel(state: BansuriHoleState): string {
+  if (state === "closed") return "closed";
+  if (state === "half-open") return "half-open";
+  return "open";
 }
 
-/** A visual learning reference; calibration follows a player-specific profile. */
+/** A restrained visual learning reference; the player profile owns calibration. */
 export function BansuriChartUI({
   activeMidi,
   rootMidi,
 }: BansuriChartUIProps) {
   const fingering = getBansuriReferenceFingering(activeMidi, rootMidi);
+  const holes = fingering?.holes ?? [];
 
   return (
     <section
-      aria-label="Six-hole bansuri fingering reference"
-      className="rounded-[1.15rem] bg-white p-5 shadow-teal-soft sm:p-6"
+      aria-label="Six-hole Bansuri fingering reference"
+      className="overflow-hidden rounded-[1rem] border border-teal/10 bg-[linear-gradient(145deg,#ffffff_0%,#edf0eb_100%)] shadow-[0_18px_40px_rgba(15,61,54,0.11)]"
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex flex-wrap items-start justify-between gap-3 px-5 pb-1 pt-5 sm:px-6 sm:pt-6">
         <div>
-          <p className="text-sm font-bold text-teal">Bansuri reference</p>
-          <p className="mt-1 text-xs text-charcoal/60">
-            Six finger-hole chart relative to Sa.
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-teal">
+            Bansuri reference
+          </p>
+          <p className="mt-1 text-xs text-charcoal/55">
+            Six finger holes, plus a separate blowing hole.
           </p>
         </div>
-        <span className="w-fit rounded-full bg-mint-emerald px-2.5 py-1 text-xs font-bold text-white">
-          {fingering?.label ?? "No active note"}
+        <span className="rounded-full border border-mint-emerald/20 bg-mint-emerald/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-teal">
+          {fingering?.label ?? "Choose a note"}
         </span>
       </div>
 
-      <div className="relative mx-auto mt-7 max-w-2xl px-3 py-8">
-        <div className="relative flex min-h-24 items-center justify-evenly rounded-full border border-[#9c6933]/40 bg-[linear-gradient(180deg,#75451f_0%,#b47a3d_18%,#e3c183_50%,#ae7236_80%,#6b3f1b_100%)] px-12 shadow-[inset_0_2px_3px_rgba(255,255,255,0.34),inset_0_-7px_10px_rgba(70,35,8,0.2),0_10px_20px_rgba(68,43,14,0.14)]">
-          <span aria-hidden="true" className="absolute inset-y-2 left-[3%] rounded-l-full border-l-2 border-[#4d2d16]/45" />
-          <span aria-hidden="true" className="absolute inset-y-2 right-[3%] rounded-r-full border-r-2 border-[#4d2d16]/45" />
-          <span aria-label="Embouchure hole" className="absolute left-[9%] h-4 w-4 rounded-full border border-charcoal/85 bg-charcoal shadow-[inset_0_3px_5px_rgba(0,0,0,0.65),inset_0_-1px_1px_rgba(255,255,255,0.08)]" />
-          {Array.from({ length: 6 }, (_, index) => <Hole index={index + 1} key={index} state={fingering?.holes[index] ?? "open"} />)}
+      <div className="grid items-center gap-5 px-5 py-5 sm:grid-cols-[150px_minmax(0,1fr)] sm:px-6 sm:py-6">
+        <div className="mx-auto h-[280px] w-[92px] drop-shadow-[0_18px_20px_rgba(73,43,10,0.2)]">
+          <BansuriFlute holes={holes} />
         </div>
-        <span className="absolute bottom-0 left-[8%] text-[9px] font-black uppercase tracking-[0.12em] text-charcoal/45">embouchure</span>
+        <ol className="grid grid-cols-2 gap-2 sm:grid-cols-3" aria-label="Current fingering states">
+          {Array.from({ length: 6 }, (_, index) => (
+            <li
+              className="rounded-lg border border-teal/10 bg-white/75 px-3 py-2.5 text-center shadow-[0_5px_12px_rgba(15,61,54,0.06)]"
+              key={index}
+            >
+              <span className="block text-[9px] font-black uppercase tracking-[0.12em] text-charcoal/40">
+                Hole {index + 1}
+              </span>
+              <span className="mt-1 block text-xs font-black capitalize text-teal">
+                {stateLabel(holes[index] ?? "open")}
+              </span>
+            </li>
+          ))}
+        </ol>
       </div>
 
-      <p className="mt-5 text-xs leading-5 text-charcoal/60">
-        Closed holes are teal, open holes are empty, and half-open holes are
-        half filled. The embouchure is not a finger hole. This is a learning
-        reference; exact fingerings depend on flute design, octave, breath, and
-        playing style.
+      <p className="border-t border-teal/10 bg-white/50 px-5 py-3 text-xs leading-5 text-charcoal/55 sm:px-6">
+        Reference only: flute key, maker, breath, octave, and half-hole technique
+        determine the final fingering.
       </p>
     </section>
   );

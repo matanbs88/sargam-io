@@ -215,12 +215,12 @@ export function PracticeWorkspace({
         </section>
 
         <section aria-label="Melody line" className="studio-melody-strip mb-2 px-4 py-3 sm:px-5">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-x-4">
             <div className="flex items-center gap-2">
               <p className="text-[10px] font-black uppercase tracking-[0.17em] text-mint-emerald">Melody</p>
               <span className="rounded-full bg-white/[0.06] px-2 py-1 text-[9px] font-black text-white/45">{formattedNotes.length} notes</span>
             </div>
-            <div className="flex flex-1 flex-wrap gap-1.5">
+            <div className="flex w-full min-w-0 flex-nowrap gap-1.5 overflow-x-auto pb-1 pr-1 sm:flex-1 sm:pb-0">
               {formattedNotes.map((note, index) => {
                 const isActive = index === activeEventIndex;
                 const isInLoop = loopRange !== null && index >= loopRange.startIndex && index <= loopRange.endIndex;

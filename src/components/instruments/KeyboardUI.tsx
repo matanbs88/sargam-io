@@ -1,131 +1,105 @@
+import { REFERENCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
+
 type KeyboardUIProps = {
   readonly activeMidi: number | null;
   readonly rootMidi: number;
 };
 
-type PianoKey = {
-  readonly midi: number;
-  readonly label: string;
-  readonly left?: string;
-};
-
-const WHITE_KEYS: readonly PianoKey[] = [
-  { midi: 60, label: "C4" },
-  { midi: 62, label: "D4" },
-  { midi: 64, label: "E4" },
-  { midi: 65, label: "F4" },
-  { midi: 67, label: "G4" },
-  { midi: 69, label: "A4" },
-  { midi: 71, label: "B4" },
-  { midi: 72, label: "C5" },
-  { midi: 74, label: "D5" },
-  { midi: 76, label: "E5" },
-  { midi: 77, label: "F5" },
-  { midi: 79, label: "G5" },
-  { midi: 81, label: "A5" },
-  { midi: 83, label: "B5" },
-  { midi: 84, label: "C6" },
-];
-
-const BLACK_KEYS: readonly PianoKey[] = [
-  { midi: 61, label: "C♯4", left: "4.3%" },
-  { midi: 63, label: "D♯4", left: "11%" },
-  { midi: 66, label: "F♯4", left: "24.3%" },
-  { midi: 68, label: "G♯4", left: "31%" },
-  { midi: 70, label: "A♯4", left: "37.7%" },
-  { midi: 73, label: "C♯5", left: "51%" },
-  { midi: 75, label: "D♯5", left: "57.7%" },
-  { midi: 78, label: "F♯5", left: "71%" },
-  { midi: 80, label: "G♯5", left: "77.7%" },
-  { midi: 82, label: "A♯5", left: "84.3%" },
-];
+function keyLabel(midi: number): string {
+  const pitchClass = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][
+    ((midi % 12) + 12) % 12
+  ];
+  return `${pitchClass}${Math.floor(midi / 12) - 1}`;
+}
 
 function SaMarker({ isRoot }: { readonly isRoot: boolean }) {
   return isRoot ? (
     <span
       aria-label="Sa"
-      className="absolute bottom-3 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-mint-emerald ring-2 ring-white"
+      className="absolute bottom-3 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-mint-emerald shadow-[0_0_11px_rgba(40,177,130,0.92)] ring-2 ring-white/85"
       title="Sa"
     />
   ) : null;
 }
 
 /**
- * A static two-octave piano visualization. The component is presentational:
- * the parent owns the active-note and selected-Sa state.
+ * A wide, three-octave physical keyboard reference. The same geometry is used
+ * by the performance piano roll, so an active note always reaches its key.
  */
 export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
+  const whiteKeys = REFERENCE_PIANO_KEYS.filter((key) => !key.isBlack);
+  const blackKeys = REFERENCE_PIANO_KEYS.filter((key) => key.isBlack);
+
   return (
     <section
-      aria-label="Two-octave keyboard"
-      className="rounded-[1.15rem] bg-white p-4 shadow-teal-soft sm:p-6"
+      aria-label="Three-octave keyboard reference"
+      className="overflow-hidden rounded-[1rem] border border-teal/10 bg-[linear-gradient(145deg,#ffffff_0%,#edf0eb_100%)] p-4 shadow-[0_18px_40px_rgba(15,61,54,0.11)] sm:p-5"
     >
-      <div className="mb-4 flex items-center justify-between gap-4">
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm font-bold text-teal">Keyboard reference</p>
-          <p className="mt-1 text-xs text-charcoal/60">
-            Yellow is the active note. The mint dot marks Sa.
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-teal">
+            Keyboard reference
+          </p>
+          <p className="mt-1 text-xs text-charcoal/55">
+            The mint marker is Sa. Yellow shows the played note.
           </p>
         </div>
-        <span className="rounded-full bg-mint-emerald px-2.5 py-1 text-xs font-bold text-white">
-          Sa: MIDI {rootMidi}
+        <span className="rounded-full border border-mint-emerald/20 bg-mint-emerald/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-teal">
+          {keyLabel(rootMidi)} is Sa
         </span>
       </div>
 
-      <div className="relative h-44 select-none rounded-b-[1rem] bg-[#d9d5cb] p-[2px] shadow-[inset_0_-9px_14px_rgba(70,55,32,0.17),0_10px_20px_rgba(20,35,31,0.12)]">
-        <div className="grid h-full grid-cols-[repeat(15,minmax(0,1fr))] overflow-hidden rounded-b-[0.9rem] border border-teal/20 bg-[#ece8de]">
-          {WHITE_KEYS.map((key) => {
+      <div className="rounded-[0.8rem] bg-[linear-gradient(180deg,#283442_0%,#101822_16%,#0c1219_100%)] p-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_12px_24px_rgba(3,14,24,0.24)] sm:p-3">
+        <div className="relative h-44 select-none overflow-hidden rounded-b-[0.55rem] rounded-t-[0.28rem] bg-[#c5c4bd] shadow-[inset_0_10px_18px_rgba(11,16,22,0.28)] sm:h-52">
+          <div aria-hidden="true" className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(180deg,rgba(255,255,255,0.35),transparent)]" />
+          {whiteKeys.map((key) => {
             const isActive = key.midi === activeMidi;
+            const isC = key.midi % 12 === 0;
 
             return (
               <div
-                aria-label={
-                  key.label +
-                  (isActive ? ", active note" : "") +
-                  (key.midi === rootMidi ? ", Sa" : "")
-                }
+                aria-label={`${keyLabel(key.midi)}${isActive ? ", active note" : ""}${key.midi === rootMidi ? ", Sa" : ""}`}
                 className={[
-                  "relative rounded-b-lg border-r border-teal/15 bg-[linear-gradient(90deg,#f0eee8_0%,#fffefa_46%,#e6e2d9_100%)] shadow-[inset_0_-9px_10px_rgba(67,52,28,0.14),inset_0_1px_0_rgba(255,255,255,0.98)] transition duration-150 last:border-r-0",
+                  "absolute bottom-0 h-full rounded-b-[0.42rem] border-r border-[#1b2530]/55 bg-[linear-gradient(90deg,#d7d6cf_0%,#fffefa_38%,#f8f7f2_62%,#cbc9c1_100%)] shadow-[inset_0_-13px_13px_rgba(55,45,31,0.16),inset_0_1px_0_rgba(255,255,255,0.98)] transition-[transform,box-shadow,background] duration-150 last:border-r-0",
                   isActive
-                    ? "translate-y-1 bg-[linear-gradient(180deg,#fff6b8_0%,#ffe88a_100%)] shadow-[inset_0_3px_12px_rgba(135,111,19,0.3),inset_0_-3px_5px_rgba(255,255,255,0.52),0_0_12px_rgba(255,240,153,0.42)]"
+                    ? "translate-y-1 bg-[linear-gradient(90deg,#f0d65b_0%,#fff7bd_46%,#e8c94f_100%)] shadow-[inset_0_-5px_8px_rgba(145,105,10,0.34),inset_0_2px_8px_rgba(255,255,255,0.96),0_0_18px_rgba(255,240,153,0.72)]"
                     : "",
                 ].join(" ")}
                 key={key.midi}
                 role="img"
+                style={{ left: `${key.left}%`, width: `${key.width}%` }}
               >
-                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-charcoal/55">
-                  {key.label}
-                </span>
+                {isC ? (
+                  <span className="absolute left-1/2 top-3 -translate-x-1/2 text-[9px] font-black tracking-[0.08em] text-charcoal/35">
+                    C{Math.floor(key.midi / 12) - 1}
+                  </span>
+                ) : null}
+                <SaMarker isRoot={key.midi === rootMidi} />
+              </div>
+            );
+          })}
+
+          {blackKeys.map((key) => {
+            const isActive = key.midi === activeMidi;
+
+            return (
+              <div
+                aria-label={`${keyLabel(key.midi)}${isActive ? ", active note" : ""}${key.midi === rootMidi ? ", Sa" : ""}`}
+                className={[
+                  "absolute top-0 z-10 h-[61%] rounded-b-[0.36rem] border border-white/[0.12] border-t-white/25 bg-[linear-gradient(90deg,#02060a_0%,#172230_42%,#273747_53%,#04080d_100%)] shadow-[0_10px_12px_rgba(0,0,0,0.58),inset_0_2px_1px_rgba(255,255,255,0.21),inset_0_-3px_4px_rgba(0,0,0,0.5)] transition-[transform,box-shadow,background] duration-150",
+                  isActive
+                    ? "translate-y-1 border-yellow-soft/85 bg-[linear-gradient(90deg,#b88e18_0%,#fff1a1_48%,#b88e18_100%)] shadow-[0_3px_6px_rgba(0,0,0,0.38),inset_0_3px_10px_rgba(255,255,255,0.58),0_0_18px_rgba(255,240,153,0.68)]"
+                    : "",
+                ].join(" ")}
+                key={key.midi}
+                role="img"
+                style={{ left: `${key.left}%`, width: `${key.width}%` }}
+              >
                 <SaMarker isRoot={key.midi === rootMidi} />
               </div>
             );
           })}
         </div>
-
-        {BLACK_KEYS.map((key) => {
-          const isActive = key.midi === activeMidi;
-
-          return (
-            <div
-              aria-label={
-                key.label +
-                (isActive ? ", active note" : "") +
-                (key.midi === rootMidi ? ", Sa" : "")
-              }
-              className={[
-                "absolute top-0 z-10 h-[62%] w-[4.2%] rounded-b-lg border border-white/10 border-t-white/20 bg-[linear-gradient(90deg,#070b11_0%,#263342_48%,#070b11_100%)] shadow-[0_10px_12px_rgba(0,0,0,0.5),inset_0_2px_1px_rgba(255,255,255,0.16)] transition duration-150",
-                isActive
-                  ? "translate-y-1 border-yellow-soft/70 bg-[linear-gradient(90deg,#d9bb48_0%,#fff09a_50%,#d9bb48_100%)] text-charcoal shadow-[0_3px_5px_rgba(0,0,0,0.3),inset_0_3px_10px_rgba(255,255,255,0.52),0_0_14px_rgba(255,240,153,0.45)]"
-                  : "",
-              ].join(" ")}
-              key={key.midi}
-              role="img"
-              style={{ left: key.left }}
-            >
-              <SaMarker isRoot={key.midi === rootMidi} />
-            </div>
-          );
-        })}
       </div>
     </section>
   );

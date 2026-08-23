@@ -5,6 +5,9 @@ import {
   type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
+import {
+  PERFORMANCE_PIANO_KEYS,
+} from "@/src/lib/pianoGeometry";
 
 type FallingNotesPianoRollProps = {
   readonly activeEventIndex: number;
@@ -13,65 +16,12 @@ type FallingNotesPianoRollProps = {
   readonly rootMidi: number;
 };
 
-type PianoKey = {
-  readonly midi: number;
-  readonly isBlack: boolean;
-  readonly left: number;
-  readonly width: number;
-};
-
-const WHITE_NOTES = new Set([0, 2, 4, 5, 7, 9, 11]);
-const BLACK_KEY_CENTER_OFFSET = 0.69;
-// Four octaves give the performance canvas the physical breadth of a real
-// keyboard while keeping all of the transposed mock phrase in view.
-const FIRST_MIDI = 48; // C3
-const LAST_MIDI = 96; // C7
 const ROLL_HEIGHT = 482;
 const LOOK_AHEAD_MS = 4_000;
 
 function getBarHeight(durationMs: number): number {
   return Math.max(58, Math.min(218, durationMs * 0.34));
 }
-
-function isWhiteKey(midi: number): boolean {
-  return WHITE_NOTES.has(((midi % 12) + 12) % 12);
-}
-
-function createPianoKeys(): readonly PianoKey[] {
-  const whiteKeys = Array.from(
-    { length: LAST_MIDI - FIRST_MIDI + 1 },
-    (_, index) => FIRST_MIDI + index,
-  ).filter(isWhiteKey);
-  const whiteIndexByMidi = new Map(whiteKeys.map((midi, index) => [midi, index]));
-
-  return Array.from({ length: LAST_MIDI - FIRST_MIDI + 1 }, (_, index) => {
-    const midi = FIRST_MIDI + index;
-    const isBlack = !isWhiteKey(midi);
-
-    if (!isBlack) {
-      return {
-        midi,
-        isBlack,
-        left: ((whiteIndexByMidi.get(midi) ?? 0) / whiteKeys.length) * 100,
-        width: 100 / whiteKeys.length,
-      };
-    }
-
-    const precedingWhiteMidi = midi - 1;
-    const precedingWhiteIndex = whiteIndexByMidi.get(precedingWhiteMidi) ?? 0;
-
-    return {
-      midi,
-      isBlack,
-      left:
-        ((precedingWhiteIndex + BLACK_KEY_CENTER_OFFSET) / whiteKeys.length) *
-        100,
-      width: (100 / whiteKeys.length) * 0.62,
-    };
-  });
-}
-
-const PIANO_KEYS = createPianoKeys();
 
 function getBarTop(event: MidiNoteEvent, currentTimeMs: number): number {
   const barHeight = getBarHeight(event.durationMs);
@@ -92,10 +42,14 @@ export function FallingNotesPianoRoll({
   rootMidi,
 }: FallingNotesPianoRollProps) {
   const currentTimeMs = events[activeEventIndex]?.startMs ?? 0;
-  const keyByMidi = new Map(PIANO_KEYS.map((key) => [key.midi, key]));
+  const keyByMidi = new Map(
+    PERFORMANCE_PIANO_KEYS.map((key) => [key.midi, key]),
+  );
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const activeMidi = events[activeEventIndex]?.midi ?? rootMidi;
-  const activeKey = PIANO_KEYS.find((key) => key.midi === activeMidi);
+  const activeKey = PERFORMANCE_PIANO_KEYS.find(
+    (key) => key.midi === activeMidi,
+  );
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -146,7 +100,7 @@ export function FallingNotesPianoRoll({
       <div className="relative h-full min-w-[840px] bg-[#070a0f] sm:min-w-0">
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_64px]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0">
-          {PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
+          {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
             <span className="absolute bottom-0 top-0 border-r border-white/[0.075]" key={key.midi} style={{ left: `${key.left}%`, width: `${key.width}%` }} />
           ))}
         </div>
@@ -196,7 +150,7 @@ export function FallingNotesPianoRoll({
         })}
 
         <div className="absolute inset-x-0 bottom-0 h-[108px] border-t border-white/30 bg-[#d6d4cf] shadow-[inset_0_12px_18px_rgba(0,0,0,0.12)] sm:h-[138px]">
-          {PIANO_KEYS.filter((key) => !key.isBlack).map((key) => {
+          {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => {
             const isRoot = key.midi === rootMidi;
             const isActive = key.midi === events[activeEventIndex]?.midi;
             const isC = key.midi % 12 === 0;
@@ -222,7 +176,7 @@ export function FallingNotesPianoRoll({
               </div>
             );
           })}
-          {PIANO_KEYS.filter((key) => key.isBlack).map((key) => {
+          {PERFORMANCE_PIANO_KEYS.filter((key) => key.isBlack).map((key) => {
             const isActive = key.midi === events[activeEventIndex]?.midi;
             return (
               <div
@@ -232,7 +186,7 @@ export function FallingNotesPianoRoll({
                   isActive ? "translate-y-1 border-performance-blue/80 bg-[linear-gradient(90deg,#1c4e80_0%,#70bcff_50%,#1c4e80_100%)] shadow-[0_3px_6px_rgba(0,0,0,0.42),0_0_18px_rgba(88,166,255,0.64),inset_0_2px_6px_rgba(225,248,255,0.8)]" : "",
                 ].join(" ")}
                 key={key.midi}
-                style={{ left: `${key.left + key.width / 2}%`, width: `${key.width}%` }}
+                style={{ left: `${key.left}%`, width: `${key.width}%` }}
               />
             );
           })}
