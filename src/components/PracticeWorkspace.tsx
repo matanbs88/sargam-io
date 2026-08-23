@@ -6,7 +6,6 @@ import type { ImportedScoreValidation } from "@/src/lib/importedScoreTimeline";
 import type { EventLoopRange } from "@/src/lib/playback";
 import type { TaalDefinition, TaalId } from "@/src/lib/taal";
 
-type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 type Visualizer = "Piano" | "Bansuri";
 
 type RootOption = { readonly label: string; readonly midi: number };
@@ -15,20 +14,12 @@ type NotationOption = {
   readonly id: NotationSystem;
   readonly label: string;
 };
-type InstrumentOption = {
-  readonly description: string;
-  readonly id: Instrument;
-  readonly label: string;
-};
-
 type PracticeWorkspaceProps = {
   readonly activeEventIndex: number;
   readonly displayedMatra: number;
   readonly formattedNotes: readonly string[];
   readonly hasManualEdits: boolean;
   readonly importValidation: ImportedScoreValidation | null;
-  readonly instrumentOptions: readonly InstrumentOption[];
-  readonly instrumentPanel: ReactNode;
   readonly isMetronomePlaying: boolean;
   readonly isPlaying: boolean;
   readonly isTransposed: boolean;
@@ -41,7 +32,6 @@ type PracticeWorkspaceProps = {
   readonly onCinemaView: () => void;
   readonly onClearLoop: () => void;
   readonly onDownloadSargamPdf: () => void;
-  readonly onInstrumentChange: (instrument: Instrument) => void;
   readonly onMoveNote: (direction: -1 | 1) => void;
   readonly onNotationChange: (notation: NotationSystem) => void;
   readonly onPlaybackRateChange: (rate: number) => void;
@@ -60,7 +50,6 @@ type PracticeWorkspaceProps = {
   readonly playbackRate: number;
   readonly practiceTempoBpm: number;
   readonly rootOptions: readonly RootOption[];
-  readonly selectedInstrument: Instrument;
   readonly selectedRootLabel: string;
   readonly selectedRootMidi: number;
   readonly selectedTaal: TaalDefinition;
@@ -80,8 +69,6 @@ export function PracticeWorkspace({
   formattedNotes,
   hasManualEdits,
   importValidation,
-  instrumentOptions,
-  instrumentPanel,
   isMetronomePlaying,
   isPlaying,
   isTransposed,
@@ -94,7 +81,6 @@ export function PracticeWorkspace({
   onCinemaView,
   onClearLoop,
   onDownloadSargamPdf,
-  onInstrumentChange,
   onMoveNote,
   onNotationChange,
   onPlaybackRateChange,
@@ -113,7 +99,6 @@ export function PracticeWorkspace({
   playbackRate,
   practiceTempoBpm,
   rootOptions,
-  selectedInstrument,
   selectedRootLabel,
   selectedRootMidi,
   selectedTaal,
@@ -287,7 +272,7 @@ export function PracticeWorkspace({
                 </details>
               ) : null}
             </div>
-            <div aria-label="Choose a falling note visualizer" className="flex rounded-md bg-white/[0.05] p-1" role="group">
+            <div aria-label="Choose an instrument roll" className="flex rounded-md bg-white/[0.05] p-1" role="group">
               {(["Piano", "Bansuri"] as const).map((visualizer) => {
                 const isActive = selectedVisualizer === visualizer;
                 return (
@@ -303,7 +288,7 @@ export function PracticeWorkspace({
                     onClick={() => onVisualizerChange(visualizer)}
                     type="button"
                   >
-                    {visualizer} roll
+                    {visualizer} roll · sound
                   </button>
                 );
               })}
@@ -351,7 +336,7 @@ export function PracticeWorkspace({
           <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5">
             <span>
               <span className="block text-[10px] font-black uppercase tracking-[0.19em] text-mint-emerald">Practice layers</span>
-              <span className="mt-1 block text-[10px] font-medium text-white/42">Taal, tabla, tanpura and instrument reference</span>
+              <span className="mt-1 block text-[10px] font-medium text-white/42">Taal, tabla, tanpura and instrument sound</span>
             </span>
             <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.13em] text-white/60 transition group-open:bg-mint-emerald group-open:text-white">Open</span>
           </summary>
@@ -359,7 +344,7 @@ export function PracticeWorkspace({
           <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/[0.08] pb-4">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.19em] text-mint-emerald">Rhythm and reference</p>
-              <p className="mt-1 text-xs text-white/45">Rhythm, drone and instrument reference stay available without competing with the performance.</p>
+              <p className="mt-1 text-xs text-white/45">Rhythm and drone stay available without competing with the performance.</p>
             </div>
             <label className="text-[10px] font-black uppercase tracking-[0.12em] text-white/45" htmlFor="taal-select">
               Taal
@@ -372,21 +357,6 @@ export function PracticeWorkspace({
             <TaalCycle activeMatra={displayedMatra} taal={selectedTaal} />
             <TablaPracticeUI activeMatra={displayedMatra} isPlaying={isMetronomePlaying} onTempoChange={onTempoChange} onToggle={onToggleMetronome} taal={selectedTaal} tempoBpm={practiceTempoBpm} />
             {tanpuraControl}
-          </div>
-          <div className="mt-4 border-t border-white/[0.08] pt-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[10px] font-black uppercase tracking-[0.17em] text-white/45">Instrument reference</p>
-              <div aria-label="Choose an instrument reference" className="flex flex-wrap gap-1.5" role="group">
-                {instrumentOptions.map((instrument) => {
-                  const isActive = instrument.id === selectedInstrument;
-                  return <button aria-pressed={isActive} className={["rounded-md px-2.5 py-2 text-left transition", isActive ? "bg-mint-emerald text-white shadow-[0_5px_14px_rgba(40,177,130,0.18)]" : "bg-white/[0.05] text-white/50 hover:bg-white/[0.1] hover:text-white"].join(" ")} key={instrument.id} onClick={() => onInstrumentChange(instrument.id)} type="button"><span className="block text-[10px] font-black">{instrument.label}</span><span className={isActive ? "mt-0.5 block text-[8px] font-bold text-white/65" : "mt-0.5 block text-[8px] font-bold text-white/30"}>{instrument.description}</span></button>;
-                })}
-              </div>
-            </div>
-            <details className="mt-3 rounded-lg bg-white/[0.035] open:bg-white/[0.05]">
-              <summary className="cursor-pointer px-3 py-2.5 text-[10px] font-black uppercase tracking-[0.12em] text-white/60">Open {selectedInstrument} reference</summary>
-              <div className="border-t border-white/[0.08] p-2">{instrumentPanel}</div>
-            </details>
           </div>
           </div>
         </details>
