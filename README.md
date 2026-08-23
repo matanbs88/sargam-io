@@ -33,6 +33,10 @@ the public deployment. See
 [TESTING_CHECKLIST.md](./TESTING_CHECKLIST.md) for the complete local QA path,
 [WEEKEND_SUMMARY.md](./WEEKEND_SUMMARY.md) for live-integration boundaries, and
 the [project vault](./docs/README.md) for architecture, audit, and handoff docs.
+The current cross-functional status is maintained in
+[PROJECT_SOURCE_OF_TRUTH.md](./docs/PROJECT_SOURCE_OF_TRUTH.md), and the ordered
+path to a gated beta is in
+[LAUNCH_EXECUTION_PLAN.md](./docs/strategy/LAUNCH_EXECUTION_PLAN.md).
 The score-recognition provider and quality-gate decision is documented in
 [OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md). The
 unified song-to-score and score-to-Sargam product flow is documented in
