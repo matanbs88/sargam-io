@@ -7,11 +7,6 @@ import {
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
 import { mockMidiData } from "@/src/lib/mockMidiData";
-import { BansuriChartUI } from "@/src/components/instruments/BansuriChartUI";
-import { GuitarTabsUI } from "@/src/components/instruments/GuitarTabsUI";
-import { HarmoniumUI } from "@/src/components/instruments/HarmoniumUI";
-import { KeyboardUI } from "@/src/components/instruments/KeyboardUI";
-import { SitarUI } from "@/src/components/instruments/SitarUI";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
 import { ScoreImportPanel } from "@/src/components/ScoreImportPanel";
 import { TanpuraControl } from "@/src/components/TanpuraControl";
@@ -32,7 +27,6 @@ import {
 import type { EventLoopRange } from "@/src/lib/playback";
 import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
-type Instrument = "Harmonium" | "Keyboard" | "Bansuri" | "Guitar" | "Sitar" | "None";
 type Visualizer = "Piano" | "Bansuri";
 type Theme = "light" | "dark";
 
@@ -47,7 +41,6 @@ type PracticeSource = {
 };
 
 type SavedPracticeSession = {
-  readonly instrument: Instrument;
   readonly midiOverrides: readonly number[];
   readonly notation: NotationSystem;
   readonly playbackRate: number;
@@ -95,19 +88,6 @@ const NOTATION_OPTIONS: readonly {
   { id: "ABC", label: "C D E", detail: "Pitch names" },
 ];
 
-const INSTRUMENT_OPTIONS: readonly {
-  readonly id: Instrument;
-  readonly label: string;
-  readonly description: string;
-}[] = [
-  { id: "None", label: "Score", description: "Note view" },
-  { id: "Harmonium", label: "Harmonium", description: "Sargam keys" },
-  { id: "Keyboard", label: "Keys", description: "Chromatic keys" },
-  { id: "Bansuri", label: "Bansuri", description: "Fingering" },
-  { id: "Sitar", label: "Sitar", description: "Relative frets" },
-  { id: "Guitar", label: "Guitar", description: "Fretboard" },
-];
-
 function StudioMark() {
   return (
     <span className="grid h-9 w-9 place-items-center rounded-xl bg-teal text-base font-black text-yellow-soft shadow-[0_8px_20px_rgba(19,96,82,0.22)]">
@@ -124,8 +104,6 @@ export default function Home() {
     DEMO_PRACTICE_SOURCE.rootMidi,
   );
   const [credits, setCredits] = useState(2);
-  const [selectedInstrument, setSelectedInstrument] =
-    useState<Instrument>("Harmonium");
   const [selectedVisualizer, setSelectedVisualizer] =
     useState<Visualizer>("Piano");
   const [isCinemaMode, setIsCinemaMode] = useState(false);
@@ -181,7 +159,6 @@ export default function Home() {
     selectedRootMidi !== practiceSource.rootMidi;
   const { activeEvent, activeEventIndex, isPlaying, lastEventIndex, playbackProgress } =
     transport;
-  const activeMidi = activeEvent?.midi ?? null;
   const selectedTaal = TAALS[selectedTaalId];
   const {
     activeMatra: accompanimentMatra,
@@ -193,12 +170,7 @@ export default function Home() {
     toggleDrone,
     toggleTabla,
   } = useDigitalAccompaniment({
-    guideInstrument:
-      selectedInstrument === "Keyboard"
-        ? "piano"
-        : selectedInstrument === "Bansuri"
-          ? "bansuri"
-          : "synth",
+    guideInstrument: selectedVisualizer === "Piano" ? "piano" : "bansuri",
     droneMode,
     rootMidi: selectedRootMidi,
     taal: selectedTaal,
@@ -251,7 +223,6 @@ export default function Home() {
       if (parsedSession !== null) {
         const savedVisualizer = parsedSession.visualizer;
         const isRoot = ROOT_OPTIONS.some((option) => option.midi === parsedSession?.rootMidi);
-        const isInstrument = INSTRUMENT_OPTIONS.some((option) => option.id === parsedSession?.instrument);
         const isVisualizer = savedVisualizer === "Piano" || savedVisualizer === "Bansuri";
         const isNotation = NOTATION_OPTIONS.some((option) => option.id === parsedSession?.notation);
         const isTaal = typeof parsedSession.taalId === "string" && parsedSession.taalId in TAALS;
@@ -259,7 +230,6 @@ export default function Home() {
         const isPlaybackRate = typeof parsedSession.playbackRate === "number" && PRACTICE_SPEEDS.includes(parsedSession.playbackRate as (typeof PRACTICE_SPEEDS)[number]);
 
         if (isRoot && parsedSession.rootMidi !== undefined) setSelectedRootMidi(parsedSession.rootMidi);
-        if (isInstrument && parsedSession.instrument !== undefined) setSelectedInstrument(parsedSession.instrument);
         if (isVisualizer) setSelectedVisualizer(savedVisualizer);
         if (isNotation && parsedSession.notation !== undefined) setNotationSystem(parsedSession.notation);
         if (isTaal) setSelectedTaalId(parsedSession.taalId as TaalId);
@@ -281,7 +251,6 @@ export default function Home() {
     if (!isPracticeSessionReady || !isTranscribed || practiceSource.kind !== "mock") return;
 
     const session: SavedPracticeSession = {
-      instrument: selectedInstrument,
       midiOverrides: practiceEvents.map((event) => event.midi),
       notation: notationSystem,
       playbackRate,
@@ -299,7 +268,6 @@ export default function Home() {
     playbackRate,
     practiceEvents,
     practiceTempoBpm,
-    selectedInstrument,
     selectedRootMidi,
     selectedTaalId,
     selectedVisualizer,
@@ -497,30 +465,6 @@ export default function Home() {
     );
   }
 
-  function renderInstrumentPanel() {
-    if (selectedInstrument === "Keyboard") {
-      return <KeyboardUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
-    }
-
-    if (selectedInstrument === "Harmonium") {
-      return <HarmoniumUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
-    }
-
-    if (selectedInstrument === "Bansuri") {
-      return <BansuriChartUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
-    }
-
-    if (selectedInstrument === "Guitar") {
-      return <GuitarTabsUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
-    }
-
-    if (selectedInstrument === "Sitar") {
-      return <SitarUI activeMidi={activeMidi} rootMidi={selectedRootMidi} />;
-    }
-
-    return <div className="rounded-lg border border-dashed border-white/15 bg-white/[0.04] p-4 text-center text-xs font-medium text-white/45">Choose an instrument to see the current note.</div>;
-  }
-
   return (
     <main className={`min-h-screen overflow-x-hidden text-charcoal transition-colors duration-300 ${isTranscribed ? "bg-[#07121f]" : "bg-cream"}`}>
       <header className={`relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 ${isTranscribed ? "lg:py-4" : "lg:py-7"}`}>
@@ -657,8 +601,6 @@ export default function Home() {
           importValidation={practiceSource.validation}
           displayedMatra={displayedMatra}
           formattedNotes={formattedNotes}
-          instrumentOptions={INSTRUMENT_OPTIONS}
-          instrumentPanel={renderInstrumentPanel()}
           isMetronomePlaying={isTablaPlaying}
           isPlaying={isPlaying}
           isTransposed={isTransposed}
@@ -670,7 +612,6 @@ export default function Home() {
           onCinemaView={() => setIsCinemaMode(true)}
           onAdjustActiveNote={handleAdjustActiveNote}
           onDownloadSargamPdf={handleDownloadSargamPdf}
-          onInstrumentChange={setSelectedInstrument}
           onMoveNote={moveActiveNote}
           onNotationChange={setNotationSystem}
           onRootChange={setSelectedRootMidi}
@@ -688,7 +629,6 @@ export default function Home() {
           playbackRate={playbackRate}
           practiceTempoBpm={practiceTempoBpm}
           rootOptions={ROOT_OPTIONS}
-          selectedInstrument={selectedInstrument}
           selectedRootLabel={selectedRoot.label}
           selectedRootMidi={selectedRootMidi}
           selectedTaal={selectedTaal}
