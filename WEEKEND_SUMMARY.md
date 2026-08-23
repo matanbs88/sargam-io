@@ -1,7 +1,7 @@
 # Sargam.io weekend handoff and current build status
 
 **Status date:** 2026-08-23
-**Baseline commit:** `7803a53`
+**Baseline commit:** `26b137b`
 **Production preview:** <https://sargam-io.vercel.app/>
 
 ## What is working now
@@ -25,6 +25,9 @@
   sheets using the selected Sa, taal, tempo, and meter.
 - User-facing MusicXML/MXL lead-sheet upload that validates a score and opens a
   temporary practice-review session.
+- Imported MusicXML sessions and manual MIDI corrections survive a browser
+  refresh through a validated local-storage contract; malformed saved state is
+  discarded safely.
 - Guarded local Audiveris PDF pilot for research only; it is disabled on the
   public deployment.
 - Mock cache-first API route that validates and canonicalizes YouTube URLs.
@@ -36,7 +39,7 @@
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes: 58 tests across 21 test files.
+- `npm.cmd run test` passes: 60 tests across 22 test files.
 - `npm.cmd run build` passes.
 - Manual QA has covered desktop, 390x844 vertical layouts, Bansuri cue
   alignment, Cinema view, transport sync, and console-error checks.

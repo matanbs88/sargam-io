@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   formatRelativeMidiEvents,
-  type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
 import { mockMidiData } from "@/src/lib/mockMidiData";
@@ -17,8 +16,12 @@ import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
 import type {
   ImportedPracticeScore,
-  ImportedScoreValidation,
 } from "@/src/lib/importedScoreTimeline";
+import {
+  parseSavedPracticeSession,
+  type PracticeSource,
+  type SavedPracticeSession,
+} from "@/src/lib/practiceSession";
 import {
   adjustMidiEvent,
   applyMidiOverrides,
@@ -29,26 +32,6 @@ import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 
 type Visualizer = "Piano" | "Bansuri";
 type Theme = "light" | "dark";
-
-type PracticeSource = {
-  readonly kind: "mock" | "musicxml";
-  readonly noteEvents: readonly MidiNoteEvent[];
-  readonly rootMidi: number;
-  readonly tempoBpm: number;
-  readonly timeSignature: string;
-  readonly title: string;
-  readonly validation: ImportedScoreValidation | null;
-};
-
-type SavedPracticeSession = {
-  readonly midiOverrides: readonly number[];
-  readonly notation: NotationSystem;
-  readonly playbackRate: number;
-  readonly rootMidi: number;
-  readonly taalId: TaalId;
-  readonly tempoBpm: number;
-  readonly visualizer: Visualizer;
-};
 
 const PRACTICE_SESSION_STORAGE_KEY = "sargam-practice-session-v1";
 const PRACTICE_SPEEDS = [0.5, 0.75, 1, 1.25] as const;
@@ -210,33 +193,25 @@ export default function Home() {
   useEffect(() => {
     const storedSession = window.localStorage.getItem(PRACTICE_SESSION_STORAGE_KEY);
 
-    let parsedSession: Partial<SavedPracticeSession> | null = null;
-    if (storedSession !== null) {
-      try {
-        parsedSession = JSON.parse(storedSession);
-      } catch {
-        window.localStorage.removeItem(PRACTICE_SESSION_STORAGE_KEY);
-      }
+    const parsedSession = parseSavedPracticeSession(storedSession);
+    if (storedSession !== null && parsedSession === null) {
+      window.localStorage.removeItem(PRACTICE_SESSION_STORAGE_KEY);
     }
 
     const timer = window.setTimeout(() => {
       if (parsedSession !== null) {
-        const savedVisualizer = parsedSession.visualizer;
-        const isRoot = ROOT_OPTIONS.some((option) => option.midi === parsedSession?.rootMidi);
-        const isVisualizer = savedVisualizer === "Piano" || savedVisualizer === "Bansuri";
-        const isNotation = NOTATION_OPTIONS.some((option) => option.id === parsedSession?.notation);
-        const isTaal = typeof parsedSession.taalId === "string" && parsedSession.taalId in TAALS;
-        const isTempo = typeof parsedSession.tempoBpm === "number" && parsedSession.tempoBpm >= 30 && parsedSession.tempoBpm <= 300;
-        const isPlaybackRate = typeof parsedSession.playbackRate === "number" && PRACTICE_SPEEDS.includes(parsedSession.playbackRate as (typeof PRACTICE_SPEEDS)[number]);
-
-        if (isRoot && parsedSession.rootMidi !== undefined) setSelectedRootMidi(parsedSession.rootMidi);
-        if (isVisualizer) setSelectedVisualizer(savedVisualizer);
-        if (isNotation && parsedSession.notation !== undefined) setNotationSystem(parsedSession.notation);
-        if (isTaal) setSelectedTaalId(parsedSession.taalId as TaalId);
-        if (isTempo && parsedSession.tempoBpm !== undefined) setPracticeTempoBpm(parsedSession.tempoBpm);
-        if (isPlaybackRate && parsedSession.playbackRate !== undefined) setPlaybackRate(parsedSession.playbackRate);
-        if (hasValidMidiOverrides(parsedSession.midiOverrides, DEMO_PRACTICE_SOURCE.noteEvents.length)) {
-          setPracticeEvents(applyMidiOverrides(DEMO_PRACTICE_SOURCE.noteEvents, parsedSession.midiOverrides));
+        const restoredSource = parsedSession.source ?? DEMO_PRACTICE_SOURCE;
+        setPracticeSource(restoredSource);
+        if (ROOT_OPTIONS.some((option) => option.midi === parsedSession.rootMidi)) setSelectedRootMidi(parsedSession.rootMidi);
+        setSelectedVisualizer(parsedSession.visualizer);
+        setNotationSystem(parsedSession.notation);
+        setSelectedTaalId(parsedSession.taalId);
+        setPracticeTempoBpm(parsedSession.tempoBpm);
+        setPlaybackRate(parsedSession.playbackRate);
+        if (hasValidMidiOverrides(parsedSession.midiOverrides, restoredSource.noteEvents.length)) {
+          setPracticeEvents(applyMidiOverrides(restoredSource.noteEvents, parsedSession.midiOverrides));
+        } else {
+          setPracticeEvents(restoredSource.noteEvents);
         }
         setHasSavedPractice(true);
       }
@@ -255,6 +230,7 @@ export default function Home() {
       notation: notationSystem,
       playbackRate,
       rootMidi: selectedRootMidi,
+      source: practiceSource,
       taalId: selectedTaalId,
       tempoBpm: practiceTempoBpm,
       visualizer: selectedVisualizer,
