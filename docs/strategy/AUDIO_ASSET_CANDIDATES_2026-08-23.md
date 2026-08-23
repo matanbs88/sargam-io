@@ -35,6 +35,30 @@ Tanpura or Tabla performance.
 | [RaagaPay](https://raagapay.in/) | Consent-logged Indian-classical corpus with a commercial development licence. | Potential future source for rights-cleared research/training or curated content, rather than a drop-in low-latency sample pack. | Contact only when the data/AI roadmap is funded; request scope, permitted derivative works, streaming and attribution terms. |
 | [Freesound CC0 Tanpura candidate](https://freesound.org/people/marvman/sounds/35396/) | Listed in the project’s existing open-audio protocol as CC0; provenance must be captured at intake. | Development-quality drone candidate; a single file is not a complete premium Tanpura system. | Suitable for a short technical experiment after founder approval, not enough alone for the public premium experience. |
 
+## Western instrument and vocal candidates
+
+| Category | Candidate | What the published terms indicate | Recommendation |
+| --- | --- | --- | --- |
+| Piano | [Salamander Piano Anywhere](https://piano.usini.eu/) | The project is MIT-licensed and identifies the original piano recordings as CC BY 3.0; it includes 88 keys and 16 velocity layers. | **Best open candidate for a piano prototype.** Confirm attribution and the exact sample redistribution/streaming interpretation before putting the files behind a public API. |
+| Piano | [Apple Logic/MainStage Sample Content](https://support.apple.com/en-us/101908) | Apple allows the content in original soundtracks, but prohibits standalone distribution or repackaging of individual assets. | Do not use as Sargam's web instrument. |
+| Guitar | [Splice Guitar](https://splice.com/sounds/instruments/guitar/packs?sort=popularity) | Splice advertises commercial use, but its Samples Licence is for sounds incorporated into the user's own Recordings. | Good for producing backing tracks; not approved for raw interactive guitar playback without a separate permission. |
+| Guitar | [LANDR Samples](https://www.landr.com/terms-of-service/) | The published licence allows samples to be used as incorporated into Recordings; it does not grant a general right to publish a playable sample bank. | Candidate for authored loops only; not the default guitar engine. |
+| Vocal | [Kits.ai artist voices](https://app.kits.ai/tracks) | Commercial releases using licensed artist voices may require submission and artist approval. | Not a core MVP dependency. For Sa/Re/Ga guide syllables, use synthesis or commission a short, explicitly licensed recording rather than a voice-clone workflow. |
+| Vocal | [Splice vocal samples](https://splice.com/sounds) | Commercial sample use is advertised, subject to the Samples Terms and incorporation into a Recording. | Suitable for marketing/backing content after review; not automatically suitable for a user-triggered vocal tutor. |
+
+### Practical recommendation by product surface
+
+- **Keyboard and pitch guide:** start with a generated guide for the MVP, then test
+  Salamander as the first real piano pack after recording attribution and delivery
+  terms in the asset ledger.
+- **Guitar:** use MIDI/visual fretboard first. Add a sound only after finding a
+  playable multi-sample pack whose author explicitly approves SaaS playback.
+- **Vocal:** do not make an AI singer a dependency. Sargam syllable feedback can
+  use a neutral generated tone; a human voice pack can be added later with an
+  explicit performer release and app-use grant.
+- **Indian instruments:** keep the earlier Bansuri/Tanpura/Tabla research as the
+  priority because realistic, reusable material is harder to find than piano.
+
 ## Questions to send every supplier
 
 Use this exact short request, before any purchase or integration:
