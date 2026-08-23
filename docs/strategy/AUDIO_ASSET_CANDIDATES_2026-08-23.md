@@ -1,7 +1,7 @@
 # Practice audio candidates — founder decision sheet
 
 **Status:** research ledger, with one founder-approved exception. Salamander's
-small `v8` piano guide subset is now wired for on-demand browser playback with
+full Salamander piano manifest is now wired for on-demand browser playback with
 attribution; the other candidates remain unapproved and are not served.
 
 This is deliberately not a generic list of “royalty-free” links. For a practice
@@ -50,8 +50,8 @@ Tanpura or Tabla performance.
 ### Practical recommendation by product surface
 
 - **Keyboard and pitch guide:** Salamander is the first approved real piano pack
-  for the MVP guide. Keep the generated fallback and mirror the small subset to
-  controlled object storage before production scale.
+  for the MVP guide. Keep the generated fallback and mirror the selected files
+  to controlled object storage before production scale.
 - **Guitar:** use MIDI/visual fretboard first. Add a sound only after finding a
   playable multi-sample pack whose author explicitly approves SaaS playback.
 - **Vocal:** do not make an AI singer a dependency. Sargam syllable feedback can

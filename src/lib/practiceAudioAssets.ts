@@ -39,7 +39,7 @@ export const CURRENT_PRACTICE_AUDIO_ASSETS: readonly PracticeAudioAsset[] = [
     canPitchMap: true,
     canStreamInApp: true,
     notes:
-      "On-demand v8 sample subset; CC BY 3.0 attribution required. Production should mirror the subset to approved object storage.",
+      "Full 30-anchor x 16-layer manifest with lazy on-demand fetch; CC BY 3.0 attribution required. Production should mirror selected files to approved object storage.",
   },
   {
     role: "tanpura.sa-pa",
