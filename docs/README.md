@@ -20,6 +20,7 @@ root because they are linked directly from the public README.
 - [Principal review disposition](./reviews/PRINCIPAL_REVIEW_DISPOSITION_2026-08-16.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
+- [Founder audio-asset decision sheet](./strategy/AUDIO_ASSET_CANDIDATES_2026-08-23.md)
 - [Indian music practice competitor research](./strategy/COMPETITIVE_PRODUCT_RESEARCH_2026-08-16.md)
 - [Score import and printable notation architecture](./strategy/SCORE_IMPORT_AND_PRINT_ARCHITECTURE.md)
 - [OMR provider strategy and benchmark](./strategy/OMR_PROVIDER_STRATEGY.md)
