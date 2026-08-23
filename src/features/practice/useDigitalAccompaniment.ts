@@ -14,8 +14,9 @@ import {
   selectSalamanderSample,
   type SalamanderSample,
 } from "@/src/lib/salamanderPiano";
+import { getBansuriAudioProfile } from "@/src/lib/bansuriAudio";
 
-export type GuideInstrument = "synth" | "piano";
+export type GuideInstrument = "synth" | "piano" | "bansuri";
 
 type UseDigitalAccompanimentOptions = {
   readonly guideInstrument?: GuideInstrument;
@@ -228,6 +229,92 @@ function playSynthGuideNote(
   oscillator.stop(now + duration + release + 0.03);
 }
 
+function playBansuriGuideNote(
+  context: AudioContext,
+  midi: number,
+  durationMs: number,
+  velocity: number,
+  breathBuffer: AudioBuffer,
+): void {
+  const profile = getBansuriAudioProfile(midi, durationMs, velocity);
+  const now = context.currentTime;
+  const frequency = midiToFrequency(midi);
+  const release = Math.min(0.34, Math.max(0.16, profile.durationSeconds * 0.28));
+
+  const fundamental = context.createOscillator();
+  const harmonic = context.createOscillator();
+  const vibrato = context.createOscillator();
+  const vibratoDepth = context.createGain();
+  const breath = context.createBufferSource();
+  const breathFilter = context.createBiquadFilter();
+  const bodyFilter = context.createBiquadFilter();
+  const toneGain = context.createGain();
+  const breathGain = context.createGain();
+  const output = context.createGain();
+
+  fundamental.type = "sine";
+  fundamental.frequency.setValueAtTime(frequency, now);
+  harmonic.type = "triangle";
+  harmonic.frequency.setValueAtTime(frequency * 2, now);
+  harmonic.detune.setValueAtTime(0.6, now);
+
+  vibrato.type = "sine";
+  vibrato.frequency.setValueAtTime(profile.vibratoHz, now);
+  vibratoDepth.gain.setValueAtTime(profile.vibratoDepthCents, now);
+  vibrato.connect(vibratoDepth);
+  vibratoDepth.connect(fundamental.detune);
+  vibratoDepth.connect(harmonic.detune);
+
+  bodyFilter.type = "lowpass";
+  bodyFilter.frequency.setValueAtTime(profile.bodyFilterHz, now);
+  bodyFilter.Q.setValueAtTime(0.7, now);
+  breathFilter.type = "bandpass";
+  breathFilter.frequency.setValueAtTime(profile.breathFilterHz, now);
+  breathFilter.Q.setValueAtTime(0.75, now);
+
+  breath.buffer = breathBuffer;
+  toneGain.gain.setValueAtTime(0.0001, now);
+  toneGain.gain.exponentialRampToValueAtTime(profile.tonePeak, now + 0.045);
+  toneGain.gain.exponentialRampToValueAtTime(
+    profile.tonePeak * 0.68,
+    now + Math.max(0.12, profile.durationSeconds * 0.72),
+  );
+  toneGain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    now + profile.durationSeconds + release,
+  );
+
+  breathGain.gain.setValueAtTime(0.0001, now);
+  breathGain.gain.exponentialRampToValueAtTime(profile.breathPeak, now + 0.035);
+  breathGain.gain.exponentialRampToValueAtTime(
+    profile.breathPeak * 0.36,
+    now + Math.max(0.12, profile.durationSeconds * 0.68),
+  );
+  breathGain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    now + profile.durationSeconds + release * 0.85,
+  );
+
+  output.gain.setValueAtTime(0.82, now);
+
+  fundamental.connect(bodyFilter);
+  harmonic.connect(bodyFilter);
+  bodyFilter.connect(toneGain);
+  breath.connect(breathFilter).connect(breathGain);
+  toneGain.connect(output);
+  breathGain.connect(output);
+  output.connect(context.destination);
+
+  fundamental.start(now);
+  harmonic.start(now);
+  vibrato.start(now);
+  breath.start(now);
+  fundamental.stop(now + profile.durationSeconds + release + 0.03);
+  harmonic.stop(now + profile.durationSeconds + release + 0.03);
+  vibrato.stop(now + profile.durationSeconds + release + 0.03);
+  breath.stop(now + profile.durationSeconds + release + 0.03);
+}
+
 async function fetchSalamanderBuffer(
   context: AudioContext,
   midi: number,
@@ -332,12 +419,21 @@ export function useDigitalAccompaniment({
   tempoBpm,
 }: UseDigitalAccompanimentOptions) {
   const audioContextRef = useRef<AudioContext | null>(null);
+  const bansuriBreathBufferRef = useRef<AudioBuffer | null>(null);
   const pianoSampleCacheRef = useRef<Map<string, Promise<AudioBuffer>>>(
     new Map(),
   );
   const [activeMatra, setActiveMatra] = useState(0);
   const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [isTablaPlaying, setIsTablaPlaying] = useState(false);
+
+  const getBansuriBreathBuffer = useCallback((context: AudioContext): AudioBuffer => {
+    if (bansuriBreathBufferRef.current === null) {
+      bansuriBreathBufferRef.current = createNoiseBuffer(context, 2.2);
+    }
+
+    return bansuriBreathBufferRef.current;
+  }, []);
 
   const resumeAudio = useCallback(() => {
     const context = getAudioContext(audioContextRef);
@@ -347,18 +443,23 @@ export function useDigitalAccompaniment({
   const preloadGuideNotes = useCallback((
     notes: readonly { readonly midi: number; readonly velocity?: number }[],
   ) => {
-    if (guideInstrument !== "piano") return;
+    if (guideInstrument !== "piano" && guideInstrument !== "bansuri") return;
 
     const context = getAudioContext(audioContextRef);
     if (context === null) return;
 
     void context.resume();
+    if (guideInstrument === "bansuri") {
+      getBansuriBreathBuffer(context);
+      return;
+    }
+
     preloadSalamanderBuffers(
       context,
       notes,
       pianoSampleCacheRef.current,
     );
-  }, [guideInstrument]);
+  }, [getBansuriBreathBuffer, guideInstrument]);
 
   const playGuideNote = useCallback((
     midi: number,
@@ -380,8 +481,19 @@ export function useDigitalAccompaniment({
       return;
     }
 
+    if (guideInstrument === "bansuri") {
+      playBansuriGuideNote(
+        context,
+        midi,
+        durationMs,
+        velocity,
+        getBansuriBreathBuffer(context),
+      );
+      return;
+    }
+
     playSynthGuideNote(context, midi, durationMs, velocity);
-  }, [guideInstrument]);
+  }, [getBansuriBreathBuffer, guideInstrument]);
 
   const toggleDrone = useCallback(() => {
     resumeAudio();

@@ -27,7 +27,7 @@ Tanpura or Tabla performance.
 
 | Candidate | What the publisher says | Product fit | Recommendation |
 | --- | --- | --- | --- |
-| [Luftrum Wave Pack 02](https://www.luftrum.com/flute-samples/) | 66 Bansuri samples, 24-bit WAV, advertised as “100% royalty free”. | **Promising Bansuri prototype source.** One-shots are more useful than song loops for a guide-note sampler. | Ask whether browser-served, pitch-mapped playback inside a subscription practice app is allowed; buy only after their answer is recorded. |
+| [Luftrum Wave Pack 02](https://www.luftrum.com/flute-samples/) | 66 Bansuri samples, 24-bit WAV, advertised as “100% royalty free”; the publisher's terms restrict redistribution and soundware/sample-library use. | **Quality benchmark, not a public web asset yet.** One-shots are useful for a guide-note sampler, but the published terms do not grant the required interactive-app rights. | Ask for explicit written permission for browser-served, pitch-mapped playback inside a practice app before purchase or integration. |
 | [Polyend Tablas](https://polyend.com/product/tablas/) | 94 one-shots and 53 fills, 24-bit/44.1kHz, master-player recordings. Its page identifies it as a sample pack; the visible product page does not itself establish SaaS redistribution rights. | **Good creative starting material, not yet a cleared in-app instrument.** | Request a written SaaS/interactive-playback clarification before purchase. |
 | [Splice — The Lab: Indian Rhythms](https://splice.com/sounds/packs/splice/the-lab-indian-rhythms/samples) | Individual Indian percussion samples; the service advertises commercial use for downloaded sounds under its terms. | Strong for prototyping theka texture and exploring bols; less ideal for a tightly controlled, consistent Tabla instrument. | Treat as an editorial/music-production license until Splice confirms interactive product playback. Do not use raw loops as the core practice metronome. |
 | [LANDR Bansuri collection](https://samples.landr.com/collections/royalty-free-bansuri-samples) | A collection of loops, phrases and melodies marked royalty-free. | **Poor fit for an instrument engine.** It is useful for creative backing content, not for every-pitch response to user practice. | Do not choose as the default Bansuri sampler. Consider only for separately labelled practice backing after verifying its exact licence. |
@@ -95,6 +95,17 @@ type PracticeAudioRole =
   | "tabla.bayan"
   | "bansuri.guide";
 ```
+
+## Current Bansuri test implementation
+
+The MVP maps the logical `bansuri.guide` role to a browser-native voice in
+`src/features/practice/useDigitalAccompaniment.ts`. It combines a sine
+fundamental, a quiet triangle harmonic, filtered breath noise and a restrained
+register-aware vibrato. This gives the practice timeline a recognizably flute-
+like guide without distributing a third-party sample pack. The implementation
+is deliberately behind the same logical role boundary as all future recorded
+assets, so a cleared multi-sample manifest can replace it without changing the
+transport, notation or visualizer code.
 
 That lets us swap an approved pack without changing rhythm logic, transport,
 notation, or the visual practice canvas.

@@ -20,3 +20,11 @@ alongside the deployed asset manifest.
 
 This notice is an engineering attribution record, not legal advice. Keep a
 copy of the source licence and asset provenance in the private release ledger.
+
+## Bansuri MVP guide voice
+
+The Bansuri guide currently uses Sargam.io's browser-native Web Audio model.
+It is generated from oscillators, filtered breath noise, a restrained harmonic
+mix and register-aware vibrato; no third-party Bansuri recording is bundled or
+served. This is the test-stage voice while we source a recorded multi-sample
+library whose licence expressly permits interactive playback in a web product.
