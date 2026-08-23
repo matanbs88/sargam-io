@@ -193,7 +193,12 @@ export default function Home() {
     toggleDrone,
     toggleTabla,
   } = useDigitalAccompaniment({
-    guideInstrument: selectedInstrument === "Keyboard" ? "piano" : "synth",
+    guideInstrument:
+      selectedInstrument === "Keyboard"
+        ? "piano"
+        : selectedInstrument === "Bansuri"
+          ? "bansuri"
+          : "synth",
     droneMode,
     rootMidi: selectedRootMidi,
     taal: selectedTaal,

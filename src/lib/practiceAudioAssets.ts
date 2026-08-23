@@ -84,12 +84,13 @@ export const CURRENT_PRACTICE_AUDIO_ASSETS: readonly PracticeAudioAsset[] = [
   {
     role: "bansuri.guide",
     status: "generated",
-    provider: "Browser Web Audio synthesis",
+    provider: "Sargam Bansuri breath-and-resonance engine",
     sourceUrl: null,
     canLoop: false,
     canPitchMap: true,
     canStreamInApp: true,
-    notes: "Generated guide pitch; no Bansuri recording is currently bundled.",
+    notes:
+      "Browser-native Bansuri model with breath noise, harmonic body resonance and vibrato; no raw recording is distributed. A cleared multi-sample pack can replace this role later.",
   },
   {
     role: "harmonium.guide",
