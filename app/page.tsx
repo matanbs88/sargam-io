@@ -188,10 +188,12 @@ export default function Home() {
     isDronePlaying,
     isTablaPlaying,
     playGuideNote,
+    preloadGuideNotes,
     resumeAudio,
     toggleDrone,
     toggleTabla,
   } = useDigitalAccompaniment({
+    guideInstrument: selectedInstrument === "Keyboard" ? "piano" : "synth",
     droneMode,
     rootMidi: selectedRootMidi,
     taal: selectedTaal,
@@ -302,7 +304,11 @@ export default function Home() {
   useEffect(() => {
     if (!isPlaying || activeEvent === undefined) return;
 
-    playGuideNote(activeEvent.midi, activeEvent.durationMs / playbackRate);
+    playGuideNote(
+      activeEvent.midi,
+      activeEvent.durationMs / playbackRate,
+      activeEvent.velocity,
+    );
   }, [activeEvent, isPlaying, playbackRate, playGuideNote]);
 
   function handleTranscribe(): void {
@@ -372,6 +378,7 @@ export default function Home() {
 
   function togglePlayback(): void {
     resumeAudio();
+    preloadGuideNotes(performanceEvents.slice(0, 8));
     transport.togglePlayback();
   }
 

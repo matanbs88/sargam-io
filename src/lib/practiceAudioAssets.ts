@@ -4,6 +4,7 @@
  * browser synthesis without changing the user-facing timing model.
  */
 export type PracticeAudioRole =
+  | "piano.guide"
   | "tanpura.sa-pa"
   | "tanpura.sa-ma"
   | "tabla.dayan"
@@ -29,6 +30,17 @@ export type PracticeAudioAsset = {
  * explicit and define the exact roles a founder-approved library will replace.
  */
 export const CURRENT_PRACTICE_AUDIO_ASSETS: readonly PracticeAudioAsset[] = [
+  {
+    role: "piano.guide",
+    status: "approved",
+    provider: "Salamander Grand Piano V3 / Alexander Holm",
+    sourceUrl: "https://piano.usini.eu/",
+    canLoop: false,
+    canPitchMap: true,
+    canStreamInApp: true,
+    notes:
+      "Full 30-anchor x 16-layer manifest with lazy on-demand fetch; CC BY 3.0 attribution required. Production should mirror selected files to approved object storage.",
+  },
   {
     role: "tanpura.sa-pa",
     status: "generated",

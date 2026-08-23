@@ -1,7 +1,8 @@
 # Practice audio candidates — founder decision sheet
 
-**Status:** research only. Nothing in this document is bundled, purchased, or
-served by Sargam.io. The founder decides whether an asset enters the product.
+**Status:** research ledger, with one founder-approved exception. Salamander's
+full Salamander piano manifest is now wired for on-demand browser playback with
+attribution; the other candidates remain unapproved and are not served.
 
 This is deliberately not a generic list of “royalty-free” links. For a practice
 application, there is a material difference between permission to release a
@@ -39,7 +40,7 @@ Tanpura or Tabla performance.
 
 | Category | Candidate | What the published terms indicate | Recommendation |
 | --- | --- | --- | --- |
-| Piano | [Salamander Piano Anywhere](https://piano.usini.eu/) | The project is MIT-licensed and identifies the original piano recordings as CC BY 3.0; it includes 88 keys and 16 velocity layers. | **Best open candidate for a piano prototype.** Confirm attribution and the exact sample redistribution/streaming interpretation before putting the files behind a public API. |
+| Piano | [Salamander Piano Anywhere](https://piano.usini.eu/) | The project is MIT-licensed and identifies the original piano recordings as CC BY 3.0; it includes 88 keys and 16 velocity layers. | **Founder-approved for the MVP guide subset.** Keep attribution, pin the source revision, and mirror the selected files to controlled object storage before production scale. |
 | Piano | [Apple Logic/MainStage Sample Content](https://support.apple.com/en-us/101908) | Apple allows the content in original soundtracks, but prohibits standalone distribution or repackaging of individual assets. | Do not use as Sargam's web instrument. |
 | Guitar | [Splice Guitar](https://splice.com/sounds/instruments/guitar/packs?sort=popularity) | Splice advertises commercial use, but its Samples Licence is for sounds incorporated into the user's own Recordings. | Good for producing backing tracks; not approved for raw interactive guitar playback without a separate permission. |
 | Guitar | [LANDR Samples](https://www.landr.com/terms-of-service/) | The published licence allows samples to be used as incorporated into Recordings; it does not grant a general right to publish a playable sample bank. | Candidate for authored loops only; not the default guitar engine. |
@@ -48,9 +49,9 @@ Tanpura or Tabla performance.
 
 ### Practical recommendation by product surface
 
-- **Keyboard and pitch guide:** start with a generated guide for the MVP, then test
-  Salamander as the first real piano pack after recording attribution and delivery
-  terms in the asset ledger.
+- **Keyboard and pitch guide:** Salamander is the first approved real piano pack
+  for the MVP guide. Keep the generated fallback and mirror the selected files
+  to controlled object storage before production scale.
 - **Guitar:** use MIDI/visual fretboard first. Add a sound only after finding a
   playable multi-sample pack whose author explicitly approves SaaS playback.
 - **Vocal:** do not make an AI singer a dependency. Sargam syllable feedback can
@@ -87,6 +88,7 @@ The application should point to logical roles, not vendor file names:
 
 ```ts
 type PracticeAudioRole =
+  | "piano.guide"
   | "tanpura.sa-pa"
   | "tanpura.sa-ma"
   | "tabla.dayan"
