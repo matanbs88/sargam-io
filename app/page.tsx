@@ -244,10 +244,10 @@ export default function Home() {
     playbackRate,
     practiceEvents,
     practiceTempoBpm,
+    practiceSource,
     selectedRootMidi,
     selectedTaalId,
     selectedVisualizer,
-    practiceSource.kind,
   ]);
 
   useEffect(() => {
