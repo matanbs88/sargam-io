@@ -15,7 +15,7 @@ export function TablaPracticeUI({ activeMatra, isPlaying, onTempoChange, onToggl
   return (
     <section aria-label="Tabla practice workspace" className="studio-rhythm-card p-4 sm:p-5">
       <div className="flex items-start justify-between gap-3">
-        <div><p className="font-display text-2xl leading-none text-white">Tabla</p><p className="mt-1 text-[10px] font-bold text-white/40">{taal.label} theka · practice prompt</p></div>
+        <div><p className="font-heading text-2xl leading-none text-white">Tabla</p><p className="mt-1 text-[10px] font-bold text-white/40">{taal.label} theka · practice prompt</p></div>
         <button aria-pressed={isPlaying} className={["inline-flex items-center gap-2 rounded-full px-3 py-2 text-[10px] font-black transition active:scale-95", isPlaying ? "bg-yellow-soft text-charcoal shadow-[0_0_18px_rgba(255,240,153,0.24)]" : "bg-mint-emerald text-white shadow-[0_7px_16px_rgba(40,177,130,0.2)] hover:brightness-110"].join(" ")} onClick={onToggle} type="button"><span className="grid h-4 w-4 place-items-center rounded-full bg-white/15 text-[8px]">{isPlaying ? "II" : ">"}</span>{isPlaying ? "Stop" : "Start"}</button>
       </div>
       <div className="mt-4 flex items-center gap-2.5 rounded-md bg-white/[0.045] p-2">

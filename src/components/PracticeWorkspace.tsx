@@ -122,7 +122,7 @@ export function PracticeWorkspace({
             <p className="text-[10px] font-black uppercase tracking-[0.22em] text-mint-emerald">
               Practice session
             </p>
-            <h2 className="mt-1 truncate font-display text-2xl leading-none text-white sm:text-3xl">
+            <h2 className="mt-1 truncate font-heading text-2xl leading-none text-white sm:text-3xl">
               {songTitle}
             </h2>
           </div>
