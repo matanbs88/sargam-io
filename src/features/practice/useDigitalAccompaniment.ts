@@ -8,8 +8,17 @@ import {
   type DroneMode,
 } from "@/src/lib/digitalAccompaniment";
 import type { TaalDefinition } from "@/src/lib/taal";
+import {
+  getSalamanderPlaybackRate,
+  getSalamanderSampleUrl,
+  selectSalamanderSample,
+  type SalamanderSample,
+} from "@/src/lib/salamanderPiano";
+
+export type GuideInstrument = "synth" | "piano";
 
 type UseDigitalAccompanimentOptions = {
+  readonly guideInstrument?: GuideInstrument;
   readonly droneMode: DroneMode;
   readonly rootMidi: number;
   readonly taal: TaalDefinition;
@@ -195,17 +204,104 @@ function playDronePluck(context: AudioContext, midi: number, when: number): void
   buzz.stop(when + 0.48);
 }
 
+function playSynthGuideNote(
+  context: AudioContext,
+  midi: number,
+  durationMs: number,
+): void {
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+  const now = context.currentTime;
+  const duration = Math.min(Math.max(durationMs / 1_000, 0.12), 1.4);
+
+  oscillator.type = "triangle";
+  oscillator.frequency.setValueAtTime(midiToFrequency(midi), now);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.075, now + 0.012);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  oscillator.connect(gain).connect(context.destination);
+  oscillator.start(now);
+  oscillator.stop(now + duration + 0.03);
+}
+
+async function fetchSalamanderBuffer(
+  context: AudioContext,
+  midi: number,
+  cache: Map<string, Promise<AudioBuffer>>,
+): Promise<{ readonly buffer: AudioBuffer; readonly sample: SalamanderSample }> {
+  const sample = selectSalamanderSample(midi);
+  const url = getSalamanderSampleUrl(midi);
+  const cached = cache.get(url);
+  if (cached !== undefined) {
+    return { buffer: await cached, sample };
+  }
+
+  const request = fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Salamander sample request failed: ${response.status}`);
+      }
+      return response.arrayBuffer();
+    })
+    .then((data) => context.decodeAudioData(data));
+
+  cache.set(url, request);
+  try {
+    return { buffer: await request, sample };
+  } catch (error) {
+    cache.delete(url);
+    throw error;
+  }
+}
+
+async function playSalamanderGuideNote(
+  context: AudioContext,
+  midi: number,
+  durationMs: number,
+  cache: Map<string, Promise<AudioBuffer>>,
+): Promise<void> {
+  try {
+    const { buffer, sample } = await fetchSalamanderBuffer(context, midi, cache);
+    if (context.state === "closed") return;
+
+    const source = context.createBufferSource();
+    const gain = context.createGain();
+    const now = context.currentTime;
+    const duration = Math.min(Math.max(durationMs / 1_000, 0.12), 1.4);
+
+    source.buffer = buffer;
+    source.playbackRate.setValueAtTime(
+      getSalamanderPlaybackRate(midi, sample),
+      now,
+    );
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    source.connect(gain).connect(context.destination);
+    source.start(now);
+    source.stop(now + duration + 0.04);
+  } catch {
+    // A blocked CDN, offline session, or decode failure must never silence the
+    // practice timeline; the existing synth is the deterministic safety net.
+    playSynthGuideNote(context, midi, durationMs);
+  }
+}
+
 /**
- * Browser-native accompaniment with no bundled recordings. Every generated
- * sound has a stable replacement seam for a future licensed asset library.
+ * Browser-native accompaniment. Indian practice cues remain generated, while
+ * the keyboard guide can opt into the founder-approved Salamander sampler.
  */
 export function useDigitalAccompaniment({
+  guideInstrument = "synth",
   droneMode,
   rootMidi,
   taal,
   tempoBpm,
 }: UseDigitalAccompanimentOptions) {
   const audioContextRef = useRef<AudioContext | null>(null);
+  const pianoSampleCacheRef = useRef<Map<string, Promise<AudioBuffer>>>(
+    new Map(),
+  );
   const [activeMatra, setActiveMatra] = useState(0);
   const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [isTablaPlaying, setIsTablaPlaying] = useState(false);
@@ -219,20 +315,19 @@ export function useDigitalAccompaniment({
     const context = getAudioContext(audioContextRef);
     if (context === null) return;
 
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    const now = context.currentTime;
-    const duration = Math.min(Math.max(durationMs / 1_000, 0.12), 1.4);
+    void context.resume();
+    if (guideInstrument === "piano") {
+      void playSalamanderGuideNote(
+        context,
+        midi,
+        durationMs,
+        pianoSampleCacheRef.current,
+      );
+      return;
+    }
 
-    oscillator.type = "triangle";
-    oscillator.frequency.setValueAtTime(midiToFrequency(midi), now);
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.075, now + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start(now);
-    oscillator.stop(now + duration + 0.03);
-  }, []);
+    playSynthGuideNote(context, midi, durationMs);
+  }, [guideInstrument]);
 
   const toggleDrone = useCallback(() => {
     resumeAudio();
