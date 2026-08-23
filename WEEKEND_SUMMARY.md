@@ -1,7 +1,7 @@
 # Sargam.io weekend handoff and current build status
 
 **Status date:** 2026-08-23
-**Baseline commit:** `26b137b`
+**Baseline commit:** `e059a27`
 **Production preview:** <https://sargam-io.vercel.app/>
 
 ## What is working now

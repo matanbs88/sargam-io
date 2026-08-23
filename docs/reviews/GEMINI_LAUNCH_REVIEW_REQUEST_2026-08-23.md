@@ -6,7 +6,7 @@ Please review the current Sargam.io repository as an independent Principal
 Engineer, product strategist, and Indian-music domain reviewer. This packet is
 the current handoff; the 2026-08-16 request is historical.
 
-- Baseline commit: `26b137b`
+- Baseline commit: `e059a27`
 - Public preview: <https://sargam-io.vercel.app/>
 - Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS, Vitest
 - Current automated baseline: 60 tests across 22 test files

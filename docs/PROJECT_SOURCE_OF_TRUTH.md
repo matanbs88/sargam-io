@@ -1,7 +1,7 @@
 # Sargam.io project source of truth
 
 **Status date:** 2026-08-23  
-**Baseline commit:** `26b137b` (`feat: persist imported practice sessions`)  
+**Baseline commit:** `e059a27` (`Merge pull request #5: persist imported practice sessions`)  
 **Public preview:** <https://sargam-io.vercel.app/>  
 **Current test baseline:** 60 tests across 22 test files
 
