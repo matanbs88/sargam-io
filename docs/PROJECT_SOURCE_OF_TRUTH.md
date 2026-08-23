@@ -1,9 +1,9 @@
 # Sargam.io project source of truth
 
 **Status date:** 2026-08-23  
-**Baseline commit:** `7803a53` (`fix: let instrument roll control guide sound (#3)`)  
+**Baseline commit:** `26b137b` (`feat: persist imported practice sessions`)  
 **Public preview:** <https://sargam-io.vercel.app/>  
-**Current test baseline:** 58 tests across 21 test files
+**Current test baseline:** 60 tests across 22 test files
 
 This document is the current product, engineering, and launch truth for
 Sargam.io. It supersedes stale status snapshots while preserving historical
@@ -61,6 +61,7 @@ regardless of the source.
 | Recorded Bansuri library | Not implemented | Current guide is a browser-native procedural Bansuri model. A recorded pack needs explicit Web/SaaS rights. |
 | Six-hole Bansuri reference | Prototype | Geometry is a learning visualization; definitive fingering requires profile and practitioner validation. |
 | MusicXML/MXL import | Implemented review draft | Validated score events open a temporary practice session. |
+| Imported session restore | Implemented local MVP | Imported timelines and manual MIDI corrections survive refresh through validated local storage. |
 | Latin Sargam PDF export | Implemented | Server-side paginated printable practice sheet. |
 | Staff-PDF/photo recognition | Research only | Local Audiveris pilot exists; no public SaaS OMR integration is approved. |
 | YouTube/audio transcription | Mock seam only | No live provider, arbitrary URL ingestion, or production billing is connected. |

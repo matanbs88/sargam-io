@@ -6,10 +6,10 @@ Please review the current Sargam.io repository as an independent Principal
 Engineer, product strategist, and Indian-music domain reviewer. This packet is
 the current handoff; the 2026-08-16 request is historical.
 
-- Baseline commit: `7803a53`
+- Baseline commit: `26b137b`
 - Public preview: <https://sargam-io.vercel.app/>
 - Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS, Vitest
-- Current automated baseline: 58 tests across 21 test files
+- Current automated baseline: 60 tests across 22 test files
 - Current scope: local mock-driven practice MVP; no live provider, accounts,
   payments, or persistent user library
 
@@ -20,6 +20,8 @@ the current handoff; the 2026-08-16 request is historical.
   instead of silently reusing the piano sound.
 - The roll selector is the instrument mode control; the redundant instrument
   reference surface was removed from the main flow.
+- Imported MusicXML sessions now persist their source timeline and manual MIDI
+  corrections locally across refresh, with runtime validation for stored data.
 - The source-of-truth and 90-day launch execution documents were synchronized
   with the actual repository state.
 
