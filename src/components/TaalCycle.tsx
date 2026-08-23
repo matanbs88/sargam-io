@@ -27,7 +27,7 @@ export function TaalCycle({ activeMatra, taal }: TaalCycleProps) {
     <section aria-label={`${taal.label} taal cycle`} className="studio-rhythm-card p-4 sm:p-5">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-display text-2xl leading-none text-white">{taal.label}</p>
+          <p className="font-heading text-2xl leading-none text-white">{taal.label}</p>
           <p className="mt-1 text-[10px] font-bold text-white/40">{taal.matras} matras · {taal.divisions.map((division) => division.beats).join(" + ")}</p>
         </div>
         <span className="rounded-full bg-white/[0.06] px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-mint-emerald">Matra {normalizedActiveMatra + 1}</span>

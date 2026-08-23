@@ -21,6 +21,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sargam-sans)", "ui-sans-serif", "system-ui"],
         display: ["var(--font-sargam-display)", "Georgia", "serif"],
+        heading: ["var(--font-sargam-display)", "Georgia", "serif"],
         devanagari: [
           "var(--font-sargam-devanagari)",
           "Noto Sans Devanagari",

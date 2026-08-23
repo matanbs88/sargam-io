@@ -446,7 +446,7 @@ export default function Home() {
       <header className={`relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 ${isTranscribed ? "lg:py-4" : "lg:py-7"}`}>
         <a className="flex items-center gap-3" href="#top">
           <StudioMark />
-          <span className="font-display text-2xl leading-none text-teal">
+          <span className="font-heading text-2xl leading-none text-teal">
             sargam<span className="text-mint-emerald">.io</span>
           </span>
         </a>
@@ -484,7 +484,7 @@ export default function Home() {
                 <span className="h-1.5 w-1.5 rounded-full bg-yellow-soft" />
                 Indian music, made playable
               </div>
-              <h1 className="mt-6 font-display text-6xl leading-[0.86] tracking-[-0.045em] text-white sm:text-7xl lg:text-8xl">
+              <h1 className="mt-6 font-heading text-6xl leading-[0.86] tracking-[-0.045em] text-white sm:text-7xl lg:text-8xl">
                 Every melody,
                 <span className="block text-yellow-soft">in your Sa.</span>
               </h1>
@@ -507,9 +507,9 @@ export default function Home() {
                 <span className="rounded-full bg-white/10 px-2.5 py-1 text-white/75">D is Sa</span>
               </div>
               <div className="mt-5 flex items-center gap-4">
-                <div className="grid h-14 w-14 place-items-center rounded-[0.9rem] border border-yellow-soft/35 bg-yellow-soft/15 font-display text-3xl text-yellow-soft">S</div>
+                <div className="grid h-14 w-14 place-items-center rounded-[0.9rem] border border-yellow-soft/35 bg-yellow-soft/15 font-heading text-3xl text-yellow-soft">S</div>
                 <div>
-                  <p className="font-display text-2xl leading-none text-white">Your melody</p>
+                  <p className="font-heading text-2xl leading-none text-white">Your melody</p>
                   <p className="mt-0.5 text-sm text-white/55">Relative note preview</p>
                 </div>
               </div>

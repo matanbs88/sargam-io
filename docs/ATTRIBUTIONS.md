@@ -21,6 +21,20 @@ alongside the deployed asset manifest.
 This notice is an engineering attribution record, not legal advice. Keep a
 copy of the source licence and asset provenance in the private release ledger.
 
+## Typography
+
+The application self-hosts **Poppins** for UI and notation, and **Rozha One**
+for brand and display headings. Both font families are distributed under the
+SIL Open Font License 1.1. The repository retains the corresponding license
+files beside the font assets in `src/assets/fonts/`.
+
+- Poppins source: <https://github.com/google/fonts/tree/main/ofl/poppins>
+- Rozha One source: <https://github.com/google/fonts/tree/main/ofl/rozhaone>
+- License: <https://scripts.sil.org/OFL>
+
+The Devanagari notation font is the Noto Sans Devanagari file retained under
+`src/server/export/fonts/` for both browser rendering and PDF export.
+
 ## Bansuri MVP guide voice
 
 The Bansuri guide currently uses Sargam.io's browser-native Web Audio model.

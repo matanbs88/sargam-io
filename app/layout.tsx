@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
-import {
-  Instrument_Serif,
-  Noto_Sans_Devanagari,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const displayFont = Instrument_Serif({
-  subsets: ["latin"],
+const displayFont = localFont({
+  src: "../src/assets/fonts/RozhaOne-Regular.ttf",
   variable: "--font-sargam-display",
   weight: "400",
+  display: "swap",
 });
 
-const sansFont = Plus_Jakarta_Sans({
-  subsets: ["latin"],
+const sansFont = localFont({
+  src: [
+    { path: "../src/assets/fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../src/assets/fonts/Poppins-Medium.ttf", weight: "500", style: "normal" },
+    { path: "../src/assets/fonts/Poppins-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "../src/assets/fonts/Poppins-Bold.ttf", weight: "700", style: "normal" },
+  ],
   variable: "--font-sargam-sans",
+  display: "swap",
 });
 
-const devanagariFont = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
+const devanagariFont = localFont({
+  src: "../src/server/export/fonts/NotoSansDevanagari-Regular.ttf",
   variable: "--font-sargam-devanagari",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
