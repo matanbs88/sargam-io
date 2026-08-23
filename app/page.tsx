@@ -20,7 +20,10 @@ import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotes
 import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
-import type { ImportedPracticeScore } from "@/src/lib/importedScoreTimeline";
+import type {
+  ImportedPracticeScore,
+  ImportedScoreValidation,
+} from "@/src/lib/importedScoreTimeline";
 import {
   adjustMidiEvent,
   applyMidiOverrides,
@@ -40,6 +43,7 @@ type PracticeSource = {
   readonly tempoBpm: number;
   readonly timeSignature: string;
   readonly title: string;
+  readonly validation: ImportedScoreValidation | null;
 };
 
 type SavedPracticeSession = {
@@ -62,6 +66,7 @@ const DEMO_PRACTICE_SOURCE: PracticeSource = {
   tempoBpm: mockMidiData.tempoBpm,
   timeSignature: mockMidiData.timeSignature,
   title: mockMidiData.title,
+  validation: null,
 };
 
 const ROOT_OPTIONS = [
@@ -336,6 +341,7 @@ export default function Home() {
       tempoBpm: 96,
       timeSignature: importedScore.timeSignature,
       title: importedScore.title,
+      validation: importedScore.validation,
     };
 
     transport.reset();
@@ -636,6 +642,7 @@ export default function Home() {
         <PracticeWorkspace
           activeEventIndex={activeEventIndex}
           hasManualEdits={practiceEvents.some((event, index) => event.midi !== practiceSource.noteEvents[index]?.midi)}
+          importValidation={practiceSource.validation}
           displayedMatra={displayedMatra}
           formattedNotes={formattedNotes}
           instrumentOptions={INSTRUMENT_OPTIONS}

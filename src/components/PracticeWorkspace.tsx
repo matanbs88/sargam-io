@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { TaalCycle } from "@/src/components/TaalCycle";
 import { TablaPracticeUI } from "@/src/components/TablaPracticeUI";
 import type { NotationSystem } from "@/src/lib/midiToSargam";
+import type { ImportedScoreValidation } from "@/src/lib/importedScoreTimeline";
 import type { EventLoopRange } from "@/src/lib/playback";
 import type { TaalDefinition, TaalId } from "@/src/lib/taal";
 
@@ -25,6 +26,7 @@ type PracticeWorkspaceProps = {
   readonly displayedMatra: number;
   readonly formattedNotes: readonly string[];
   readonly hasManualEdits: boolean;
+  readonly importValidation: ImportedScoreValidation | null;
   readonly instrumentOptions: readonly InstrumentOption[];
   readonly instrumentPanel: ReactNode;
   readonly isMetronomePlaying: boolean;
@@ -77,6 +79,7 @@ export function PracticeWorkspace({
   displayedMatra,
   formattedNotes,
   hasManualEdits,
+  importValidation,
   instrumentOptions,
   instrumentPanel,
   isMetronomePlaying,
@@ -264,6 +267,25 @@ export function PracticeWorkspace({
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-performance-blue">Sargam canvas</p>
               <p className="mt-1 text-xs font-medium text-white/45">Your phrase, mapped through time.</p>
+              {importValidation !== null ? (
+                <details className="relative mt-2 w-fit">
+                  <summary className={[
+                    "cursor-pointer list-none rounded-full border px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.1em] transition hover:bg-white/[0.08]",
+                    importValidation.requiresReview
+                      ? "border-yellow-soft/35 bg-yellow-soft/10 text-yellow-soft"
+                      : "border-mint-emerald/35 bg-mint-emerald/10 text-mint-emerald",
+                  ].join(" ")}>
+                    MusicXML {importValidation.requiresReview ? `review: ${importValidation.issues.length} issue${importValidation.issues.length === 1 ? "" : "s"}` : "ready"}
+                  </summary>
+                  {importValidation.issues.length > 0 ? (
+                    <ul className="absolute z-30 mt-2 max-w-sm space-y-1 rounded-md border border-white/[0.1] bg-[#0b1626] p-3 text-[10px] font-semibold leading-4 text-white/65 shadow-[0_16px_36px_rgba(0,0,0,0.36)]">
+                      {importValidation.issues.map((issue, index) => (
+                        <li key={`${issue.message}-${index}`}>{issue.message}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </details>
+              ) : null}
             </div>
             <div aria-label="Choose a falling note visualizer" className="flex rounded-md bg-white/[0.05] p-1" role="group">
               {(["Piano", "Bansuri"] as const).map((visualizer) => {
