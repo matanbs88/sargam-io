@@ -1,6 +1,10 @@
-# Sargam.io current build status
+# Sargam.io weekend handoff and current build status
 
-## Delivered local MVP
+**Status date:** 2026-08-23
+**Baseline commit:** `7803a53`
+**Production preview:** <https://sargam-io.vercel.app/>
+
+## What is working now
 
 - Next.js 16 App Router application with a responsive Sargam practice studio.
 - Deterministic mock MIDI phrase with a local two-credit preview flow.
@@ -8,76 +12,95 @@
   and strict token-by-token Devanagari dictionary lookup.
 - Instant ABC, Latin Sargam, and Devanagari switching plus selected-Sa
   transposition.
-- Mock note transport, Taal cycles, basic Tabla practice prompts, a synthesized
-  Sa/Pa or Sa/Ma drone, and Keyboard/Harmonium/Bansuri/Guitar/Sitar references.
+- Mock note transport, Taal cycles, Tabla practice prompts, a synthesized
+  Sa/Pa or Sa/Ma drone, and instrument-oriented practice modes.
 - MIDI-timed piano roll and physically aligned six-hole Bansuri fingering roll.
+- The roll selector is also the current guide-voice selector:
+  - Piano roll: Salamander Piano browser sampler with attribution.
+  - Bansuri roll: browser-native procedural Bansuri guide voice.
 - Isolated, testable mock transport state for bounded note navigation and
   playback progress.
 - Cinema performance view designed for clean screen capture and vertical use.
-- A server-side, paginated Latin-Sargam PDF export route for printable practice
-  sheets. The sheet uses the currently selected Sa, taal, tempo, and meter.
+- Server-side, paginated Latin-Sargam PDF export route for printable practice
+  sheets using the selected Sa, taal, tempo, and meter.
 - User-facing MusicXML/MXL lead-sheet upload that validates a score and opens a
-  temporary practice-review session, plus a guarded local Audiveris PDF pilot
-  for research only. The PDF pilot is disabled on the public deployment.
-- A mock cache-first API route that validates/canonicalizes YouTube URLs;
-  it uses the same fixture as the UI but is not connected from the page.
+  temporary practice-review session.
+- Guarded local Audiveris PDF pilot for research only; it is disabled on the
+  public deployment.
+- Mock cache-first API route that validates and canonicalizes YouTube URLs.
+  It uses the same fixture as the UI and is not connected to live ingestion.
 - Future Supabase schema, provider/cache contracts, typed local dictionaries,
   metadata, robots, sitemap, response-security headers, and GitHub Actions CI.
 
-## Validation at the current baseline
+## Verification at this baseline
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes (49 tests).
+- `npm.cmd run test` passes: 58 tests across 21 test files.
 - `npm.cmd run build` passes.
-- Manual browser QA passed for desktop and 390×844 vertical layouts, Bansuri
-  cue alignment, Cinema view, transport sync, and no console errors.
-- Production is deployed at <https://sargam-io.vercel.app>.
+- Manual QA has covered desktop, 390x844 vertical layouts, Bansuri cue
+  alignment, Cinema view, transport sync, and console-error checks.
+- The repository is connected to GitHub and Vercel production deploys from
+  `main`.
 
-## Required before live transcription
+## Important boundaries
 
-No production secrets exist in the repository. Copy `.env.example` to
-`.env.local` only when a provider/database integration has been approved:
+- This is still a mock-driven MVP, not a live transcription SaaS.
+- No production provider, arbitrary YouTube/audio ingestion, accounts,
+  subscriptions, payments, persistent user library, or server credit ledger is
+  connected.
+- The Bansuri voice is procedural, not a recorded Ventus or commercial sample
+  library. A recorded library requires explicit Web/SaaS redistribution terms.
+- The Bansuri roll is a practice visualization. Definitive fingering claims
+  require validated flute profile, tuning, register, and musician review.
+- A Western key signature does not automatically identify raga, taal, shruti,
+  meend, gamak, or a culturally definitive interpretation.
 
-```bash
-KLANG_API_KEY=
-DATABASE_URL=
-NEXT_PUBLIC_APP_URL=https://sargam.io
+## Next production slice
+
+The full sequence is maintained in
+[`docs/strategy/LAUNCH_EXECUTION_PLAN.md`](./docs/strategy/LAUNCH_EXECUTION_PLAN.md).
+The immediate order is:
+
+1. Build the rights-safe landing page and consented founding waitlist.
+2. Add privacy-safe analytics and a showcase rights ledger.
+3. Load the first 3–5 cleared demo sessions and measure demand.
+4. Run the provider/OMR bake-off before implementing live ingestion.
+5. Add auth, persistence, server-side credits, and reviewable job states.
+
+## Founder actions needed
+
+- Approve a provider and sample-library budget before any live integration.
+- Contact vendors for written terms, including Ventus if its Bansuri sound is
+  still preferred.
+- Recruit 20 target-user interviews and at least two qualified Bansuri
+  reviewers.
+- Provide or approve rights-cleared showcase material and attribution.
+- Choose the initial persona and launch message from interview/waitlist data.
+
+## Session closeout
+
+Every future build session should read the source of truth, complete the next
+unblocked acceptance-tested slice, run the repository checks, update the
+relevant docs, and close with:
+
+```powershell
+npm.cmd run closeout
 ```
 
-Credentials alone are insufficient. The provider's allowed input sources,
-YouTube policy, job polling, cost model, and returned confidence/timing data
-must be verified against the selected account contract before implementation.
-
-## Next safe production slice
-
-1. Choose the live transcription provider and document permitted ingestion.
-2. Add Supabase authentication, server-side authorization, and a persistent
-   credit ledger.
-3. Implement a PostgreSQL cache adapter keyed by normalized source, provider,
-   and provider version.
-4. Wire the page to the existing API seam with loading/error/retry states.
-5. Preserve MIDI timing and confidence metadata in the client result model.
-6. Validate Bansuri profiles with players before offering instrument-specific
-   guidance as definitive.
-
-## Latest visual and launch closeout
-
-- The performance Piano Canvas spans C3–C7 with larger physical key geometry.
-- ABC, Latin Sargam, and Devanagari labels stay in parity across the melody
-  line and both falling-note visualizers.
-- The repository has a repeatable closeout command (`npm.cmd run closeout`)
-  plus a documented manual/product release gate.
-- Launch should begin with a rights-safe landing page and founding waitlist,
-  not an unready promise of arbitrary YouTube transcription. See
-  `docs/strategy/LAUNCH_STRATEGY.md`.
+See [`docs/operations/SESSION_CLOSEOUT_WORKFLOW.md`](./docs/operations/SESSION_CLOSEOUT_WORKFLOW.md)
+for the full procedure and
+[`docs/reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md`](./docs/reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md)
+for the current external review packet.
 
 ## Deliberately deferred
 
 - Real YouTube/audio ingestion and external-provider billing.
-- Audio playback, video export, and creator assets/watermarks.
+- Audio playback beyond the current browser guide voices, video export, and
+  creator assets/watermarks.
 - Automatic staff-PDF recognition/import. This needs a license-cleared OMR
-  provider plus a mandatory musician-review workflow before public release.
-  A local Audiveris evaluation adapter exists but is not a public SaaS provider.
-- Accounts, subscriptions, payments, database persistence, and rate limits.
+  provider plus mandatory musician review before public release.
+- Accounts, subscriptions, payments, persistent library, rate limits, and
+  privacy/retention infrastructure.
 - Raga, taal, shruti, meend, and gamak inference.
+- Large-scale content acquisition or thousands of musician recordings.

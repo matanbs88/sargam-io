@@ -6,6 +6,8 @@ root because they are linked directly from the public README.
 
 ## Start here
 
+- [Project source of truth](./PROJECT_SOURCE_OF_TRUTH.md)
+- [90-day launch execution plan](./strategy/LAUNCH_EXECUTION_PLAN.md)
 - [Gemini engineering handoff](../GEMINI_REVIEW_REPORT.md)
 - [Current full Gemini product and launch handoff](./reviews/GEMINI_FULL_PRODUCT_HANDOFF_2026-08-16.md)
 - [Disposition of the current Gemini full-product review](./reviews/GEMINI_FULL_HANDOFF_DISPOSITION_2026-08-16.md)
@@ -16,7 +18,8 @@ root because they are linked directly from the public README.
 - [Repository consistency audit](./audits/REPOSITORY_AUDIT_2026-08-16.md)
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Waitlist-first launch strategy](./strategy/LAUNCH_STRATEGY.md)
-- [Gemini launch review request](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-16.md)
+- [Current Gemini launch review request](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md)
+- [Historical Gemini launch review request (2026-08-16)](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-16.md)
 - [Principal review disposition](./reviews/PRINCIPAL_REVIEW_DISPOSITION_2026-08-16.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
@@ -58,8 +61,10 @@ docs/                        Audit records and operating procedures
    raga, taal, intonation, and fingering.
 4. `INSTRUMENT_STRATEGY.md` determines whether an instrument gets an exact
    positional guide or only a relative learning reference.
-5. `GEMINI_REVIEW_REPORT.md` is the current external-review handoff; replace
-   its baseline details when a materially new capability is delivered.
+5. `docs/PROJECT_SOURCE_OF_TRUTH.md` owns the current cross-functional status.
+   `GEMINI_REVIEW_REPORT.md` and dated review packets remain external-review
+   records; create a new dated packet when a materially new capability is
+   delivered.
 6. `src/server/score-import/musicXml.ts` is the source of truth for parsed
    MusicXML/MXL score events. PDF recognition must pass through it rather than
    inventing notes directly from a page image.
