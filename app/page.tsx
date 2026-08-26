@@ -8,6 +8,7 @@ import {
 import { mockMidiData } from "@/src/lib/mockMidiData";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
 import { ScoreImportPanel } from "@/src/components/ScoreImportPanel";
+import { CatalogBatchImportPanel } from "@/src/components/CatalogBatchImportPanel";
 import { SongLibrary } from "@/src/components/SongLibrary";
 import { WaitlistPanel } from "@/src/components/WaitlistPanel";
 import { trackProductEvent } from "@/src/lib/productAnalytics";
@@ -38,6 +39,7 @@ import {
 import type { EventLoopRange } from "@/src/lib/playback";
 import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
 import type { CatalogSong } from "@/src/lib/songCatalog";
+import { attachImportedScoreToCatalog } from "@/src/lib/songCatalog";
 
 type Visualizer = "Piano" | "Harmonium" | "Bansuri";
 type Theme = "light" | "dark";
@@ -113,6 +115,7 @@ export default function Home() {
   const [practiceSource, setPracticeSource] = useState<PracticeSource>(
     DEMO_PRACTICE_SOURCE,
   );
+  const [catalogOverrides, setCatalogOverrides] = useState<Readonly<Record<string, CatalogSong>>>({});
   const [practiceEvents, setPracticeEvents] = useState(
     DEMO_PRACTICE_SOURCE.noteEvents,
   );
@@ -336,6 +339,21 @@ export default function Home() {
     window.setTimeout(() => {
       document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
     }, 50);
+  }
+
+  function handleImportedCatalogScore(song: CatalogSong, importedScore: ImportedPracticeScore): void {
+    const manifestSource = `local-upload:${song.id}.${importedScore.sourceFormat}`;
+    const attachedSong = attachImportedScoreToCatalog(song, {
+      noteEvents: importedScore.noteEvents,
+      sourceFormat: importedScore.sourceFormat,
+      sourceRef: manifestSource,
+      timeSignature: importedScore.timeSignature,
+      title: importedScore.title,
+      validation: importedScore.validation,
+      tempoBpm: 96,
+    });
+    setCatalogOverrides((current) => ({ ...current, [song.id]: attachedSong }));
+    handleOpenCatalogSong(attachedSong);
   }
 
   function handleResumePractice(): void {
@@ -640,7 +658,8 @@ export default function Home() {
             <p className="mt-3 px-1 text-xs font-medium text-charcoal/45">
               Phase 1 preview — it opens a local example transcription and does not upload anything.
             </p>
-            <ScoreImportPanel onImported={handleImportedScore} />
+        <ScoreImportPanel onImported={handleImportedScore} />
+        <CatalogBatchImportPanel onImported={handleImportedCatalogScore} />
           </div>
         </div>
 
@@ -650,7 +669,7 @@ export default function Home() {
           <div><p className="text-lg font-black text-teal">0</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Upload cost now</p></div>
         </div>
 
-        <SongLibrary onOpenSong={handleOpenCatalogSong} />
+        <SongLibrary catalogOverrides={catalogOverrides} onOpenSong={handleOpenCatalogSong} />
         <WaitlistPanel />
       </section>
       ) : null}

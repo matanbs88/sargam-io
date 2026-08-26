@@ -6,13 +6,13 @@ import { RIGHTS_SAFE_SHOWCASES } from "@/src/lib/showcaseRegistry";
 import {
   CATALOG_CATEGORY_OPTIONS,
   filterCatalogSongs,
-  READY_CATALOG_SONGS,
   SONG_CATALOG,
   type CatalogCategory,
   type CatalogSong,
 } from "@/src/lib/songCatalog";
 
 type SongLibraryProps = {
+  readonly catalogOverrides?: Readonly<Record<string, CatalogSong>>;
   readonly onOpenSong: (song: CatalogSong) => void;
 };
 
@@ -36,17 +36,22 @@ function statusClass(song: CatalogSong): string {
     : "border-yellow-soft/25 bg-yellow-soft/10 text-[#907b1f]";
 }
 
-export function SongLibrary({ onOpenSong }: SongLibraryProps) {
+export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"all" | CatalogCategory>("all");
   const [showPlanned, setShowPlanned] = useState(true);
+  const catalogSongs = useMemo(
+    () => SONG_CATALOG.map((song) => catalogOverrides[song.id] ?? song),
+    [catalogOverrides],
+  );
+  const readySongs = catalogSongs.filter((song) => song.status === "ready");
 
   const filteredSongs = useMemo(() => {
-    return filterCatalogSongs(SONG_CATALOG, query, category, showPlanned);
-  }, [category, query, showPlanned]);
+    return filterCatalogSongs(catalogSongs, query, category, showPlanned);
+  }, [catalogSongs, category, query, showPlanned]);
 
   const showcaseSongs = RIGHTS_SAFE_SHOWCASES.map((showcase) => {
-    const song = SONG_CATALOG.find((candidate) => candidate.id === showcase.catalogSongId);
+    const song = catalogSongs.find((candidate) => candidate.id === showcase.catalogSongId);
     return song === undefined ? null : { showcase, song };
   }).filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
@@ -71,7 +76,7 @@ export function SongLibrary({ onOpenSong }: SongLibraryProps) {
         </div>
         <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.14em] text-charcoal/45">
           <span className="grid h-8 w-8 place-items-center rounded-full bg-teal text-yellow-soft">100</span>
-          <span>{READY_CATALOG_SONGS.length} ready · {SONG_CATALOG.length - READY_CATALOG_SONGS.length} planned</span>
+          <span>{readySongs.length} ready · {catalogSongs.length - readySongs.length} planned</span>
         </div>
       </div>
 
