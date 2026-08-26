@@ -14,13 +14,23 @@ import {
   selectSalamanderSample,
   type SalamanderSample,
 } from "@/src/lib/salamanderPiano";
+import {
+  getHarmoniumPlaybackRate,
+  getHarmoniumSampleUrl,
+  selectHarmoniumSample,
+  type HarmoniumSample,
+} from "@/src/lib/harmoniumAudio";
 import { getBansuriAudioProfile } from "@/src/lib/bansuriAudio";
 
-export type GuideInstrument = "synth" | "piano" | "bansuri";
+export type GuideInstrument = "synth" | "piano" | "harmonium" | "bansuri";
+export type HarmoniumReedMode = "single" | "double";
+export type HarmoniumReverbMode = "dry" | "room";
 
 type UseDigitalAccompanimentOptions = {
   readonly guideInstrument?: GuideInstrument;
   readonly droneMode: DroneMode;
+  readonly harmoniumReedMode?: HarmoniumReedMode;
+  readonly harmoniumReverbMode?: HarmoniumReverbMode;
   readonly rootMidi: number;
   readonly taal: TaalDefinition;
   readonly tempoBpm: number;
@@ -229,6 +239,44 @@ function playSynthGuideNote(
   oscillator.stop(now + duration + release + 0.03);
 }
 
+function playSyntheticHarmoniumGuideNote(
+  context: AudioContext,
+  midi: number,
+  durationMs: number,
+  velocity = 64,
+): void {
+  const now = context.currentTime;
+  const duration = Math.min(Math.max(durationMs / 1_000, 0.16), 1.8);
+  const release = Math.min(0.4, Math.max(0.14, duration * 0.24));
+  const frequency = midiToFrequency(midi);
+  const normalizedVelocity = Math.min(Math.max(velocity, 1), 127) / 127;
+  const oscillator = context.createOscillator();
+  const companion = context.createOscillator();
+  const filter = context.createBiquadFilter();
+  const gain = context.createGain();
+
+  oscillator.type = "sawtooth";
+  oscillator.frequency.setValueAtTime(frequency, now);
+  companion.type = "triangle";
+  companion.frequency.setValueAtTime(frequency * 2, now);
+  companion.detune.setValueAtTime(4, now);
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(1_900, now);
+  filter.Q.setValueAtTime(1.2, now);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.045 + normalizedVelocity * 0.06, now + 0.018);
+  gain.gain.exponentialRampToValueAtTime(0.028 + normalizedVelocity * 0.028, now + duration * 0.8);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration + release);
+
+  oscillator.connect(filter);
+  companion.connect(filter);
+  filter.connect(gain).connect(context.destination);
+  oscillator.start(now);
+  companion.start(now);
+  oscillator.stop(now + duration + release + 0.03);
+  companion.stop(now + duration + release + 0.03);
+}
+
 function playBansuriGuideNote(
   context: AudioContext,
   midi: number,
@@ -346,6 +394,36 @@ async function fetchSalamanderBuffer(
   }
 }
 
+async function fetchHarmoniumBuffer(
+  context: AudioContext,
+  midi: number,
+  cache: Map<string, Promise<AudioBuffer>>,
+): Promise<{ readonly buffer: AudioBuffer; readonly sample: HarmoniumSample }> {
+  const sample = selectHarmoniumSample(midi);
+  const url = getHarmoniumSampleUrl(midi);
+  const cached = cache.get(url);
+  if (cached !== undefined) {
+    return { buffer: await cached, sample };
+  }
+
+  const request = fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Harmonium sample request failed: ${response.status}`);
+      }
+      return response.arrayBuffer();
+    })
+    .then((data) => context.decodeAudioData(data));
+
+  cache.set(url, request);
+  try {
+    return { buffer: await request, sample };
+  } catch (error) {
+    cache.delete(url);
+    throw error;
+  }
+}
+
 function preloadSalamanderBuffers(
   context: AudioContext,
   notes: readonly { readonly midi: number; readonly velocity?: number }[],
@@ -360,6 +438,19 @@ function preloadSalamanderBuffers(
     void fetchSalamanderBuffer(context, midi, velocity, cache).catch(() => {
       // The guide-note callback owns the audible fallback. Preload failures
       // stay silent so an offline session remains usable.
+    });
+  });
+}
+
+function preloadHarmoniumBuffers(
+  context: AudioContext,
+  notes: readonly { readonly midi: number }[],
+  cache: Map<string, Promise<AudioBuffer>>,
+): void {
+  const uniqueMidis = new Set(notes.slice(0, 8).map(({ midi }) => midi));
+  uniqueMidis.forEach((midi) => {
+    void fetchHarmoniumBuffer(context, midi, cache).catch(() => {
+      // Playback owns the fallback; preload errors should remain silent.
     });
   });
 }
@@ -407,6 +498,82 @@ async function playSalamanderGuideNote(
   }
 }
 
+async function playHarmoniumGuideNote(
+  context: AudioContext,
+  midi: number,
+  durationMs: number,
+  velocity: number,
+  cache: Map<string, Promise<AudioBuffer>>,
+  reedMode: HarmoniumReedMode,
+  reverbMode: HarmoniumReverbMode,
+): Promise<void> {
+  try {
+    const { buffer, sample } = await fetchHarmoniumBuffer(context, midi, cache);
+    if (context.state === "closed") return;
+
+    const source = context.createBufferSource();
+    const companion = context.createBufferSource();
+    const toneGain = context.createGain();
+    const companionGain = context.createGain();
+    const output = context.createGain();
+    const dryOutput = context.createGain();
+    const now = context.currentTime;
+    const duration = Math.min(Math.max(durationMs / 1_000, 0.16), 1.8);
+    const release = Math.min(0.42, Math.max(0.16, duration * 0.3));
+    const normalizedVelocity = Math.min(Math.max(velocity, 1), 127) / 127;
+    const peak = 0.13 + normalizedVelocity * 0.12;
+    const loopStart = Math.min(0.08, buffer.duration * 0.2);
+    const loopEnd = Math.max(loopStart + 0.04, buffer.duration - Math.min(0.12, buffer.duration * 0.18));
+
+    source.buffer = buffer;
+    companion.buffer = buffer;
+    source.loop = true;
+    companion.loop = true;
+    source.loopStart = loopStart;
+    source.loopEnd = loopEnd;
+    companion.loopStart = loopStart;
+    companion.loopEnd = loopEnd;
+    source.playbackRate.setValueAtTime(getHarmoniumPlaybackRate(midi, sample), now);
+    companion.playbackRate.setValueAtTime(getHarmoniumPlaybackRate(midi, sample), now);
+    companion.detune.setValueAtTime(4.5, now);
+
+    toneGain.gain.setValueAtTime(0.0001, now);
+    toneGain.gain.exponentialRampToValueAtTime(peak, now + 0.014);
+    toneGain.gain.exponentialRampToValueAtTime(peak * 0.76, now + duration * 0.82);
+    toneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration + release);
+    companionGain.gain.setValueAtTime(0.0001, now);
+    companionGain.gain.exponentialRampToValueAtTime(
+      reedMode === "double" ? peak * 0.18 : 0.0001,
+      now + 0.02,
+    );
+    companionGain.gain.exponentialRampToValueAtTime(0.0001, now + duration + release);
+    output.gain.setValueAtTime(0.72, now);
+    dryOutput.gain.setValueAtTime(reverbMode === "room" ? 0.78 : 1, now);
+
+    source.connect(toneGain).connect(output);
+    companion.connect(companionGain).connect(output);
+    output.connect(dryOutput).connect(context.destination);
+
+    if (reverbMode === "room") {
+      const roomDelay = context.createDelay(0.5);
+      const roomFeedback = context.createGain();
+      const roomGain = context.createGain();
+      roomDelay.delayTime.setValueAtTime(0.14, now);
+      roomFeedback.gain.setValueAtTime(0.16, now);
+      roomGain.gain.setValueAtTime(0.22, now);
+      output.connect(roomDelay);
+      roomDelay.connect(roomFeedback).connect(roomDelay);
+      roomDelay.connect(roomGain).connect(context.destination);
+    }
+    source.start(now);
+    companion.start(now);
+    source.stop(now + duration + release + 0.04);
+    companion.stop(now + duration + release + 0.04);
+  } catch {
+    playSyntheticHarmoniumGuideNote(context, midi, durationMs, velocity);
+  }
+}
+
 /**
  * Browser-native accompaniment. Indian practice cues remain generated, while
  * the keyboard guide can opt into the founder-approved Salamander sampler.
@@ -414,6 +581,8 @@ async function playSalamanderGuideNote(
 export function useDigitalAccompaniment({
   guideInstrument = "synth",
   droneMode,
+  harmoniumReedMode = "single",
+  harmoniumReverbMode = "dry",
   rootMidi,
   taal,
   tempoBpm,
@@ -421,6 +590,9 @@ export function useDigitalAccompaniment({
   const audioContextRef = useRef<AudioContext | null>(null);
   const bansuriBreathBufferRef = useRef<AudioBuffer | null>(null);
   const pianoSampleCacheRef = useRef<Map<string, Promise<AudioBuffer>>>(
+    new Map(),
+  );
+  const harmoniumSampleCacheRef = useRef<Map<string, Promise<AudioBuffer>>>(
     new Map(),
   );
   const [activeMatra, setActiveMatra] = useState(0);
@@ -443,7 +615,11 @@ export function useDigitalAccompaniment({
   const preloadGuideNotes = useCallback((
     notes: readonly { readonly midi: number; readonly velocity?: number }[],
   ) => {
-    if (guideInstrument !== "piano" && guideInstrument !== "bansuri") return;
+    if (
+      guideInstrument !== "piano" &&
+      guideInstrument !== "harmonium" &&
+      guideInstrument !== "bansuri"
+    ) return;
 
     const context = getAudioContext(audioContextRef);
     if (context === null) return;
@@ -451,6 +627,15 @@ export function useDigitalAccompaniment({
     void context.resume();
     if (guideInstrument === "bansuri") {
       getBansuriBreathBuffer(context);
+      return;
+    }
+
+    if (guideInstrument === "harmonium") {
+      preloadHarmoniumBuffers(
+        context,
+        notes,
+        harmoniumSampleCacheRef.current,
+      );
       return;
     }
 
@@ -481,6 +666,19 @@ export function useDigitalAccompaniment({
       return;
     }
 
+    if (guideInstrument === "harmonium") {
+      void playHarmoniumGuideNote(
+        context,
+        midi,
+        durationMs,
+        velocity,
+        harmoniumSampleCacheRef.current,
+        harmoniumReedMode,
+        harmoniumReverbMode,
+      );
+      return;
+    }
+
     if (guideInstrument === "bansuri") {
       playBansuriGuideNote(
         context,
@@ -493,7 +691,12 @@ export function useDigitalAccompaniment({
     }
 
     playSynthGuideNote(context, midi, durationMs, velocity);
-  }, [getBansuriBreathBuffer, guideInstrument]);
+  }, [
+    getBansuriBreathBuffer,
+    guideInstrument,
+    harmoniumReedMode,
+    harmoniumReverbMode,
+  ]);
 
   const toggleDrone = useCallback(() => {
     resumeAudio();

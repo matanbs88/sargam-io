@@ -2,11 +2,14 @@
 
 **Baseline:** 2026-08-23  
 **North star:** Bring a melody into your Sa. See it, play it, and practice it your way.  
-**Launch posture:** waitlist-first, rights-safe, practice-quality-led
+**Launch posture:** waitlist-first, practice-quality-led; launch review is
+separate from MVP implementation
 
-This is the working plan for finishing the product. It intentionally separates
-what can be built independently from decisions that require the founder,
-musicians, vendors, or legal/accounting advice.
+This is the working plan for finishing the product. Per the founder's
+2026-08-26 directive, engineering must continue through the full MVP without
+turning legal review into a development or UX gate. Final publication and
+commercial launch review remains a founder-owned release step. See
+[`MVP_CONTENT_DECISION.md`](./MVP_CONTENT_DECISION.md).
 
 ## Definition of a successful first launch
 
@@ -45,7 +48,8 @@ practice.
   lead record.
 - Analytics events: landing view, demo start, notation change, roll change,
   practice start, PDF export, waitlist submit, error.
-- One-page rights ledger template and a registry for approved showcase sessions.
+- One-page provenance/launch-review ledger template and a registry for showcase
+  sessions.
 - Current production status and known limitations linked from the app.
 
 **Exit criteria**
@@ -54,7 +58,8 @@ practice.
 - Every lead has consent and a source attribution field.
 - The demo can be explained in one sentence without implying live YouTube
   support.
-- No new external asset is added without a rights record.
+- Provenance is recorded when available; missing final launch metadata does not
+  stop MVP feature work.
 
 ### Phase 1 — demand validation and positioning (Weeks 1–2)
 
@@ -81,21 +86,22 @@ not preference.
 
 ### Phase 2 — score workflow and seed catalogue (Weeks 2–4)
 
-**Goal:** make the score-to-practice promise excellent with legal material.
+**Goal:** make the score-to-practice promise excellent with complete MVP
+content and reviewable score data.
 
 **Engineering deliverables**
 
 - Persistent canonical score/session types around MusicXML and timed events.
 - Review screen for MusicXML/MXL import with correction and selected-Sa state.
 - Print presets: compact Roman/Latin Sargam first; staff plus Sargam second.
-- Rights-safe catalogue registry with title, source, license, attribution,
-  allowed uses, version, and takedown owner.
+- Catalogue registry with title, source, note-data status, attribution fields,
+  and editable launch-review metadata.
 
 **Content deliverables**
 
-- 12–20 short, cleared showcase sessions across the initial instruments.
-- Each showcase has a source file, canonical score, preview image, and rights
-  evidence.
+- 12–20 polished showcase sessions across the initial instruments.
+- Each showcase has a source file, canonical score, preview image, provenance
+  fields, and an explicit MVP/publication status.
 
 **Exit gate:** a tester can discover, practice, and print a cleared session in
   under five minutes.
@@ -168,16 +174,21 @@ issue; all published content has a rights record; core metrics are observable.
 
 ## Ordered next 10 work items
 
-1. Build the waitlist landing route and consented lead capture.
-2. Add the analytics event schema and privacy-safe measurement.
-3. Publish a compact limitations/privacy notice for the preview.
-4. Create the rights-safe showcase registry and load the first 3–5 sessions.
-5. Add persistent score/session schema and migration baseline.
-6. Run the provider/OMR bake-off on the benchmark set.
-7. Implement authentication and a server-side credit ledger.
-8. Connect one approved live job adapter with loading/error/retry/review states.
-9. Finish the score library, review flow, and printable export presets.
-10. Run the 25–50-user private alpha and feed corrections into the benchmark.
+The first three preview-surface items are now implemented locally:
+
+- Done: waitlist landing route and consented lead capture.
+- Done: analytics event seam with non-PII product events.
+- Done: compact limitations/privacy notice at `/privacy`.
+
+The next execution order is:
+
+1. Expand the showcase registry and load the next 3–5 MVP sessions.
+2. Add persistent score/session schema and migration baseline.
+3. Run the provider/OMR bake-off on the benchmark set.
+4. Implement authentication and a server-side credit ledger.
+5. Connect one approved live job adapter with loading/error/retry/review states.
+6. Finish the score library, review flow, and printable export presets.
+7. Run the 25–50-user private alpha and feed corrections into the benchmark.
 
 ## Founder-owned dependencies
 

@@ -18,6 +18,8 @@ describe("practice session persistence", () => {
       parseSavedPracticeSession(
         JSON.stringify({
           midiOverrides: [60],
+          harmoniumReedMode: "double",
+          harmoniumReverbMode: "room",
           notation: "Sargam_EN",
           playbackRate: 1,
           rootMidi: 60,
@@ -27,7 +29,11 @@ describe("practice session persistence", () => {
           visualizer: "Piano",
         }),
       ),
-    ).toMatchObject({ source: { kind: "musicxml", title: "Imported melody" } });
+    ).toMatchObject({
+      harmoniumReedMode: "double",
+      harmoniumReverbMode: "room",
+      source: { kind: "musicxml", title: "Imported melody" },
+    });
   });
 
   it("rejects malformed or unsafe localStorage state", () => {

@@ -5,13 +5,14 @@ import {
 } from "./practiceAudioAssets";
 
 describe("practice audio asset registry", () => {
-  it("keeps the Indian practice roles on generated fallback audio", () => {
+  it("keeps non-piano Indian roles explicit about their current status", () => {
     const generatedAssets = CURRENT_PRACTICE_AUDIO_ASSETS.filter(
-      (asset) => asset.role !== "piano.guide",
+      (asset) => asset.role !== "piano.guide" && asset.role !== "harmonium.guide",
     );
 
-    expect(generatedAssets).toHaveLength(6);
+    expect(generatedAssets).toHaveLength(5);
     expect(generatedAssets.every((asset) => asset.status === "generated")).toBe(true);
+    expect(CURRENT_PRACTICE_AUDIO_ASSETS.find((asset) => asset.role === "harmonium.guide")?.status).toBe("candidate");
     expect(CURRENT_PRACTICE_AUDIO_ASSETS.some(isStreamReadyAsset)).toBe(true);
   });
 

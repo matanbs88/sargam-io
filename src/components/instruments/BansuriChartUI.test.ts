@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  BANSURI_FINGER_HOLE_POSITIONS,
+  BANSURI_RUNWAY_LANES,
   getBansuriRunwayLane,
   getBansuriReferenceFingering,
   getBansuriTimelineXPosition,
@@ -34,5 +36,16 @@ describe("getBansuriReferenceFingering", () => {
       top: 50,
       isNaturalAnchor: true,
     });
+  });
+
+  it("keeps every natural swara landmark exactly on its physical hole", () => {
+    const naturalLanes = BANSURI_RUNWAY_LANES.filter(
+      (lane) => lane.holeIndex !== undefined,
+    );
+
+    for (const lane of naturalLanes) {
+      expect(lane.holeIndex).toBeTypeOf("number");
+      expect(lane.top).toBe(BANSURI_FINGER_HOLE_POSITIONS[lane.holeIndex ?? 0]);
+    }
   });
 });

@@ -19,9 +19,38 @@ gate, not the label “royalty free”.
 3. **Guide melody:** dry, sustained Bansuri and/or harmonium samples that can
    be pitch-mapped across a constrained range.
 
+The first Harmonium browser prototype now uses the separately mapped
+`harmonium` instrument from [tonejs-instruments](https://github.com/nbrosowsky/tonejs-instruments).
+Its repository identifies the samples as CC BY 3.0 and publishes the source
+map used by the application. This is a **candidate integration** for testing,
+not a final production clearance: the files should be mirrored to controlled
+storage and the interactive SaaS use confirmed before launch.
+
 The existing browser synthesis remains the fallback until a founder-selected
 recorded pack is approved and integrated. It must not be marketed as a recorded
 Tanpura or Tabla performance.
+
+### Harmonium implementation note
+
+The prototype follows the strongest interaction patterns found in the
+researched browser harmonium products: keep pitch and notation controls close
+to the keyboard, offer single- or double-reed voicing, and distinguish a dry
+practice signal from a small room ambience. The reference products also make
+clear that a harmonium voice must sustain like a free-reed instrument rather
+than inherit piano-style decay:
+
+- [Web Harmonium](https://web-harmonium.app/) documents CC0 Yale/Euterpea
+  recordings, nine sampling points, reed layering, Sargam switching, and
+  dry/reverb controls.
+- [Play Harmonium practice workbench](https://playharmonium.com/keyboard)
+  keeps Sa, reed, reverb, volume, notation, and transpose controls next to a
+  full-width playable keyboard.
+
+Sargam currently uses the open browser harmonium sample map from
+`tonejs-instruments`, with the required CC BY 3.0 attribution recorded in
+`docs/ATTRIBUTIONS.md`. The new reed and room controls are implemented in the
+browser engine, but the asset remains a candidate until the production CDN,
+attribution rendering, and final redistribution review are signed off.
 
 ## Candidate ledger
 

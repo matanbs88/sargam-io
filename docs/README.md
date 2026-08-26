@@ -18,10 +18,12 @@ root because they are linked directly from the public README.
 - [Repository consistency audit](./audits/REPOSITORY_AUDIT_2026-08-16.md)
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Waitlist-first launch strategy](./strategy/LAUNCH_STRATEGY.md)
+- [Catalog and content plan](./strategy/CATALOG_AND_CONTENT_PLAN.md)
 - [Current Gemini launch review request](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md)
 - [Historical Gemini launch review request (2026-08-16)](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-16.md)
 - [Principal review disposition](./reviews/PRINCIPAL_REVIEW_DISPOSITION_2026-08-16.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
+- [MVP content decision — build first, launch review later](./strategy/MVP_CONTENT_DECISION.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 - [Founder audio-asset decision sheet](./strategy/AUDIO_ASSET_CANDIDATES_2026-08-23.md)
 - [Third-party audio attributions](./ATTRIBUTIONS.md)
@@ -40,8 +42,8 @@ app/                         Next.js App Router entry points and API route
   page.tsx                   Interactive practice studio
 src/
   components/instruments/    Keyboard, Harmonium, Bansuri, Guitar, Sitar views
-  components/visualizers/    Piano roll and physical Bansuri fingering roll
-  lib/                       Pure music, mock-data, rhythm, and UI helpers
+  components/visualizers/    Piano, Harmonium and physical Bansuri rolls
+  lib/                       Music, catalog, mock-data, rhythm, and UI helpers
   server/transcription/      Provider contracts, cache boundary, mock adapter
   server/export/             Server-side Sargam PDF composition
   server/score-import/       MusicXML parser and local-only OMR adapter

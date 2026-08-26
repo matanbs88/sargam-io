@@ -8,10 +8,18 @@ import {
 import { mockMidiData } from "@/src/lib/mockMidiData";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
 import { ScoreImportPanel } from "@/src/components/ScoreImportPanel";
+import { SongLibrary } from "@/src/components/SongLibrary";
+import { WaitlistPanel } from "@/src/components/WaitlistPanel";
+import { trackProductEvent } from "@/src/lib/productAnalytics";
 import { TanpuraControl } from "@/src/components/TanpuraControl";
 import { BansuriFallingNotes } from "@/src/components/visualizers/BansuriFallingNotes";
 import { FallingNotesPianoRoll } from "@/src/components/visualizers/FallingNotesPianoRoll";
-import { useDigitalAccompaniment } from "@/src/features/practice/useDigitalAccompaniment";
+import { HarmoniumFallingNotes } from "@/src/components/visualizers/HarmoniumFallingNotes";
+import {
+  useDigitalAccompaniment,
+  type HarmoniumReedMode,
+  type HarmoniumReverbMode,
+} from "@/src/features/practice/useDigitalAccompaniment";
 import { useMockTransport } from "@/src/features/practice/useMockTransport";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
 import type {
@@ -29,8 +37,9 @@ import {
 } from "@/src/lib/editableMidi";
 import type { EventLoopRange } from "@/src/lib/playback";
 import { matraAtTime, TAALS, type TaalId } from "@/src/lib/taal";
+import type { CatalogSong } from "@/src/lib/songCatalog";
 
-type Visualizer = "Piano" | "Bansuri";
+type Visualizer = "Piano" | "Harmonium" | "Bansuri";
 type Theme = "light" | "dark";
 
 const PRACTICE_SESSION_STORAGE_KEY = "sargam-practice-session-v1";
@@ -93,6 +102,10 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>("light");
   const [isThemeReady, setIsThemeReady] = useState(false);
   const [droneMode, setDroneMode] = useState<DroneMode>("SaPa");
+  const [harmoniumReedMode, setHarmoniumReedMode] =
+    useState<HarmoniumReedMode>("single");
+  const [harmoniumReverbMode, setHarmoniumReverbMode] =
+    useState<HarmoniumReverbMode>("dry");
   const [selectedTaalId, setSelectedTaalId] = useState<TaalId>("teentaal");
   const [practiceTempoBpm, setPracticeTempoBpm] = useState(
     DEMO_PRACTICE_SOURCE.tempoBpm,
@@ -153,8 +166,15 @@ export default function Home() {
     toggleDrone,
     toggleTabla,
   } = useDigitalAccompaniment({
-    guideInstrument: selectedVisualizer === "Piano" ? "piano" : "bansuri",
+    guideInstrument:
+      selectedVisualizer === "Piano"
+        ? "piano"
+        : selectedVisualizer === "Harmonium"
+          ? "harmonium"
+          : "bansuri",
     droneMode,
+    harmoniumReedMode,
+    harmoniumReverbMode,
     rootMidi: selectedRootMidi,
     taal: selectedTaal,
     tempoBpm: practiceTempoBpm,
@@ -208,6 +228,8 @@ export default function Home() {
         setSelectedTaalId(parsedSession.taalId);
         setPracticeTempoBpm(parsedSession.tempoBpm);
         setPlaybackRate(parsedSession.playbackRate);
+        setHarmoniumReedMode(parsedSession.harmoniumReedMode ?? "single");
+        setHarmoniumReverbMode(parsedSession.harmoniumReverbMode ?? "dry");
         if (hasValidMidiOverrides(parsedSession.midiOverrides, restoredSource.noteEvents.length)) {
           setPracticeEvents(applyMidiOverrides(restoredSource.noteEvents, parsedSession.midiOverrides));
         } else {
@@ -226,6 +248,8 @@ export default function Home() {
     if (!isPracticeSessionReady || !isTranscribed || practiceSource.kind !== "mock") return;
 
     const session: SavedPracticeSession = {
+      harmoniumReedMode,
+      harmoniumReverbMode,
       midiOverrides: practiceEvents.map((event) => event.midi),
       notation: notationSystem,
       playbackRate,
@@ -240,6 +264,8 @@ export default function Home() {
   }, [
     isPracticeSessionReady,
     isTranscribed,
+    harmoniumReedMode,
+    harmoniumReverbMode,
     notationSystem,
     playbackRate,
     practiceEvents,
@@ -424,14 +450,33 @@ export default function Home() {
   }
 
   function renderPerformanceVisualizer() {
-    return selectedVisualizer === "Piano" ? (
+    if (selectedVisualizer === "Piano") {
+      return (
       <FallingNotesPianoRoll
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
         notationSystem={notationSystem}
         rootMidi={selectedRootMidi}
       />
-    ) : (
+      );
+    }
+
+    if (selectedVisualizer === "Harmonium") {
+      return (
+        <HarmoniumFallingNotes
+          activeEventIndex={activeEventIndex}
+          events={performanceEvents}
+          harmoniumReedMode={harmoniumReedMode}
+          harmoniumReverbMode={harmoniumReverbMode}
+          notationSystem={notationSystem}
+          onHarmoniumReedModeChange={setHarmoniumReedMode}
+          onHarmoniumReverbModeChange={setHarmoniumReverbMode}
+          rootMidi={selectedRootMidi}
+        />
+      );
+    }
+
+    return (
       <BansuriFallingNotes
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
@@ -439,6 +484,40 @@ export default function Home() {
         rootMidi={selectedRootMidi}
       />
     );
+  }
+
+  function handleVisualizerChange(visualizer: Visualizer): void {
+    setSelectedVisualizer(visualizer);
+    trackProductEvent("instrument_selected", { instrument: visualizer });
+  }
+
+  function handleOpenCatalogSong(song: CatalogSong): void {
+    if (song.noteEvents === null) return;
+
+    const catalogSource: PracticeSource = {
+      kind: "mock",
+      noteEvents: song.noteEvents,
+      rootMidi: song.rootMidi,
+      tempoBpm: song.tempoBpm,
+      timeSignature: song.timeSignature,
+      title: song.title,
+      validation: null,
+    };
+
+    transport.reset();
+    setLoopAnchorIndex(null);
+    setLoopRange(null);
+    setPracticeSource(catalogSource);
+    setPracticeEvents(song.noteEvents);
+    setSelectedRootMidi(song.rootMidi);
+    setPracticeTempoBpm(song.tempoBpm);
+    setSelectedVisualizer("Piano");
+    setNotationSystem("Sargam_EN");
+    setHasSavedPractice(true);
+    setIsTranscribed(true);
+    window.setTimeout(() => {
+      document.getElementById("studio")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   }
 
   return (
@@ -539,7 +618,10 @@ export default function Home() {
               <div className="flex flex-wrap gap-2">
                 <button
                   className="group inline-flex items-center justify-center gap-3 rounded-lg bg-yellow-soft px-6 py-4 text-sm font-black text-charcoal shadow-yellow-glow transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_15px_32px_rgba(255,240,153,0.42)] focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95"
-                  onClick={handleTranscribe}
+                  onClick={() => {
+                    trackProductEvent("demo_opened", { source: "hero" });
+                    handleTranscribe();
+                  }}
                   type="button"
                 >
                   Open practice demo <span className="transition-transform group-hover:translate-x-0.5">→</span>
@@ -567,6 +649,9 @@ export default function Home() {
           <div><p className="text-lg font-black text-teal">3</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Notation views</p></div>
           <div><p className="text-lg font-black text-teal">0</p><p className="text-[10px] font-bold uppercase tracking-wider text-charcoal/45">Upload cost now</p></div>
         </div>
+
+        <SongLibrary onOpenSong={handleOpenCatalogSong} />
+        <WaitlistPanel />
       </section>
       ) : null}
 
@@ -599,7 +684,7 @@ export default function Home() {
           onTempoChange={setPracticeTempoBpm}
           onToggleMetronome={handleToggleMetronome}
           onTogglePlayback={togglePlayback}
-          onVisualizerChange={setSelectedVisualizer}
+          onVisualizerChange={handleVisualizerChange}
           performanceVisualizer={renderPerformanceVisualizer()}
           playbackProgress={playbackProgress}
           playbackRate={playbackRate}

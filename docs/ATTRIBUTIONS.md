@@ -21,6 +21,23 @@ alongside the deployed asset manifest.
 This notice is an engineering attribution record, not legal advice. Keep a
 copy of the source licence and asset provenance in the private release ledger.
 
+## Harmonium browser guide candidate
+
+The Harmonium guide voice uses the separate Harmonium map from
+**nbrosowsky/tonejs-instruments**, whose repository identifies the samples as
+**CC BY 3.0**. The app loads the mapped anchors lazily from the project demo
+host, pitch-maps nearby notes, and applies a short loop envelope so sustained
+notes behave more like a reed instrument than a piano sample.
+
+- Source repository and manifest: <https://github.com/nbrosowsky/tonejs-instruments>
+- Browser sample host: <https://nbrosowsky.github.io/tonejs-instruments/samples/harmonium/>
+- Sample licence stated by the repository: <https://creativecommons.org/licenses/by/3.0/>
+
+This is currently a **candidate integration**, not a final production SaaS
+clearance. Before launch, mirror the files to controlled storage, preserve the
+required attribution, verify the source revision and obtain written
+confirmation that browser-triggered interactive playback is permitted.
+
 ## Typography
 
 The application self-hosts **Poppins** for UI and notation, and **Rozha One**

@@ -22,20 +22,27 @@ type ImportResponse = {
 
 export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
   const [state, setState] = useState<ImportState>("idle");
   const [message, setMessage] = useState(
     "MusicXML and MXL open directly into your private review draft.",
   );
 
   async function importScore(file: File): Promise<void> {
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    const endpoint = isPdf ? "/api/imports/score-pdf" : "/api/imports/musicxml";
     setState("reading");
-    setMessage(`Reading ${file.name} — no AI credit is used.`);
+    setMessage(
+      isPdf
+        ? `Reading ${file.name} through the local OMR pilot — no AI credit is used.`
+        : `Reading ${file.name} — no AI credit is used.`,
+    );
 
     const formData = new FormData();
     formData.set("score", file);
 
     try {
-      const response = await fetch("/api/imports/musicxml", {
+      const response = await fetch(endpoint, {
         body: formData,
         method: "POST",
       });
@@ -59,7 +66,9 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
       setMessage(
         payload.validation.requiresReview
           ? "Opened as a review draft. Check the marked rhythm or voice warnings before sharing."
-          : "Score ready. Review the Sa, notation, tempo, and practice view.",
+          : isPdf
+            ? "PDF converted in the local pilot. Review the Sa, notation, tempo, and practice view."
+            : "Score ready. Review the Sa, notation, tempo, and practice view.",
       );
     } catch (error) {
       setState("error");
@@ -102,6 +111,15 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
           ref={fileInputRef}
           type="file"
         />
+        <input
+          accept=".pdf,application/pdf"
+          className="sr-only"
+          disabled={state === "reading"}
+          id="score-pdf-upload"
+          onChange={handleFileChange}
+          ref={pdfInputRef}
+          type="file"
+        />
         <label
           className={[
             "cursor-pointer rounded-md border px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] transition focus-within:outline-none focus-within:ring-2 focus-within:ring-teal",
@@ -113,6 +131,19 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
         >
           {state === "reading" ? "Reading score…" : "Import MusicXML"}
         </label>
+        <button
+          className={[
+            "rounded-md border px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] transition focus:outline-none focus:ring-2 focus:ring-teal",
+            state === "reading"
+              ? "cursor-wait border-teal/10 bg-teal/5 text-teal/40"
+              : "border-teal/15 bg-white text-teal hover:border-mint-emerald hover:bg-mint-emerald/10",
+          ].join(" ")}
+          disabled={state === "reading"}
+          onClick={() => pdfInputRef.current?.click()}
+          type="button"
+        >
+          Import PDF pilot
+        </button>
         <span className="hidden rounded-md bg-white px-2 py-1 text-[9px] font-black uppercase tracking-[0.1em] text-charcoal/35 sm:inline">
           MXL ready
         </span>
