@@ -55,6 +55,8 @@ batch score-ingestion plan is in
 [SCORE_CORPUS_100_WORKFLOW.md](./docs/strategy/SCORE_CORPUS_100_WORKFLOW.md),
 and the PR/branch rules are in
 [BRANCHING_AND_RELEASE_WORKFLOW.md](./docs/operations/BRANCHING_AND_RELEASE_WORKFLOW.md).
+The internet source-discovery ledger for the 100-title queue is in
+[SCORE_SOURCE_DISCOVERY_2026-08-26.md](./docs/strategy/SCORE_SOURCE_DISCOVERY_2026-08-26.md).
 The
 preview privacy boundary is rendered at `/privacy`.
 The score-recognition provider and quality-gate decision is documented in
