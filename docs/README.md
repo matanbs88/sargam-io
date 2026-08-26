@@ -24,6 +24,8 @@ root because they are linked directly from the public README.
 - [Principal review disposition](./reviews/PRINCIPAL_REVIEW_DISPOSITION_2026-08-16.md)
 - [Music content and rights plan](./strategy/MUSIC_CONTENT_AND_RIGHTS_PLAN.md)
 - [MVP content decision — build first, launch review later](./strategy/MVP_CONTENT_DECISION.md)
+- [100-song score corpus workflow](./strategy/SCORE_CORPUS_100_WORKFLOW.md)
+- [Branching and release workflow](./operations/BRANCHING_AND_RELEASE_WORKFLOW.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 - [Founder audio-asset decision sheet](./strategy/AUDIO_ASSET_CANDIDATES_2026-08-23.md)
 - [Third-party audio attributions](./ATTRIBUTIONS.md)

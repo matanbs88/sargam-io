@@ -1,6 +1,9 @@
 import type { MidiNoteEvent } from "./midiToSargam";
+import type { ImportedPracticeScore } from "./importedScoreTimeline";
 
-export type CatalogStatus = "ready" | "planned";
+export type CatalogStatus = "ready" | "planned" | "review";
+export type CatalogSourceKind = "musicxml" | "mxl" | "pdf" | "midi" | "manual";
+export type CatalogTranscriptionStatus = "ready" | "needs-source" | "needs-review";
 export type CatalogFilterCategory = "all" | CatalogCategory;
 export type CatalogCategory =
   | "Riyaz"
@@ -21,6 +24,9 @@ export type CatalogSong = {
   readonly difficulty: "Beginner" | "Intermediate" | "Advanced";
   readonly instruments: readonly ("Piano" | "Harmonium" | "Bansuri")[];
   readonly status: CatalogStatus;
+  readonly transcriptionStatus: CatalogTranscriptionStatus;
+  readonly sourceKind: CatalogSourceKind | null;
+  readonly sourceRef: string | null;
   /** Internal launch metadata; never a development or practice gate. */
   readonly rightsBasis: "original" | "rights-review";
   readonly exportAllowed: boolean;
@@ -61,7 +67,10 @@ function readyExercise(
     rightsNote: "Original Sargam.io exercise; cleared for product testing and export.",
     rightsBasis: "original",
     rootMidi: CATALOG_ROOT_MIDI,
+    sourceKind: "manual",
+    sourceRef: "internal:riyaz",
     status: "ready",
+    transcriptionStatus: "ready",
     exportAllowed: true,
     tempoBpm,
     timeSignature: "4/4",
@@ -91,7 +100,10 @@ function plannedSong(
       "MVP catalog entry. Note data is queued for the content pipeline and will be added without blocking the rest of the product build.",
     rightsBasis: "rights-review",
     rootMidi: CATALOG_ROOT_MIDI,
+    sourceKind: null,
+    sourceRef: null,
     status: "planned",
+    transcriptionStatus: "needs-source",
     exportAllowed: false,
     tempoBpm,
     timeSignature,
@@ -219,6 +231,54 @@ if (SONG_CATALOG.length !== 100) {
 export const READY_CATALOG_SONGS = SONG_CATALOG.filter(
   (song) => song.status === "ready",
 );
+
+export type CatalogScoreImport = Pick<
+  ImportedPracticeScore,
+  "noteEvents" | "sourceFormat" | "timeSignature" | "title" | "validation"
+> & {
+  readonly sourceRef: string;
+  readonly sourceKind?: CatalogSourceKind;
+  readonly tempoBpm?: number;
+};
+
+function normalizeTimeSignature(
+  value: string | null,
+  fallback: CatalogSong["timeSignature"],
+): CatalogSong["timeSignature"] {
+  return value === "3/4" || value === "6/8" || value === "4/4" ? value : fallback;
+}
+
+/**
+ * Converts one validated score-import result into a catalog-ready record.
+ * This is the batch-ingestion seam for the 100-title score corpus: the
+ * imported notes become the canonical practice events, while the original
+ * catalog metadata remains stable.
+ */
+export function attachImportedScoreToCatalog(
+  song: CatalogSong,
+  imported: CatalogScoreImport,
+): CatalogSong {
+  if (imported.noteEvents.length === 0) {
+    throw new Error("A catalog score must contain at least one playable note.");
+  }
+  if (imported.sourceRef.trim().length === 0) {
+    throw new Error("A catalog score must include a source reference.");
+  }
+
+  const needsReview = imported.validation.requiresReview;
+  return {
+    ...song,
+    noteEvents: imported.noteEvents,
+    rightsNote: `Imported ${imported.sourceFormat.toUpperCase()} score; review the practice timeline before publishing.`,
+    sourceKind: imported.sourceKind ?? imported.sourceFormat,
+    sourceRef: imported.sourceRef,
+    status: needsReview ? "review" : "ready",
+    transcriptionStatus: needsReview ? "needs-review" : "ready",
+    exportAllowed: !needsReview,
+    tempoBpm: imported.tempoBpm ?? song.tempoBpm,
+    timeSignature: normalizeTimeSignature(imported.timeSignature, song.timeSignature),
+  };
+}
 
 export const CATALOG_CATEGORY_OPTIONS: readonly CatalogCategory[] = [
   "Riyaz",

@@ -51,6 +51,11 @@ the five promoted original demos are tracked in
 [SHOWCASE_RIGHTS_LEDGER.md](./docs/strategy/SHOWCASE_RIGHTS_LEDGER.md). The
 MVP build decision is recorded in
 [MVP_CONTENT_DECISION.md](./docs/strategy/MVP_CONTENT_DECISION.md). The
+batch score-ingestion plan is in
+[SCORE_CORPUS_100_WORKFLOW.md](./docs/strategy/SCORE_CORPUS_100_WORKFLOW.md),
+and the PR/branch rules are in
+[BRANCHING_AND_RELEASE_WORKFLOW.md](./docs/operations/BRANCHING_AND_RELEASE_WORKFLOW.md).
+The
 preview privacy boundary is rendered at `/privacy`.
 The score-recognition provider and quality-gate decision is documented in
 [OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md). The

@@ -22,12 +22,17 @@ const FILTER_OPTIONS: readonly { readonly label: string; readonly value: "all" |
 ];
 
 function statusLabel(song: CatalogSong): string {
-  return song.status === "ready" ? "Ready to practice" : "In MVP queue";
+  if (song.status === "ready") return "Ready to practice";
+  if (song.status === "review") return "Review draft";
+  return "In MVP queue";
 }
 
 function statusClass(song: CatalogSong): string {
-  return song.status === "ready"
-    ? "border-mint-emerald/25 bg-mint-emerald/10 text-mint-emerald"
+  if (song.status === "ready") {
+    return "border-mint-emerald/25 bg-mint-emerald/10 text-mint-emerald";
+  }
+  return song.status === "review"
+    ? "border-teal/20 bg-teal/8 text-teal"
     : "border-yellow-soft/25 bg-yellow-soft/10 text-[#907b1f]";
 }
 
