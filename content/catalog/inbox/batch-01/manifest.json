@@ -1,0 +1,199 @@
+{
+  "batchId": "batch-01-high-confidence",
+  "description": "First 18 score-source candidates from the 2026-08-26 discovery pass.",
+  "sourcePolicy": "metadata-only-until-import",
+  "items": [
+    {
+      "catalogSongId": "tum-hi-ho",
+      "title": "Tum Hi Ho",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://web-harmonium.me/songs/tum-hi-ho/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "kesariya",
+      "title": "Kesariya",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://web-harmonium.me/songs/kesariya/",
+        "https://www.sargamnotes.in/kesariya-brahmastra-hindi-piano-song-notes-in-harmonium-sargam.html"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "apna-bana-le",
+      "title": "Apna Bana Le",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://www.notationiq.com/apna-bana-le-bhediya-piano-notes-harmonium-sargam/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "channa-mereya",
+      "title": "Channa Mereya",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://harmoniumweb.org/songs/channa-mereya"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "agar-tum-saath-ho",
+      "title": "Agar Tum Saath Ho",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://svaracollective.com/songs/agar_tum_saath_ho.html",
+        "https://www.sangeetbook.com/agar-tum-sath-ho-song-sargam-notes/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "raabta",
+      "title": "Raabta",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://www.notationiq.com/raabta-agent-vinod-piano-notes-harmonium-sargam/",
+        "https://onlinesangeet.com/raabta-sargam-notes/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "kal-ho-naa-ho",
+      "title": "Kal Ho Naa Ho",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://pianobajao.com/kal-ho-na-ho-har-ghadi-badal-rahi-full-piano-notes/",
+        "https://www.freesongnotations.in/kal-ho-na-ho-song-notation-full-free/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "lag-ja-gale",
+      "title": "Lag Ja Gale",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://sargamkeys.in/notes/lag-ja-gale",
+        "https://notesandsargam.com/lag-ja-gale/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "ek-pyar-ka-nagma",
+      "title": "Ek Pyar Ka Nagma Hai",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://www.freesongnotations.in/ek-pyar-ka-nagma-hai-song-notations-full-free/",
+        "https://harmoniumguru.in/ek-pyar-ka-nagma-hai-harmonium-notes/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "pehla-nasha",
+      "title": "Pehla Nasha",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://pianobajao.com/pehla-nasha-full-piano-notes-for-hindi-song/",
+        "https://www.notationhub.com/notation/pehla-nasha-sargam-harmonium-and-flute-notes-udit-narayan-flute-harmonium-piano-notes"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "om-jai-jagdish",
+      "title": "Om Jai Jagdish Hare",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://harmoniumweb.org/songs/om-jai-jagdish",
+        "https://harmonium.indianraag.com/om-jai-jagdish-hare-harmonium-notes/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "achyutam-keshavam",
+      "title": "Achyutam Keshavam",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://harmoniumguru.in/achyutam-keshavam-harmonium-notes/",
+        "https://notesandsargam.in/achyutam-keshavam/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "hanuman-chalisa",
+      "title": "Hanuman Chalisa",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": [
+        "https://www.synthesizernotes.com/hanuman-chalisa-1-harmonium.html",
+        "https://sarasbhajan.com/hanuman-chalisa-sargam-notes/"
+      ],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "hare-krishna",
+      "title": "Hare Krishna Mahamantra",
+      "sourceKind": "catalog-index",
+      "sourceStatus": "catalog-hit",
+      "sourceUrls": ["https://songnotations.vercel.app/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "afreen-afreen",
+      "title": "Afreen Afreen",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://web-harmonium.me/songs/afreen-afreen/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "pasoori",
+      "title": "Pasoori",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://web-harmonium.me/songs/pasoori/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "tu-jhoom",
+      "title": "Tu Jhoom",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://web-harmonium.me/songs/tu-jhoom/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    },
+    {
+      "catalogSongId": "chaleya",
+      "title": "Chaleya",
+      "sourceKind": "web-sargam",
+      "sourceStatus": "discovered",
+      "sourceUrls": ["https://web-harmonium.me/songs/chaleya/"],
+      "artifactPath": null,
+      "targetFormats": ["musicxml", "mxl", "midi", "manual-reviewed"]
+    }
+  ]
+}

@@ -26,6 +26,7 @@ root because they are linked directly from the public README.
 - [MVP content decision — build first, launch review later](./strategy/MVP_CONTENT_DECISION.md)
 - [100-song score corpus workflow](./strategy/SCORE_CORPUS_100_WORKFLOW.md)
 - [Score-source discovery report (2026-08-26)](./strategy/SCORE_SOURCE_DISCOVERY_2026-08-26.md)
+- [Batch 01 score intake](../content/catalog/inbox/batch-01/README.md)
 - [Branching and release workflow](./operations/BRANCHING_AND_RELEASE_WORKFLOW.md)
 - [Open audio sourcing protocol](./strategy/OPEN_AUDIO_SOURCING.md)
 - [Founder audio-asset decision sheet](./strategy/AUDIO_ASSET_CANDIDATES_2026-08-23.md)
