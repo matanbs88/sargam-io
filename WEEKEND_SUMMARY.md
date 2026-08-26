@@ -1,6 +1,6 @@
 # Sargam.io weekend handoff and current build status
 
-**Status date:** 2026-08-23
+**Status date:** 2026-08-26
 **Baseline commit:** `e059a27`
 **Production preview:** <https://sargam-io.vercel.app/>
 
@@ -17,6 +17,8 @@
 - MIDI-timed piano roll and physically aligned six-hole Bansuri fingering roll.
 - The roll selector is also the current guide-voice selector:
   - Piano roll: Salamander Piano browser sampler with attribution.
+  - Harmonium roll: mapped browser harmonium candidate with sustained looping,
+    Single/Double Reed voicing, and Dry/Room control.
   - Bansuri roll: browser-native procedural Bansuri guide voice.
 - Isolated, testable mock transport state for bounded note navigation and
   playback progress.
@@ -25,6 +27,20 @@
   sheets using the selected Sa, taal, tempo, and meter.
 - User-facing MusicXML/MXL lead-sheet upload that validates a score and opens a
   temporary practice-review session.
+- User-facing PDF import button for the guarded local OMR pilot, with an
+  explicit warning when the production deployment is not configured for it.
+- 100-entry MVP content queue: 12 original Riyaz exercises are playable, and
+  88 demand-map repertoire entries (including Beatles) are visible as
+  transcription tasks rather than being hidden or rights-locked.
+- Five original, exportable showcase sessions are promoted through a dedicated
+  rights-safe registry for the waitlist/demo surface.
+- Landing-page search/filter library and preview waitlist capture for email,
+  instrument, and requested song.
+- Waitlist consent checkbox and a provider-neutral analytics seam that emits
+  only non-PII product events; connect both to consented production services
+  before public launch.
+- A linked `/privacy` preview notice that explains the waitlist data boundary;
+  final production legal terms still require owner/legal review.
 - Imported MusicXML sessions and manual MIDI corrections survive a browser
   refresh through a validated local-storage contract; malformed saved state is
   discarded safely.
@@ -39,7 +55,7 @@
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes: 60 tests across 22 test files.
+- `npm.cmd run test` passes: 70 tests across 25 test files.
 - `npm.cmd run build` passes.
 - Manual QA has covered desktop, 390x844 vertical layouts, Bansuri cue
   alignment, Cinema view, transport sync, and console-error checks.
@@ -54,10 +70,16 @@
   connected.
 - The Bansuri voice is procedural, not a recorded Ventus or commercial sample
   library. A recorded library requires explicit Web/SaaS redistribution terms.
+- Harmonium browser samples are a CC BY 3.0 candidate integration; production
+  mirroring and final interactive-use clearance are still required.
 - The Bansuri roll is a practice visualization. Definitive fingering claims
   require validated flute profile, tuning, register, and musician review.
 - A Western key signature does not automatically identify raga, taal, shruti,
   meend, gamak, or a culturally definitive interpretation.
+- MVP decision: engineering does not stop or hide product capabilities because
+  of a rights assessment. Final content and publication review happens before
+  public/commercial launch; see
+  [`MVP_CONTENT_DECISION.md`](./docs/strategy/MVP_CONTENT_DECISION.md).
 
 ## Next production slice
 
@@ -65,7 +87,7 @@ The full sequence is maintained in
 [`docs/strategy/LAUNCH_EXECUTION_PLAN.md`](./docs/strategy/LAUNCH_EXECUTION_PLAN.md).
 The immediate order is:
 
-1. Build the rights-safe landing page and consented founding waitlist.
+1. Connect the preview waitlist to a durable, consented endpoint.
 2. Add privacy-safe analytics and a showcase rights ledger.
 3. Load the first 3–5 cleared demo sessions and measure demand.
 4. Run the provider/OMR bake-off before implementing live ingestion.

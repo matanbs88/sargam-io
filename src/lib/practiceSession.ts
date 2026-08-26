@@ -19,13 +19,15 @@ export type PracticeSource = {
  */
 export type SavedPracticeSession = {
   readonly midiOverrides: readonly number[];
+  readonly harmoniumReedMode?: "single" | "double";
+  readonly harmoniumReverbMode?: "dry" | "room";
   readonly notation: NotationSystem;
   readonly playbackRate: number;
   readonly rootMidi: number;
   readonly source?: PracticeSource;
   readonly taalId: TaalId;
   readonly tempoBpm: number;
-  readonly visualizer: "Piano" | "Bansuri";
+  readonly visualizer: "Piano" | "Harmonium" | "Bansuri";
 };
 
 const VALID_NOTATIONS = new Set<NotationSystem>(["ABC", "Sargam_EN", "Sargam_HI"]);
@@ -93,12 +95,26 @@ export function isValidPracticeSource(value: unknown): value is PracticeSource {
 export function isValidSavedPracticeSession(value: unknown): value is SavedPracticeSession {
   if (!isRecord(value)) return false;
   if (!Array.isArray(value.midiOverrides) || value.midiOverrides.length > 1024 || !value.midiOverrides.every(isMidi)) return false;
+  if (
+    value.harmoniumReedMode !== undefined &&
+    value.harmoniumReedMode !== "single" &&
+    value.harmoniumReedMode !== "double"
+  ) return false;
+  if (
+    value.harmoniumReverbMode !== undefined &&
+    value.harmoniumReverbMode !== "dry" &&
+    value.harmoniumReverbMode !== "room"
+  ) return false;
   if (typeof value.notation !== "string" || !VALID_NOTATIONS.has(value.notation as NotationSystem)) return false;
   if (typeof value.playbackRate !== "number" || !VALID_PLAYBACK_RATES.has(value.playbackRate)) return false;
   if (!isMidi(value.rootMidi)) return false;
   if (typeof value.taalId !== "string" || !VALID_TAALS.has(value.taalId as TaalId)) return false;
   if (typeof value.tempoBpm !== "number" || !Number.isFinite(value.tempoBpm) || value.tempoBpm < 30 || value.tempoBpm > 300) return false;
-  if (value.visualizer !== "Piano" && value.visualizer !== "Bansuri") return false;
+  if (
+    value.visualizer !== "Piano" &&
+    value.visualizer !== "Harmonium" &&
+    value.visualizer !== "Bansuri"
+  ) return false;
   return value.source === undefined || isValidPracticeSource(value.source);
 }
 

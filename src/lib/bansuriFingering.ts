@@ -22,7 +22,18 @@ export type BansuriRunwayLane = {
   readonly interval: number;
   readonly top: number;
   readonly isNaturalAnchor: boolean;
+  /** The physical hole this natural swara is aligned with, when applicable. */
+  readonly holeIndex?: number;
 };
+
+function naturalLane(interval: number, holeIndex: number): BansuriRunwayLane {
+  return {
+    holeIndex,
+    interval,
+    isNaturalAnchor: true,
+    top: BANSURI_FINGER_HOLE_POSITIONS[holeIndex],
+  };
+}
 
 /**
  * Visual swara anchors for the six-hole reference profile. The natural swaras
@@ -33,17 +44,17 @@ export type BansuriRunwayLane = {
  */
 export const BANSURI_RUNWAY_LANES: readonly BansuriRunwayLane[] = [
   { interval: 6, top: 18, isNaturalAnchor: false }, // tivra Ma
-  { interval: 5, top: 26, isNaturalAnchor: true }, // shuddh Ma, first hole half-open
-  { interval: 4, top: 34, isNaturalAnchor: true }, // Ga, one closed
+  { interval: 5, top: 26, isNaturalAnchor: true }, // shuddh Ma, half-hole transition above hole 1
+  naturalLane(4, 0), // Ga, one closed
   { interval: 3, top: 38, isNaturalAnchor: false },
-  { interval: 2, top: 42, isNaturalAnchor: true }, // Re, two closed
+  naturalLane(2, 1), // Re, two closed
   { interval: 1, top: 46, isNaturalAnchor: false },
-  { interval: 0, top: 50, isNaturalAnchor: true }, // Sa, three closed
-  { interval: 11, top: 58, isNaturalAnchor: true }, // Ni, four closed
+  naturalLane(0, 2), // Sa, three closed
+  naturalLane(11, 3), // Ni, four closed
   { interval: 10, top: 62, isNaturalAnchor: false },
-  { interval: 9, top: 66, isNaturalAnchor: true }, // Dha, five closed
+  naturalLane(9, 4), // Dha, five closed
   { interval: 8, top: 70, isNaturalAnchor: false },
-  { interval: 7, top: 74, isNaturalAnchor: true }, // Pa, six closed
+  naturalLane(7, 5), // Pa, six closed
 ];
 
 const REFERENCE_FINGERINGS: readonly BansuriFingering[] = [

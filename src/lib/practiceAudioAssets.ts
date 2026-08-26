@@ -26,8 +26,9 @@ export type PracticeAudioAsset = {
 };
 
 /**
- * The current app has no bundled recordings. These entries make that state
- * explicit and define the exact roles a founder-approved library will replace.
+ * Audio roles are deliberately separated from transport and visualizer logic.
+ * Harmonium is now wired to an open browser sample candidate, but remains a
+ * candidate until the final SaaS redistribution and CDN audit is complete.
  */
 export const CURRENT_PRACTICE_AUDIO_ASSETS: readonly PracticeAudioAsset[] = [
   {
@@ -94,13 +95,14 @@ export const CURRENT_PRACTICE_AUDIO_ASSETS: readonly PracticeAudioAsset[] = [
   },
   {
     role: "harmonium.guide",
-    status: "generated",
-    provider: "Browser Web Audio synthesis",
-    sourceUrl: null,
-    canLoop: false,
+    status: "candidate",
+    provider: "tonejs-instruments / Yale Euterpea harmonium samples",
+    sourceUrl: "https://github.com/nbrosowsky/tonejs-instruments",
+    canLoop: true,
     canPitchMap: true,
     canStreamInApp: true,
-    notes: "Generated guide pitch; no Harmonium recording is currently bundled.",
+    notes:
+      "Browser prototype uses the repository's chromatic harmonium sample map with a local loop envelope. Samples are identified as CC BY 3.0; production SaaS use requires preserved attribution and a final licence/CDN review.",
   },
 ];
 

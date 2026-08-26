@@ -1,9 +1,9 @@
 # Sargam.io project source of truth
 
-**Status date:** 2026-08-23  
-**Baseline commit:** `e059a27` (`Merge pull request #5: persist imported practice sessions`)  
+**Status date:** 2026-08-26
+**Last deployed commit:** `e059a27` (`Merge pull request #5: persist imported practice sessions`)
 **Public preview:** <https://sargam-io.vercel.app/>  
-**Current test baseline:** 60 tests across 22 test files
+**Current working-tree verification:** 70 tests across 25 test files; changes are not pushed yet.
 
 This document is the current product, engineering, and launch truth for
 Sargam.io. It supersedes stale status snapshots while preserving historical
@@ -56,7 +56,7 @@ regardless of the source.
 | Sa transposition | Implemented | Sa is a selected relative reference; source pitches remain available. |
 | ABC / Latin Sargam / Devanagari | Implemented | Instant client-side display switching, including roll labels. |
 | Mock practice transport | Implemented | Local preview with bounded navigation, progress, taal, and practice cues. |
-| Piano and Bansuri roll selection | Implemented | The roll selector is the current instrument mode and controls the guide voice. |
+| Piano, Harmonium and Bansuri roll selection | Implemented | The roll selector is the current instrument mode and controls the matching visual surface and guide voice. Harmonium also exposes real reed-layer and room-mode controls. |
 | Salamander piano guide voice | Implemented | Browser sampler using the cleared MVP asset set and attribution. |
 | Recorded Bansuri library | Not implemented | Current guide is a browser-native procedural Bansuri model. A recorded pack needs explicit Web/SaaS rights. |
 | Six-hole Bansuri reference | Prototype | Geometry is a learning visualization; definitive fingering requires profile and practitioner validation. |
@@ -65,8 +65,8 @@ regardless of the source.
 | Latin Sargam PDF export | Implemented | Server-side paginated printable practice sheet. |
 | Staff-PDF/photo recognition | Research only | Local Audiveris pilot exists; no public SaaS OMR integration is approved. |
 | YouTube/audio transcription | Mock seam only | No live provider, arbitrary URL ingestion, or production billing is connected. |
-| Song catalog/library | Architecture only | Rights-safe seed catalogue and persistence are still to be built. |
-| Waitlist and analytics | Strategy only | Launch plan exists; capture flow is not yet implemented. |
+| Song catalog/library | Implemented MVP queue | 100 searchable entries are present; 12 original Riyaz exercises are playable now, five are promoted through the showcase registry, and 88 repertoire entries are visible content-pipeline tasks awaiting note data. Rights metadata is not a development or UX gate. Durable server catalog persistence is still future work. |
+| Waitlist and analytics | Preview capture | Landing page captures email, instrument, requested song, and explicit early-access consent locally or through an explicitly configured endpoint. A linked preview privacy notice and provider-neutral, non-PII analytics seam are implemented; durable storage, final legal terms, and production analytics remain future work. |
 | Auth, credits, payments, database | Not implemented | Future private-alpha foundation. |
 | Video export / creator assets | Not implemented | Future creator workflow after core practice quality is proven. |
 
@@ -83,9 +83,11 @@ regardless of the source.
   musician validates the mapping, label it as guidance rather than authority.
 - **Timing is first-class.** Note onset and duration must survive import,
   transposition, practice playback, visual roll, and export.
-- **Rights are a product requirement.** A sample, transcription, provider, or
-  showcase song is not launch-ready until its license, allowed distribution,
-  attribution, and commercial/Web/SaaS terms are recorded.
+- **MVP content is not rights-gated.** During MVP development, rights metadata
+  must not stop implementation, hide catalogue entries, or block practice/PDF
+  capabilities. Final publication, attribution, and commercial/Web/SaaS
+  review happens at launch preparation; see
+  [`MVP_CONTENT_DECISION.md`](./strategy/MVP_CONTENT_DECISION.md).
 - **Review is part of the workflow.** Low-confidence OMR or audio output must
   be editable before it becomes a printable or library-canonical result.
 
@@ -93,15 +95,18 @@ regardless of the source.
 
 ### Launch shape
 
-Start with a focused, rights-safe waitlist and a working interactive practice
-demo. Do not market arbitrary YouTube transcription until ingestion rights,
-provider reliability, cost, confidence, and failure handling are proven.
+Start with a focused waitlist and a working interactive practice demo. During
+MVP development, build the complete song-to-practice and score-to-Sargam flows
+without hardcoding legal blocks. Before public/commercial launch, review the
+chosen content, ingestion path, provider reliability, cost, confidence, and
+failure handling.
 
 ### Seed content
 
-Prepare 12–20 short, rights-cleared showcase sessions that demonstrate the
-experience across keyboard/harmonium and Bansuri. Avoid unlicensed Bollywood or
-Western song transcriptions as acquisition content.
+Prepare 12–20 polished showcase sessions that demonstrate the experience
+across keyboard/harmonium and Bansuri. Content selection and any public
+promotion review belong to launch preparation, not to the MVP implementation
+loop.
 
 ### Audio direction
 
@@ -118,7 +123,11 @@ Use replaceable provider adapters. The UI and canonical score model must not
 depend directly on Klangio, Flat/Opuscan, ScoreFlow, or any other vendor. A
 provider bake-off must be run on a rights-cleared benchmark before selection.
 
-## Highest-priority blockers
+## Highest-priority launch blockers (not MVP blockers)
+
+The following items are deliberately deferred to public/commercial launch
+preparation. They must not be used to stop local MVP implementation, catalog
+UX, practice playback, score conversion, or PDF engineering.
 
 ### P0 — required before public live transcription
 
@@ -161,6 +170,7 @@ session procedure is in
 - Provider and OMR decisions: [`OMR_PROVIDER_STRATEGY.md`](./strategy/OMR_PROVIDER_STRATEGY.md)
 - Unified product experience: [`UNIFIED_SCORE_EXPERIENCE.md`](./strategy/UNIFIED_SCORE_EXPERIENCE.md)
 - Launch and demand validation: [`LAUNCH_STRATEGY.md`](./strategy/LAUNCH_STRATEGY.md)
+- Catalog and content plan: [`CATALOG_AND_CONTENT_PLAN.md`](./strategy/CATALOG_AND_CONTENT_PLAN.md)
 - QA and release bar: [`QUALITY_STANDARD.md`](./strategy/QUALITY_STANDARD.md)
 - Gemini review packet: [`GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md`](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md)
 

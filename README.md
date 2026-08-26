@@ -21,12 +21,18 @@ The local, mock-driven demo includes:
 - Self-hosted Poppins UI typography, Rozha One display typography, and Noto
   Sans Devanagari notation rendering
 - Dedicated Harmonium mode with relative Sargam labels and visual Sa/Pa or Sa/Ma drone settings
+- Harmonium roll audio using a mapped browser sample candidate, with Single/Double Reed and Dry/Room practice controls
 - Keyboard, six-hole Bansuri, standard-guitar, and Sitar visual references
 - Manual practice-taal cycles for Teentaal, Jhaptal, Rupak, Ektal, Dadra, and Keherwa; taal is never inferred from BPM alone
 - Synthesized Sa/Pa or Sa/Ma reference drone, plus a Tabla practice workspace with basic theka prompts and a Sam-accented metronome
 - A typed JSON i18n dictionary scaffold for English and Hindi
 - Automated conversion, timing, URL-normalization, and tāla-structure tests
 - Production-safe metadata, sitemap, and robots file
+- 100-entry MVP practice queue: 12 original exercises are playable now and 88
+  popular Indian and Beatles titles are catalogued for the content pipeline;
+  missing note data is tracked as MVP work, not a product/legal lock
+- Waitlist preview with explicit consent, linked privacy notice, and a
+  provider-neutral non-PII analytics seam
 
 The audio drop zone and YouTube input are intentionally visual only. Staff-PDF
 to Sargam import is a review-first OMR workflow. A development-only local
@@ -39,6 +45,13 @@ The current cross-functional status is maintained in
 [PROJECT_SOURCE_OF_TRUTH.md](./docs/PROJECT_SOURCE_OF_TRUTH.md), and the ordered
 path to a gated beta is in
 [LAUNCH_EXECUTION_PLAN.md](./docs/strategy/LAUNCH_EXECUTION_PLAN.md).
+The catalog and launch-review metadata are documented in
+[CATALOG_AND_CONTENT_PLAN.md](./docs/strategy/CATALOG_AND_CONTENT_PLAN.md), and
+the five promoted original demos are tracked in
+[SHOWCASE_RIGHTS_LEDGER.md](./docs/strategy/SHOWCASE_RIGHTS_LEDGER.md). The
+MVP build decision is recorded in
+[MVP_CONTENT_DECISION.md](./docs/strategy/MVP_CONTENT_DECISION.md). The
+preview privacy boundary is rendered at `/privacy`.
 The score-recognition provider and quality-gate decision is documented in
 [OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md). The
 unified song-to-score and score-to-Sargam product flow is documented in

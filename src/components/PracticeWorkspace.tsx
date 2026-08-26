@@ -6,7 +6,7 @@ import type { ImportedScoreValidation } from "@/src/lib/importedScoreTimeline";
 import type { EventLoopRange } from "@/src/lib/playback";
 import type { TaalDefinition, TaalId } from "@/src/lib/taal";
 
-type Visualizer = "Piano" | "Bansuri";
+type Visualizer = "Piano" | "Harmonium" | "Bansuri";
 
 type RootOption = { readonly label: string; readonly midi: number };
 type NotationOption = {
@@ -273,7 +273,7 @@ export function PracticeWorkspace({
               ) : null}
             </div>
             <div aria-label="Choose an instrument roll" className="flex rounded-md bg-white/[0.05] p-1" role="group">
-              {(["Piano", "Bansuri"] as const).map((visualizer) => {
+              {(["Piano", "Harmonium", "Bansuri"] as const).map((visualizer) => {
                 const isActive = selectedVisualizer === visualizer;
                 return (
                   <button
