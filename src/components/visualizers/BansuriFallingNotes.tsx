@@ -34,6 +34,11 @@ function getNoteLeft(startMs: number, currentTimeMs: number): number {
   return PLAYHEAD_PERCENT + ((startMs - currentTimeMs) / LOOK_AHEAD_MS) * 100;
 }
 
+function formatPlaybackTimestamp(milliseconds: number): string {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, "0")}`;
+}
+
 function formatLaneLabel(
   interval: number,
   rootMidi: number,
@@ -132,9 +137,9 @@ export function BansuriFallingNotes({
     >
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/[0.08] bg-[linear-gradient(180deg,rgba(18,30,43,0.94),rgba(9,15,23,0.96))] px-4 py-4 sm:px-5">
         <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/90">
+          <h3 className="font-heading text-xl leading-none text-white sm:text-2xl">
             Bansuri melody runway
-          </p>
+          </h3>
           <p className="mt-1 text-[10px] font-semibold text-white/65">
             Natural Swaras share a line with their fingering landmark.
           </p>
@@ -179,8 +184,8 @@ export function BansuriFallingNotes({
           })}
 
           <div aria-hidden="true" className="absolute inset-y-0 w-px bg-yellow-soft shadow-[0_0_18px_rgba(255,240,153,0.84)]" style={{ left: `${PLAYHEAD_PERCENT}%` }} />
-          <span className="absolute top-3 -translate-x-1/2 rounded-full bg-yellow-soft px-2.5 py-1 text-[8px] font-black uppercase tracking-[0.12em] text-charcoal" style={{ left: `${PLAYHEAD_PERCENT}%` }}>
-            play
+          <span aria-label={`Playhead at ${formatPlaybackTimestamp(currentTimeMs)}`} className="absolute top-3 -translate-x-1/2 rounded-full bg-yellow-soft px-2.5 py-1 text-[8px] font-black uppercase tracking-[0.12em] text-charcoal" style={{ left: `${PLAYHEAD_PERCENT}%` }}>
+            {formatPlaybackTimestamp(currentTimeMs)} · play
           </span>
 
           {events.map((event, index) => {

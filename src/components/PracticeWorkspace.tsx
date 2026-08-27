@@ -18,6 +18,7 @@ type PracticeWorkspaceProps = {
   readonly activeEventIndex: number;
   readonly displayedMatra: number;
   readonly formattedNotes: readonly string[];
+  readonly guideSoundEnabled: boolean;
   readonly hasManualEdits: boolean;
   readonly importValidation: ImportedScoreValidation | null;
   readonly isMetronomePlaying: boolean;
@@ -44,6 +45,7 @@ type PracticeWorkspaceProps = {
   readonly onTempoChange: (tempo: number) => void;
   readonly onToggleMetronome: () => void;
   readonly onTogglePlayback: () => void;
+  readonly onToggleGuideSound: () => void;
   readonly onVisualizerChange: (visualizer: Visualizer) => void;
   readonly performanceVisualizer: ReactNode;
   readonly playbackProgress: number;
@@ -62,11 +64,18 @@ type PracticeWorkspaceProps = {
   readonly tempoBpm: number;
 };
 
+function isAlteredNoteLabel(note: string, notationSystem: NotationSystem): boolean {
+  if (notationSystem === "ABC") return note.includes("#") || note.includes("b");
+  if (notationSystem === "Sargam_EN") return /^[rgdnM]/.test(note);
+  return note.includes("॒") || note.includes("॑");
+}
+
 /** The studio deliberately privileges one performance surface over dashboard cards. */
 export function PracticeWorkspace({
   activeEventIndex,
   displayedMatra,
   formattedNotes,
+  guideSoundEnabled,
   hasManualEdits,
   importValidation,
   isMetronomePlaying,
@@ -93,6 +102,7 @@ export function PracticeWorkspace({
   onTempoChange,
   onToggleMetronome,
   onTogglePlayback,
+  onToggleGuideSound,
   onVisualizerChange,
   performanceVisualizer,
   playbackProgress,
@@ -158,7 +168,7 @@ export function PracticeWorkspace({
               onClick={onStartAnother}
               type="button"
             >
-              New
+              + New melody
             </button>
           </div>
         </header>
@@ -195,7 +205,7 @@ export function PracticeWorkspace({
                   <button
                     aria-pressed={isActive}
                     className={[
-                      "rounded px-3 py-2 text-left transition sm:px-4",
+                      "rounded-md px-3 py-2 text-left transition sm:px-4",
                       isActive
                         ? "bg-mint-emerald text-white shadow-[0_5px_15px_rgba(40,177,130,0.2)]"
                         : "text-white/50 hover:bg-white/[0.07] hover:text-white",
@@ -207,9 +217,7 @@ export function PracticeWorkspace({
                     <span className={option.id === "Sargam_HI" ? "block font-devanagari text-xs font-black" : "block text-xs font-black"}>
                       {option.label}
                     </span>
-                    <span className={isActive ? "mt-0.5 block text-[8px] font-bold text-white/65" : "mt-0.5 block text-[8px] font-bold text-white/30"}>
-                      {option.detail}
-                    </span>
+                    {option.detail ? <span className={isActive ? "mt-0.5 block text-[8px] font-bold text-white/65" : "mt-0.5 block text-[8px] font-bold text-white/30"}>{option.detail}</span> : null}
                   </button>
                 );
               })}
@@ -228,6 +236,7 @@ export function PracticeWorkspace({
                 const isActive = index === activeEventIndex;
                 const isInLoop = loopRange !== null && index >= loopRange.startIndex && index <= loopRange.endIndex;
                 const isLoopAnchor = index === loopAnchorIndex;
+                const isAltered = isAlteredNoteLabel(note, notationSystem);
 
                 return (
                   <button
@@ -242,7 +251,9 @@ export function PracticeWorkspace({
                           ? "bg-performance-blue text-[#07121f] shadow-[0_0_14px_rgba(88,166,255,0.28)]"
                           : isInLoop
                             ? "bg-mint-emerald/18 text-mint-emerald ring-1 ring-inset ring-mint-emerald/50"
-                            : "bg-white/[0.055] text-white/60 hover:bg-white/[0.1] hover:text-white",
+                            : isAltered
+                              ? "h-8 min-w-8 bg-white/[0.025] text-white/45 ring-1 ring-inset ring-white/[0.09] hover:bg-white/[0.08] hover:text-white"
+                              : "bg-white/[0.055] text-white/60 hover:bg-white/[0.1] hover:text-white",
                     ].join(" ")}
                     key={`${note}-${index}`}
                     onClick={() => onSelectEvent(index)}
@@ -255,7 +266,7 @@ export function PracticeWorkspace({
             </div>
             <div aria-label="Manual note correction" className="flex items-center gap-1 rounded-md bg-white/[0.045] p-1" role="group">
               <button aria-label="Lower active note by one semitone" className="rounded px-2 py-1.5 text-xs font-black text-white/60 transition hover:bg-white/10 hover:text-white" onClick={() => onAdjustActiveNote(-1)} type="button">−</button>
-              <span className="px-1 text-[9px] font-black uppercase tracking-[0.1em] text-white/35">Correct</span>
+              <span className="px-1 text-[9px] font-black uppercase tracking-[0.1em] text-white/45" title="Adjust the active note by one semitone">Pitch ±</span>
               <button aria-label="Raise active note by one semitone" className="rounded px-2 py-1.5 text-xs font-black text-white/60 transition hover:bg-white/10 hover:text-white" onClick={() => onAdjustActiveNote(1)} type="button">+</button>
               {hasManualEdits ? <button aria-label="Reset manual note edits" className="rounded bg-white/[0.08] px-2 py-1.5 text-[9px] font-black text-mint-emerald transition hover:bg-mint-emerald hover:text-white" onClick={onResetNoteEdits} type="button">Reset</button> : null}
             </div>
@@ -265,7 +276,7 @@ export function PracticeWorkspace({
         <main className="studio-stage min-w-0 overflow-hidden">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-performance-blue">Sargam canvas</p>
+              <h3 className="font-heading text-xl leading-none text-white sm:text-2xl">Sargam canvas</h3>
               <p className="mt-1 text-xs font-medium text-white/65">Your phrase, mapped through time.</p>
               {importValidation !== null ? (
                 <details className="relative mt-2 w-fit">
@@ -287,14 +298,15 @@ export function PracticeWorkspace({
                 </details>
               ) : null}
             </div>
-            <div aria-label="Choose an instrument roll" className="flex rounded-md bg-white/[0.05] p-1" role="group">
+            <div className="flex flex-wrap items-center justify-end gap-2">
+            <div aria-label="Choose instrument roll" className="flex rounded-md bg-white/[0.05] p-1" role="group">
               {(["Piano", "Harmonium", "Bansuri"] as const).map((visualizer) => {
                 const isActive = selectedVisualizer === visualizer;
                 return (
                   <button
                     aria-pressed={isActive}
                     className={[
-                      "rounded px-3 py-2 text-xs font-black transition",
+                      "rounded-md px-3 py-2 text-xs font-black transition",
                       isActive
                         ? "bg-performance-blue text-[#07121f] shadow-[0_4px_12px_rgba(88,166,255,0.26)]"
                         : "text-white/45 hover:text-white",
@@ -303,10 +315,20 @@ export function PracticeWorkspace({
                     onClick={() => onVisualizerChange(visualizer)}
                     type="button"
                   >
-                    {visualizer} roll · sound
+                    {visualizer}
                   </button>
                 );
               })}
+            </div>
+            <button
+              aria-pressed={guideSoundEnabled}
+              className={["rounded-md px-3 py-2 text-xs font-black transition", guideSoundEnabled ? "bg-mint-emerald text-[#07121f] shadow-[0_4px_12px_rgba(40,177,130,0.24)]" : "bg-white/[0.05] text-white/45 hover:text-white"].join(" ")}
+              onClick={onToggleGuideSound}
+              title="Toggle the selected instrument's guide sound"
+              type="button"
+            >
+              {guideSoundEnabled ? "Sound on" : "Sound off"}
+            </button>
             </div>
           </div>
           <div className="px-3 pb-3 sm:px-4 sm:pb-4">{performanceVisualizer}</div>

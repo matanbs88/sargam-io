@@ -43,6 +43,11 @@ function keyLabel(midi: number): string {
   return `${pitchClass}${Math.floor(midi / 12) - 1}`;
 }
 
+function formatPlaybackTimestamp(milliseconds: number): string {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, "0")}`;
+}
+
 /**
  * Harmonium-specific performance surface. It keeps the same MIDI geometry as
  * the piano for exact note alignment, but presents a reed keyboard, Indian
@@ -69,9 +74,9 @@ export function HarmoniumFallingNotes({
     >
       <div className="absolute inset-x-0 top-0 z-30 flex flex-wrap items-start justify-between gap-3 bg-[linear-gradient(180deg,rgba(12,14,17,0.97),rgba(12,14,17,0.82),transparent)] px-4 py-4 sm:px-5">
         <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#e7bd72]">
+          <h3 className="font-heading text-xl leading-none text-[#f4d58f] sm:text-2xl">
             Harmonium melody roll
-          </p>
+          </h3>
           <p className="mt-1 text-[10px] font-bold text-white/65">
             Reed keys · sustained beams · Sargam mapped to your Sa
           </p>
@@ -131,7 +136,7 @@ export function HarmoniumFallingNotes({
           </div>
           <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] border-t border-[#e7bd72]/75 shadow-[0_-1px_18px_rgba(231,189,114,0.32)]" />
           <span className="absolute bottom-[160px] left-4 rounded-full border border-[#e7bd72]/35 bg-[#14100a]/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-[#e7bd72]">
-            strike line
+            {formatPlaybackTimestamp(currentTimeMs)} · strike line
           </span>
 
           {events.map((event, index) => {

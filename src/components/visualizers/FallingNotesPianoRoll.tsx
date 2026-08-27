@@ -31,6 +31,11 @@ function getBarTop(event: MidiNoteEvent, currentTimeMs: number): number {
   return ROLL_HEIGHT - barHeight - distanceFromStrikeLine;
 }
 
+function formatPlaybackTimestamp(milliseconds: number): string {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, "0")}`;
+}
+
 /**
  * A timing-accurate piano roll for the local MIDI event clock. Bars land on
  * their matching piano key; their height represents event duration.
@@ -79,7 +84,7 @@ export function FallingNotesPianoRoll({
     >
       <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between bg-[linear-gradient(180deg,rgba(5,9,14,0.76),transparent)] px-4 py-3 sm:px-5">
         <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/85">Performance piano roll</p>
+          <h3 className="font-heading text-xl leading-none text-white sm:text-2xl">Performance piano roll</h3>
           <p className="mt-0.5 text-[10px] font-bold text-white/45">
             Bar height = note duration · bars land on their keys
           </p>
@@ -107,7 +112,7 @@ export function FallingNotesPianoRoll({
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] h-32 bg-[radial-gradient(ellipse_at_center_bottom,rgba(88,166,255,0.13),transparent_68%)]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] border-t border-performance-blue/80 shadow-[0_-1px_18px_rgba(88,166,255,0.42)]" />
         <span className="absolute bottom-[144px] left-4 rounded-full border border-performance-blue/35 bg-[#0b111a]/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-performance-blue">
-          strike line
+          {formatPlaybackTimestamp(currentTimeMs)} · strike line
         </span>
 
         {events.map((event, index) => {

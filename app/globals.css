@@ -81,6 +81,13 @@ body::before {
   border-top: 1px solid rgba(255, 255, 255, 0.075);
 }
 
+.studio-workspace {
+  background:
+    radial-gradient(circle at 12% -6%, rgba(40, 177, 130, 0.16), transparent 28%),
+    radial-gradient(circle at 92% 8%, rgba(19, 96, 82, 0.14), transparent 30%),
+    linear-gradient(180deg, #0a1723 0%, #07121f 48%, #081827 100%);
+}
+
 .studio-stage {
   border: 1px solid rgba(145, 199, 219, 0.14);
   border-radius: 1.25rem;

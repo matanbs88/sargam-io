@@ -77,9 +77,9 @@ const NOTATION_OPTIONS: readonly {
   readonly label: string;
   readonly detail: string;
 }[] = [
-  { id: "Sargam_EN", label: "Sa Re Ga", detail: "Sargam" },
-  { id: "Sargam_HI", label: "Devanagari", detail: "Hindi" },
-  { id: "ABC", label: "C D E", detail: "Pitch names" },
+  { id: "Sargam_EN", label: "Sa Re Ga", detail: "" },
+  { id: "Sargam_HI", label: "सा रे ग", detail: "" },
+  { id: "ABC", label: "C D E", detail: "" },
 ];
 
 function StudioMark() {
@@ -100,6 +100,7 @@ export default function Home() {
   const [credits, setCredits] = useState(2);
   const [selectedVisualizer, setSelectedVisualizer] =
     useState<Visualizer>("Piano");
+  const [isGuideSoundEnabled, setIsGuideSoundEnabled] = useState(true);
   const [isCinemaMode, setIsCinemaMode] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [isThemeReady, setIsThemeReady] = useState(false);
@@ -280,14 +281,14 @@ export default function Home() {
   ]);
 
   useEffect(() => {
-    if (!isPlaying || activeEvent === undefined) return;
+    if (!isPlaying || !isGuideSoundEnabled || activeEvent === undefined) return;
 
     playGuideNote(
       activeEvent.midi,
       activeEvent.durationMs / playbackRate,
       activeEvent.velocity,
     );
-  }, [activeEvent, isPlaying, playbackRate, playGuideNote]);
+  }, [activeEvent, isGuideSoundEnabled, isPlaying, playbackRate, playGuideNote]);
 
   function handleTranscribe(): void {
     if (isTranscribed) return;
@@ -371,8 +372,12 @@ export default function Home() {
 
   function togglePlayback(): void {
     resumeAudio();
-    preloadGuideNotes(performanceEvents.slice(0, 8));
+    if (isGuideSoundEnabled) preloadGuideNotes(performanceEvents.slice(0, 8));
     transport.togglePlayback();
+  }
+
+  function toggleGuideSound(): void {
+    setIsGuideSoundEnabled((enabled) => !enabled);
   }
 
   function handleStartAnother(): void {
@@ -574,7 +579,7 @@ export default function Home() {
           >
             <span aria-hidden="true">{theme === "light" ? "◐" : "☀"}</span>
           </button>
-          <span className="rounded-full border border-teal/10 bg-white px-3.5 py-2 text-xs font-extrabold text-teal shadow-sm">
+          <span aria-label={`${credits} free preview credits remaining`} className="rounded-full border border-teal/10 bg-white px-3.5 py-2 text-xs font-extrabold text-teal shadow-sm" title="Preview credits are used to open a practice session.">
             <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-mint-emerald" />
             {credits} credits
           </span>
@@ -599,28 +604,30 @@ export default function Home() {
                 Every melody,
                 <span className="block text-yellow-soft">in your Sa.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-base leading-7 text-white/72 sm:text-lg">
+              <p className="mt-6 max-w-[30rem] text-base leading-7 text-white/72 sm:text-lg">
                 Explore a relative-note practice canvas, then see where to
                 play a prepared melody on your instrument.
               </p>
               <div className="mt-8 flex flex-wrap gap-2 text-xs font-bold text-white/75">
                 {["Choose your Sa", "Sargam + ABC", "Instrument view"].map((feature) => (
-                  <span className="rounded-full border border-white/15 bg-white/5 px-3 py-2" key={feature}>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-2 transition hover:border-white/30 hover:bg-white/10" key={feature}>
                     {feature}
+                    <span aria-hidden="true" className="text-yellow-soft">→</span>
                   </span>
                 ))}
               </div>
             </div>
 
             <div className="glass-melody relative mx-auto w-full max-w-md rounded-[1.15rem] border border-white/20 p-5 backdrop-blur-xl sm:p-6">
-              <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/60">
+              <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/60">
                 <span>Now playing</span>
-                <span className="rounded-full bg-white/10 px-2.5 py-1 text-white/75">D is Sa</span>
+                <span aria-hidden="true" className="text-white/25">·</span>
+                <span className="text-white/75">D is Sa</span>
               </div>
               <div className="mt-5 flex items-center gap-4">
                 <div className="grid h-14 w-14 place-items-center rounded-[0.9rem] border border-yellow-soft/35 bg-yellow-soft/15 font-heading text-3xl text-yellow-soft">S</div>
                 <div>
-                  <p className="font-heading text-2xl leading-none text-white">Your melody</p>
+                  <p className="font-heading text-3xl leading-[0.9] text-white sm:text-4xl">Your melody</p>
                   <p className="mt-0.5 text-sm text-white/55">Relative note preview</p>
                 </div>
               </div>
@@ -630,7 +637,7 @@ export default function Home() {
                     <span className="grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-white/10 text-xs font-black text-white" key={note}>{note}</span>
                   ))}
                 </div>
-                <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-yellow-soft">102 BPM</span>
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-yellow-soft">102 BPM</span>
               </div>
             </div>
           </div>
@@ -695,6 +702,7 @@ export default function Home() {
           importValidation={practiceSource.validation}
           displayedMatra={displayedMatra}
           formattedNotes={formattedNotes}
+          guideSoundEnabled={isGuideSoundEnabled}
           isMetronomePlaying={isTablaPlaying}
           isPlaying={isPlaying}
           isTransposed={isTransposed}
@@ -717,6 +725,7 @@ export default function Home() {
           onTempoChange={setPracticeTempoBpm}
           onToggleMetronome={handleToggleMetronome}
           onTogglePlayback={togglePlayback}
+          onToggleGuideSound={toggleGuideSound}
           onVisualizerChange={handleVisualizerChange}
           performanceVisualizer={renderPerformanceVisualizer()}
           playbackProgress={playbackProgress}
