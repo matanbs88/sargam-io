@@ -29,9 +29,10 @@
   temporary practice-review session.
 - User-facing PDF import button for the guarded local OMR pilot, with an
   explicit warning when the production deployment is not configured for it.
-- 100-entry MVP content queue: 12 original Riyaz exercises are playable, and
-  88 demand-map repertoire entries (including Beatles) are visible as
-  transcription tasks rather than being hidden or rights-locked.
+- 123-title practice library: 12 original Riyaz exercises, 11 public-domain
+  classical melody studies, and 12 devotional/traditional-text studies are
+  playable; 88 demand-map repertoire entries (including Beatles) remain
+  visible as transcription tasks rather than being hidden or rights-locked.
 - Five original, exportable showcase sessions are promoted through a dedicated
   rights-safe registry for the waitlist/demo surface.
 - Landing-page search/filter library and preview waitlist capture for email,
@@ -55,7 +56,7 @@
 
 - `npm.cmd run audit:repo` passes.
 - `npm.cmd run lint` passes.
-- `npm.cmd run test` passes: 70 tests across 25 test files.
+- `npm.cmd run test` passes: 77 tests across 28 test files.
 - `npm.cmd run build` passes.
 - Manual QA has covered desktop, 390x844 vertical layouts, Bansuri cue
   alignment, Cinema view, transport sync, and console-error checks.

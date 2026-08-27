@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import { trackProductEvent } from "@/src/lib/productAnalytics";
 import { RIGHTS_SAFE_SHOWCASES } from "@/src/lib/showcaseRegistry";
 import {
-  CATALOG_CATEGORY_OPTIONS,
   filterCatalogSongs,
-  SONG_CATALOG,
   type CatalogCategory,
   type CatalogSong,
 } from "@/src/lib/songCatalog";
+import { FULL_PRACTICE_CATALOG } from "@/src/lib/practiceCatalog";
+import { CATALOG_CATEGORY_OPTIONS } from "@/src/lib/songCatalog";
 
 type SongLibraryProps = {
   readonly catalogOverrides?: Readonly<Record<string, CatalogSong>>;
@@ -41,7 +41,7 @@ export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryPr
   const [category, setCategory] = useState<"all" | CatalogCategory>("all");
   const [showPlanned, setShowPlanned] = useState(true);
   const catalogSongs = useMemo(
-    () => SONG_CATALOG.map((song) => catalogOverrides[song.id] ?? song),
+    () => FULL_PRACTICE_CATALOG.map((song) => catalogOverrides[song.id] ?? song),
     [catalogOverrides],
   );
   const readySongs = catalogSongs.filter((song) => song.status === "ready");
@@ -70,12 +70,12 @@ export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryPr
             Start with a song.
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-charcoal/55">
-            A 100-title MVP content queue of Indian and global melodies, plus
-            original Riyaz exercises ready to play on piano, harmonium, and Bansuri.
+            A growing repertoire of Indian and global melodies, plus original
+            Riyaz exercises ready to play on piano, harmonium, and Bansuri.
           </p>
         </div>
         <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.14em] text-charcoal/45">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-teal text-yellow-soft">100</span>
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-teal text-yellow-soft">{catalogSongs.length}</span>
           <span>{readySongs.length} ready · {catalogSongs.length - readySongs.length} planned</span>
         </div>
       </div>
@@ -140,7 +140,7 @@ export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryPr
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-3 border-b border-teal/10 pb-4 text-xs font-semibold text-charcoal/45">
-        <span>{filteredSongs.length} {filteredSongs.length === 1 ? "result" : "results"}</span>
+          <span>{filteredSongs.length} {filteredSongs.length === 1 ? "result" : "results"}</span>
         <label className="inline-flex cursor-pointer items-center gap-2">
           <input
             checked={showPlanned}

@@ -3,7 +3,7 @@
 **Status date:** 2026-08-26
 **Last deployed commit:** `e059a27` (`Merge pull request #5: persist imported practice sessions`)
 **Public preview:** <https://sargam-io.vercel.app/>  
-**Current working-tree verification:** 70 tests across 25 test files; changes are not pushed yet.
+**Current working-tree verification:** 77 tests across 28 test files; latest catalog changes are local and not pushed yet.
 
 This document is the current product, engineering, and launch truth for
 Sargam.io. It supersedes stale status snapshots while preserving historical
@@ -65,7 +65,7 @@ regardless of the source.
 | Latin Sargam PDF export | Implemented | Server-side paginated printable practice sheet. |
 | Staff-PDF/photo recognition | Research only | Local Audiveris pilot exists; no public SaaS OMR integration is approved. |
 | YouTube/audio transcription | Mock seam only | No live provider, arbitrary URL ingestion, or production billing is connected. |
-| Song catalog/library | Implemented MVP queue | 100 searchable entries are present; 12 original Riyaz exercises are playable now, five are promoted through the showcase registry, and 88 repertoire entries are visible content-pipeline tasks awaiting note data. Rights metadata is not a development or UX gate. Durable server catalog persistence is still future work. |
+| Song catalog/library | Implemented MVP queue | 123 searchable entries are present: 12 original Riyaz exercises, 11 public-domain classical melody studies, 12 devotional/traditional-text studies, and 88 repertoire entries awaiting note data. Rights metadata is not a development or UX gate. Durable server catalog persistence is still future work. |
 | Waitlist and analytics | Preview capture | Landing page captures email, instrument, requested song, and explicit early-access consent locally or through an explicitly configured endpoint. A linked preview privacy notice and provider-neutral, non-PII analytics seam are implemented; durable storage, final legal terms, and production analytics remain future work. |
 | Auth, credits, payments, database | Not implemented | Future private-alpha foundation. |
 | Video export / creator assets | Not implemented | Future creator workflow after core practice quality is proven. |

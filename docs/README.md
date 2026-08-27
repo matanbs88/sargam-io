@@ -19,6 +19,7 @@ root because they are linked directly from the public README.
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Waitlist-first launch strategy](./strategy/LAUNCH_STRATEGY.md)
 - [Catalog and content plan](./strategy/CATALOG_AND_CONTENT_PLAN.md)
+- [Public-domain catalog and license plan](./strategy/PUBLIC_DOMAIN_CATALOG_AND_LICENSE_PLAN_2026-08-26.md)
 - [Current Gemini launch review request](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-23.md)
 - [Historical Gemini launch review request (2026-08-16)](./reviews/GEMINI_LAUNCH_REVIEW_REQUEST_2026-08-16.md)
 - [Principal review disposition](./reviews/PRINCIPAL_REVIEW_DISPOSITION_2026-08-16.md)

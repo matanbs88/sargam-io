@@ -31,6 +31,8 @@ The local, mock-driven demo includes:
 - 100-entry MVP practice queue: 12 original exercises are playable now and 88
   popular Indian and Beatles titles are catalogued for the content pipeline;
   missing note data is tracked as MVP work, not a product/legal lock
+- 123-title practice library: the 100-entry queue plus 11 public-domain
+  classical melody studies and 12 devotional/traditional-text practice studies
 - Waitlist preview with explicit consent, linked privacy notice, and a
   provider-neutral non-PII analytics seam
 

@@ -12,6 +12,7 @@ export type CatalogCategory =
   | "Indian pop"
   | "Regional"
   | "Evergreen"
+  | "Public domain"
   | "The Beatles";
 
 export type CatalogSong = {
@@ -28,10 +29,10 @@ export type CatalogSong = {
   readonly sourceKind: CatalogSourceKind | null;
   readonly sourceRef: string | null;
   /** Internal launch metadata; never a development or practice gate. */
-  readonly rightsBasis: "original" | "rights-review";
+  readonly rightsBasis: "original" | "public-domain" | "rights-review";
   readonly exportAllowed: boolean;
   readonly tempoBpm: number;
-  readonly timeSignature: "4/4" | "3/4" | "6/8";
+  readonly timeSignature: "4/4" | "3/4" | "3/8" | "6/8";
   readonly rootMidi: number;
   readonly noteEvents: readonly MidiNoteEvent[] | null;
   readonly rightsNote: string;
@@ -245,7 +246,9 @@ function normalizeTimeSignature(
   value: string | null,
   fallback: CatalogSong["timeSignature"],
 ): CatalogSong["timeSignature"] {
-  return value === "3/4" || value === "6/8" || value === "4/4" ? value : fallback;
+  return value === "3/4" || value === "3/8" || value === "6/8" || value === "4/4"
+    ? value
+    : fallback;
 }
 
 /**
@@ -287,6 +290,7 @@ export const CATALOG_CATEGORY_OPTIONS: readonly CatalogCategory[] = [
   "Indian pop",
   "Regional",
   "Evergreen",
+  "Public domain",
   "The Beatles",
 ];
 
