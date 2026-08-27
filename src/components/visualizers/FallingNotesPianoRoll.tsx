@@ -99,21 +99,17 @@ export function FallingNotesPianoRoll({
       </span>
 
       <div
-        className="h-[500px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[620px]"
+        className="h-[620px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth"
         ref={scrollContainerRef}
       >
-      <div className="relative h-full min-w-[560px] bg-[#070a0f] sm:min-w-0">
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_64px]" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0">
+      <div className="relative h-[620px] min-w-[760px] bg-[#070a0f]">
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[482px] bg-[radial-gradient(ellipse_at_center_bottom,rgba(88,166,255,0.1),transparent_58%)]" />
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[482px]">
           {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
             <span className="absolute bottom-0 top-0 border-r border-white/[0.075]" key={key.midi} style={{ left: `${key.left}%`, width: `${key.width}%` }} />
           ))}
         </div>
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] h-32 bg-[radial-gradient(ellipse_at_center_bottom,rgba(88,166,255,0.13),transparent_68%)]" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] border-t border-performance-blue/80 shadow-[0_-1px_18px_rgba(88,166,255,0.42)]" />
-        <span className="absolute bottom-[144px] left-4 rounded-full border border-performance-blue/35 bg-[#0b111a]/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-performance-blue">
-          {formatPlaybackTimestamp(currentTimeMs)} · strike line
-        </span>
+        <div aria-label={`Strike line at ${formatPlaybackTimestamp(currentTimeMs)}`} className="absolute inset-x-0 top-[481px] z-[25] h-[2px] bg-performance-blue shadow-[0_0_4px_rgba(88,166,255,0.95),0_0_22px_rgba(88,166,255,0.72)]" role="separator" />
 
         {events.map((event, index) => {
           const key = keyByMidi.get(event.midi);
@@ -127,8 +123,7 @@ export function FallingNotesPianoRoll({
             <div
               aria-hidden="true"
               className={[
-                "absolute z-10 flex items-start justify-center rounded-md border border-white/30 pt-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,opacity,box-shadow,transform] duration-[420ms] ease-out",
-                key.isBlack ? "min-w-3" : "min-w-4",
+                "absolute z-10 flex items-end justify-center overflow-hidden rounded-full border border-white/30 pb-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,opacity,box-shadow,transform] duration-[420ms] ease-out",
                 isActive
                   ? "bg-[linear-gradient(180deg,rgba(255,248,197,0.94),rgba(255,218,104,0.78))] text-charcoal shadow-[0_8px_20px_rgba(255,240,153,0.28),inset_0_1px_0_rgba(255,255,255,0.82)]"
                   : index < activeEventIndex
@@ -156,7 +151,7 @@ export function FallingNotesPianoRoll({
           );
         })}
 
-        <div className="absolute inset-x-0 bottom-0 h-[108px] border-t border-white/30 bg-[#d6d4cf] shadow-[inset_0_12px_18px_rgba(0,0,0,0.12)] sm:h-[138px]">
+        <div className="absolute inset-x-0 bottom-0 h-[138px] border-t border-[#1f2937]/80 bg-[#d8d7d2] shadow-[inset_0_12px_18px_rgba(0,0,0,0.12)]">
           {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => {
             const isRoot = key.midi === rootMidi;
             const isActive = key.midi === events[activeEventIndex]?.midi;
@@ -165,9 +160,9 @@ export function FallingNotesPianoRoll({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute bottom-0 h-[108px] snap-start rounded-b-[0.42rem] border-r border-[#1f2937]/65 bg-[linear-gradient(90deg,#e7e5df_0%,#fffefa_45%,#d8d5cf_100%)] shadow-[inset_0_-11px_13px_rgba(38,32,24,0.18),inset_0_1px_0_rgba(255,255,255,0.98)] transition-[transform,box-shadow,background] duration-150 sm:h-[138px]",
+                  "absolute bottom-0 h-[138px] snap-start rounded-b-[0.32rem] border-r border-[#1f2937]/70 bg-white shadow-[inset_0_-10px_12px_rgba(24,32,42,0.14),inset_0_1px_0_rgba(255,255,255,0.98)] transition-[transform,box-shadow,background] duration-150 last:border-r-0",
                   isActive
-                    ? "translate-y-1 bg-[linear-gradient(90deg,#bad6ed_0%,#eaf8ff_45%,#9fc8e6_100%)] shadow-[inset_0_-5px_8px_rgba(26,76,115,0.32),inset_0_2px_8px_rgba(255,255,255,0.95),0_0_18px_rgba(88,166,255,0.42)]"
+                    ? "translate-y-1 bg-yellow-soft shadow-[inset_0_-5px_8px_rgba(145,105,10,0.28),inset_0_2px_8px_rgba(255,255,255,0.95),0_0_18px_rgba(255,240,153,0.6)]"
                     : "",
                 ].join(" ")}
                 key={key.midi}
@@ -189,8 +184,8 @@ export function FallingNotesPianoRoll({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute top-0 z-20 h-[70px] -translate-x-1/2 rounded-b-md border border-white/10 bg-[linear-gradient(90deg,#05080d_0%,#1a2432_48%,#05080d_100%)] shadow-[0_9px_10px_rgba(0,0,0,0.58),inset_0_2px_1px_rgba(255,255,255,0.18)] transition-[transform,box-shadow,background] duration-150 sm:h-[88px]",
-                  isActive ? "translate-y-1 border-performance-blue/80 bg-[linear-gradient(90deg,#1c4e80_0%,#70bcff_50%,#1c4e80_100%)] shadow-[0_3px_6px_rgba(0,0,0,0.42),0_0_18px_rgba(88,166,255,0.64),inset_0_2px_6px_rgba(225,248,255,0.8)]" : "",
+                  "absolute top-0 z-20 h-[88px] rounded-b-[0.3rem] border border-charcoal/90 border-t-white/20 bg-charcoal shadow-[0_8px_10px_rgba(0,0,0,0.55),inset_0_2px_1px_rgba(255,255,255,0.16)] transition-[transform,box-shadow,background] duration-150",
+                  isActive ? "translate-y-1 border-yellow-soft bg-yellow-soft shadow-[0_2px_5px_rgba(0,0,0,0.35),0_0_16px_rgba(255,240,153,0.62),inset_0_2px_6px_rgba(255,255,255,0.72)]" : "",
                 ].join(" ")}
                 key={key.midi}
                 style={{ left: `${key.left}%`, width: `${key.width}%` }}
