@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BansuriFlute } from "@/src/components/instruments/BansuriFlute";
 import {
   BANSURI_RUNWAY_LANES,
@@ -11,11 +12,14 @@ import {
   type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
+import { getPlaybackClockTime } from "@/src/lib/playbackClock";
 
 type BansuriFallingNotesProps = {
   readonly activeEventIndex: number;
   readonly events: readonly MidiNoteEvent[];
+  readonly isPlaying: boolean;
   readonly notationSystem: NotationSystem;
+  readonly playbackRate: number;
   readonly rootMidi: number;
 };
 
@@ -111,10 +115,37 @@ function FingeringLandmarks({
 export function BansuriFallingNotes({
   activeEventIndex,
   events,
+  isPlaying,
   notationSystem,
+  playbackRate,
   rootMidi,
 }: BansuriFallingNotesProps) {
-  const currentTimeMs = events[activeEventIndex]?.startMs ?? 0;
+  const baseTimeMs = events[activeEventIndex]?.startMs ?? 0;
+  const [animatedTimeMs, setAnimatedTimeMs] = useState(baseTimeMs);
+  const currentTimeMs = isPlaying ? animatedTimeMs : baseTimeMs;
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    let animationFrame = 0;
+    const startedAtMs = performance.now();
+    const renderFrame = (nowMs: number) => {
+      setAnimatedTimeMs(
+        getPlaybackClockTime({
+          baseTimeMs,
+          isPlaying,
+          nowMs,
+          playbackRate,
+          startedAtMs,
+        }),
+      );
+      animationFrame = window.requestAnimationFrame(renderFrame);
+    };
+
+    animationFrame = window.requestAnimationFrame(renderFrame);
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [baseTimeMs, isPlaying, playbackRate]);
+
   const activeEvent = events[activeEventIndex];
   const activeInterval = activeEvent
     ? normalizedInterval(activeEvent.midi, rootMidi)
@@ -203,7 +234,7 @@ export function BansuriFallingNotes({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute z-10 flex h-[24px] min-w-[1.1rem] items-center rounded-full border px-2.5 text-[10px] font-black backdrop-blur-md transition-[left,background-color,box-shadow,opacity,transform] duration-[420ms] ease-out sm:h-[28px]",
+                  "absolute z-10 flex h-[24px] items-center overflow-hidden rounded-full border px-2.5 text-[10px] font-black backdrop-blur-md transition-[left,background-color,box-shadow,opacity,transform] duration-[120ms] ease-out sm:h-[28px]",
                   notationSystem === "Sargam_HI" ? "font-devanagari" : "",
                   isActive
                     ? "border-yellow-soft/90 bg-[linear-gradient(90deg,rgba(255,223,100,0.98),rgba(255,247,191,0.9))] text-charcoal shadow-[0_8px_22px_rgba(255,240,153,0.38),inset_0_1px_0_rgba(255,255,255,0.84)]"

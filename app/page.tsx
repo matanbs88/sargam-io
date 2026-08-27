@@ -501,9 +501,11 @@ export default function Home() {
           events={performanceEvents}
           harmoniumReedMode={harmoniumReedMode}
           harmoniumReverbMode={harmoniumReverbMode}
+          isPlaying={isPlaying}
           notationSystem={notationSystem}
           onHarmoniumReedModeChange={setHarmoniumReedMode}
           onHarmoniumReverbModeChange={setHarmoniumReverbMode}
+          playbackRate={playbackRate}
           rootMidi={selectedRootMidi}
         />
       );
@@ -513,7 +515,9 @@ export default function Home() {
       <BansuriFallingNotes
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
+        isPlaying={isPlaying}
         notationSystem={notationSystem}
+        playbackRate={playbackRate}
         rootMidi={selectedRootMidi}
       />
     );

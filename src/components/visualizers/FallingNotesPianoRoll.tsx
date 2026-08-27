@@ -8,6 +8,7 @@ import {
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
 import { PERFORMANCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
+import { getPlaybackClockTime } from "@/src/lib/playbackClock";
 
 type FallingNotesPianoRollProps = {
   readonly activeEventIndex: number;
@@ -325,14 +326,20 @@ export function FallingNotesPianoRoll({
       : 1;
 
     const renderFrame = (now: number) => {
-      const elapsedMs = isPlaying ? (now - startedAt) * safePlaybackRate : 0;
+      const currentTimeMs = getPlaybackClockTime({
+        baseTimeMs,
+        isPlaying,
+        nowMs: now,
+        playbackRate: safePlaybackRate,
+        startedAtMs: startedAt,
+      });
       drawPianoCanvas(
         canvas,
         events,
         activeEventIndex,
         notationSystem,
         rootMidi,
-        baseTimeMs + elapsedMs,
+        currentTimeMs,
       );
       animationFrame = window.requestAnimationFrame(renderFrame);
     };

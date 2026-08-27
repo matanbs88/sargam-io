@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import {
   formatRelativeNote,
   midiToRelativeNote,
   type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
+import { getPlaybackClockTime } from "@/src/lib/playbackClock";
 import { PERFORMANCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
 import type {
   HarmoniumReedMode,
@@ -15,13 +17,15 @@ type HarmoniumFallingNotesProps = {
   readonly events: readonly MidiNoteEvent[];
   readonly harmoniumReedMode: HarmoniumReedMode;
   readonly harmoniumReverbMode: HarmoniumReverbMode;
+  readonly isPlaying: boolean;
   readonly notationSystem: NotationSystem;
   readonly onHarmoniumReedModeChange: (mode: HarmoniumReedMode) => void;
   readonly onHarmoniumReverbModeChange: (mode: HarmoniumReverbMode) => void;
+  readonly playbackRate: number;
   readonly rootMidi: number;
 };
 
-const ROLL_HEIGHT = 438;
+const ROLL_HEIGHT = 456;
 const LOOK_AHEAD_MS = 4_000;
 
 function getBarHeight(durationMs: number): number {
@@ -58,12 +62,39 @@ export function HarmoniumFallingNotes({
   events,
   harmoniumReedMode,
   harmoniumReverbMode,
+  isPlaying,
   notationSystem,
   onHarmoniumReedModeChange,
   onHarmoniumReverbModeChange,
+  playbackRate,
   rootMidi,
 }: HarmoniumFallingNotesProps) {
-  const currentTimeMs = events[activeEventIndex]?.startMs ?? 0;
+  const baseTimeMs = events[activeEventIndex]?.startMs ?? 0;
+  const [animatedTimeMs, setAnimatedTimeMs] = useState(baseTimeMs);
+  const currentTimeMs = isPlaying ? animatedTimeMs : baseTimeMs;
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    let animationFrame = 0;
+    const startedAtMs = performance.now();
+    const renderFrame = (nowMs: number) => {
+      setAnimatedTimeMs(
+        getPlaybackClockTime({
+          baseTimeMs,
+          isPlaying,
+          nowMs,
+          playbackRate,
+          startedAtMs,
+        }),
+      );
+      animationFrame = window.requestAnimationFrame(renderFrame);
+    };
+
+    animationFrame = window.requestAnimationFrame(renderFrame);
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [baseTimeMs, isPlaying, playbackRate]);
+
   const activeMidi = events[activeEventIndex]?.midi ?? rootMidi;
   const keyByMidi = new Map(PERFORMANCE_PIANO_KEYS.map((key) => [key.midi, key]));
 
@@ -126,8 +157,8 @@ export function HarmoniumFallingNotes({
         </div>
       </div>
 
-      <div className="h-[540px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[610px]">
-        <div className="relative h-full min-w-[560px] bg-[radial-gradient(ellipse_at_50%_65%,rgba(175,111,35,0.11),transparent_50%),#07090c] sm:min-w-0">
+      <div className="h-[610px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth">
+        <div className="relative h-[610px] min-w-[760px] bg-[radial-gradient(ellipse_at_50%_65%,rgba(175,111,35,0.11),transparent_50%),#07090c]">
           <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_62px]" />
           <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] top-0">
             {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
@@ -153,8 +184,7 @@ export function HarmoniumFallingNotes({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute z-10 flex items-start justify-center rounded-md border pt-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,box-shadow,opacity,transform] duration-[420ms] ease-out",
-                  key.isBlack ? "min-w-3" : "min-w-4",
+                  "absolute z-10 flex items-end justify-center overflow-hidden rounded-full border pb-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,box-shadow,opacity,transform] duration-[120ms] ease-out",
                   notationSystem === "Sargam_HI" ? "font-devanagari" : "",
                   isActive
                     ? "border-yellow-soft/95 bg-[linear-gradient(180deg,rgba(255,247,187,0.98),rgba(220,157,53,0.88))] text-charcoal shadow-[0_8px_24px_rgba(255,240,153,0.4),inset_0_1px_0_rgba(255,255,255,0.92)]"
@@ -187,7 +217,7 @@ export function HarmoniumFallingNotes({
                 ))}
               </span>
             </div>
-            <div className="absolute inset-x-[1.4%] bottom-0 h-[126px] overflow-hidden rounded-t-[0.5rem] border border-[#3e200c]/70 bg-[#1c1009] shadow-[inset_0_5px_10px_rgba(255,211,130,0.12)]">
+            <div className="absolute inset-x-0 bottom-0 h-[126px] overflow-hidden rounded-t-[0.5rem] border border-[#3e200c]/70 bg-[#1c1009] shadow-[inset_0_5px_10px_rgba(255,211,130,0.12)]">
               {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => {
                 const isRoot = key.midi === rootMidi;
                 const isActive = key.midi === activeMidi;
