@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import {
   formatRelativeNote,
   midiToRelativeNote,
@@ -5,11 +8,11 @@ import {
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
 import { PERFORMANCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
-import { usePlaybackClock } from "@/src/lib/usePlaybackClock";
 import type {
   HarmoniumReedMode,
   HarmoniumReverbMode,
 } from "@/src/features/practice/useDigitalAccompaniment";
+import { usePlaybackClock } from "@/src/lib/usePlaybackClock";
 
 type HarmoniumFallingNotesProps = {
   readonly activeEventIndex: number;
@@ -24,25 +27,46 @@ type HarmoniumFallingNotesProps = {
   readonly rootMidi: number;
 };
 
-const ROLL_HEIGHT = 456;
-const LOOK_AHEAD_MS = 4_000;
+const CANVAS_WIDTH = 1_600;
+const ROLL_HEIGHT = 482;
+const KEYBOARD_HEIGHT = 138;
+const CANVAS_HEIGHT = ROLL_HEIGHT + KEYBOARD_HEIGHT;
+const LOOK_AHEAD_SECONDS = 4;
+const PIXELS_PER_SECOND = ROLL_HEIGHT / LOOK_AHEAD_SECONDS;
 
-function getBarHeight(durationMs: number): number {
-  return Math.max(52, Math.min(220, durationMs * 0.34));
-}
+type CanvasKey = {
+  readonly midi: number;
+  readonly isBlack: boolean;
+  readonly x: number;
+  readonly width: number;
+};
 
-function getBarTop(event: MidiNoteEvent, currentTimeMs: number): number {
-  const height = getBarHeight(event.durationMs);
-  const distanceFromStrikeLine =
-    ((event.startMs - currentTimeMs) / LOOK_AHEAD_MS) * ROLL_HEIGHT;
+const CANVAS_KEYS: readonly CanvasKey[] = PERFORMANCE_PIANO_KEYS.map((key) => ({
+  midi: key.midi,
+  isBlack: key.isBlack,
+  x: (key.left / 100) * CANVAS_WIDTH,
+  width: (key.width / 100) * CANVAS_WIDTH,
+}));
 
-  return ROLL_HEIGHT - height - distanceFromStrikeLine;
-}
+const CANVAS_KEY_BY_MIDI = new Map(
+  CANVAS_KEYS.map((key) => [key.midi, key]),
+);
 
 function keyLabel(midi: number): string {
-  const pitchClass = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][
-    ((midi % 12) + 12) % 12
-  ];
+  const pitchClass = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+  ][((midi % 12) + 12) % 12];
   return `${pitchClass}${Math.floor(midi / 12) - 1}`;
 }
 
@@ -51,10 +75,232 @@ function formatPlaybackTimestamp(milliseconds: number): string {
   return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, "0")}`;
 }
 
+function roundedRect(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number,
+): void {
+  const safeRadius = Math.max(0, Math.min(radius, width / 2, height / 2));
+  context.beginPath();
+  context.moveTo(x + safeRadius, y);
+  context.arcTo(x + width, y, x + width, y + height, safeRadius);
+  context.arcTo(x + width, y + height, x, y + height, safeRadius);
+  context.arcTo(x, y + height, x, y, safeRadius);
+  context.arcTo(x, y, x + width, y, safeRadius);
+  context.closePath();
+}
+
+function drawHarmoniumCanvas(
+  canvas: HTMLCanvasElement,
+  events: readonly MidiNoteEvent[],
+  activeEventIndex: number,
+  notationSystem: NotationSystem,
+  rootMidi: number,
+  currentTimeMs: number,
+): void {
+  const context = canvas.getContext("2d");
+  if (context === null) return;
+
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const pixelWidth = CANVAS_WIDTH * devicePixelRatio;
+  const pixelHeight = CANVAS_HEIGHT * devicePixelRatio;
+  if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+    canvas.width = pixelWidth;
+    canvas.height = pixelHeight;
+  }
+
+  context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+  const background = context.createLinearGradient(0, 0, 0, ROLL_HEIGHT);
+  background.addColorStop(0, "#10100e");
+  background.addColorStop(0.58, "#090b0e");
+  background.addColorStop(1, "#17100a");
+  context.fillStyle = background;
+  context.fillRect(0, 0, CANVAS_WIDTH, ROLL_HEIGHT);
+
+  const glow = context.createRadialGradient(
+    CANVAS_WIDTH * 0.52,
+    ROLL_HEIGHT,
+    0,
+    CANVAS_WIDTH * 0.52,
+    ROLL_HEIGHT,
+    CANVAS_WIDTH * 0.6,
+  );
+  glow.addColorStop(0, "rgba(231, 189, 114, 0.14)");
+  glow.addColorStop(1, "rgba(231, 189, 114, 0)");
+  context.fillStyle = glow;
+  context.fillRect(0, 0, CANVAS_WIDTH, ROLL_HEIGHT);
+
+  const whiteKeys = CANVAS_KEYS.filter((key) => !key.isBlack);
+  context.lineWidth = 1;
+  for (const key of whiteKeys) {
+    context.strokeStyle = "rgba(231, 189, 114, 0.09)";
+    context.beginPath();
+    context.moveTo(Math.round(key.x) + 0.5, 0);
+    context.lineTo(Math.round(key.x) + 0.5, ROLL_HEIGHT);
+    context.stroke();
+  }
+
+  for (const [index, event] of events.entries()) {
+    const key = CANVAS_KEY_BY_MIDI.get(event.midi);
+    if (key === undefined) continue;
+
+    const height = Math.max(42, (event.durationMs / 1000) * PIXELS_PER_SECOND);
+    const distanceFromStrike =
+      ((event.startMs - currentTimeMs) / 1000) * PIXELS_PER_SECOND;
+    const top = ROLL_HEIGHT - distanceFromStrike - height;
+    const isActive = index === activeEventIndex;
+    const isPast = event.startMs + event.durationMs < currentTimeMs;
+    const radius = Math.min(14, key.width / 2, height / 2);
+
+    context.save();
+    context.globalAlpha = isPast ? 0.24 : 1;
+    context.shadowColor = isActive
+      ? "rgba(255, 240, 153, 0.78)"
+      : "rgba(231, 189, 114, 0.38)";
+    context.shadowBlur = isActive ? 19 : 12;
+
+    const noteGradient = context.createLinearGradient(0, top, 0, top + height);
+    if (isActive) {
+      noteGradient.addColorStop(0, "#fff4af");
+      noteGradient.addColorStop(0.5, "#e7bd72");
+      noteGradient.addColorStop(1, "#ad6d27");
+    } else {
+      noteGradient.addColorStop(0, "#d99a42");
+      noteGradient.addColorStop(0.45, "#a96625");
+      noteGradient.addColorStop(1, "#6f3e17");
+    }
+    context.fillStyle = noteGradient;
+    roundedRect(context, key.x + 1, top, Math.max(2, key.width - 2), height, radius);
+    context.fill();
+
+    context.shadowColor = "transparent";
+    context.strokeStyle = isActive
+      ? "rgba(255, 255, 255, 0.92)"
+      : "rgba(255, 225, 157, 0.58)";
+    context.lineWidth = 1;
+    context.stroke();
+
+    const label = formatRelativeNote(
+      midiToRelativeNote(event.midi, rootMidi),
+      notationSystem,
+    );
+    if (key.width >= 24 && height >= 30 && top < ROLL_HEIGHT) {
+      context.fillStyle = isActive ? "#211307" : "rgba(255, 247, 211, 0.94)";
+      context.font = notationSystem === "Sargam_HI"
+        ? "700 12px sans-serif"
+        : "700 11px ui-monospace, monospace";
+      context.textAlign = "center";
+      context.textBaseline = "bottom";
+      context.fillText(
+        label,
+        key.x + key.width / 2,
+        Math.min(ROLL_HEIGHT - 5, top + height - 8),
+      );
+    }
+    context.restore();
+  }
+
+  context.save();
+  context.strokeStyle = "#e7bd72";
+  context.shadowColor = "rgba(231, 189, 114, 0.95)";
+  context.shadowBlur = 18;
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(0, ROLL_HEIGHT);
+  context.lineTo(CANVAS_WIDTH, ROLL_HEIGHT);
+  context.stroke();
+  context.restore();
+
+  const keyboardGradient = context.createLinearGradient(
+    0,
+    ROLL_HEIGHT,
+    0,
+    CANVAS_HEIGHT,
+  );
+  keyboardGradient.addColorStop(0, "#d7b375");
+  keyboardGradient.addColorStop(0.08, "#9a5d25");
+  keyboardGradient.addColorStop(0.12, "#f0cb83");
+  keyboardGradient.addColorStop(1, "#6b3916");
+  context.fillStyle = keyboardGradient;
+  context.fillRect(0, ROLL_HEIGHT, CANVAS_WIDTH, KEYBOARD_HEIGHT);
+
+  context.strokeStyle = "rgba(255, 229, 163, 0.74)";
+  context.lineWidth = 1;
+  context.beginPath();
+  context.moveTo(0, ROLL_HEIGHT + 0.5);
+  context.lineTo(CANVAS_WIDTH, ROLL_HEIGHT + 0.5);
+  context.stroke();
+
+  for (const key of whiteKeys) {
+    const isActive = key.midi === events[activeEventIndex]?.midi;
+    const isRoot = key.midi === rootMidi;
+    const keyGradient = context.createLinearGradient(key.x, 0, key.x + key.width, 0);
+    if (isActive) {
+      keyGradient.addColorStop(0, "#c9872b");
+      keyGradient.addColorStop(0.45, "#fff1a7");
+      keyGradient.addColorStop(1, "#d79b3b");
+    } else {
+      keyGradient.addColorStop(0, "#cfb77e");
+      keyGradient.addColorStop(0.43, "#fff4d0");
+      keyGradient.addColorStop(1, "#c2a367");
+    }
+    context.fillStyle = keyGradient;
+    context.fillRect(key.x, ROLL_HEIGHT, key.width, KEYBOARD_HEIGHT);
+    context.strokeStyle = "rgba(69, 39, 17, 0.72)";
+    context.strokeRect(key.x + 0.5, ROLL_HEIGHT + 0.5, key.width - 1, KEYBOARD_HEIGHT - 1);
+
+    const relative = midiToRelativeNote(key.midi, rootMidi);
+    context.fillStyle = "rgba(64, 37, 18, 0.68)";
+    context.font = notationSystem === "Sargam_HI"
+      ? "700 9px sans-serif"
+      : "700 9px ui-monospace, monospace";
+    context.textAlign = "center";
+    context.textBaseline = "top";
+    context.fillText(
+      formatRelativeNote(relative, notationSystem),
+      key.x + key.width / 2,
+      ROLL_HEIGHT + 13,
+    );
+
+    if (isRoot) {
+      context.fillStyle = "#28b182";
+      context.shadowColor = "rgba(40, 177, 130, 0.9)";
+      context.shadowBlur = 11;
+      context.beginPath();
+      context.arc(key.x + key.width / 2, CANVAS_HEIGHT - 14, 5, 0, Math.PI * 2);
+      context.fill();
+      context.shadowColor = "transparent";
+    }
+  }
+
+  for (const key of CANVAS_KEYS.filter((candidate) => candidate.isBlack)) {
+    const isActive = key.midi === events[activeEventIndex]?.midi;
+    context.fillStyle = isActive ? "#fff099" : "#21160d";
+    context.shadowColor = isActive
+      ? "rgba(255, 240, 153, 0.75)"
+      : "rgba(0, 0, 0, 0.7)";
+    context.shadowBlur = isActive ? 14 : 9;
+    roundedRect(context, key.x, ROLL_HEIGHT, key.width, 88, 5);
+    context.fill();
+    context.shadowColor = "transparent";
+    context.strokeStyle = "rgba(255, 235, 180, 0.24)";
+    context.lineWidth = 1;
+    context.beginPath();
+    context.moveTo(key.x + 1, ROLL_HEIGHT + 1);
+    context.lineTo(key.x + key.width - 1, ROLL_HEIGHT + 1);
+    context.stroke();
+  }
+}
+
 /**
- * Harmonium-specific performance surface. It keeps the same MIDI geometry as
- * the piano for exact note alignment, but presents a reed keyboard, Indian
- * labels and sustained note beams rather than a piano skin.
+ * Harmonium roll using the same fixed coordinate system as the piano roll.
+ * The instrument palette changes, but note timing, lane geometry and strike
+ * alignment remain identical across instruments.
  */
 export function HarmoniumFallingNotes({
   activeEventIndex,
@@ -68,36 +314,48 @@ export function HarmoniumFallingNotes({
   playbackRate,
   rootMidi,
 }: HarmoniumFallingNotesProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentTimeMs = usePlaybackClock({
     baseTimeMs: events[activeEventIndex]?.startMs ?? 0,
     isPlaying,
     playbackRate,
   });
 
-  const activeMidi = events[activeEventIndex]?.midi ?? rootMidi;
-  const keyByMidi = new Map(PERFORMANCE_PIANO_KEYS.map((key) => [key.midi, key]));
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas === null) return;
+
+    drawHarmoniumCanvas(
+      canvas,
+      events,
+      activeEventIndex,
+      notationSystem,
+      rootMidi,
+      currentTimeMs,
+    );
+  }, [activeEventIndex, currentTimeMs, events, notationSystem, rootMidi]);
 
   return (
     <section
       aria-label="Falling MIDI harmonium roll"
       className="relative overflow-hidden rounded-[0.9rem] border border-[#c78d46]/25 bg-[#090c10] shadow-[0_24px_64px_rgba(0,0,0,0.34)]"
     >
-      <div className="absolute inset-x-0 top-0 z-30 flex flex-wrap items-start justify-between gap-3 bg-[linear-gradient(180deg,rgba(12,14,17,0.97),rgba(12,14,17,0.82),transparent)] px-4 py-4 sm:px-5">
+      <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-3 bg-[linear-gradient(180deg,rgba(12,14,17,0.96),rgba(12,14,17,0.78),transparent)] px-4 py-4 sm:px-5">
         <div>
           <h3 className="font-heading text-xl leading-none text-[#f4d58f] sm:text-2xl">
             Harmonium melody roll
           </h3>
           <p className="mt-1 text-[10px] font-bold text-white/65">
-            Reed keys · sustained beams · Sargam mapped to your Sa
+            Fixed pitch lanes · reed tone · note length follows duration
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-end gap-2">
           <span className="rounded-full border border-yellow-soft/45 bg-yellow-soft px-2.5 py-1 text-[10px] font-black text-charcoal shadow-[0_0_15px_rgba(255,240,153,0.2)]">
             {keyLabel(rootMidi)} = Sa
           </span>
-          <div className="flex items-center gap-1 rounded-md border border-white/10 bg-black/25 p-1 text-[9px] font-black uppercase tracking-[0.12em] text-white/45">
+          <div className="flex items-center gap-1 rounded-md border border-white/10 bg-black/35 p-1 text-[9px] font-black uppercase tracking-[0.12em] text-white/45">
             <span className="px-1.5">Reeds</span>
-            {(["single", "double"] as const).map((mode) => (
+            {["single", "double"].map((mode) => (
               <button
                 aria-pressed={harmoniumReedMode === mode}
                 className={[
@@ -107,16 +365,16 @@ export function HarmoniumFallingNotes({
                     : "text-white/45 hover:bg-white/10 hover:text-white",
                 ].join(" ")}
                 key={mode}
-                onClick={() => onHarmoniumReedModeChange(mode)}
+                onClick={() => onHarmoniumReedModeChange(mode as HarmoniumReedMode)}
                 type="button"
               >
                 {mode}
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-1 rounded-md border border-white/10 bg-black/25 p-1 text-[9px] font-black uppercase tracking-[0.12em] text-white/45">
+          <div className="flex items-center gap-1 rounded-md border border-white/10 bg-black/35 p-1 text-[9px] font-black uppercase tracking-[0.12em] text-white/45">
             <span className="px-1.5">Space</span>
-            {(["dry", "room"] as const).map((mode) => (
+            {["dry", "room"].map((mode) => (
               <button
                 aria-pressed={harmoniumReverbMode === mode}
                 className={[
@@ -126,7 +384,7 @@ export function HarmoniumFallingNotes({
                     : "text-white/45 hover:bg-white/10 hover:text-white",
                 ].join(" ")}
                 key={mode}
-                onClick={() => onHarmoniumReverbModeChange(mode)}
+                onClick={() => onHarmoniumReverbModeChange(mode as HarmoniumReverbMode)}
                 type="button"
               >
                 {mode}
@@ -136,99 +394,17 @@ export function HarmoniumFallingNotes({
         </div>
       </div>
 
-      <div className="h-[610px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth">
-        <div className="relative h-[610px] min-w-[760px] bg-[radial-gradient(ellipse_at_50%_65%,rgba(175,111,35,0.11),transparent_50%),#07090c]">
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_62px]" />
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] top-0">
-            {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
-              <span className="absolute bottom-0 top-0 border-r border-white/[0.065]" key={key.midi} style={{ left: `${key.left}%`, width: `${key.width}%` }} />
-            ))}
-          </div>
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] border-t border-[#e7bd72]/75 shadow-[0_-1px_18px_rgba(231,189,114,0.32)]" />
-          <span className="absolute bottom-[160px] left-4 rounded-full border border-[#e7bd72]/35 bg-[#14100a]/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-[#e7bd72]">
-            {formatPlaybackTimestamp(currentTimeMs)} · strike line
-          </span>
-
-          {events.map((event, index) => {
-            const key = keyByMidi.get(event.midi);
-            if (key === undefined) return null;
-
-            const isActive = index === activeEventIndex;
-            const note = midiToRelativeNote(event.midi, rootMidi);
-            const height = getBarHeight(event.durationMs);
-            const left = key.left;
-            const top = getBarTop(event, currentTimeMs);
-
-            return (
-              <div
-                aria-hidden="true"
-                className={[
-                  "absolute z-10 flex items-end justify-center overflow-hidden rounded-full border pb-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,box-shadow,opacity,transform] duration-[120ms] ease-out",
-                  notationSystem === "Sargam_HI" ? "font-devanagari" : "",
-                  isActive
-                    ? "border-yellow-soft/95 bg-[linear-gradient(180deg,rgba(255,247,187,0.98),rgba(220,157,53,0.88))] text-charcoal shadow-[0_8px_24px_rgba(255,240,153,0.4),inset_0_1px_0_rgba(255,255,255,0.92)]"
-                    : index < activeEventIndex
-                      ? "border-[#e7bd72]/30 bg-[linear-gradient(180deg,rgba(220,157,71,0.28),rgba(117,68,20,0.22))] text-white/45 opacity-35 shadow-[0_3px_10px_rgba(183,112,33,0.1)]"
-                      : "border-[#e7bd72]/60 bg-[linear-gradient(180deg,rgba(220,157,71,0.9),rgba(117,68,20,0.72))] text-white shadow-[0_6px_17px_rgba(183,112,33,0.3),inset_0_1px_0_rgba(255,255,255,0.38)]",
-                ].join(" ")}
-                key={`${event.startMs}-${event.midi}`}
-                style={{
-                  height: `${height}px`,
-                  left: `${left}%`,
-                  top: `${top}px`,
-                  width: `${key.width}%`,
-                }}
-              >
-                <span className="hidden truncate px-1 sm:inline">
-                  {formatRelativeNote(note, notationSystem)}
-                </span>
-              </div>
-            );
-          })}
-
-          <div className="absolute inset-x-0 bottom-0 h-[154px] border-t border-[#e7bd72]/45 bg-[linear-gradient(180deg,#9b5e25_0%,#c8873d_9%,#7a431a_100%)] shadow-[inset_0_12px_18px_rgba(0,0,0,0.32)]">
-            <div aria-hidden="true" className="absolute inset-x-0 top-0 h-2 bg-[repeating-linear-gradient(90deg,rgba(255,228,157,0.8)_0_18px,rgba(96,45,14,0.75)_18px_23px)] opacity-75" />
-            <div aria-hidden="true" className="absolute inset-x-4 top-3 flex items-center justify-between text-[8px] font-black uppercase tracking-[0.17em] text-[#ffe6a8]/75">
-              <span>reed bank</span>
-              <span className="flex items-center gap-1.5">
-                {Array.from({ length: 6 }, (_, index) => (
-                  <i className="h-1.5 w-5 rounded-full bg-[#f7d58d]/70 shadow-[inset_0_1px_1px_rgba(255,255,255,0.55)]" key={index} />
-                ))}
-              </span>
-            </div>
-            <div className="absolute inset-x-0 bottom-0 h-[126px] overflow-hidden rounded-t-[0.5rem] border border-[#3e200c]/70 bg-[#1c1009] shadow-[inset_0_5px_10px_rgba(255,211,130,0.12)]">
-              {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => {
-                const isRoot = key.midi === rootMidi;
-                const isActive = key.midi === activeMidi;
-                const relative = midiToRelativeNote(key.midi, rootMidi);
-                return (
-                  <div
-                    aria-hidden="true"
-                    className={[
-                      "absolute bottom-0 h-full rounded-b-[0.35rem] border-r border-[#4e3018]/75 bg-[linear-gradient(90deg,#d9c9a0_0%,#fff6d7_42%,#c9af7f_100%)] shadow-[inset_0_-12px_13px_rgba(70,38,15,0.2),inset_0_1px_0_rgba(255,255,255,0.95)] transition-[transform,box-shadow,background] duration-150",
-                      isActive ? "translate-y-1 bg-[linear-gradient(90deg,#e6b84b_0%,#fff4ad_45%,#d28c26_100%)] shadow-[inset_0_-5px_8px_rgba(120,66,10,0.35),0_0_18px_rgba(255,240,153,0.65)]" : "",
-                    ].join(" ")}
-                    key={key.midi}
-                    style={{ left: `${key.left}%`, width: `${key.width}%` }}
-                  >
-                    <span className={["absolute left-1/2 top-3 -translate-x-1/2 text-[8px] font-black text-[#4b2c18]/60", notationSystem === "Sargam_HI" ? "font-devanagari" : ""].join(" ")}>
-                      {formatRelativeNote(relative, notationSystem)}
-                    </span>
-                    {isRoot ? <span className="absolute bottom-3 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-mint-emerald shadow-[0_0_11px_rgba(40,177,130,0.9)]" /> : null}
-                  </div>
-                );
-              })}
-              {PERFORMANCE_PIANO_KEYS.filter((key) => key.isBlack).map((key) => {
-                const isActive = key.midi === activeMidi;
-                return <div aria-hidden="true" className={["absolute top-0 z-20 h-[76px] rounded-b-md border border-white/10 bg-[linear-gradient(90deg,#050506_0%,#3b2b1e_48%,#050506_100%)] shadow-[0_9px_10px_rgba(0,0,0,0.65),inset_0_2px_1px_rgba(255,255,255,0.16)]", isActive ? "translate-y-1 border-yellow-soft/85 bg-[linear-gradient(90deg,#8e5e17_0%,#ffe989_50%,#8e5e17_100%)] shadow-[0_3px_6px_rgba(0,0,0,0.42),0_0_18px_rgba(255,240,153,0.62)]" : ""].join(" ")} key={key.midi} style={{ left: `${key.left}%`, width: `${key.width}%` }} />;
-              })}
-            </div>
-          </div>
-        </div>
+      <div className="h-[620px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth">
+        <canvas
+          aria-label={`Harmonium roll from C3 to C7, current position ${formatPlaybackTimestamp(currentTimeMs)}`}
+          className="block h-[620px] w-[1600px]"
+          ref={canvasRef}
+          role="img"
+        />
       </div>
 
       <p className="border-t border-[#e7bd72]/15 bg-[#120d08] px-4 py-2.5 text-[9px] font-semibold leading-4 text-white/45 sm:px-5">
-        Harmonium mode uses the same relative timeline, with a sustained reed guide and physical-key alignment. Sa follows the selected tonic.
+        Harmonium mode uses the same relative timeline and exact key lanes as the piano roll. Sa follows the selected tonic.
       </p>
     </section>
   );
