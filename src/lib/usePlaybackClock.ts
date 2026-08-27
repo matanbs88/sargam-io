@@ -10,6 +10,7 @@ function safePlaybackRate(playbackRate: number): number {
 
 type UsePlaybackClockOptions = {
   readonly baseTimeMs: number;
+  readonly endTimeMs?: number;
   readonly isPlaying: boolean;
   readonly playbackRate: number;
 };
@@ -21,6 +22,7 @@ type UsePlaybackClockOptions = {
  */
 export function usePlaybackClock({
   baseTimeMs,
+  endTimeMs,
   isPlaying,
   playbackRate,
 }: UsePlaybackClockOptions): number {
@@ -61,5 +63,10 @@ export function usePlaybackClock({
     return () => window.cancelAnimationFrame(animationFrame);
   }, [isPlaying, playbackRate]);
 
-  return currentTimeMs;
+  const hasReachedEnd =
+    !isPlaying &&
+    endTimeMs !== undefined &&
+    currentTimeMs >= endTimeMs;
+
+  return hasReachedEnd ? baseTimeMs : currentTimeMs;
 }

@@ -317,6 +317,11 @@ export function HarmoniumFallingNotes({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentTimeMs = usePlaybackClock({
     baseTimeMs: events[activeEventIndex]?.startMs ?? 0,
+    endTimeMs:
+      activeEventIndex === events.length - 1
+        ? (events[activeEventIndex]?.startMs ?? 0) +
+          (events[activeEventIndex]?.durationMs ?? 0)
+        : undefined,
     isPlaying,
     playbackRate,
   });
