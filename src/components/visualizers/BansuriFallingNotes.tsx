@@ -207,12 +207,13 @@ export function BansuriFallingNotes({
             const interval = normalizedInterval(event.midi, rootMidi);
             const lane = getBansuriRunwayLane(interval);
             const isActive = index === activeEventIndex;
-            const isPast = index < activeEventIndex;
-            const left = getNoteLeft(event.startMs, currentTimeMs);
+            const isPast = event.startMs + event.durationMs < currentTimeMs;
+            const timelineLeft = getNoteLeft(event.startMs, currentTimeMs);
+            const left = isActive ? PLAYHEAD_PERCENT : timelineLeft;
             const width = getNoteWidth(event.durationMs);
             const note = midiToRelativeNote(event.midi, rootMidi);
 
-            if (left < -width || left > 108) return null;
+            if (!isActive && (left < -width || left > 108)) return null;
 
             return (
               <div
