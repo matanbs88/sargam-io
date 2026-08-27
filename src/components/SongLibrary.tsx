@@ -4,15 +4,15 @@ import { useMemo, useState } from "react";
 import { trackProductEvent } from "@/src/lib/productAnalytics";
 import { RIGHTS_SAFE_SHOWCASES } from "@/src/lib/showcaseRegistry";
 import {
-  CATALOG_CATEGORY_OPTIONS,
   filterCatalogSongs,
-  READY_CATALOG_SONGS,
-  SONG_CATALOG,
   type CatalogCategory,
   type CatalogSong,
 } from "@/src/lib/songCatalog";
+import { FULL_PRACTICE_CATALOG } from "@/src/lib/practiceCatalog";
+import { CATALOG_CATEGORY_OPTIONS } from "@/src/lib/songCatalog";
 
 type SongLibraryProps = {
+  readonly catalogOverrides?: Readonly<Record<string, CatalogSong>>;
   readonly onOpenSong: (song: CatalogSong) => void;
 };
 
@@ -22,26 +22,36 @@ const FILTER_OPTIONS: readonly { readonly label: string; readonly value: "all" |
 ];
 
 function statusLabel(song: CatalogSong): string {
-  return song.status === "ready" ? "Ready to practice" : "In MVP queue";
+  if (song.status === "ready") return "Ready to practice";
+  if (song.status === "review") return "Review draft";
+  return "In MVP queue";
 }
 
 function statusClass(song: CatalogSong): string {
-  return song.status === "ready"
-    ? "border-mint-emerald/25 bg-mint-emerald/10 text-mint-emerald"
+  if (song.status === "ready") {
+    return "border-mint-emerald/25 bg-mint-emerald/10 text-mint-emerald";
+  }
+  return song.status === "review"
+    ? "border-teal/20 bg-teal/8 text-teal"
     : "border-yellow-soft/25 bg-yellow-soft/10 text-[#907b1f]";
 }
 
-export function SongLibrary({ onOpenSong }: SongLibraryProps) {
+export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"all" | CatalogCategory>("all");
   const [showPlanned, setShowPlanned] = useState(true);
+  const catalogSongs = useMemo(
+    () => FULL_PRACTICE_CATALOG.map((song) => catalogOverrides[song.id] ?? song),
+    [catalogOverrides],
+  );
+  const readySongs = catalogSongs.filter((song) => song.status === "ready");
 
   const filteredSongs = useMemo(() => {
-    return filterCatalogSongs(SONG_CATALOG, query, category, showPlanned);
-  }, [category, query, showPlanned]);
+    return filterCatalogSongs(catalogSongs, query, category, showPlanned);
+  }, [catalogSongs, category, query, showPlanned]);
 
   const showcaseSongs = RIGHTS_SAFE_SHOWCASES.map((showcase) => {
-    const song = SONG_CATALOG.find((candidate) => candidate.id === showcase.catalogSongId);
+    const song = catalogSongs.find((candidate) => candidate.id === showcase.catalogSongId);
     return song === undefined ? null : { showcase, song };
   }).filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
@@ -60,13 +70,13 @@ export function SongLibrary({ onOpenSong }: SongLibraryProps) {
             Start with a song.
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-charcoal/55">
-            A 100-title MVP content queue of Indian and global melodies, plus
-            original Riyaz exercises ready to play on piano, harmonium, and Bansuri.
+            A growing repertoire of Indian and global melodies, plus original
+            Riyaz exercises ready to play on piano, harmonium, and Bansuri.
           </p>
         </div>
         <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.14em] text-charcoal/45">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-teal text-yellow-soft">100</span>
-          <span>{READY_CATALOG_SONGS.length} ready · {SONG_CATALOG.length - READY_CATALOG_SONGS.length} planned</span>
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-teal text-yellow-soft">{catalogSongs.length}</span>
+          <span>{readySongs.length} ready · {catalogSongs.length - readySongs.length} planned</span>
         </div>
       </div>
 
@@ -130,7 +140,7 @@ export function SongLibrary({ onOpenSong }: SongLibraryProps) {
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-3 border-b border-teal/10 pb-4 text-xs font-semibold text-charcoal/45">
-        <span>{filteredSongs.length} {filteredSongs.length === 1 ? "result" : "results"}</span>
+          <span>{filteredSongs.length} {filteredSongs.length === 1 ? "result" : "results"}</span>
         <label className="inline-flex cursor-pointer items-center gap-2">
           <input
             checked={showPlanned}

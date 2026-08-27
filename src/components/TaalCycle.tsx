@@ -28,7 +28,7 @@ export function TaalCycle({ activeMatra, taal }: TaalCycleProps) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-heading text-2xl leading-none text-white">{taal.label}</p>
-          <p className="mt-1 text-[10px] font-bold text-white/40">{taal.matras} matras · {taal.divisions.map((division) => division.beats).join(" + ")}</p>
+          <p className="mt-1 text-[10px] font-bold text-white/62">{taal.matras} matras · {taal.divisions.map((division) => division.beats).join(" + ")}</p>
         </div>
         <span className="rounded-full bg-white/[0.06] px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.14em] text-mint-emerald">Matra {normalizedActiveMatra + 1}</span>
       </div>
@@ -40,7 +40,7 @@ export function TaalCycle({ activeMatra, taal }: TaalCycleProps) {
           return <div className="min-w-0 text-center" key={matra.number}>
             <span className={["mb-1 block h-px", isSam ? "bg-mint-emerald" : isKhali ? "border-t border-dashed border-white/35" : matra.isDivisionStart ? "bg-white/30" : "bg-transparent"].join(" ")} />
             <span aria-label={`Matra ${matra.number}${matra.isDivisionStart ? `, ${gestureLabel(matra.gesture)}` : ""}${isActive ? ", active" : ""}`} className={["grid aspect-square min-h-8 place-items-center rounded-full text-[10px] font-black transition duration-300", isActive ? "scale-105 bg-yellow-soft text-charcoal shadow-[0_0_0_4px_rgba(255,240,153,0.12),0_7px_18px_rgba(255,240,153,0.2)]" : isSam ? "bg-mint-emerald text-white" : "bg-white/[0.06] text-white/62"].join(" ")} role="img">{matra.number}</span>
-            {matra.isDivisionStart ? <span className="mt-2 block truncate text-[8px] font-black uppercase tracking-[0.14em] text-mint-emerald/85">{gestureLabel(matra.gesture)}</span> : null}
+            {matra.isDivisionStart ? <span className="mt-2 block truncate text-[8px] font-black uppercase tracking-[0.18em] text-mint-emerald/95">{gestureLabel(matra.gesture)}</span> : null}
           </div>;
         })}
       </div>

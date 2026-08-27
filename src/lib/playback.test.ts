@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   clampEventIndex,
+  getEventAdvanceDelay,
   getNextEventIndex,
   getPlaybackDelay,
   getLastEventIndex,
@@ -48,5 +49,32 @@ describe("note-event playback helpers", () => {
     expect(getPlaybackDelay(420, 2)).toBe(210);
     expect(getPlaybackDelay(40, 2)).toBe(120);
     expect(getPlaybackDelay(420, Number.NaN)).toBe(420);
+  });
+
+  it("advances sequential events by their authored timeline gap", () => {
+    expect(
+      getEventAdvanceDelay(
+        { startMs: 0, durationMs: 420 },
+        { startMs: 500, durationMs: 420 },
+        1,
+      ),
+    ).toBe(500);
+    expect(
+      getEventAdvanceDelay(
+        { startMs: 0, durationMs: 420 },
+        { startMs: 500, durationMs: 420 },
+        2,
+      ),
+    ).toBe(250);
+  });
+
+  it("uses the current duration when a loop wraps to an earlier timestamp", () => {
+    expect(
+      getEventAdvanceDelay(
+        { startMs: 1_500, durationMs: 420 },
+        { startMs: 0, durationMs: 420 },
+        1,
+      ),
+    ).toBe(420);
   });
 });

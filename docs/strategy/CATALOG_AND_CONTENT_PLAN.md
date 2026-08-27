@@ -4,10 +4,18 @@
 
 ## What is in the product now
 
+The library now includes a separate 11-title public-domain practice set in
+`src/lib/publicDomainCatalog.ts`. These are compact, internally authored melody
+studies with provenance links, playable on Piano, Harmonium, and Bansuri. The
+original 100-entry demand queue remains unchanged so its batch-import contract
+and corpus tracking stay stable.
+
 `src/lib/songCatalog.ts` contains exactly 100 unique entries:
 
 - 12 original Riyaz exercises are playable immediately and can flow through
   the existing practice timeline and Sargam PDF export.
+- 11 conservative public-domain melody studies are playable immediately and can
+  flow through the same practice and PDF pipelines.
 - 88 popular repertoire entries are searchable and categorized across Hindi
   Bollywood, devotional, Indian pop, regional music, evergreen Hindi songs,
   and The Beatles.
@@ -59,7 +67,7 @@ fields are completed.
 
 ## Product behavior
 
-The landing-page library supports search and category filtering across all 100
+The landing-page library supports search and category filtering across the 111
 records by default. Ready entries open the shared practice canvas without
 spending a transcription credit and can use the existing PDF export. Planned
 entries remain visible as content-pipeline tasks; they are not hidden because

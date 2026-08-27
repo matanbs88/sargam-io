@@ -31,6 +31,8 @@ The local, mock-driven demo includes:
 - 100-entry MVP practice queue: 12 original exercises are playable now and 88
   popular Indian and Beatles titles are catalogued for the content pipeline;
   missing note data is tracked as MVP work, not a product/legal lock
+- 123-title practice library: the 100-entry queue plus 11 public-domain
+  classical melody studies and 12 devotional/traditional-text practice studies
 - Waitlist preview with explicit consent, linked privacy notice, and a
   provider-neutral non-PII analytics seam
 
@@ -51,6 +53,13 @@ the five promoted original demos are tracked in
 [SHOWCASE_RIGHTS_LEDGER.md](./docs/strategy/SHOWCASE_RIGHTS_LEDGER.md). The
 MVP build decision is recorded in
 [MVP_CONTENT_DECISION.md](./docs/strategy/MVP_CONTENT_DECISION.md). The
+batch score-ingestion plan is in
+[SCORE_CORPUS_100_WORKFLOW.md](./docs/strategy/SCORE_CORPUS_100_WORKFLOW.md),
+and the PR/branch rules are in
+[BRANCHING_AND_RELEASE_WORKFLOW.md](./docs/operations/BRANCHING_AND_RELEASE_WORKFLOW.md).
+The internet source-discovery ledger for the 100-title queue is in
+[SCORE_SOURCE_DISCOVERY_2026-08-26.md](./docs/strategy/SCORE_SOURCE_DISCOVERY_2026-08-26.md).
+The
 preview privacy boundary is rendered at `/privacy`.
 The score-recognition provider and quality-gate decision is documented in
 [OMR_PROVIDER_STRATEGY.md](./docs/strategy/OMR_PROVIDER_STRATEGY.md). The

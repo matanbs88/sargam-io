@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  attachImportedScoreToCatalog,
   filterCatalogSongs,
   READY_CATALOG_SONGS,
   SONG_CATALOG,
@@ -36,5 +37,28 @@ describe("MVP song catalog", () => {
     expect(beatles[0]?.status).toBe("planned");
 
     expect(filterCatalogSongs(SONG_CATALOG, "let it be", "The Beatles", false)).toHaveLength(0);
+  });
+
+  it("attaches an imported score as canonical catalog practice data", () => {
+    const source = SONG_CATALOG.find((song) => song.id === "let-it-be");
+    expect(source).toBeDefined();
+
+    const imported = attachImportedScoreToCatalog(source!, {
+      noteEvents: [
+        { durationMs: 500, midi: 60, startMs: 0, velocity: 88 },
+        { durationMs: 500, midi: 62, startMs: 500, velocity: 88 },
+      ],
+      sourceFormat: "musicxml",
+      sourceRef: "content/inbox/let-it-be.musicxml",
+      timeSignature: "4/4",
+      title: "Let It Be",
+      validation: { issues: [], requiresReview: false, status: "ready" },
+    });
+
+    expect(imported.status).toBe("ready");
+    expect(imported.transcriptionStatus).toBe("ready");
+    expect(imported.sourceRef).toContain("let-it-be.musicxml");
+    expect(imported.noteEvents).toHaveLength(2);
+    expect(imported.exportAllowed).toBe(true);
   });
 });
