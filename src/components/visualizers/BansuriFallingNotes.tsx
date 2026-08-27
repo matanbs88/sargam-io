@@ -12,6 +12,7 @@ import {
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
 import { usePlaybackClock } from "@/src/lib/usePlaybackClock";
+import { useMemo } from "react";
 
 type BansuriFallingNotesProps = {
   readonly activeEventIndex: number;
@@ -119,6 +120,17 @@ export function BansuriFallingNotes({
   playbackRate,
   rootMidi,
 }: BansuriFallingNotesProps) {
+  const phraseEndTimeMs = useMemo(
+    () => events.length > 0
+      ? events.reduce(
+          (latestEnd, event) =>
+            Math.max(latestEnd, event.startMs + event.durationMs),
+          0,
+        )
+      : undefined,
+    [events],
+  );
+
   const currentTimeMs = usePlaybackClock({
     baseTimeMs: events[activeEventIndex]?.startMs ?? 0,
     endTimeMs:
@@ -127,6 +139,7 @@ export function BansuriFallingNotes({
           (events[activeEventIndex]?.durationMs ?? 0)
         : undefined,
     isPlaying,
+    phraseEndTimeMs,
     playbackRate,
   });
 

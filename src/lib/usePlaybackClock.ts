@@ -12,6 +12,8 @@ type UsePlaybackClockOptions = {
   readonly baseTimeMs: number;
   readonly endTimeMs?: number;
   readonly isPlaying: boolean;
+  /** The final authored timestamp; protects a visualizer from runaway time. */
+  readonly phraseEndTimeMs?: number;
   readonly playbackRate: number;
 };
 
@@ -24,6 +26,7 @@ export function usePlaybackClock({
   baseTimeMs,
   endTimeMs,
   isPlaying,
+  phraseEndTimeMs,
   playbackRate,
 }: UsePlaybackClockOptions): number {
   const [currentTimeMs, setCurrentTimeMs] = useState(baseTimeMs);
@@ -68,5 +71,14 @@ export function usePlaybackClock({
     endTimeMs !== undefined &&
     currentTimeMs >= endTimeMs;
 
-  return hasReachedEnd ? baseTimeMs : currentTimeMs;
+  // A long background-tab pause, a stale transport event, or a missed loop
+  // transition must never push the visual playhead beyond the authored song.
+  // The transport remains the source of truth; this is only a rendering
+  // recovery path that re-anchors the canvas/DOM to its current event.
+  const hasOverflowedPhrase =
+    phraseEndTimeMs !== undefined &&
+    Number.isFinite(phraseEndTimeMs) &&
+    currentTimeMs > phraseEndTimeMs + 1_000;
+
+  return hasReachedEnd || hasOverflowedPhrase ? baseTimeMs : currentTimeMs;
 }

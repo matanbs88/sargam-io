@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import {
   formatRelativeNote,
   midiToRelativeNote,
@@ -315,6 +315,17 @@ export function HarmoniumFallingNotes({
   rootMidi,
 }: HarmoniumFallingNotesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const phraseEndTimeMs = useMemo(
+    () => events.length > 0
+      ? events.reduce(
+          (latestEnd, event) =>
+            Math.max(latestEnd, event.startMs + event.durationMs),
+          0,
+        )
+      : undefined,
+    [events],
+  );
+
   const currentTimeMs = usePlaybackClock({
     baseTimeMs: events[activeEventIndex]?.startMs ?? 0,
     endTimeMs:
@@ -323,6 +334,7 @@ export function HarmoniumFallingNotes({
           (events[activeEventIndex]?.durationMs ?? 0)
         : undefined,
     isPlaying,
+    phraseEndTimeMs,
     playbackRate,
   });
 
