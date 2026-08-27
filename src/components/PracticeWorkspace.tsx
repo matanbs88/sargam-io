@@ -132,7 +132,7 @@ export function PracticeWorkspace({
           </span>
         </div>
 
-        <header className="hidden">
+        <header className="mb-3 flex flex-wrap items-center justify-between gap-3 rounded-[0.9rem] bg-white/[0.035] px-4 py-3 ring-1 ring-inset ring-white/[0.07] sm:px-5">
           <div className="min-w-0">
             <p className="text-[10px] font-black uppercase tracking-[0.22em] text-mint-emerald">
               Practice session
@@ -154,7 +154,7 @@ export function PracticeWorkspace({
               </span>
             ) : null}
             <button
-              className="rounded-full bg-white/[0.06] px-3 py-1.5 text-white/70 transition hover:bg-white/[0.12] hover:text-white"
+              className="rounded-md bg-white/[0.06] px-3 py-1.5 text-white/70 transition hover:bg-white/[0.12] hover:text-white"
               onClick={onStartAnother}
               type="button"
             >
@@ -308,13 +308,6 @@ export function PracticeWorkspace({
                 );
               })}
             </div>
-            <button
-              className="rounded-md bg-white/[0.06] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/65 transition hover:bg-white/[0.12] hover:text-white"
-              onClick={onStartAnother}
-              type="button"
-            >
-              New
-            </button>
           </div>
           <div className="px-3 pb-3 sm:px-4 sm:pb-4">{performanceVisualizer}</div>
           <div className="stage-transport px-4 py-3 sm:px-5">
