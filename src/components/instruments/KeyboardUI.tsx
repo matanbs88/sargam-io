@@ -1,4 +1,4 @@
-import { REFERENCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
+import { PERFORMANCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
 
 type KeyboardUIProps = {
   readonly activeMidi: number | null;
@@ -23,16 +23,16 @@ function SaMarker({ isRoot }: { readonly isRoot: boolean }) {
 }
 
 /**
- * A wide, three-octave physical keyboard reference. The same geometry is used
+ * A wide, four-octave physical keyboard reference. The same geometry is used
  * by the performance piano roll, so an active note always reaches its key.
  */
 export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
-  const whiteKeys = REFERENCE_PIANO_KEYS.filter((key) => !key.isBlack);
-  const blackKeys = REFERENCE_PIANO_KEYS.filter((key) => key.isBlack);
+  const whiteKeys = PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack);
+  const blackKeys = PERFORMANCE_PIANO_KEYS.filter((key) => key.isBlack);
 
   return (
     <section
-      aria-label="Three-octave keyboard reference"
+      aria-label="Four-octave keyboard reference"
       className="overflow-hidden rounded-[1rem] border border-teal/10 bg-[linear-gradient(145deg,#ffffff_0%,#edf0eb_100%)] p-4 shadow-[0_18px_40px_rgba(15,61,54,0.11)] sm:p-5"
     >
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
@@ -49,8 +49,8 @@ export function KeyboardUI({ activeMidi, rootMidi }: KeyboardUIProps) {
         </span>
       </div>
 
-      <div className="rounded-[0.8rem] bg-[linear-gradient(180deg,#283442_0%,#101822_16%,#0c1219_100%)] p-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_12px_24px_rgba(3,14,24,0.24)] sm:p-3">
-        <div className="relative h-44 select-none overflow-hidden rounded-b-[0.55rem] rounded-t-[0.28rem] bg-[#c5c4bd] shadow-[inset_0_10px_18px_rgba(11,16,22,0.28)] sm:h-52">
+      <div className="overflow-x-auto rounded-[0.8rem] bg-[linear-gradient(180deg,#283442_0%,#101822_16%,#0c1219_100%)] p-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_12px_24px_rgba(3,14,24,0.24)] sm:p-3">
+        <div className="relative h-44 min-w-[560px] select-none overflow-hidden rounded-b-[0.55rem] rounded-t-[0.28rem] bg-[#c5c4bd] shadow-[inset_0_10px_18px_rgba(11,16,22,0.28)] sm:h-52">
           <div aria-hidden="true" className="absolute inset-x-0 top-0 h-3 bg-[linear-gradient(180deg,rgba(255,255,255,0.35),transparent)]" />
           {whiteKeys.map((key) => {
             const isActive = key.midi === activeMidi;

@@ -72,7 +72,7 @@ export function HarmoniumFallingNotes({
           <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#e7bd72]">
             Harmonium melody roll
           </p>
-          <p className="mt-1 text-[10px] font-bold text-white/45">
+          <p className="mt-1 text-[10px] font-bold text-white/65">
             Reed keys · sustained beams · Sargam mapped to your Sa
           </p>
         </div>
@@ -121,8 +121,8 @@ export function HarmoniumFallingNotes({
         </div>
       </div>
 
-      <div className="h-[560px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[610px]">
-        <div className="relative h-full min-w-[840px] bg-[radial-gradient(ellipse_at_50%_65%,rgba(175,111,35,0.11),transparent_50%),#07090c]">
+      <div className="h-[540px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[610px]">
+        <div className="relative h-full min-w-[560px] bg-[radial-gradient(ellipse_at_50%_65%,rgba(175,111,35,0.11),transparent_50%),#07090c] sm:min-w-0">
           <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_62px]" />
           <div aria-hidden="true" className="absolute inset-x-0 bottom-[154px] top-0">
             {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
@@ -148,12 +148,14 @@ export function HarmoniumFallingNotes({
               <div
                 aria-hidden="true"
                 className={[
-                  "absolute z-10 flex items-start justify-center rounded-md border pt-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,box-shadow,opacity] duration-[420ms] ease-linear",
+                  "absolute z-10 flex items-start justify-center rounded-md border pt-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,box-shadow,opacity,transform] duration-[420ms] ease-out",
                   key.isBlack ? "min-w-3" : "min-w-4",
                   notationSystem === "Sargam_HI" ? "font-devanagari" : "",
                   isActive
                     ? "border-yellow-soft/95 bg-[linear-gradient(180deg,rgba(255,247,187,0.98),rgba(220,157,53,0.88))] text-charcoal shadow-[0_8px_24px_rgba(255,240,153,0.4),inset_0_1px_0_rgba(255,255,255,0.92)]"
-                    : "border-[#e7bd72]/60 bg-[linear-gradient(180deg,rgba(220,157,71,0.9),rgba(117,68,20,0.72))] text-white shadow-[0_6px_17px_rgba(183,112,33,0.3),inset_0_1px_0_rgba(255,255,255,0.38)]",
+                    : index < activeEventIndex
+                      ? "border-[#e7bd72]/30 bg-[linear-gradient(180deg,rgba(220,157,71,0.28),rgba(117,68,20,0.22))] text-white/45 opacity-35 shadow-[0_3px_10px_rgba(183,112,33,0.1)]"
+                      : "border-[#e7bd72]/60 bg-[linear-gradient(180deg,rgba(220,157,71,0.9),rgba(117,68,20,0.72))] text-white shadow-[0_6px_17px_rgba(183,112,33,0.3),inset_0_1px_0_rgba(255,255,255,0.38)]",
                 ].join(" ")}
                 key={`${event.startMs}-${event.midi}`}
                 style={{
@@ -172,6 +174,14 @@ export function HarmoniumFallingNotes({
 
           <div className="absolute inset-x-0 bottom-0 h-[154px] border-t border-[#e7bd72]/45 bg-[linear-gradient(180deg,#9b5e25_0%,#c8873d_9%,#7a431a_100%)] shadow-[inset_0_12px_18px_rgba(0,0,0,0.32)]">
             <div aria-hidden="true" className="absolute inset-x-0 top-0 h-2 bg-[repeating-linear-gradient(90deg,rgba(255,228,157,0.8)_0_18px,rgba(96,45,14,0.75)_18px_23px)] opacity-75" />
+            <div aria-hidden="true" className="absolute inset-x-4 top-3 flex items-center justify-between text-[8px] font-black uppercase tracking-[0.17em] text-[#ffe6a8]/75">
+              <span>reed bank</span>
+              <span className="flex items-center gap-1.5">
+                {Array.from({ length: 6 }, (_, index) => (
+                  <i className="h-1.5 w-5 rounded-full bg-[#f7d58d]/70 shadow-[inset_0_1px_1px_rgba(255,255,255,0.55)]" key={index} />
+                ))}
+              </span>
+            </div>
             <div className="absolute inset-x-[1.4%] bottom-0 h-[126px] overflow-hidden rounded-t-[0.5rem] border border-[#3e200c]/70 bg-[#1c1009] shadow-[inset_0_5px_10px_rgba(255,211,130,0.12)]">
               {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => {
                 const isRoot = key.midi === rootMidi;

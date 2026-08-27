@@ -170,7 +170,7 @@ export function PracticeWorkspace({
           </label>
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-1 text-[10px] font-black uppercase tracking-[0.16em] text-white/45">
+            <span className="mr-1 text-[10px] font-black uppercase tracking-[0.16em] text-white/70">
               Notation
             </span>
             <div aria-label="Notation system" className="flex rounded-md bg-white/[0.045] p-1" role="group">
@@ -251,7 +251,7 @@ export function PracticeWorkspace({
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-performance-blue">Sargam canvas</p>
-              <p className="mt-1 text-xs font-medium text-white/45">Your phrase, mapped through time.</p>
+              <p className="mt-1 text-xs font-medium text-white/65">Your phrase, mapped through time.</p>
               {importValidation !== null ? (
                 <details className="relative mt-2 w-fit">
                   <summary className={[
@@ -336,7 +336,7 @@ export function PracticeWorkspace({
           <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5">
             <span>
               <span className="block text-[10px] font-black uppercase tracking-[0.19em] text-mint-emerald">Practice layers</span>
-              <span className="mt-1 block text-[10px] font-medium text-white/42">Taal, tabla, tanpura and instrument sound</span>
+              <span className="mt-1 block text-[10px] font-medium text-white/62">Taal, tabla, tanpura and instrument sound</span>
             </span>
             <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.13em] text-white/60 transition group-open:bg-mint-emerald group-open:text-white">Open</span>
           </summary>

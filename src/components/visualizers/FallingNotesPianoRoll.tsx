@@ -94,10 +94,10 @@ export function FallingNotesPianoRoll({
       </span>
 
       <div
-        className="h-[520px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[620px]"
+        className="h-[500px] snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth sm:h-[620px]"
         ref={scrollContainerRef}
       >
-      <div className="relative h-full min-w-[840px] bg-[#070a0f] sm:min-w-0">
+      <div className="relative h-full min-w-[560px] bg-[#070a0f] sm:min-w-0">
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:100%_64px]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[138px] top-0">
           {PERFORMANCE_PIANO_KEYS.filter((key) => !key.isBlack).map((key) => (
@@ -122,11 +122,13 @@ export function FallingNotesPianoRoll({
             <div
               aria-hidden="true"
               className={[
-                "absolute z-10 flex items-start justify-center rounded-md border border-white/30 pt-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,opacity,box-shadow] duration-[420ms] ease-linear",
+                "absolute z-10 flex items-start justify-center rounded-md border border-white/30 pt-2 text-[10px] font-black backdrop-blur-md transition-[top,background-color,opacity,box-shadow,transform] duration-[420ms] ease-out",
                 key.isBlack ? "min-w-3" : "min-w-4",
                 isActive
                   ? "bg-[linear-gradient(180deg,rgba(255,248,197,0.94),rgba(255,218,104,0.78))] text-charcoal shadow-[0_8px_20px_rgba(255,240,153,0.28),inset_0_1px_0_rgba(255,255,255,0.82)]"
-                  : "bg-[linear-gradient(180deg,rgba(63,170,153,0.84),rgba(19,96,82,0.68))] text-white shadow-[0_6px_16px_rgba(40,177,130,0.22),inset_0_1px_0_rgba(255,255,255,0.38)]",
+                  : index < activeEventIndex
+                    ? "bg-[linear-gradient(180deg,rgba(63,170,153,0.3),rgba(19,96,82,0.22))] text-white/45 opacity-35 shadow-[0_3px_10px_rgba(40,177,130,0.1)]"
+                    : "bg-[linear-gradient(180deg,rgba(63,170,153,0.84),rgba(19,96,82,0.68))] text-white shadow-[0_6px_16px_rgba(40,177,130,0.22),inset_0_1px_0_rgba(255,255,255,0.38)]",
               ].join(" ")}
               key={`${event.startMs}-${event.midi}`}
               style={{
