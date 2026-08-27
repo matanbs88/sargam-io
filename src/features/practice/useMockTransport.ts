@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { MidiNoteEvent } from "@/src/lib/midiToSargam";
 import {
   getNextEventIndex,
-  getPlaybackDelay,
+  getEventAdvanceDelay,
   getLastEventIndex,
   getPlaybackProgress,
   normalizeLoopRange,
@@ -83,24 +83,27 @@ export function useMockTransport({
   useEffect(() => {
     if (!isPlaying || !isEnabled || activeEvent === undefined) return;
 
-    const timer = window.setTimeout(() => {
-      const nextEventIndex = getNextEventIndex(
+    const nextEventIndex = getNextEventIndex(
         activeEventIndex,
         events.length,
         normalizedLoopRange,
       );
+
+    const nextEvent = nextEventIndex === null ? null : events[nextEventIndex];
+    const timer = window.setTimeout(() => {
 
       if (nextEventIndex === null) {
         setIsPlaying(false);
         return;
       }
       setActiveEventIndex(nextEventIndex);
-    }, getPlaybackDelay(activeEvent.durationMs, playbackRate));
+    }, getEventAdvanceDelay(activeEvent, nextEvent ?? null, playbackRate));
 
     return () => window.clearTimeout(timer);
   }, [
     activeEvent,
     activeEventIndex,
+    events,
     events.length,
     isEnabled,
     isPlaying,

@@ -290,6 +290,12 @@ export default function Home() {
     );
   }, [activeEvent, isGuideSoundEnabled, isPlaying, playbackRate, playGuideNote]);
 
+  useEffect(() => {
+    if (!isTranscribed || !isGuideSoundEnabled) return;
+
+    void preloadGuideNotes(performanceEvents.slice(0, 8));
+  }, [isGuideSoundEnabled, isTranscribed, performanceEvents, preloadGuideNotes]);
+
   function handleTranscribe(): void {
     if (isTranscribed) return;
 
@@ -370,9 +376,11 @@ export default function Home() {
     transport.step(direction);
   }
 
-  function togglePlayback(): void {
-    resumeAudio();
-    if (isGuideSoundEnabled) preloadGuideNotes(performanceEvents.slice(0, 8));
+  async function togglePlayback(): Promise<void> {
+    await resumeAudio();
+    if (isGuideSoundEnabled) {
+      await preloadGuideNotes(performanceEvents.slice(0, 8));
+    }
     transport.togglePlayback();
   }
 

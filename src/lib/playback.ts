@@ -74,3 +74,28 @@ export function getPlaybackDelay(durationMs: number, playbackRate: number): numb
 
   return Math.max(120, durationMs / safeRate);
 }
+
+type TimedPlaybackEvent = {
+  readonly durationMs: number;
+  readonly startMs: number;
+};
+
+/**
+ * Returns the delay to the next timeline event. Sequential events follow the
+ * authored start-time delta; a phrase loop falls back to the current note's
+ * duration when the next index wraps back to an earlier timestamp.
+ */
+export function getEventAdvanceDelay(
+  currentEvent: TimedPlaybackEvent,
+  nextEvent: TimedPlaybackEvent | null,
+  playbackRate: number,
+): number {
+  const timelineDelta = nextEvent
+    ? nextEvent.startMs - currentEvent.startMs
+    : Number.NaN;
+  const delayMs = Number.isFinite(timelineDelta) && timelineDelta > 0
+    ? timelineDelta
+    : currentEvent.durationMs;
+
+  return getPlaybackDelay(delayMs, playbackRate);
+}

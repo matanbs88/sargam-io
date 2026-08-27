@@ -424,35 +424,39 @@ async function fetchHarmoniumBuffer(
   }
 }
 
-function preloadSalamanderBuffers(
+async function preloadSalamanderBuffers(
   context: AudioContext,
   notes: readonly { readonly midi: number; readonly velocity?: number }[],
   cache: Map<string, Promise<AudioBuffer>>,
-): void {
+): Promise<void> {
   const uniqueNotes = new Map<string, { readonly midi: number; readonly velocity: number }>();
   notes.slice(0, 8).forEach(({ midi, velocity = 64 }) => {
     uniqueNotes.set(`${midi}:${velocity}`, { midi, velocity });
   });
 
-  uniqueNotes.forEach(({ midi, velocity }) => {
-    void fetchSalamanderBuffer(context, midi, velocity, cache).catch(() => {
-      // The guide-note callback owns the audible fallback. Preload failures
-      // stay silent so an offline session remains usable.
-    });
-  });
+  await Promise.all(
+    [...uniqueNotes.values()].map(({ midi, velocity }) =>
+      fetchSalamanderBuffer(context, midi, velocity, cache).catch(() => {
+        // The guide-note callback owns the audible fallback. Preload failures
+        // stay silent so an offline session remains usable.
+      }),
+    ),
+  );
 }
 
-function preloadHarmoniumBuffers(
+async function preloadHarmoniumBuffers(
   context: AudioContext,
   notes: readonly { readonly midi: number }[],
   cache: Map<string, Promise<AudioBuffer>>,
-): void {
+): Promise<void> {
   const uniqueMidis = new Set(notes.slice(0, 8).map(({ midi }) => midi));
-  uniqueMidis.forEach((midi) => {
-    void fetchHarmoniumBuffer(context, midi, cache).catch(() => {
-      // Playback owns the fallback; preload errors should remain silent.
-    });
-  });
+  await Promise.all(
+    [...uniqueMidis].map((midi) =>
+      fetchHarmoniumBuffer(context, midi, cache).catch(() => {
+        // Playback owns the fallback; preload errors should remain silent.
+      }),
+    ),
+  );
 }
 
 async function playSalamanderGuideNote(
@@ -607,14 +611,14 @@ export function useDigitalAccompaniment({
     return bansuriBreathBufferRef.current;
   }, []);
 
-  const resumeAudio = useCallback(() => {
+  const resumeAudio = useCallback(async (): Promise<void> => {
     const context = getAudioContext(audioContextRef);
-    if (context !== null) void context.resume();
+    if (context !== null && context.state !== "running") await context.resume();
   }, []);
 
-  const preloadGuideNotes = useCallback((
+  const preloadGuideNotes = useCallback(async (
     notes: readonly { readonly midi: number; readonly velocity?: number }[],
-  ) => {
+  ): Promise<void> => {
     if (
       guideInstrument !== "piano" &&
       guideInstrument !== "harmonium" &&
@@ -624,14 +628,14 @@ export function useDigitalAccompaniment({
     const context = getAudioContext(audioContextRef);
     if (context === null) return;
 
-    void context.resume();
+    await context.resume();
     if (guideInstrument === "bansuri") {
       getBansuriBreathBuffer(context);
       return;
     }
 
     if (guideInstrument === "harmonium") {
-      preloadHarmoniumBuffers(
+      await preloadHarmoniumBuffers(
         context,
         notes,
         harmoniumSampleCacheRef.current,
@@ -639,7 +643,7 @@ export function useDigitalAccompaniment({
       return;
     }
 
-    preloadSalamanderBuffers(
+    await preloadSalamanderBuffers(
       context,
       notes,
       pianoSampleCacheRef.current,
