@@ -478,7 +478,9 @@ export default function Home() {
       <FallingNotesPianoRoll
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
+        isPlaying={isPlaying}
         notationSystem={notationSystem}
+        playbackRate={playbackRate}
         rootMidi={selectedRootMidi}
       />
       );
