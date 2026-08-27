@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
 import {
   formatRelativeNote,
   midiToRelativeNote,
   type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
-import { getPlaybackClockTime } from "@/src/lib/playbackClock";
 import { PERFORMANCE_PIANO_KEYS } from "@/src/lib/pianoGeometry";
+import { usePlaybackClock } from "@/src/lib/usePlaybackClock";
 import type {
   HarmoniumReedMode,
   HarmoniumReverbMode,
@@ -69,31 +68,11 @@ export function HarmoniumFallingNotes({
   playbackRate,
   rootMidi,
 }: HarmoniumFallingNotesProps) {
-  const baseTimeMs = events[activeEventIndex]?.startMs ?? 0;
-  const [animatedTimeMs, setAnimatedTimeMs] = useState(baseTimeMs);
-  const currentTimeMs = isPlaying ? animatedTimeMs : baseTimeMs;
-
-  useEffect(() => {
-    if (!isPlaying) return;
-
-    let animationFrame = 0;
-    const startedAtMs = performance.now();
-    const renderFrame = (nowMs: number) => {
-      setAnimatedTimeMs(
-        getPlaybackClockTime({
-          baseTimeMs,
-          isPlaying,
-          nowMs,
-          playbackRate,
-          startedAtMs,
-        }),
-      );
-      animationFrame = window.requestAnimationFrame(renderFrame);
-    };
-
-    animationFrame = window.requestAnimationFrame(renderFrame);
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, [baseTimeMs, isPlaying, playbackRate]);
+  const currentTimeMs = usePlaybackClock({
+    baseTimeMs: events[activeEventIndex]?.startMs ?? 0,
+    isPlaying,
+    playbackRate,
+  });
 
   const activeMidi = events[activeEventIndex]?.midi ?? rootMidi;
   const keyByMidi = new Map(PERFORMANCE_PIANO_KEYS.map((key) => [key.midi, key]));

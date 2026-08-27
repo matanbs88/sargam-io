@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BansuriFlute } from "@/src/components/instruments/BansuriFlute";
 import {
   BANSURI_RUNWAY_LANES,
@@ -12,7 +11,7 @@ import {
   type MidiNoteEvent,
   type NotationSystem,
 } from "@/src/lib/midiToSargam";
-import { getPlaybackClockTime } from "@/src/lib/playbackClock";
+import { usePlaybackClock } from "@/src/lib/usePlaybackClock";
 
 type BansuriFallingNotesProps = {
   readonly activeEventIndex: number;
@@ -31,7 +30,7 @@ function normalizedInterval(midi: number, rootMidi: number): number {
 }
 
 function getNoteWidth(durationMs: number): number {
-  return Math.max(8, Math.min(31, (durationMs / LOOK_AHEAD_MS) * 100));
+  return Math.min(100, (durationMs / LOOK_AHEAD_MS) * 100);
 }
 
 function getNoteLeft(startMs: number, currentTimeMs: number): number {
@@ -120,31 +119,11 @@ export function BansuriFallingNotes({
   playbackRate,
   rootMidi,
 }: BansuriFallingNotesProps) {
-  const baseTimeMs = events[activeEventIndex]?.startMs ?? 0;
-  const [animatedTimeMs, setAnimatedTimeMs] = useState(baseTimeMs);
-  const currentTimeMs = isPlaying ? animatedTimeMs : baseTimeMs;
-
-  useEffect(() => {
-    if (!isPlaying) return;
-
-    let animationFrame = 0;
-    const startedAtMs = performance.now();
-    const renderFrame = (nowMs: number) => {
-      setAnimatedTimeMs(
-        getPlaybackClockTime({
-          baseTimeMs,
-          isPlaying,
-          nowMs,
-          playbackRate,
-          startedAtMs,
-        }),
-      );
-      animationFrame = window.requestAnimationFrame(renderFrame);
-    };
-
-    animationFrame = window.requestAnimationFrame(renderFrame);
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, [baseTimeMs, isPlaying, playbackRate]);
+  const currentTimeMs = usePlaybackClock({
+    baseTimeMs: events[activeEventIndex]?.startMs ?? 0,
+    isPlaying,
+    playbackRate,
+  });
 
   const activeEvent = events[activeEventIndex];
   const activeInterval = activeEvent
