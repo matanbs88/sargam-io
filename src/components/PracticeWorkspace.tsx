@@ -117,6 +117,21 @@ export function PracticeWorkspace({
       id="studio"
     >
       <div className="mx-auto max-w-[1580px]">
+        <div className="mb-3 flex items-center justify-between gap-3 px-1 sm:px-2">
+          <button
+            aria-label="Return to song library"
+            className="inline-flex items-center gap-2 rounded-md px-2 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white/55 transition hover:bg-white/[0.06] hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-soft"
+            onClick={onStartAnother}
+            type="button"
+          >
+            <span aria-hidden="true" className="text-base leading-none">←</span>
+            Back to library
+          </button>
+          <span className="hidden text-[10px] font-black uppercase tracking-[0.18em] text-white/30 sm:block">
+            {songTitle}
+          </span>
+        </div>
+
         <header className="hidden">
           <div className="min-w-0">
             <p className="text-[10px] font-black uppercase tracking-[0.22em] text-mint-emerald">

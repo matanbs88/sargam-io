@@ -541,12 +541,26 @@ export default function Home() {
   return (
     <main className={`min-h-screen overflow-x-hidden text-charcoal transition-colors duration-300 ${isTranscribed ? "bg-[#07121f]" : "bg-cream"}`}>
       <header className={`relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 ${isTranscribed ? "lg:py-4" : "lg:py-7"}`}>
-        <a className="flex items-center gap-3" href="#top">
-          <StudioMark />
-          <span className="font-heading text-2xl leading-none text-teal">
-            sargam<span className="text-mint-emerald">.io</span>
-          </span>
-        </a>
+        {isTranscribed ? (
+          <button
+            aria-label="Return to song library"
+            className="flex items-center gap-3 rounded-md bg-transparent p-0 text-left focus:outline-none focus:ring-2 focus:ring-yellow-soft focus:ring-offset-2 focus:ring-offset-[#07121f]"
+            onClick={handleStartAnother}
+            type="button"
+          >
+            <StudioMark />
+            <span className="font-heading text-2xl leading-none text-teal">
+              sargam<span className="text-mint-emerald">.io</span>
+            </span>
+          </button>
+        ) : (
+          <a className="flex items-center gap-3" href="#top">
+            <StudioMark />
+            <span className="font-heading text-2xl leading-none text-teal">
+              sargam<span className="text-mint-emerald">.io</span>
+            </span>
+          </a>
+        )}
         <div className="flex items-center gap-3">
           <span className={`hidden text-xs font-bold uppercase tracking-[0.16em] sm:inline ${isTranscribed ? "text-white/45" : "text-charcoal/45"}`}>
             Practice studio
