@@ -40,3 +40,13 @@ preview workflow; do not create a new temporary project or alter production.
   credentials and vendor sound binaries. Do not work around the denied push.
 - Browser/PDF end-to-end verification of the selected piece is still pending;
   no PDF output or completed Ventus integration is claimed.
+
+## Approved backup completed
+
+The owner explicitly approved the exact GitHub destination and branch after the
+permission rejection. Branch codex/playback-clock-regression was pushed at
+8bc110d455027561fc1e70d3709100fb22b53cef; main remained
+c6e0c3f10ce57b17a1ef2f3bbcff4d03854c8cc1. Working tree was clean after push.
+GitHub reports Vercel status success for that commit:
+https://vercel.com/matanbs88s-projects/sargam-io/GkCPgP65gX6H9SqZyzVBYnpEuvcX
+This is deployment-status evidence, not a completed browser smoke test.
