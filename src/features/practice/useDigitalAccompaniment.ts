@@ -50,7 +50,7 @@ function getAudioContext(
     return null;
   }
 
-  if (contextRef.current === null) {
+  if (contextRef.current === null || contextRef.current.state === "closed") {
     contextRef.current = new window.AudioContext();
   }
 
@@ -602,6 +602,11 @@ export function useDigitalAccompaniment({
   const [activeMatra, setActiveMatra] = useState(0);
   const [isDronePlaying, setIsDronePlaying] = useState(false);
   const [isTablaPlaying, setIsTablaPlaying] = useState(false);
+  const getSharedAudioContext = useCallback((): AudioContext => {
+    const context = getAudioContext(audioContextRef);
+    if (!context) throw new Error("Web Audio is unavailable in this browser");
+    return context;
+  }, []);
 
   const getBansuriBreathBuffer = useCallback((context: AudioContext): AudioBuffer => {
     if (bansuriBreathBufferRef.current === null) {
@@ -778,6 +783,7 @@ export function useDigitalAccompaniment({
   );
 
   return {
+    getSharedAudioContext,
     activeMatra,
     isDronePlaying,
     isTablaPlaying,

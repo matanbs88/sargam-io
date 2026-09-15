@@ -7,6 +7,7 @@ import {
 } from "@/src/lib/midiToSargam";
 import { mockMidiData } from "@/src/lib/mockMidiData";
 import { PracticeWorkspace } from "@/src/components/PracticeWorkspace";
+import { PracticeCinema } from "@/src/components/PracticeCinema";
 import { ScoreImportPanel } from "@/src/components/ScoreImportPanel";
 import { CatalogBatchImportPanel } from "@/src/components/CatalogBatchImportPanel";
 import { SongLibrary } from "@/src/components/SongLibrary";
@@ -21,7 +22,8 @@ import {
   type HarmoniumReedMode,
   type HarmoniumReverbMode,
 } from "@/src/features/practice/useDigitalAccompaniment";
-import { useMockTransport } from "@/src/features/practice/useMockTransport";
+import { useEngineTransport } from "@/src/features/practice/useEngineTransport";
+import { LivePitchCoach } from "@/src/components/LivePitchCoach";
 import type { DroneMode } from "@/src/lib/digitalAccompaniment";
 import type {
   ImportedPracticeScore,
@@ -135,12 +137,6 @@ export default function Home() {
       })),
     [practiceEvents, transpositionSemitones],
   );
-  const transport = useMockTransport({
-    events: performanceEvents,
-    isEnabled: isTranscribed,
-    loopRange,
-    playbackRate,
-  });
 
   const formattedNotes = useMemo(
     () =>
@@ -157,16 +153,12 @@ export default function Home() {
     ROOT_OPTIONS[0];
   const isTransposed =
     selectedRootMidi !== practiceSource.rootMidi;
-  const { activeEvent, activeEventIndex, isPlaying, lastEventIndex, playbackProgress } =
-    transport;
   const selectedTaal = TAALS[selectedTaalId];
   const {
     activeMatra: accompanimentMatra,
     isDronePlaying,
     isTablaPlaying,
-    playGuideNote,
-    preloadGuideNotes,
-    resumeAudio,
+    getSharedAudioContext,
     toggleDrone,
     toggleTabla,
   } = useDigitalAccompaniment({
@@ -183,6 +175,13 @@ export default function Home() {
     taal: selectedTaal,
     tempoBpm: practiceTempoBpm,
   });
+  const transport = useEngineTransport({
+    events: performanceEvents, isEnabled: isTranscribed, loopRange, playbackRate,
+    getContext: getSharedAudioContext, instrument: selectedVisualizer,
+    enabled: isGuideSoundEnabled, double: harmoniumReedMode === "double",
+    room: harmoniumReverbMode === "room",
+  });
+  const { activeEvent, activeEventIndex, isPlaying, lastEventIndex, playbackProgress } = transport;
   const activeMatra = activeEvent
     ? matraAtTime(activeEvent.startMs, practiceTempoBpm, selectedTaal)
     : 0;
@@ -280,21 +279,6 @@ export default function Home() {
     selectedVisualizer,
   ]);
 
-  useEffect(() => {
-    if (!isPlaying || !isGuideSoundEnabled || activeEvent === undefined) return;
-
-    playGuideNote(
-      activeEvent.midi,
-      activeEvent.durationMs / playbackRate,
-      activeEvent.velocity,
-    );
-  }, [activeEvent, isGuideSoundEnabled, isPlaying, playbackRate, playGuideNote]);
-
-  useEffect(() => {
-    if (!isTranscribed || !isGuideSoundEnabled) return;
-
-    void preloadGuideNotes(performanceEvents.slice(0, 8));
-  }, [isGuideSoundEnabled, isTranscribed, performanceEvents, preloadGuideNotes]);
 
   function handleTranscribe(): void {
     if (isTranscribed) return;
@@ -377,10 +361,6 @@ export default function Home() {
   }
 
   async function togglePlayback(): Promise<void> {
-    await resumeAudio();
-    if (isGuideSoundEnabled) {
-      await preloadGuideNotes(performanceEvents.slice(0, 8));
-    }
     transport.togglePlayback();
   }
 
@@ -481,9 +461,18 @@ export default function Home() {
   }
 
   function renderPerformanceVisualizer() {
+    return <>
+      {transport.isLoading && <p role="status" className="px-4 py-3 text-sm text-[#ffe08a]">Preparing instrument samples before playback… Press play again to cancel.</p>}
+      {transport.error && <p role="alert" className="px-4 py-3 text-sm text-[#ffe08a]">{transport.error}</p>}
+      {renderInstrumentRoll()}
+    </>;
+  }
+
+  function renderInstrumentRoll() {
     if (selectedVisualizer === "Piano") {
       return (
       <FallingNotesPianoRoll
+        readTimeMs={transport.readTimeMs}
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
         isPlaying={isPlaying}
@@ -497,6 +486,7 @@ export default function Home() {
     if (selectedVisualizer === "Harmonium") {
       return (
         <HarmoniumFallingNotes
+          readTimeMs={transport.readTimeMs}
           activeEventIndex={activeEventIndex}
           events={performanceEvents}
           harmoniumReedMode={harmoniumReedMode}
@@ -513,6 +503,7 @@ export default function Home() {
 
     return (
       <BansuriFallingNotes
+        readTimeMs={transport.readTimeMs}
         activeEventIndex={activeEventIndex}
         events={performanceEvents}
         isPlaying={isPlaying}
@@ -559,7 +550,7 @@ export default function Home() {
 
   return (
     <main className={`min-h-screen overflow-x-hidden text-charcoal transition-colors duration-300 ${isTranscribed ? "bg-[#07121f]" : "bg-cream"}`}>
-      <header className={`relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 ${isTranscribed ? "lg:py-4" : "lg:py-7"}`}>
+      <header className={`relative z-10 mx-auto w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 ${isTranscribed ? "hidden" : "flex lg:py-7"}`}>
         {isTranscribed ? (
           <button
             aria-label="Return to song library"
@@ -711,6 +702,12 @@ export default function Home() {
 
       {isTranscribed ? (
         <PracticeWorkspace
+          isLoading={transport.isLoading}
+          positionMs={transport.positionMs}
+          durationMs={transport.durationMs}
+          onSeek={(ms) => { setLoopRange(null); setLoopAnchorIndex(null); transport.seek(ms); }}
+          onRestart={() => transport.selectEvent(loopRange?.startIndex ?? 0)}
+          onApplyRange={(range) => { setLoopAnchorIndex(null); setLoopRange(range); transport.selectEvent(range.startIndex); }}
           activeEventIndex={activeEventIndex}
           hasManualEdits={practiceEvents.some((event, index) => event.midi !== practiceSource.noteEvents[index]?.midi)}
           importValidation={practiceSource.validation}
@@ -741,7 +738,8 @@ export default function Home() {
           onTogglePlayback={togglePlayback}
           onToggleGuideSound={toggleGuideSound}
           onVisualizerChange={handleVisualizerChange}
-          performanceVisualizer={renderPerformanceVisualizer()}
+          performanceVisualizer={isCinemaMode ? null : renderPerformanceVisualizer()}
+          tunerControl={isCinemaMode ? null : <div className="practice-tuner mt-3"><LivePitchCoach rootMidi={selectedRootMidi} getContext={getSharedAudioContext} /></div>}
           playbackProgress={playbackProgress}
           playbackRate={playbackRate}
           practiceTempoBpm={practiceTempoBpm}
@@ -762,16 +760,9 @@ export default function Home() {
       ) : null}
 
       {isCinemaMode ? (
-        <div aria-label="Cinema performance view" aria-modal="true" className="fixed inset-0 z-50 overflow-y-auto bg-charcoal/95 p-4 backdrop-blur-md sm:p-8" role="dialog">
-          <div className="mx-auto flex min-h-full max-w-6xl flex-col justify-center">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div><p className="text-xs font-black uppercase tracking-[0.18em] text-mint-emerald">Sargam.io · performance view</p><h2 className="mt-1 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">{practiceSource.title}</h2></div>
-              <button aria-label="Exit cinema view" className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-black text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-yellow-soft" onClick={() => setIsCinemaMode(false)} type="button">Exit view</button>
-            </div>
-            <div className="rounded-[2rem] border border-white/10 bg-[#0b1626] p-3 shadow-[0_28px_100px_rgba(0,0,0,0.48)] sm:p-5">{renderPerformanceVisualizer()}</div>
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-white/45"><span>{selectedRoot.label} = Sa · {practiceTempoBpm} BPM · {selectedVisualizer} mode</span><span>{practiceSource.kind === "mock" ? "Prepared demo · performance framing" : "Imported MusicXML draft · performance framing"}</span></div>
-          </div>
-        </div>
+        <PracticeCinema title={practiceSource.title} context={`${selectedRoot.label} = Sa · ${selectedVisualizer} · ${playbackRate}×`} playing={isPlaying} loading={transport.isLoading} onExit={() => setIsCinemaMode(false)} onToggle={togglePlayback} onRestart={() => transport.selectEvent(loopRange?.startIndex ?? 0)}>
+          {renderPerformanceVisualizer()}
+        </PracticeCinema>
       ) : null}
 
       {!isTranscribed ? <footer className="border-t border-teal/10 px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col gap-2 text-xs font-medium text-charcoal/45 sm:flex-row sm:items-center sm:justify-between"><span>Sargam.io — relative notation for Indian music.</span><span>Phase 1 local mock experience</span></div></footer> : null}

@@ -8,7 +8,9 @@ import {
 describe("harmonium browser sample manifest", () => {
   it("selects the nearest open harmonium anchor", () => {
     expect(selectHarmoniumSample(60).noteName).toBe("C4");
-    expect(selectHarmoniumSample(59).noteName).toBe("A#3");
+    expect(selectHarmoniumSample(59).noteName).toBe("B3");
+    expect(selectHarmoniumSample(66).fileName).toBe("F4.mp3");
+    expect(selectHarmoniumSample(74).fileName).toBe("D5.mp3");
   });
 
   it("builds a stable browser sample URL", () => {

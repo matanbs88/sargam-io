@@ -6,6 +6,15 @@ root because they are linked directly from the public README.
 
 ## Start here
 
+- [Pilot piece and preview checkpoint](./audits/PILOT_PIECE_2026-09-15.md)
+- [Practice experience quality review and scores](./audits/PRACTICE_QUALITY_REVIEW_2026-09-09.md)
+- [Yousician, Simply Piano and flowkey research](./research/PRACTICE_BENCHMARK_2026-09-08.md)
+- [Practice experience target specification](./strategy/PRACTICE_EXPERIENCE_SPEC_2026-09-08.md)
+- [Current engine implementation and browser review](./audits/V1_ENGINE_REVIEW_2026-09-08.md)
+- [Six-pillar architecture, branding and learning design](./strategy/V1_SIX_PILLARS.md)
+- [V1 upgrade roadmap](./strategy/V1_UPGRADE_ROADMAP_2026-09-08.md)
+- [Visual timing stabilization audit](./audits/TIMING_STABILIZATION_2026-09-08.md)
+
 - [Project source of truth](./PROJECT_SOURCE_OF_TRUTH.md)
 - [90-day launch execution plan](./strategy/LAUNCH_EXECUTION_PLAN.md)
 - [Gemini engineering handoff](../GEMINI_REVIEW_REPORT.md)
@@ -15,7 +24,11 @@ root because they are linked directly from the public README.
 - [Manual QA checklist](../TESTING_CHECKLIST.md)
 - [Maintenance workflow](./operations/MAINTENANCE_WORKFLOW.md)
 - [Session closeout workflow](./operations/SESSION_CLOSEOUT_WORKFLOW.md)
+- [Vault governance](./operations/VAULT_GOVERNANCE.md)
+- [Session closeout template](./operations/templates/SESSION_CLOSEOUT_TEMPLATE.md)
+- [Decision record template](./operations/templates/DECISION_RECORD_TEMPLATE.md)
 - [Repository consistency audit](./audits/REPOSITORY_AUDIT_2026-08-16.md)
+- [Latest Vault governance closeout](./audits/SESSION_CLOSEOUT_2026-08-28_VAULT_GOVERNANCE.md)
 - [Indian music practice-platform roadmap](./strategy/RIYAZ_REPLACEMENT_ROADMAP.md)
 - [Waitlist-first launch strategy](./strategy/LAUNCH_STRATEGY.md)
 - [Catalog and content plan](./strategy/CATALOG_AND_CONTENT_PLAN.md)
@@ -37,6 +50,7 @@ root because they are linked directly from the public README.
 - [OMR provider strategy and benchmark](./strategy/OMR_PROVIDER_STRATEGY.md)
 - [Premium recognition and technology quality standard](./strategy/QUALITY_STANDARD.md)
 - [Unified song-to-score product experience](./strategy/UNIFIED_SCORE_EXPERIENCE.md)
+- [Partnerships and vendor correspondence](./partnerships/README.md)
 
 ## Project map
 

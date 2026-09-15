@@ -24,7 +24,7 @@ body {
 }
 
 body::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.62'/%3E%3C/svg%3E");
+  background-image: none;
   content: "";
   inset: 0;
   opacity: 0.035;
@@ -60,10 +60,9 @@ body::before {
 
 .studio-utility-band {
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  background:
-    linear-gradient(120deg, rgba(14, 29, 48, 0.94), rgba(8, 18, 31, 0.94));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 14px 34px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  background: #192630;
+  box-shadow: none;
 }
 
 .studio-control-rail,
@@ -82,19 +81,14 @@ body::before {
 }
 
 .studio-workspace {
-  background:
-    radial-gradient(circle at 12% -6%, rgba(40, 177, 130, 0.16), transparent 28%),
-    radial-gradient(circle at 92% 8%, rgba(19, 96, 82, 0.14), transparent 30%),
-    linear-gradient(180deg, #0a1723 0%, #07121f 48%, #081827 100%);
+  background: #101820;
 }
 
 .studio-stage {
   border: 1px solid rgba(145, 199, 219, 0.14);
-  border-radius: 1.25rem;
-  background:
-    radial-gradient(circle at 70% 0%, rgba(40, 177, 130, 0.09), transparent 28%),
-    linear-gradient(140deg, #0b1829 0%, #07111f 75%);
-  box-shadow: 0 28px 68px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  border-radius: 0.5rem;
+  background: #101820;
+  box-shadow: none;
 }
 
 .stage-transport {
@@ -208,6 +202,68 @@ html[data-theme="dark"] body::before {
 
 html[data-theme="dark"] .rhythm-surface {
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Study workspace: one stage, restrained controls, no competing brand header. */
+.practice-experience button,
+.practice-experience select { min-height: 44px; }
+.practice-experience [aria-label="Practice speed"] button { min-width: 44px; }
+.practice-experience button:focus-visible,
+.practice-experience summary:focus-visible,
+.practice-cinema button:focus-visible {
+  outline: 2px solid #ffe08a;
+  outline-offset: 3px;
+}
+.practice-experience .studio-stage { overflow: visible; }
+.practice-transport {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #15222c;
+  border-top: 1px solid #384853;
+}
+.practice-focus .keyboard-surface {
+  height: clamp(250px, calc(100dvh - 365px), 570px);
+}
+.practice-focus .bansuri-surface {
+  height: clamp(300px, calc(100dvh - 415px), 500px);
+}
+.bansuri-surface > * { min-height: 0; }
+.practice-focus .bansuri-surface figure,
+.practice-cinema .bansuri-surface figure { height: 100%; overflow: hidden; }
+.practice-focus .bansuri-surface figure svg,
+.practice-cinema .bansuri-surface figure svg {
+  height: calc(100% - 64px);
+  min-height: 0;
+  max-height: none;
+  flex: 1 1 0;
+}
+.practice-focus .bansuri-surface canvas { min-height: 0; }
+.practice-focus [aria-label="Set loop start"],
+.practice-focus [aria-label="Set loop end"] { display: none; }
+.practice-range[open] { max-height: 45dvh; overflow-y: auto; }
+.practice-cinema {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(1500px, 100%);
+  max-width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  border: 0;
+  padding: 0;
+  color: #f4f7fa;
+  background: #101820;
+}
+.practice-cinema[open] { display: flex; flex-direction: column; }
+.practice-cinema::backdrop { background: #080f15; }
+.practice-cinema .keyboard-surface { height: calc(100dvh - 225px); min-height: 200px; }
+.practice-cinema .bansuri-surface { height: calc(100dvh - 245px); min-height: 260px; }
+.practice-cinema .bansuri-surface canvas { min-height: 0; }
+@media (max-width: 639px) {
+  .practice-experience .practice-transport { position: sticky; }
+  .practice-focus .keyboard-surface { height: 340px; }
+  .practice-focus .bansuri-surface { height: 360px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

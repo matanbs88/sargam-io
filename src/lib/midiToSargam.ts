@@ -18,6 +18,7 @@ export type SargamEnToken = (typeof SARGAM_EN_TOKENS)[number];
 export type NotationSystem = "ABC" | "Sargam_EN" | "Sargam_HI";
 
 export type MidiNoteEvent = {
+  readonly pitchCurve?: readonly { readonly offsetMs: number; readonly cents: number }[];
   readonly midi: number;
   readonly startMs: number;
   readonly durationMs: number;

@@ -17,6 +17,11 @@ Before running checks, record whether the session changed one or more of:
 Update the owning source-of-truth document before handoff. Do not leave a
 product decision only in chat.
 
+Use [`VAULT_GOVERNANCE.md`](./VAULT_GOVERNANCE.md) for the folder map,
+metadata, document types, and source-of-truth rules. Use the reusable
+[`SESSION_CLOSEOUT_TEMPLATE.md`](./templates/SESSION_CLOSEOUT_TEMPLATE.md)
+when a handoff needs a standalone record.
+
 ## 2. Automated gate
 
 Run the cross-platform closeout command:
@@ -59,6 +64,16 @@ Update only the documents whose claims changed:
 
 Use `docs/README.md` as the vault index. New strategy, audit, review, and
 operations documents must be linked there.
+
+### Durable conversation records
+
+Do not leave an approved external message, vendor inquiry, received reply, or
+material product decision only in chat history. Before handoff, save it in the
+appropriate Vault folder. Partnership and vendor material belongs in
+`docs/partnerships/`; include the channel, date, status, exact text, and
+follow-up fields. Update `docs/README.md` when a new document or folder is
+created. Never store credentials, tokens, or private customer data in the
+Vault.
 
 ## 5. Release gate
 

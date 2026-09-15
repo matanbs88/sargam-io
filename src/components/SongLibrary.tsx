@@ -39,7 +39,7 @@ function statusClass(song: CatalogSong): string {
 export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"all" | CatalogCategory>("all");
-  const [showPlanned, setShowPlanned] = useState(true);
+  const [showPlanned, setShowPlanned] = useState(false);
   const catalogSongs = useMemo(
     () => FULL_PRACTICE_CATALOG.map((song) => catalogOverrides[song.id] ?? song),
     [catalogOverrides],
@@ -113,6 +113,17 @@ export function SongLibrary({ catalogOverrides = {}, onOpenSong }: SongLibraryPr
       </div>
 
       <div className="mt-7 rounded-[1.15rem] bg-teal px-4 py-4 text-white shadow-[0_14px_34px_rgba(19,96,82,0.16)] sm:px-5">
+        {catalogSongs.find(song => song.id === "pd-ode-to-joy-theme") && <button
+          type="button"
+          className="mb-5 flex w-full flex-wrap items-center justify-between gap-3 rounded-lg border border-yellow-soft/40 bg-white/10 p-4 text-left text-white hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-yellow-soft"
+          onClick={() => {
+            const song = catalogSongs.find(song => song.id === "pd-ode-to-joy-theme");
+            if (song) onOpenSong(song);
+          }}
+        >
+          <span><span className="block text-xs text-yellow-soft">START HERE · PILOT PIECE</span><span className="mt-1 block font-heading text-2xl">Ode to Joy</span><span className="block text-sm text-white/75">Four-bar opening study · 15 notes · three instruments · printable Sargam</span></span>
+          <span className="text-sm font-semibold text-yellow-soft">Practice Ode to Joy →</span>
+        </button>}
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="text-[9px] font-black uppercase tracking-[0.18em] text-yellow-soft">Cleared preview set</p>

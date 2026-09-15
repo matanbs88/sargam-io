@@ -2,6 +2,15 @@ import { describe, expect, it } from "vitest";
 import { PUBLIC_DOMAIN_CATALOG } from "./publicDomainCatalog";
 
 describe("public-domain catalog", () => {
+  it("preserves the Ode to Joy opening's 16 beats without artificial rests", () => {
+    const song = PUBLIC_DOMAIN_CATALOG.find(song => song.id === "pd-ode-to-joy-theme")!;
+    const events = song.noteEvents!;
+    expect(events.map(n => n.midi)).toEqual([64,64,65,67,67,65,64,62,60,60,62,64,64,62,62]);
+    for (let i = 1; i < events.length; i++) {
+      expect(events[i - 1].startMs + events[i - 1].durationMs).toBe(events[i].startMs);
+    }
+    expect(events.at(-1)!.startMs + events.at(-1)!.durationMs).toBe(Math.round(16 * 60000 / 92));
+  });
   it("contains unique playable studies with provenance", () => {
     expect(PUBLIC_DOMAIN_CATALOG).toHaveLength(11);
     expect(new Set(PUBLIC_DOMAIN_CATALOG.map((song) => song.id)).size).toBe(11);

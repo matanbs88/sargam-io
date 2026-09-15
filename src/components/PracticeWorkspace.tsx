@@ -1,4 +1,7 @@
-import type { ReactNode } from "react";
+"use client";
+import { useState, type ReactNode } from "react";
+import { PracticeRangePicker } from "./PracticeRangePicker";
+import { practiceTime } from "@/src/lib/practiceNavigation";
 import { TaalCycle } from "@/src/components/TaalCycle";
 import { TablaPracticeUI } from "@/src/components/TablaPracticeUI";
 import type { NotationSystem } from "@/src/lib/midiToSargam";
@@ -15,6 +18,12 @@ type NotationOption = {
   readonly label: string;
 };
 type PracticeWorkspaceProps = {
+  readonly isLoading: boolean;
+  readonly positionMs: number;
+  readonly durationMs: number;
+  readonly onSeek: (ms: number) => void;
+  readonly onRestart: () => void;
+  readonly onApplyRange: (range: EventLoopRange) => void;
   readonly activeEventIndex: number;
   readonly displayedMatra: number;
   readonly formattedNotes: readonly string[];
@@ -48,6 +57,7 @@ type PracticeWorkspaceProps = {
   readonly onToggleGuideSound: () => void;
   readonly onVisualizerChange: (visualizer: Visualizer) => void;
   readonly performanceVisualizer: ReactNode;
+  readonly tunerControl?: ReactNode;
   readonly playbackProgress: number;
   readonly playbackRate: number;
   readonly practiceTempoBpm: number;
@@ -72,6 +82,7 @@ function isAlteredNoteLabel(note: string, notationSystem: NotationSystem): boole
 
 /** The studio deliberately privileges one performance surface over dashboard cards. */
 export function PracticeWorkspace({
+  isLoading, positionMs, durationMs, onSeek, onRestart, onApplyRange,
   activeEventIndex,
   displayedMatra,
   formattedNotes,
@@ -105,6 +116,7 @@ export function PracticeWorkspace({
   onToggleGuideSound,
   onVisualizerChange,
   performanceVisualizer,
+  tunerControl,
   playbackProgress,
   playbackRate,
   practiceTempoBpm,
@@ -120,10 +132,10 @@ export function PracticeWorkspace({
   tanpuraControl,
   tempoBpm,
 }: PracticeWorkspaceProps) {
+  const [focus, setFocus] = useState(true);
   return (
     <section
-      aria-live="polite"
-      className="studio-workspace bg-[#07121f] px-3 py-3 text-white sm:px-5 sm:py-4"
+      className={`studio-workspace practice-experience ${focus ? "practice-focus" : "practice-tools"} bg-[#07121f] px-3 py-3 text-white sm:px-5 sm:py-4`}
       id="studio"
     >
       <div className="mx-auto max-w-[1580px]">
@@ -152,6 +164,7 @@ export function PracticeWorkspace({
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-[0.12em]">
+            <button type="button" aria-expanded={!focus} aria-controls="practice-editing-tools" onClick={() => setFocus(!focus)} className="min-h-11 rounded-md border border-white/20 px-4 text-xs text-white">{focus ? "Setup & notes" : "Focus on playing"}</button>
             <span className="rounded-full bg-white/[0.06] px-3 py-1.5 text-white/55">
               {selectedRootLabel} = Sa
             </span>
@@ -173,6 +186,7 @@ export function PracticeWorkspace({
           </div>
         </header>
 
+        <div id="practice-editing-tools" hidden={focus}>
         <section
           aria-label="Practice controls"
           className="studio-control-rail mb-0 flex flex-col gap-4 px-4 py-3 sm:px-5 lg:flex-row lg:items-center lg:justify-between"
@@ -273,11 +287,12 @@ export function PracticeWorkspace({
           </div>
         </section>
 
-        <main className="studio-stage min-w-0 overflow-hidden">
+        </div>
+        <section aria-label="Practice stage" className="studio-stage min-w-0 overflow-hidden">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
             <div>
-              <h3 className="font-heading text-xl leading-none text-white sm:text-2xl">Sargam canvas</h3>
-              <p className="mt-1 text-xs font-medium text-white/65">Your phrase, mapped through time.</p>
+              <h3 className="text-sm font-semibold text-white">Follow the melody</h3>
+              <p className="mt-1 text-xs font-medium text-white/65">Listen, slow it down, then repeat a section. Playback is not scored.</p>
               {importValidation !== null ? (
                 <details className="relative mt-2 w-fit">
                   <summary className={[
@@ -331,17 +346,22 @@ export function PracticeWorkspace({
             </button>
             </div>
           </div>
-          <div className="px-3 pb-3 sm:px-4 sm:pb-4">{performanceVisualizer}</div>
-          <div className="stage-transport px-4 py-3 sm:px-5">
+          <div className="stage-transport practice-transport px-4 py-3 sm:px-5">
+            <label className="mb-3 flex items-center gap-3 text-xs tabular-nums text-[#b7c5d0]">
+              <span>{practiceTime(positionMs)}</span>
+              <input aria-label="Playback position" aria-valuetext={`${practiceTime(positionMs)} of ${practiceTime(durationMs)}`} title="Seeking pauses playback and clears repeat" className="h-6 min-w-0 flex-1 accent-[#80cfff]" type="range" min="0" max={Math.max(1, durationMs)} step="10" value={Math.min(positionMs, durationMs)} disabled={durationMs === 0} onChange={e => onSeek(Number(e.target.value))}/>
+              <span>{practiceTime(durationMs)}</span>
+            </label>
             <div className="flex flex-wrap items-center gap-2.5">
               <button
-                aria-label={isPlaying ? "Pause mock playback" : "Play mock playback"}
+                aria-label={isLoading ? "Cancel loading" : isPlaying ? "Pause playback" : "Play playback"}
                 className="grid h-11 w-11 place-items-center rounded-full bg-yellow-soft text-[10px] font-black uppercase tracking-tight text-charcoal shadow-[0_0_20px_rgba(255,240,153,0.27)] transition hover:scale-105 active:scale-95"
                 onClick={onTogglePlayback}
                 type="button"
               >
-                {isPlaying ? "II" : "Play"}
+                {isLoading ? "Cancel" : isPlaying ? "II" : "Play"}
               </button>
+              <button type="button" onClick={onRestart} className="min-h-11 rounded-md px-3 text-sm text-white hover:bg-white/10">Restart</button>
               <button aria-label="Previous note" className="rounded px-2 py-1.5 text-xs font-bold text-white/60 transition hover:bg-white/[0.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-30" disabled={activeEventIndex === 0} onClick={() => onMoveNote(-1)} type="button">Prev</button>
               <button aria-label="Next note" className="rounded px-2 py-1.5 text-xs font-bold text-white/60 transition hover:bg-white/[0.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-30" disabled={activeEventIndex === lastEventIndex} onClick={() => onMoveNote(1)} type="button">Next</button>
               <button aria-label={loopAnchorIndex === null ? "Set loop start" : "Set loop end"} className={["rounded px-2.5 py-1.5 text-xs font-black transition", loopAnchorIndex === null ? "bg-white/[0.055] text-white/60 hover:bg-white/[0.1] hover:text-white" : "bg-performance-blue text-[#07121f] shadow-[0_0_12px_rgba(88,166,255,0.25)]"].join(" ")} onClick={onSetLoopPoint} type="button">{loopAnchorIndex === null ? "Set loop A" : "Set loop B"}</button>
@@ -352,16 +372,20 @@ export function PracticeWorkspace({
                   return <button aria-pressed={isActive} className={["rounded px-1.5 py-1 text-[10px] font-black transition", isActive ? "bg-white/15 text-yellow-soft" : "text-white/40 hover:text-white"].join(" ")} key={speed} onClick={() => onPlaybackRateChange(speed)} type="button">{speed}×</button>;
                 })}
               </div>
-              <div className="ml-auto min-w-32 flex-1 sm:max-w-xs">
+              <div className="ml-auto min-w-32 flex-1 sm:max-w-xs" hidden={focus}>
                 <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.09]"><div className="h-full rounded-full bg-performance-blue shadow-[0_0_8px_rgba(88,166,255,0.75)] transition-all duration-300" style={{ width: `${playbackProgress}%` }} /></div>
                 <p className="mt-1.5 text-right text-[9px] font-black uppercase tracking-[0.12em] text-white/35">Note {activeEventIndex + 1} / {formattedNotes.length}</p>
               </div>
               <button className="rounded-full bg-white/[0.06] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/70 transition hover:bg-white/[0.1] hover:text-white" onClick={onCinemaView} type="button">Cinema</button>
               <button aria-label="Download Sargam PDF" className="rounded-full border border-mint-emerald/45 bg-mint-emerald/12 px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-mint-emerald transition hover:bg-mint-emerald hover:text-white" onClick={onDownloadSargamPdf} type="button">PDF</button>
             </div>
+            <p className="mt-2 text-xs text-[#b7c5d0]">{durationMs > 0 && positionMs >= durationMs && !isPlaying ? "End of piece. Replay or repeat a passage — no performance score was measured." : "Seeking pauses playback and returns to the whole piece."}</p>
+            <div className="mt-3"><PracticeRangePicker key={songTitle} notes={formattedNotes} range={loopRange} onApply={onApplyRange} onClear={onClearLoop}/></div>
           </div>
-        </main>
+          <div className="px-3 pb-3 sm:px-4 sm:pb-4">{performanceVisualizer}</div>
+        </section>
 
+        {tunerControl}
         <details aria-label="Practice layers" className="workspace-controls studio-utility-band group mt-3">
           <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5">
             <span>

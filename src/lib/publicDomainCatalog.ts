@@ -17,12 +17,15 @@ const ROOT_MIDI = 60;
 function melodyEvents(
   steps: readonly MelodyStep[],
   tempoBpm: number,
+  continuous = false,
 ): readonly MidiNoteEvent[] {
   const beatMs = 60_000 / tempoBpm;
   let startMs = 0;
 
   return steps.map(([interval, beats = 1], index) => {
-    const durationMs = Math.max(120, Math.round(beatMs * beats * 0.92));
+    const durationMs = continuous
+      ? Math.round(startMs + beatMs * beats) - Math.round(startMs)
+      : Math.max(120, Math.round(beatMs * beats * 0.92));
     const event = {
       durationMs,
       midi: ROOT_MIDI + interval,
@@ -44,6 +47,7 @@ function publicDomainStudy(
   sourceRef: string,
   difficulty: CatalogSong["difficulty"] = "Beginner",
   timeSignature: CatalogSong["timeSignature"] = "4/4",
+  continuous = false,
 ): CatalogSong {
   return {
     artistOrSource,
@@ -53,7 +57,7 @@ function publicDomainStudy(
     id,
     instruments: ["Piano", "Harmonium", "Bansuri"],
     language,
-    noteEvents: melodyEvents(steps, tempoBpm),
+    noteEvents: melodyEvents(steps, tempoBpm, continuous),
     rightsBasis: "public-domain",
     rightsNote:
       "Public-domain composition study. Melody events were prepared by Sargam.io; verify territory and source-edition status before commercial launch.",
@@ -92,6 +96,9 @@ export const PUBLIC_DOMAIN_CATALOG: readonly CatalogSong[] = [
     ],
     92,
     "https://imslp.org/wiki/Symphony_No.9%2C_Op.125_(Beethoven%2C_Ludwig_van)",
+    "Beginner",
+    "4/4",
+    true,
   ),
   publicDomainStudy(
     "pd-fur-elise-opening",

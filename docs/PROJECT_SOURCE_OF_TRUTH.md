@@ -1,9 +1,22 @@
 # Sargam.io project source of truth
 
-**Status date:** 2026-08-26
-**Last deployed commit:** `e059a27` (`Merge pull request #5: persist imported practice sessions`)
+**Status date:** 2026-09-09
+**Deployment:** Not reverified this session; previous recorded deployment was `e059a27`. Local timing changes have not been deployed.
 **Public preview:** <https://sargam-io.vercel.app/>  
-**Current working-tree verification:** 77 tests across 28 test files; latest catalog changes are local and not pushed yet.
+**Current working-tree verification:** 119 tests across 35 test files; lint, repository audit and production build passed. Work is on `codex/playback-clock-regression`.
+
+**Practice UX:** research and local implementation are recorded in the
+[quality review](./audits/PRACTICE_QUALITY_REVIEW_2026-09-09.md). Focus/tools,
+seek, repeat ranges, restart and operable Cinema are implemented. Browser checks
+cover the local desktop journey, not physical mobile or end-to-end latency.
+The library now hides planned entries by default. No promotion was performed.
+
+**Current engineering slice:** [Audio engine and flat-vector review](./audits/V1_ENGINE_REVIEW_2026-09-08.md).
+The melody transport now uses an audio-authoritative scheduler, shared flat
+keyboard rendering and a continuous Bansuri timeline. An opt-in local tuner is
+available as an uncalibrated beta. Device audio latency, Ventus integration and
+full release acceptance remain open in the
+[V1 roadmap](./strategy/V1_UPGRADE_ROADMAP_2026-09-08.md).
 
 This document is the current product, engineering, and launch truth for
 Sargam.io. It supersedes stale status snapshots while preserving historical
@@ -58,7 +71,7 @@ regardless of the source.
 | Mock practice transport | Implemented | Local preview with bounded navigation, progress, taal, and practice cues. |
 | Piano, Harmonium and Bansuri roll selection | Implemented | The roll selector is the current instrument mode and controls the matching visual surface and guide voice. Harmonium also exposes real reed-layer and room-mode controls. |
 | Salamander piano guide voice | Implemented | Browser sampler using the cleared MVP asset set and attribution. |
-| Recorded Bansuri library | Not implemented | Current guide is a browser-native procedural Bansuri model. A recorded pack needs explicit Web/SaaS rights. |
+| Recorded Bansuri library | Prototype approved | Founder accepted the vendor's written reply as sufficient for the current non-monetized pilot. Ventus can be integrated for prototype testing; commercial-release configuration is deferred. |
 | Six-hole Bansuri reference | Prototype | Geometry is a learning visualization; definitive fingering requires profile and practitioner validation. |
 | MusicXML/MXL import | Implemented review draft | Validated score events open a temporary practice session. |
 | Imported session restore | Implemented local MVP | Imported timelines and manual MIDI corrections survive refresh through validated local storage. |
@@ -112,8 +125,9 @@ loop.
 
 - Keep Salamander Piano for the MVP browser guide with attribution.
 - Keep the current procedural Bansuri voice as a functional fallback.
-- Treat Ventus or any premium Bansuri asset as a licensing/vendor discussion,
-  not as an asset that may be shipped merely because it sounds good.
+- Ventus Bansuri is approved for the current non-monetized prototype under the
+  vendor's written reply. Engineering should proceed; commercial-release
+  configuration is a later founder decision and must not block MVP work.
 - Prefer a small, coherent, license-cleared multisample pack over a large
   library with ambiguous redistribution rights.
 

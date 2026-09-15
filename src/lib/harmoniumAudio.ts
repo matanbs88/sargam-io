@@ -14,7 +14,7 @@ export const HARMONIUM_SAMPLE_BASE_URL =
   process.env.NEXT_PUBLIC_HARMONIUM_SAMPLE_BASE_URL ??
   "https://nbrosowsky.github.io/tonejs-instruments/samples/harmonium";
 
-/** The source manifest provides chromatic anchors from C2 through A#4. */
+/** Verified upstream files, 2026-09-08. F#4 is absent; use the nearest anchor. */
 const HARMONIUM_SAMPLE_ANCHOR_DATA = [
   [36, "C2", "C2.mp3"],
   [37, "C#2", "Cs2.mp3"],
@@ -27,6 +27,7 @@ const HARMONIUM_SAMPLE_ANCHOR_DATA = [
   [44, "G#2", "Gs2.mp3"],
   [45, "A2", "A2.mp3"],
   [46, "A#2", "As2.mp3"],
+  [47, "B2", "B2.mp3"],
   [48, "C3", "C3.mp3"],
   [49, "C#3", "Cs3.mp3"],
   [50, "D3", "D3.mp3"],
@@ -38,17 +39,21 @@ const HARMONIUM_SAMPLE_ANCHOR_DATA = [
   [56, "G#3", "Gs3.mp3"],
   [57, "A3", "A3.mp3"],
   [58, "A#3", "As3.mp3"],
+  [59, "B3", "B3.mp3"],
   [60, "C4", "C4.mp3"],
   [61, "C#4", "Cs4.mp3"],
   [62, "D4", "D4.mp3"],
   [63, "D#4", "Ds4.mp3"],
   [64, "E4", "E4.mp3"],
   [65, "F4", "F4.mp3"],
-  [66, "F#4", "Fs4.mp3"],
   [67, "G4", "G4.mp3"],
   [68, "G#4", "Gs4.mp3"],
   [69, "A4", "A4.mp3"],
   [70, "A#4", "As4.mp3"],
+  [71, "B4", "B4.mp3"],
+  [72, "C5", "C5.mp3"],
+  [73, "C#5", "Cs5.mp3"],
+  [74, "D5", "D5.mp3"],
 ] as const;
 
 export const HARMONIUM_SAMPLE_ANCHORS: readonly HarmoniumSample[] =

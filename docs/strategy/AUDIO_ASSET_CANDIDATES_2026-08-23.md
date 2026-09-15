@@ -125,6 +125,19 @@ type PracticeAudioRole =
   | "bansuri.guide";
 ```
 
+## Ventus vendor response
+
+Impact Soundworks / ISW Partners confirmed in writing that the typical user
+license does not cover this application use, but prototype use is permitted
+before commercial release without custom licensing. They quoted a **$500
+custom license** once the commercial product is ready for release.
+
+The exact scope still needs to be confirmed before production: browser
+delivery, streaming or temporary caching, redistribution restrictions,
+attribution, user limits, and whether the quoted fee is one-time or recurring.
+The complete inquiry and verbatim reply are recorded in
+[`VENTUS_BANSURI_WEB_LICENSING_INQUIRY.md`](../partnerships/VENTUS_BANSURI_WEB_LICENSING_INQUIRY.md).
+
 ## Current Bansuri test implementation
 
 The MVP maps the logical `bansuri.guide` role to a browser-native voice in
