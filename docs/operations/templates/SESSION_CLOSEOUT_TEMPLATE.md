@@ -43,6 +43,6 @@ review_by: YYYY-MM-DD
 
 ## Risks and next actions
 
-1. 
-2. 
-3. 
+1. First action
+2. Second action
+3. Third action

@@ -26,3 +26,17 @@ vendor package or pretend that licensing approval is the technical blocker.
 
 Vercel CLI sign-in check reported Logged out. Prefer the already-connected Git
 preview workflow; do not create a new temporary project or alter production.
+
+## Actual outcome
+
+- Local checkpoint commit: c234fe1; 120 tests, lint and production build passed.
+- Git staged-content inspection found trailing whitespace in an existing Vault
+  template; repaired locally after checkpoint (not yet committed).
+- Push to origin/codex/playback-clock-regression was rejected by automatic
+  permission review: explicit authorization of the external destination and
+  code/Vault payload is required. No push, preview or production change occurred.
+- Request precise owner approval for github.com/matanbs88/sargam-io, this feature
+  branch, source and Vault documentation only; exclude environment files,
+  credentials and vendor sound binaries. Do not work around the denied push.
+- Browser/PDF end-to-end verification of the selected piece is still pending;
+  no PDF output or completed Ventus integration is claimed.
