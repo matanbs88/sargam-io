@@ -3,6 +3,37 @@
 Status: interactive comparison available; final QA incomplete. This is not a
 production release or an assertion of a 90/100 design score.
 
+## Current checkpoint / resumption
+
+Implementation checkpoint: `746d8df` (local HEAD and remote-tracking preview
+branch matched at audit). Vercel reported successful deployment for this commit.
+143 tests passed across 41 files; targeted lint and production build passed.
+
+Final interactive QA is blocked on restoring an authorized browser connection.
+The browser connector returned `Transport closed` on multiple consecutive turns.
+The supported Windows fallback listed Chrome, but then stopped because it could
+not identify the browser URL sufficiently to enforce policy. No alternate raw
+browser connection, authentication bypass, or screen-control workaround was used.
+
+Resume with the browser connected and the local design-lab tab open. Verify the
+served build matches this checkpoint before collecting new UI/audio evidence.
+Then execute the remaining gates below; do not rerun unrelated development or
+replace production merely to generate activity while verification is blocked.
+
+| Objective requirement | Completion evidence | Status |
+| --- | --- | --- |
+| Four distinct interactive alternatives | Four implemented routes; entry/return flows previously observed | Implemented; final visual matrix incomplete |
+| Same Ode to Joy study | Canonical fixture and 15-onset/4-bar regression tests | Verified in code/tests |
+| Three instrument playback flows | Prior browser observations; new 4-speed scheduler and sample-resume tests | Final post-fix browser/audio regression incomplete |
+| Notation and PDF | Three rendered exports; actual Chrome PDF download; relative-label observation | Verified samples; full four-direction matrix incomplete |
+| Ventus investigation/integration | Measured anchor, provenance, staging hash, selectable preview voice | Experimental integration complete within stated limitations |
+| Measured QA and handoff | Linked audits and this review packet | Available, explicitly provisional |
+| Preserve production and selection gate | Work pushed only to preview branch; no production promotion | Preserved by this sprint's operations |
+
+The goal is not complete. The remaining evidence cannot be replaced by more
+unit tests or a self-assigned design score. User design selection is a separate,
+later release gate, not the cause of this technical QA blockage.
+
 ## Where to review
 
 Local comparison: http://localhost:3010/design-lab
