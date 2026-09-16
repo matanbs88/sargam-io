@@ -7,3 +7,4 @@
 .shell .settings label{flex-wrap:wrap;max-width:100%}.shell .settings small{flex-basis:100%;color:var(--muted);font-size:12px}
 @media(max-width:600px){.shell.shell .score{grid-template-columns:1fr}.shell .paper{padding:18px 12px}.shell .paperHeading{gap:14px}.shell .transport{gap:8px}.shell .nav{gap:10px}.shell .nav strong{font-size:22px}.shell .settings select{max-width:100%}}
 .shell input[type=range]{min-height:44px;cursor:pointer}.shell .nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 0}
+.noteDetails{margin-top:24px;border-top:1px solid var(--line);padding-top:12px}.noteDetails summary{min-height:44px;padding:10px 0;cursor:pointer;font-weight:600}.noteDetails summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.noteDetails>p{font-size:14px;color:var(--muted);margin-top:12px}

@@ -89,6 +89,6 @@ export function KeyboardRoll({ events, notationSystem, rootMidi, readTimeMs, tit
       <h3 className="text-base font-semibold">{title} <span className="ml-2 text-xs font-normal text-[#b7c5d0]">C3–C7 · length = duration</span></h3>
       {controls}
     </header>
-    <div className="overflow-x-auto"><canvas ref={canvasRef} role="img" aria-label={`${title} notes aligned to keys. Open Setup & notes for individual note controls.`} className="keyboard-surface block w-full min-w-[740px]" style={{ aspectRatio: `${W}/${H}` }} /></div>
+    <div className="overflow-x-auto"><canvas ref={canvasRef} role="img" aria-label={`${title} visual timing guide: notes align with keys; their length represents duration.`} className="keyboard-surface block w-full min-w-[740px]" style={{ aspectRatio: `${W}/${H}` }} /></div>
   </section>;
 }

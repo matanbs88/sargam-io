@@ -29,7 +29,9 @@ and the Next.js production build.
    whenever a claim, known limitation, or quality-gate count changes.
 7. Review `git diff --check` and `git status --short`; commit only intentional
    changes with a focused message.
-8. Push `main`, deploy, and make one interactive production smoke test.
+8. Push the authorized working branch and verify its preview. Merge/publish to
+   production only when explicitly authorized and applicable review/selection
+   gates are satisfied; then perform an interactive production smoke test.
 
 ## Documentation ownership
 

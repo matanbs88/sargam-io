@@ -105,3 +105,15 @@ procedural voice; no purchase or new commitment was made.
 
 Matan's design selection is needed before replacing production, not before
 continuing independent QA and refinement on this branch.
+
+## Follow-up — continuous execution and accessible score
+
+Founder instruction is now persisted in AGENTS.md: answering a status question
+does not end an unfinished authorized task. Production promotion remains gated.
+Coach now has a native expandable note-navigation score, so the practice phrase
+is available as focusable text buttons as well as canvas animation. The keyboard
+canvas no longer directs users to an absent "Setup & notes" control.
+143 tests and the production build passed after these changes; interaction,
+screen-reader and visual checks of the new disclosure remain unverified because
+the browser connector again returned Transport closed. This is not a completed
+accessibility certification.

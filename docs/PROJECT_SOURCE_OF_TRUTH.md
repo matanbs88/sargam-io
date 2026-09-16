@@ -2,6 +2,12 @@
 
 ## Active directive — 2026-09-16
 
+Founder operating rule: after answering an interruption/status question, continue
+the unfinished authorized work rather than stopping at the answer. The canonical
+execution policy is in [AGENTS.md](../AGENTS.md#continuous-execution-default--founder-directive-2026-09-16).
+Explicit stops and genuine approval/blocking conditions still apply; never claim
+unobserved background work.
+
 The founder authorized a week of autonomous preview-only development and a
 substantive design reset. Follow the [autonomous sprint contract](./operations/AUTONOMOUS_WEEK_2026-09-16.md).
 Earlier visual choices are not fixed constraints. Build four meaningfully
