@@ -5,6 +5,16 @@ production release or an assertion of a 90/100 design score.
 
 ## Current checkpoint / resumption
 
+**Design decision:** founder selected Living Score. The integrated local preview,
+comparative scores and new browser observations are documented in
+[Living Score synthesis](./LIVING_SCORE_DECISION_2026-09-16.md).
+Production was not replaced; the older comparison/blocker checkpoint below is historical.
+
+**Latest update:** browser access recovered after the user's restart. New live
+coach checks, including 0.5x Harmonium/Ventus and the note disclosure, are in
+[the recovery audit](../audits/PILOT_BROWSER_RESUMPTION_2026-09-16.md).
+The connection failure described below is historical; final QA remains incomplete.
+
 Implementation checkpoint: `746d8df` (local HEAD and remote-tracking preview
 branch matched at audit). Vercel reported successful deployment for this commit.
 143 tests passed across 41 files; targeted lint and production build passed.

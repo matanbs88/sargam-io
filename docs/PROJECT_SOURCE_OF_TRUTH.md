@@ -2,6 +2,13 @@
 
 ## Active directive — 2026-09-16
 
+**Design selection update:** the founder selected Living Score as the base and
+authorized synthesis of Studio's visible instrument/transport, Riyaz's Sa anchor,
+and Coach's optional progressive practice. See the
+[scored decision and implementation record](./reviews/LIVING_SCORE_DECISION_2026-09-16.md).
+The alternatives remain available for comparison. Work stays preview-only;
+this selection is not authorization to replace production.
+
 Founder operating rule: after answering an interruption/status question, continue
 the unfinished authorized work rather than stopping at the answer. The canonical
 execution policy is in [AGENTS.md](../AGENTS.md#continuous-execution-default--founder-directive-2026-09-16).

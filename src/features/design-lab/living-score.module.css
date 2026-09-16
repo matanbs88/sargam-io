@@ -1,0 +1,35 @@
+.workspace{max-width:1680px;margin:0 auto;min-width:0}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--line)}
+.toolbar>div:first-child{margin:0;gap:12px}
+.views{display:flex;gap:4px;flex-wrap:wrap}
+.workspace .views button{font-size:13px;padding:8px 12px;border-color:transparent}
+.workspace .views button[aria-pressed=true]{background:#e6eaf3;color:#243e87;border-color:#aab6d0}
+.anchor{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:12px 0;gap:16px}
+.anchor p{display:flex;align-items:center;gap:14px;margin:0}
+.anchor span,.paperTitle>span{font-size:10px;font-weight:600;letter-spacing:1.4px;color:var(--muted)}
+.anchor strong{font:26px Georgia,serif;color:var(--accent);min-width:36px}
+.anchor small{font-size:13px;color:var(--muted)}
+.stage{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.stage[data-view=score],.stage[data-view=instrument]{grid-template-columns:minmax(0,1fr)}
+.instrument{min-width:0;background:#0e181f;border-radius:6px;overflow:hidden}
+.stage[data-view=instrument] .instrument{width:100%;max-width:1100px;justify-self:center}
+.paper{background:#fff;padding:24px 20px 16px;min-width:0;border-top:2px solid var(--ink)}
+.paperTitle{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.paperTitle h2{font:26px Georgia,serif;margin:0}
+.paper [aria-label="Four-bar score"]{padding:24px 0;gap:24px 0}
+.caption{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
+.transport{position:sticky;bottom:0;z-index:10;background:var(--bg);margin-top:16px}
+.transport>div{position:static!important}
+.guidance{border-top:1px solid var(--line);padding:12px 0}
+.guidance summary{cursor:pointer;min-height:44px;padding:10px 0;font-weight:600}
+.guidance summary span{font-size:13px;font-weight:400;color:var(--muted);margin-left:20px}
+.guidance summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.workspace .steps button{display:grid;grid-template-columns:28px 1fr;gap:4px 10px;text-align:left;background:#fff;padding:16px}
+.steps button small{grid-row:span 2;color:var(--muted)}
+.steps button span{font-size:12px;color:var(--muted)}
+.workspace .steps button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 3px 0 var(--accent)}
+.guidance>p,.loopNotice{font-size:13px;color:var(--muted)}
+.loopNotice{display:flex;align-items:center;gap:16px}
+@media(max-width:1100px){.stage{grid-template-columns:minmax(0,1fr)}.instrument{max-width:850px;width:100%;justify-self:center}.paper [aria-label="Four-bar score"]{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}}
+@media(max-width:600px){.anchor p{gap:8px;flex-wrap:wrap}.anchor small{flex-basis:100%}.anchor span{font-size:9px}.paper{padding:20px 10px}.paperTitle{align-items:start;flex-direction:column}.views{width:100%}.workspace .views button{flex:1;font-size:12px;padding:8px}.steps{grid-template-columns:1fr}.guidance summary span{display:block;margin:4px 0 0}.stage{gap:16px}.instrument{overflow-x:auto}.toolbar{padding-top:12px}}

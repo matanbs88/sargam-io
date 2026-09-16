@@ -6,6 +6,7 @@ import { BansuriFallingNotes } from '@/src/components/visualizers/BansuriFalling
 import type { NotationSystem } from '@/src/lib/midiToSargam';
 import { usePilotSession, type PilotSession, PILOT, PILOT_EVENTS, ROOT_NAMES } from './usePilotSession';
 import s from './alternatives.module.css';
+import { LivingScoreWorkspace } from './LivingScoreWorkspace';
 
 type Direction = 'score' | 'riyaz' | 'coach';
 function Settings({ session: p }: { session: PilotSession }) {
@@ -29,21 +30,20 @@ function Transport({ session: p }: { session: PilotSession }) {
 function Roll({ session: p }: { session: PilotSession }) {
   return <div className={s.roll}>{p.instrument === 'Bansuri' ? <BansuriFallingNotes {...p.roll} /> : <KeyboardRoll {...p.roll} title={p.instrument} />}</div>;
 }
-function Score({ session: p }: { session: PilotSession }) {
+function Score({ session: p, onSelect }: { session: PilotSession; onSelect?: (index: number) => void }) {
   // Measured beat positions, not an equal-width row: held notes retain their span.
   const beatMs = 60000 / PILOT.tempoBpm;
   return <div className={s.score} aria-label="Four-bar score">
     {[0, 1, 2, 3].map(bar => <div className={s.bar} key={bar}><small>{bar + 1}</small><div className={s.beats}>{PILOT_EVENTS.map((note, index) => {
       const beat = note.startMs / beatMs;
       if (Math.floor((beat + 0.001) / 4) !== bar) return null;
-      return <button key={index} style={{ left: `${(beat - bar * 4) * 25}%`, width: `${note.durationMs / beatMs * 25}%` }} aria-current={p.transport.activeEventIndex === index ? 'step' : undefined} aria-label={`Bar ${bar + 1}, note ${index + 1}: ${p.notes[index]}`} onClick={() => p.transport.selectEvent(index)}>{p.notes[index]}<span>{(note.durationMs / beatMs).toFixed(1).replace('.0', '')} beat{note.durationMs / beatMs > 1.01 ? 's' : ''}</span></button>;
+      return <button key={index} style={{ left: `${(beat - bar * 4) * 25}%`, width: `${note.durationMs / beatMs * 25}%` }} aria-current={p.transport.activeEventIndex === index ? 'step' : undefined} aria-label={`Bar ${bar + 1}, note ${index + 1}: ${p.notes[index]}`} onClick={() => onSelect ? onSelect(index) : p.transport.selectEvent(index)}>{p.notes[index]}<span>{(note.durationMs / beatMs).toFixed(1).replace('.0', '')} beat{note.durationMs / beatMs > 1.01 ? 's' : ''}</span></button>;
     })}</div></div>)}
   </div>;
 }
 export function AlternativeDirections({ direction }: { direction: Direction }) {
   const p = usePilotSession();
   const [step, setStep] = useState(0);
-  const [showInstrument, setShowInstrument] = useState(false);
   function stage(index: number) {
     p.transport.pause(); setStep(index);
     p.setLoop(index === 1 ? { startIndex: 0, endIndex: 7 } : null);
@@ -51,18 +51,14 @@ export function AlternativeDirections({ direction }: { direction: Direction }) {
     p.setRate(index === 1 ? 0.75 : 1);
   }
   const names = { score: 'The living score', riyaz: 'The riyaz room', coach: 'Your practice path' };
-  return <main className={`${s.shell} ${direction === 'score' ? '' : s[direction]}`}>
+  return <main className={`${s.shell} ${direction === 'score' ? s.scoreShell : s[direction]}`}>
     <nav className={s.nav}><Link href="/design-lab">← All directions</Link><strong>sargam</strong><button onClick={() => { p.transport.pause(); p.setOpened(false); }}>Library</button></nav>
     {!p.opened ? <section className={s.entry}>
       <div><p className={s.kicker}>{names[direction]}</p><h1>{direction === 'score' ? <>Read the music.<br />Hear it unfold.</> : direction === 'riyaz' ? <>Make room<br />for your riyaaz.</> : <>One phrase.<br />One small step.</>}</h1><p>{direction === 'score' ? 'A playable score you can read, mark by ear, and take to your instrument.' : direction === 'riyaz' ? 'Choose your instrument, settle into your Sa, and spend a little time with a melody.' : 'Listen first. Practice slowly. Then bring the whole phrase together.'}</p></div>
       <button className={s.selection} onClick={() => p.setOpened(true)}><span>01 / BEGINNER</span><h2>Ode to Joy</h2><p>Beethoven · Four-bar opening study</p><strong>{direction === 'score' ? 'Open the score' : direction === 'riyaz' ? 'Enter practice' : 'Begin session'} →</strong></button>
     </section> : <>
       <header className={s.heading}><div><p className={s.kicker}>BEETHOVEN · OPENING STUDY</p><h1>Ode to Joy</h1></div><button onClick={p.download} disabled={p.exporting}>{p.exporting ? 'Preparing…' : 'Download score'}</button></header>
-      {direction === 'score' ? <div className={s.editorial}>
-        <article className={s.paper}><div className={s.paperHeading}><span>01</span><div><h2>Ode to Joy</h2><p>4/4 · ♩ = 92 · {ROOT_NAMES[p.root - 60]}4 = Sa</p></div></div><Score session={p} /><p className={s.caption}>Tap a note to set your starting point, then press Play. Note spacing follows musical time.</p><Transport session={p} /></article>
-        <aside className={s.margin}><h2>At your instrument</h2><Settings session={p} /><button aria-expanded={showInstrument} onClick={() => setShowInstrument(!showInstrument)}>{showInstrument ? 'Hide instrument guide' : 'Show instrument guide'}</button><p>The score stays in view. Open the instrument guide when you need a hand position or timing reference.</p></aside>
-        {showInstrument && <div className={s.wide}><Roll session={p} /></div>}
-      </div> : direction === 'riyaz' ? <div className={s.roomLayout}>
+      {direction === 'score' ? <LivingScoreWorkspace session={p} settings={<Settings session={p} />} transport={<Transport session={p} />} visualizer={<Roll session={p} />} renderScore={onSelect => <Score session={p} onSelect={onSelect} />} /> : direction === 'riyaz' ? <div className={s.roomLayout}>
         <aside className={s.anchor}><span>YOUR SA</span><strong>{ROOT_NAMES[p.root - 60]}</strong><span>Octave 4</span><hr /><p>NOW IN THE PHRASE</p><b>{p.notes[p.transport.activeEventIndex] ?? '—'}</b><p>Reference voice · {p.instrument}</p></aside>
         <section className={s.roomStage}><Settings session={p} /><Roll session={p} /><Transport session={p} /><Score session={p} /></section>
       </div> : <div className={s.coachLayout}>
