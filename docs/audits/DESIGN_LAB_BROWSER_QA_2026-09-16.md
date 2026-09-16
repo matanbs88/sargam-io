@@ -66,3 +66,43 @@ one-bar layout still needs its post-change verification. Targeted lint passed.
 - Half-speed Ventus subsequently reached the end at 10.435s score time with no
   console errors. Measured target audit found a 16px slider and 21px return link;
   CSS now provides 44px minimum heights. Post-build measurement remains to do.
+
+## Audio scheduling follow-up
+
+Code inspection found that non-looping samples resumed from `offset * pitchRate`
+even though transport offset is in score seconds and the source consumes real
+seconds. Corrected to `(offset / tempoRate) * pitchRate`. This applies to Piano
+and the experimental Ventus voice; Harmonium's existing looping behavior is
+unchanged. Tests cover 0.5x, 1x and 1.25x offsets, unchanged pitch, scheduled end,
+and slow-tempo sample-exhaustion detection. Focused engine suites passed 19/19.
+This is scheduling evidence, not an audible continuity certification. Browser
+connection returned Transport closed during this follow-up, so the changed
+behavior still requires a live browser regression check.
+
+## Source-token contrast calculation
+
+Calculated sRGB relative luminance ratios from the current CSS literals (not
+computed browser styles). These eight principal text/background combinations
+exceed 4.5:1; translucent, disabled, focus and canvas states are not certified.
+
+| Pair | Ratio |
+| --- | ---: |
+| Studio muted `#aab3b8` / `#14171a` | 8.44 |
+| Studio primary `#171c13` / `#e3ef98` | 14.08 |
+| Score muted `#586068` / `#faf9f5` | 6.06 |
+| Score active white / `#243e87` | 9.93 |
+| Riyaz muted `#b8c9bf` / `#172e2c` | 8.30 |
+| Riyaz active `#172e2c` / `#f0d298` | 9.82 |
+| Coach muted `#4c607c` / `#f1f4fa` | 5.83 |
+| Coach active white / `#204bc4` | 7.33 |
+
+Production build after the sampled-resume correction passed. Full suite passed
+139 tests before the additional canonical timeline integration tests.
+
+The canonical timeline integration test initially found 16 scheduled events for
+15 authored notes at 0.5x. Inconsistent floating-point tolerance across adjacent
+queue windows admitted a boundary onset twice. Applying the same tolerance to
+both ends preserves a half-open scheduling interval. Regression coverage checks
+all 15 pitches, onset times, duration, zero resume offset (within numeric
+precision), and automatic end at 0.5x, 0.75x, 1x and 1.25x. This measures the
+scheduler with a simulated clock; it is not a real-device latency measurement.

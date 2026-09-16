@@ -151,7 +151,9 @@ export class GuideVoiceBank implements AudioBackend {
         source.loopStart = sample.buffer.duration * 0.2;
         source.loopEnd = sample.buffer.duration * 0.85;
         source.connect(gain).connect(output); nodes.push(source, gain);
-        const sampleOffset = source.loop ? 0 : offset * pitchRate;
+        // Transport offset is score seconds; the sample advances in real seconds.
+        // Tempo changes note timing without changing the instrument's pitch.
+        const sampleOffset = source.loop ? 0 : (offset / rate) * pitchRate;
         if (this.settings.instrument === "Bansuri" && sampleOffset + duration * pitchRate > sample.buffer.duration) {
           nodes.forEach(node => node.disconnect());
           throw new Error("This note exceeds the experimental Ventus sustain. Choose a faster tempo or the procedural voice.");

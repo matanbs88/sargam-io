@@ -155,6 +155,16 @@ Transport closed, so real audio/visual QA and design scores remain outstanding.
 The preceding turn was concrete progress (four designs, PDF regression fix);
 this continuation adds a working opt-in sample path and regression coverage.
 
+## Review packet and scheduler regression follow-up
+
+Current review instructions: `../reviews/PILOT_REVIEW_PACKET_2026-09-16.md`.
+Source-token contrast ratios are recorded in the browser QA audit, explicitly
+separate from rendered accessibility certification. Corrected sampled resume
+offsets at changed tempos and duplicate boundary onset scheduling exposed by
+the canonical study at half speed. All 143 tests in 41 files passed and the
+subsequent production build passed. Real-browser recheck remains open because
+the browser connector currently reports Transport closed. No production merge.
+
 ## Browser connection recovered
 
 The in-app browser is operational again. First real interaction/visual checks

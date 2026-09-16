@@ -128,7 +128,10 @@ export class EngineStore {
         const noteEnd = Math.min(note.startMs + note.durationMs, scoreEnd);
         const when = from + (note.startMs - scoreFrom) / (1000 * this.rate);
         const recovering = from === this.anchor || from === now || (this.loop !== null && Math.abs(scoreFrom - this.loop.startMs) < 1e-5);
-        if (noteEnd <= scoreFrom || when >= until || (when < from - 1e-8 && !recovering)) continue;
+        // Use the same tolerance at both ends of this half-open window.
+        // Otherwise a rounded boundary onset can be queued just before `until`
+        // and then queued again just after the next window's `from`.
+        if (noteEnd <= scoreFrom || when >= until - 1e-8 || (when < from - 1e-8 && !recovering)) continue;
         const actual = Math.max(from, when);
         const offsetMs = Math.max(0, scoreFrom - note.startMs);
         this.backend.schedule(note, actual, (noteEnd - Math.max(note.startMs, scoreFrom)) / (1000 * this.rate), offsetMs / 1000, this.rate);

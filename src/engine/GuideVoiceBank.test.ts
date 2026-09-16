@@ -22,6 +22,29 @@ function audio() {
 }
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 describe('experimental Ventus voice', () => {
+  it.each([0.5, 1, 1.25])('resumes a sampled note at the elapsed audio position at %sx tempo', async (rate) => {
+    vi.useFakeTimers();
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) })));
+    const { bank, sources } = audio();
+    await bank.prepare([note]);
+    const offset = 0.3;
+    const remaining = (0.652 - offset) / rate;
+    bank.schedule(note, 10.05, remaining, offset, rate);
+    const pitchRate = 2 ** ((note.midi - 65.993) / 12);
+    expect(sources[0].start).toHaveBeenCalledWith(10.05, (offset / rate) * pitchRate);
+    expect(sources[0].playbackRate.value).toBeCloseTo(pitchRate);
+    expect(sources[0].stop).toHaveBeenCalledWith(10.05 + remaining);
+    bank.dispose();
+  });
+  it('includes slow-tempo elapsed audio in the sustain-length guard', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) })));
+    const { bank, sources } = audio();
+    await bank.prepare([note]);
+    // 2 score seconds at half speed consumed 4 real seconds of the recording.
+    expect(() => bank.schedule(note, 10, 0.5, 2, 0.5)).toThrow('exceeds the experimental Ventus sustain');
+    expect(sources[0].start).not.toHaveBeenCalled();
+    bank.dispose();
+  });
   it('preloads one anchor and schedules transposed samples without fetching on the audio path', async () => {
     vi.useFakeTimers();
     const fetch = vi.fn(async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) }));
