@@ -7,3 +7,4 @@
 @media(max-width:950px){.layout{grid-template-columns:1fr}.library{border-right:0;border-bottom:1px solid #383c40;padding:20px;display:block}.library h1,.libraryNote,.source{display:none}.piece{display:flex;align-items:center;flex-wrap:wrap;width:100%;padding:12px}.workspace{padding:20px}.entry{padding:20px;min-height:50dvh}.header{padding:0 20px}.header>span{display:none}.entry h2{letter-spacing:-1px}.transport .seek{order:5;flex-basis:100%}.setup{gap:12px}.instruments{width:100%}.title h2{font-size:28px}}
 .studio .transport{position:sticky;bottom:0;z-index:5;background:#14171a;border-top:1px solid #383c40;padding:12px 0}
 .studio .setup label{flex-wrap:wrap;max-width:100%}.studio .setup small{flex-basis:100%;font-size:12px}.studio .setup select{max-width:100%}
+.studio input[type=range]{min-height:44px;cursor:pointer}.studio .header a{display:inline-flex;align-items:center;min-height:44px;padding:8px 0}

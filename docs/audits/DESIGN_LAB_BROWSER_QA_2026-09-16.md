@@ -49,3 +49,20 @@ Build after the changes passed. Source/PDF tests previously passed 135/135.
 Post-build desktop coach screenshot confirms the sticky transport is visible
 at the viewport bottom while the instrument extends below the fold. Mobile
 one-bar layout still needs its post-change verification. Targeted lint passed.
+
+## Follow-up verification
+
+- Post-change phone screenshot at 390×844 confirmed one bar per row, readable
+  quarter-note labels, and visible sticky Play/Restart/Speed/Position controls.
+- Commit b677fd1 was pushed to codex/playback-clock-regression. GitHub's Vercel
+  status reported success. Remote browser verification was denied during a Vercel
+  access redirect; no authentication bypass or production promotion was attempted.
+- Chrome UI export produced `C:/Users/matan/Downloads/ode-to-joy-sargam.pdf`,
+  65,742 bytes, timestamp September 16 2026 06:31:37 local. The in-app browser's
+  download event was inconclusive; Chrome provided actual on-disk confirmation.
+- Chrome Bansuri with Ventus at 0.5x entered playback, paused at 5.781s score time,
+  and resumed from that position. This verifies controls/state, not listening
+  quality or physical audio-device latency.
+- Half-speed Ventus subsequently reached the end at 10.435s score time with no
+  console errors. Measured target audit found a 16px slider and 21px return link;
+  CSS now provides 44px minimum heights. Post-build measurement remains to do.
