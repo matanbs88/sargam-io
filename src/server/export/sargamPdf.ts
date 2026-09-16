@@ -183,26 +183,32 @@ function assertExportInput(input: SargamPdfExportInput): void {
   }
 }
 
-function timelineToMeasures(input: SargamPdfExportInput): RenderMeasure[] {
+export function timelineToMeasures(input: SargamPdfExportInput): RenderMeasure[] {
   const signature = parseTimeSignature(input.timeSignature);
   const events = input.events;
   if (signature === null || events === undefined || input.tempoBpm === undefined) {
     throw new Error("Timeline measure conversion requires valid event timing.");
   }
-  const beatDuration = (60_000 / input.tempoBpm) * (4 / signature.beatType);
-  const measureDuration = beatDuration * signature.beats;
-  const totalDuration = Math.max(...events.map((event) => event.startMs + event.durationMs));
+  // Print-only quantization: integer musical ticks prevent rounded milliseconds
+  // from creating microscopic rests, clipping onsets or adding an empty bar.
+  // 96 ticks/quarter supports straight and triplet subdivisions. Audio is untouched.
+  const ticksPerQuarter = 96;
+  const toTick = (ms: number) => Math.round(ms * input.tempoBpm! / 60_000 * ticksPerQuarter);
+  const measureDuration = ticksPerQuarter * (4 / signature.beatType) * signature.beats;
+  const tickEvents = events.map(event => ({ ...event, start: toTick(event.startMs), end: Math.max(toTick(event.startMs) + 1, toTick(event.startMs + event.durationMs)) }));
+  const totalDuration = Math.max(...tickEvents.map(event => event.end));
   const count = Math.max(1, Math.ceil(totalDuration / measureDuration));
 
   return Array.from({ length: count }, (_, index) => {
     const measureStart = index * measureDuration;
-    const measureEvents = events
-      .filter((event) => event.startMs >= measureStart && event.startMs < measureStart + measureDuration)
+    const measureEnd = measureStart + measureDuration;
+    const measureEvents = tickEvents
+      .filter((event) => event.start < measureEnd && event.end > measureStart)
       .map((event) => ({
-        duration: Math.min(event.durationMs, measureDuration - (event.startMs - measureStart)),
+        duration: Math.min(event.end, measureEnd) - Math.max(event.start, measureStart),
         midi: event.midi,
-        start: event.startMs - measureStart,
-        tie: "none" as const,
+        start: Math.max(0, event.start - measureStart),
+        tie: event.start < measureStart ? 'continue' as const : 'none' as const,
       }));
     return { duration: measureDuration, events: measureEvents, number: index + 1 };
   });

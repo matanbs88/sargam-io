@@ -1,5 +1,17 @@
 # Sargam.io project source of truth
 
+## Active directive — 2026-09-16
+
+The founder authorized a week of autonomous preview-only development and a
+substantive design reset. Follow the [autonomous sprint contract](./operations/AUTONOMOUS_WEEK_2026-09-16.md).
+Earlier visual choices are not fixed constraints. Build four meaningfully
+different interactive alternatives before requesting a final design choice.
+Preserve musical correctness and production. Ventus prototype investigation is
+authorized at the supplied local folder. The goal is active, but scheduling is
+not yet verified: automation tool calls failed with a closed transport on setup.
+The dated status below is historical and does not describe the September 15
+preview deployment; see the [pilot checkpoint](./audits/PILOT_PIECE_2026-09-15.md).
+
 **Status date:** 2026-09-09
 **Deployment:** Not reverified this session; previous recorded deployment was `e059a27`. Local timing changes have not been deployed.
 **Public preview:** <https://sargam-io.vercel.app/>  

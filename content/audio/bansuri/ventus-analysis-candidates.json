@@ -1,0 +1,12 @@
+{
+  "status": "analysis-only-not-a-playback-manifest",
+  "method": "100ms normalized-autocorrelation windows; confidence >= 0.95; candidate spans <= 60 cents range",
+  "sourceSubdirectory": "Phrases WAV/5 UniqueNotesPhrases",
+  "requires": ["independent pitch verification", "audition", "trim/fade preparation", "loop continuity QA", "browser playback QA"],
+  "candidates": [
+    { "file": "Phrases_Close_212.wav", "startSeconds": 0.3, "endSeconds": 4.0, "measuredMidi": 65.993, "nearestMidi": 66, "tuningCents": -0.7, "rangeCents": 20.4 },
+    { "file": "Phrases_Close_029.wav", "startSeconds": 1.2, "endSeconds": 4.2, "measuredMidi": 66.054, "nearestMidi": 66, "tuningCents": 5.4, "rangeCents": 43.0 },
+    { "file": "Phrases_Close_137.wav", "startSeconds": 0.4, "endSeconds": 2.2, "measuredMidi": 69.119, "nearestMidi": 69, "tuningCents": 11.9, "rangeCents": 42.0 },
+    { "file": "Phrases_Close_136.wav", "startSeconds": 0.5, "endSeconds": 2.4, "measuredMidi": 71.181, "nearestMidi": 71, "tuningCents": 18.1, "rangeCents": 36.7 }
+  ]
+}

@@ -1,0 +1,9 @@
+import Link from 'next/link';
+export const metadata = { title: 'Four practice directions · Sargam', robots: { index: false, follow: false } };
+const directions = [
+  ['studio', '01', 'Professional studio', 'A persistent library beside a focused instrument workspace.', '#14171a', '#e3ef98'],
+  ['score', '02', 'The living score', 'Read and play from the score; open instrument guidance only when needed.', '#faf9f5', '#243e87'],
+  ['riyaz', '03', 'The riyaz room', 'A spacious practice room anchored around Sa and the current phrase.', '#172e2c', '#f0d298'],
+  ['coach', '04', 'Practice coach', 'Listen, repeat eight notes slowly, then play the whole phrase.', '#f1f4fa', '#204bc4'],
+] as const;
+export default function Page() { return <main style={{ minHeight:'100vh', background:'#fff', color:'#20262c', padding:'clamp(24px,5vw,80px)', fontFamily:'Arial,sans-serif' }}><Link href="/">← Current app</Link><p style={{marginTop:40,letterSpacing:2}}>SARGAM / DESIGN EXPLORATION</p><h1 style={{fontSize:'clamp(36px,5vw,64px)',lineHeight:1.1,margin:'20px 0'}}>Four ways into the music.</h1><p style={{maxWidth:650,lineHeight:1.8}}>The same Ode to Joy study, the same audio engine, four different ways to practice. These are working design prototypes awaiting visual and interaction QA, not final production designs.</p><div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(min(100%,320px),1fr))',gap:24,marginTop:40}}>{directions.map(([slug,number,title,description,bg,ink]) => <Link key={slug} href={`/design-lab/${slug}`} style={{background:bg,color:ink,padding:32,textDecoration:'none',border:'1px solid #bac3cd',minHeight:250,display:'flex',flexDirection:'column',justifyContent:'space-between'}}><span>{number}</span><h2 style={{fontSize:30,margin:'24px 0 12px'}}>{title}</h2><p style={{lineHeight:1.7,margin:0}}>{description}</p><strong style={{marginTop:24}}>Try this direction →</strong></Link>)}</div></main>; }

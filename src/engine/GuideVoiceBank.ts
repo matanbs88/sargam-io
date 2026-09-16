@@ -10,6 +10,8 @@ export type VoiceSettings = {
   enabled: boolean;
   double: boolean;
   room: boolean;
+  /** Preview-only A/B voice. Default remains procedural until listening QA. */
+  bansuriVoice?: "procedural" | "ventus-study";
 };
 type Sample = { buffer: AudioBuffer; midi: number };
 
@@ -25,12 +27,15 @@ export class GuideVoiceBank implements AudioBackend {
   settings: VoiceSettings;
   constructor(private getContext: () => AudioContext, settings: VoiceSettings) { this.settings = settings; }
   configure(settings: VoiceSettings) {
-    if (settings.instrument !== this.settings.instrument) this.samples.clear();
+    if (settings.instrument !== this.settings.instrument || settings.bansuriVoice !== this.settings.bansuriVoice) this.samples.clear();
     this.settings = settings;
   }
   now = () => this.context?.currentTime ?? 0;
   isInterrupted = () => this.context !== null && this.context.state !== "running";
   private source(note: MidiNoteEvent) {
+    if (this.settings.instrument === "Bansuri" && this.settings.bansuriVoice === "ventus-study") {
+      return { url: "/audio/preview/ventus-fsharp4-sustain.wav", midi: 65.993 };
+    }
     return this.settings.instrument === "Piano"
       ? { url: getSalamanderSampleUrl(note.midi, undefined, note.velocity), midi: selectSalamanderSample(note.midi, note.velocity).midi }
       : { url: getHarmoniumSampleUrl(note.midi), midi: selectHarmoniumSample(note.midi).midi };
@@ -43,13 +48,16 @@ export class GuideVoiceBank implements AudioBackend {
     await context.resume();
     if (epoch !== this.epoch) throw new Error("Audio preparation cancelled");
     if (!this.settings.enabled) return;
-    if (this.settings.instrument === "Bansuri") {
+    if (this.settings.instrument === "Bansuri" && this.settings.bansuriVoice !== "ventus-study") {
       if (!this.noise) {
         this.noise = context.createBuffer(1, context.sampleRate, context.sampleRate);
         const data = this.noise.getChannelData(0);
         for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
       }
       return;
+    }
+    if (this.settings.instrument === "Bansuri" && events.some(note => note.midi < 60 || note.midi > 72 || note.pitchCurve?.length)) {
+      throw new Error("Ventus study voice supports C4–C5 without pitch slides. Choose the procedural voice for this score.");
     }
     this.controller?.abort();
     const controller = new AbortController(); this.controller = controller;
@@ -98,7 +106,7 @@ export class GuideVoiceBank implements AudioBackend {
       output.connect(delay).connect(wet).connect(ctx.destination);
       nodes.push(delay, wet);
     }
-    if (this.settings.instrument === "Bansuri") {
+    if (this.settings.instrument === "Bansuri" && this.settings.bansuriVoice !== "ventus-study") {
       const profile = getBansuriAudioProfile(note.midi, duration * 1000, note.velocity ?? 64);
       const vibrato = ctx.createOscillator(); const depth = ctx.createGain();
       vibrato.frequency.value = profile.vibratoHz; depth.gain.value = profile.vibratoDepthCents;
@@ -144,6 +152,10 @@ export class GuideVoiceBank implements AudioBackend {
         source.loopEnd = sample.buffer.duration * 0.85;
         source.connect(gain).connect(output); nodes.push(source, gain);
         const sampleOffset = source.loop ? 0 : offset * pitchRate;
+        if (this.settings.instrument === "Bansuri" && sampleOffset + duration * pitchRate > sample.buffer.duration) {
+          nodes.forEach(node => node.disconnect());
+          throw new Error("This note exceeds the experimental Ventus sustain. Choose a faster tempo or the procedural voice.");
+        }
         if (sampleOffset < sample.buffer.duration) {
           source.start(when, sampleOffset);
           sources.push(source);

@@ -5,7 +5,7 @@ import { GuideVoiceBank, type VoiceSettings } from "@/src/engine/GuideVoiceBank"
 import type { MidiNoteEvent } from "@/src/lib/midiToSargam";
 import { normalizeLoopRange, type EventLoopRange } from "@/src/lib/playback";
 
-export function useEngineTransport({ events, isEnabled, loopRange, playbackRate, getContext, instrument, enabled, double, room }: {
+export function useEngineTransport({ events, isEnabled, loopRange, playbackRate, getContext, instrument, enabled, double, room, bansuriVoice }: {
   events: readonly MidiNoteEvent[]; isEnabled: boolean; loopRange: EventLoopRange | null;
   playbackRate: number; getContext: () => AudioContext;
 } & VoiceSettings) {
@@ -22,8 +22,8 @@ export function useEngineTransport({ events, isEnabled, loopRange, playbackRate,
     } : null);
   }, [engine, events, loopRange]);
   useEffect(() => {
-    engine.pause(); bank.configure({ instrument, enabled, double, room });
-  }, [engine, bank, instrument, enabled, double, room]);
+    engine.pause(); bank.configure({ instrument, enabled, double, room, bansuriVoice });
+  }, [engine, bank, instrument, enabled, double, room, bansuriVoice]);
   useEffect(() => { if (!isEnabled) engine.pause(); }, [engine, isEnabled]);
   useEffect(() => {
     const timer = setInterval(() => {

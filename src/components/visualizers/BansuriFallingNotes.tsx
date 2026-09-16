@@ -85,6 +85,6 @@ export function BansuriFallingNotes({ events, rootMidi, notationSystem, readTime
       </figure>
       <div className="min-w-0 overflow-x-auto"><canvas ref={canvasRef} role="img" aria-label="Bansuri pitch timeline. The adjacent flute shows the complete fingering, not one hole per pitch." className="block h-full min-h-[320px] w-full min-w-[480px]" /></div>
     </div>
-    <p className="px-4 py-3 text-xs text-[#b7c5d0]">○ open · split half-covered · ✓ closed. Generic profile: register and breath technique require calibration. Sound: procedural flute until Ventus samples are prepared.</p>
+    <p className="px-4 py-3 text-xs text-[#b7c5d0]">○ open · split half-covered · ✓ closed. Generic profile: register and breath technique require calibration.</p>
   </section>;
 }
