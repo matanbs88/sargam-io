@@ -104,7 +104,7 @@ Record volume, geography, reporting date, trend, intent, competing results, and 
 
 ## Proposed product priorities
 
-1. **Finish the core promise first.** Deliver source-verified complete catalog entries and a measured live audio-transcription path. The October 1 checkpoint records 35 playable studies/exercises plus two source-verified complete pieces (37 ready entries, only 2/100 verified complete), and labels the transcription demo as Mock. A converter page must not conceal those gaps.
+1. **Finish the core promise first.** Deliver source-verified complete catalog entries and a measured live audio-transcription path. The latest October 1 checkpoint records 35 playable studies/exercises plus three source-verified complete pieces (38 ready entries, only 3/100 verified complete), and labels the transcription demo as Mock. A converter page must not conceal those gaps.
 2. **Add a small free notation converter.** Input format, output format, explicit Sa, paired preview, copy/download, and Open in Practice. Deterministic note conversion should not incur audio-provider calls. Keep the primary home action for YouTube/audio.
 3. **Introduce correction of rhythm as well as pitch.** Users need onset, duration, rests, bar structure, and phrase corrections before exporting or trusting transcription. Show ambiguous results explicitly.
 4. **Make library entries discoverable individually.** Propose canonical `/songs/[slug]` pages with immediate notation, title/composer/source/version, practice and PDF. These are a recommendation, not an assertion that the current app already exposes them.
@@ -124,6 +124,12 @@ Publish a first set of individually searchable, complete song pages and measure 
 ### Evidence limits and refresh
 
 #### October 1 evidence refresh
+
+The latest requested web review reopened both supplied converters, their relevant app listing, Swarakosh, SRGM.io, Bollypiano and the Semrush report. It also retrieved [Sargam Sikho](https://www.sargamsikho.in/), which advertises a searchable Bollywood/classical/folk notation library, and [Songbook](https://songnotations.vercel.app/), whose public catalog describes highlighted notation with listening for flute, harmonium and piano. These are additional catalog/practice competitors; their accuracy, complete repertoire, ownership and active-user counts have not been independently verified. Their public positioning reinforces that searchable notation and synchronized practice are not unique propositions.
+
+Direct Similarweb profiles for [IndiPiano](https://www.similarweb.com/website/indipiano.com/) and [Kavitha](https://www.similarweb.com/website/kavithaanbarasu.com/) could not be retrieved. Searches still returned no usable dated domain-specific audience estimate. Record this as unavailable evidence, not a zero-traffic estimate. The Semrush figures below remain January 2026 historical estimates; this review did not obtain October traffic or a comprehensive current search-volume export.
+
+Priority after catalog/core transcription gates: (1) source-and-output comparison with explicit Sa, (2) deterministic text conversion without provider cost, (3) rhythm-aware correction, (4) individually indexed song pages, and (5) teacher-validated tradition-specific notation. Keep conversion, script selection and audible transposition separate. Adoption of these lessons is proposed here; no converter functionality was implemented in this research pass.
 
 Additional discovery during the founder's requested review: [Swara Notebook](https://swaranotebook.com/) advertises Bhatkhande-format editing, playback while typing, and Bangla/English/Devanagari. Its public counter reports 175 bandishes and 33,605 notes across four taals and three languages. This is a self-reported content counter, not a user or traffic count. Search also surfaced [Playsoloist's harmonium page](https://www.playsoloist.com/harmonium), describing on-device transcription and feedback, but the direct page could not be retrieved; treat it as a competitor lead, not independently verified functionality. Fresh public searches for the two supplied domains still yielded no reliable traffic or active-user estimates.
 

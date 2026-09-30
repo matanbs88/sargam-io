@@ -60,3 +60,76 @@ and repeats. Transcribe the full printed refrain/verse with its repeats,
 explicitly label the historical strophic edition, and do not invent lyric
 underlay for later stanzas or alter source pitches to fit a modern raga scale.
 No new Indian source is counted complete yet.
+
+### Source timing review and rest importer checkpoint
+
+The independent rhythm audit found literal division lengths of
+2, 4, 4, 2, 2.5, 4, 5, 5, 2.5 quarter beats in Sohini's printed refrain/verse.
+Main-agent high-resolution inspection independently confirms the two-quarter
+opening (dotted eighth, two thirty-seconds, four sixteenths). PDF49-50 describe
+tala divisions and eight matras to a Madhyamana bar, but do not establish a
+mapping that makes every printed division a full Western common-time measure.
+Evidence is saved in `content/catalog/research/sohini-1877-rhythm-review.json`.
+Do not pad, double all note values, or discard source boundaries to pass a
+four-beat validator. The independent research-only full pitch ledger is saved
+in `content/catalog/research/sohini-1877-literal-ledger.json`: 105 notes and
+seven rests. No runtime or live completeness is claimed for this edition.
+
+`verifiedMelodyEvents` now advances its cumulative clock through explicit
+nullable rests without phantom pitches, including silent bars and repeats.
+It validates note pair shape, rest duration and section references, and rounds
+cumulative triplet time rather than accumulating rounded note lengths.
+Existing three complete sources remain unchanged. The full suite passed:
+62 files / 277 tests after adding 2/4 meter preservation and import tests.
+TypeScript and production build passed before the final 2/4 additions; final
+build validation is still required before promotion.
+This is importer groundwork, not a fourth complete live song. Ending silence
+is not claimed as a verified UI/export feature by this note-only adapter.
+
+Parallel source discovery found Hymnary's traditional RAM tune for Raghupati
+Raghav, declared public domain, with a complete scan in Singing the Living
+Tradition (1993), p.226. The scan subsequently loaded in Chrome. The independent
+research ledger is saved in `content/catalog/research/raghupati-hymnary-reviewed.json`:
+20 written bars in 2/4, opening eight repeated, 28 performed bars and 33.6 seconds
+at 100 BPM. Main-agent pitch cross-check, registration, export, runtime and live
+acceptance gates remain unfinished. It is not counted complete. This is
+independent work while the historical Sohini meter discrepancy remains under review.
+https://hymnary.org/tune/ram_hindu
+https://hymnary.org/hymn/SLT1993/page/226
+
+### Raghupati registered locally - not live complete
+
+`content/catalog/verified/raghupati-raghav.json` now declares the full upper
+melody with form opening-opening-verse/refrain: 28 performed 2/4 bars, 80 onsets,
+33.6 seconds at 100 BPM, reference C4. It preserves the printed final F4, local
+Bb/Eb/Ab, dotted rhythm, two triplet groups and stanza-1 optional E4 ties.
+No accompaniment or source image is redistributed. Registered as Devotional;
+local ready count 39. Live verified count remains 3/100.
+
+Main provisional reading and independent complete scan ledger match. Main's
+fresh third-system pixel recheck could not be completed: Chrome browser 3
+became unavailable; authorized direct public fetch returned a browser security
+challenge. Independent reviewer reconfirmed recorded bar 13 D4-F4-F4 and
+bar 14 G4-Ab4-G4 from original full-resolution observation, not a new fetch.
+No browser challenge was bypassed.
+
+New reusable catalog PDF acceptance tests compare every exported onset with
+the complete played melody for all four registered verified sources. Raghupati
+actual PDF handler returned 200 application/pdf; rendered local one-page output
+shows all 28 bars, source/edition credit, Roman Sargam, no clipping. This is a
+local artifact, not evidence of production download. Source-ledger and meter
+tests pass; instrument runtime, public Library and live PDF gates remain.
+
+Previous continuation classification: progress (rest/2/4 adapter validation and
+independent source ledgers), not a completed fourth song. Current continuation
+adds a full local candidate and reusable export acceptance, not placeholders.
+
+Final local checks for this continuation: 63 test files / 283 tests passed;
+TypeScript and optimized production build passed. The catalog regression test
+now asserts 127 total entries, 39 locally ready and 88 planned, including the
+Devotional 2/4 candidate. These inventory totals are not a completed-song count.
+Next acceptance action: open `?score=verified-raghupati-raghav-complete#practice`
+in available Chrome, verify full 28-bar reading and each instrument to Replay
+at 33,600 ms, then promote the scoped catalog release and verify public library
+discovery plus the actual production PDF. Preserve Mehfil; do not claim a
+fourth live-complete piece until these gates pass.

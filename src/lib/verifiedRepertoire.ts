@@ -1,12 +1,19 @@
 import minuet from "../../content/catalog/verified/minuet-g.json";
 import silentNight from "../../content/catalog/verified/silent-night.json";
 import wenceslas from "../../content/catalog/verified/good-king-wenceslas.json";
+import raghupati from "../../content/catalog/verified/raghupati-raghav.json";
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
 
 /** Source-reviewed bar data, not approximate familiar-tune fixtures. */
-type VerifiedMelody = Pick<typeof minuet, "title" | "tempoBpm" | "form" | "sections"> & {
-  timeSignature?: string;
+export type VerifiedMelody = {
+  readonly title: string;
+  readonly tempoBpm: number;
+  readonly form: readonly number[];
+  /** null is a written rest; its duration advances the source clock. */
+  // JSON imports infer arrays rather than tuples; enforce the pair shape below.
+  readonly sections: readonly (readonly (readonly (readonly (number | null)[])[])[])[];
+  readonly timeSignature?: string;
 };
 
 export function verifiedMelodyEvents(score: VerifiedMelody): readonly MidiNoteEvent[] {
@@ -18,26 +25,39 @@ export function verifiedMelodyEvents(score: VerifiedMelody): readonly MidiNoteEv
   if (!Number.isFinite(beatsPerBar) || beatsPerBar <= 0) {
     throw new Error(`Verified ${score.title} needs a positive measure length.`);
   }
+  if (score.form.length === 0) {
+    throw new Error(`Verified ${score.title} form must reference a nonempty source section.`);
+  }
   const beatMs = 60_000 / score.tempoBpm;
   let beat = 0;
-  return score.form.flatMap((section) =>
-    score.sections[section].flatMap((bar) => {
-      if (bar.some(([midi, duration]) => !Number.isInteger(midi) || midi < 0 || midi > 127 || !Number.isFinite(duration) || duration <= 0)
-          || Math.abs(bar.reduce((sum, [, duration]) => sum + duration, 0) - beatsPerBar) > 1e-9) {
+  return score.form.flatMap((section) => {
+    if (!Number.isInteger(section) || section < 0 || !score.sections[section]?.length) {
+      throw new Error(`Verified ${score.title} form must reference a nonempty source section.`);
+    }
+    return score.sections[section].flatMap((bar) => {
+      if (bar.some((note) => note.length !== 2 || (note[0] !== null && (!Number.isInteger(note[0]) || note[0]! < 0 || note[0]! > 127)) || typeof note[1] !== "number" || !Number.isFinite(note[1]) || note[1] <= 0)
+          || Math.abs(bar.reduce((sum, [, duration]) => sum + (duration ?? 0), 0) - beatsPerBar) > 1e-9) {
         throw new Error(`Verified ${score.title} measure must contain ${beatsPerBar} quarter beats and valid notes.`);
       }
-      return bar.map(([midi, duration]) => {
+      return bar.flatMap(([midi, duration]) => {
         const startMs = Math.round(beat * beatMs);
-        beat += duration;
-        return {
+        // Pair shape and numeric duration were validated for the whole bar.
+        beat += duration!;
+        // Rest time is not converted into a phantom MIDI note or collapsed.
+        if (midi === null) return [];
+        const durationMs = Math.round(beat * beatMs) - startMs;
+        if (durationMs <= 0) {
+          throw new Error(`Verified ${score.title} note is shorter than the millisecond playback resolution.`);
+        }
+        return [{
           midi,
           startMs,
-          durationMs: Math.round(beat * beatMs) - startMs,
+          durationMs,
           velocity: 88,
-        };
+        }];
       });
-    }),
-  );
+    });
+  });
 }
 
 export function minuetMelodyEvents(): readonly MidiNoteEvent[] {
@@ -45,12 +65,12 @@ export function minuetMelodyEvents(): readonly MidiNoteEvent[] {
 }
 
 // Ready means source-reviewed playable data; live-complete is separately audited in the ledger.
-export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [minuet, silentNight, wenceslas].map((score) => ({
+export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [minuet, silentNight, wenceslas, raghupati].map((score) => ({
   id: score.id,
   title: score.title,
   artistOrSource: `${score.composer} · ${score.edition}`,
-  language: "Instrumental",
-  category: "Public domain",
+  language: score.id === raghupati.id ? "Hindi · instrumental melody" : "Instrumental",
+  category: score.id === raghupati.id ? "Devotional" : "Public domain",
   difficulty: "Intermediate",
   instruments: ["Piano", "Harmonium", "Bansuri"],
   status: "ready",
@@ -67,6 +87,6 @@ export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [minuet, silentNight,
 }));
 
 function catalogMeter(meter: string): CatalogSong["timeSignature"] {
-  if (meter === "3/4" || meter === "4/4" || meter === "3/8" || meter === "6/8") return meter;
+  if (meter === "2/4" || meter === "3/4" || meter === "4/4" || meter === "3/8" || meter === "6/8") return meter;
   throw new Error(`Unsupported catalog meter: ${meter}`);
 }

@@ -17,6 +17,12 @@ See [new acceptance evidence](./audits/CATALOG_NEXT_PIECES_2026-10-01.md).
 The 35 older studies/exercises are not counted as newly verified complete songs.
 The full 100-piece goal remains active; Mehfil is preserved.
 
+Local next candidate: Raghupati Raghav / RAM, complete specified hymnal upper
+melody, 28 performed bars, 80 onsets, 33.6 seconds, 2/4 at 100 BPM, Sa C4.
+Source-ledger comparison and local one-page PDF checks pass. It increases the
+local ready count to 39, not the production verified-complete count. Browser
+playback and public deployment/download acceptance remain outstanding.
+
 ## Current authority and acceptance criteria — 2026-09-30
 
 The founder selected **Mehfil** and authorized independent UI/UX audit,

@@ -1,0 +1,1601 @@
+{
+  "schema": "research-literal-music-ledger-v1",
+  "status": "RESEARCH_ONLY",
+  "title": "Sohini: Nindati-chandana / Sa virahe tava dina",
+  "scope": "Entire printed refrain and first verse, read once in page order; not the entire textual ashtapadi.",
+  "restrictions": {
+    "register": false,
+    "publish": false,
+    "countAsVerifiedRepertoire": false,
+    "metricalRepair": false,
+    "repeatExpansion": false
+  },
+  "source": {
+    "edition": "Sourindro Mohun Tagore, Six Principal Ragas, second edition, 1877; Appendix, Songs of Jayadeva",
+    "pdf": "tmp/pdfs/jayadeva-1877-research.pdf",
+    "pdfPagesOneBased": [
+      115,
+      116
+    ],
+    "printedPages": [
+      "vi",
+      "vii"
+    ],
+    "printedRaga": "Sohini",
+    "printedTala": "Madhyamana",
+    "printedTimeSignature": "C",
+    "clef": "treble",
+    "keySignature": "none"
+  },
+  "method": {
+    "pitch": "Independent visual reading of noteheads relative to all five local, sloping staff lines and ledger lines. No remembered melody or modern raga-based correction.",
+    "midiConvention": "C4=60; literal written pitches, no transposition or inferred tonic.",
+    "pairs": "Each [MIDI or null, quarter-note duration] is one printed attack or rest. Array order is page-reading order. Null means a printed rest, never an unknown pitch.",
+    "exactDurations": "durationQuarterFractions is aligned with pairs and authoritative: [numerator, denominator]. Numeric thirds in pairs are approximate IEEE floating-point values.",
+    "divisions": "D1-D9 are consecutive printed-barline divisions, not assertions of western four-quarter measures. System breaks do not create divisions.",
+    "ties": "No tie merging applied. The inspected curves connect different pitches or indicate triplet/slur groups; no definite printed same-pitch tie identified.",
+    "sourceCoordinates": "sourceSegments use 1-based event indices within each division. Boxes are approximate [x,y,width,height] pixels on full-page 240-dpi renders, top-left origin; renders 2022x2646. Systems counted from the first musical staff on each page.",
+    "restReading": "One-hook quaver rest=0.5 quarter; two-hook semiquaver rest=0.25 quarter; dotted one-hook rest=0.75 quarter. Count hooks, not intersecting staff lines."
+  },
+  "summary": {
+    "divisionTotalsQuarter": [
+      2,
+      4,
+      4,
+      2,
+      2.5,
+      4,
+      5,
+      5,
+      2.5
+    ],
+    "totalQuarterWrittenOnce": 31,
+    "eventCount": 112,
+    "noteCount": 105,
+    "restCount": 7,
+    "pitchRangeMidi": [
+      57,
+      73
+    ],
+    "lastSixMidi": [
+      65,
+      65,
+      65,
+      69,
+      69,
+      65
+    ]
+  },
+  "divisions": [
+    {
+      "id": "D1",
+      "section": "refrain",
+      "pairs": [
+        [
+          64,
+          0.75
+        ],
+        [
+          62,
+          0.125
+        ],
+        [
+          60,
+          0.125
+        ],
+        [
+          59,
+          0.25
+        ],
+        [
+          57,
+          0.25
+        ],
+        [
+          57,
+          0.25
+        ],
+        [
+          59,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          3,
+          4
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "E4",
+        "D4",
+        "C4",
+        "B3",
+        "A3",
+        "A3",
+        "B3"
+      ],
+      "totalQuarter": 2,
+      "sourceSegments": [
+        {
+          "pdfPage": 115,
+          "system": 1,
+          "eventIndicesInclusive": [
+            1,
+            7
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            500,
+            1050,
+            800,
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "section": "refrain",
+      "pairs": [
+        [
+          60,
+          0.25
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          null,
+          0.5
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          null,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          null,
+          0.25
+        ],
+        [
+          65,
+          0.125
+        ],
+        [
+          65,
+          0.125
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "C4",
+        "E4",
+        "rest",
+        "F4",
+        "A4",
+        "A4",
+        "F4",
+        "rest",
+        "F4",
+        "rest",
+        "F4",
+        "F4",
+        "F4",
+        "F4",
+        "F4",
+        "F4"
+      ],
+      "totalQuarter": 4,
+      "sourceSegments": [
+        {
+          "pdfPage": 115,
+          "system": 1,
+          "eventIndicesInclusive": [
+            1,
+            3
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            1380,
+            1070,
+            250,
+            110
+          ]
+        },
+        {
+          "pdfPage": 115,
+          "system": 2,
+          "eventIndicesInclusive": [
+            4,
+            14
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            500,
+            1360,
+            1100,
+            125
+          ]
+        },
+        {
+          "pdfPage": 115,
+          "system": 3,
+          "eventIndicesInclusive": [
+            15,
+            16
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            510,
+            1640,
+            170,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "section": "refrain",
+      "pairs": [
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.5
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          64,
+          0.5
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "F4",
+        "F4",
+        "F4",
+        "F4",
+        "F4",
+        "E4",
+        "E4",
+        "E4",
+        "E4",
+        "E4",
+        "F4",
+        "A4",
+        "C5",
+        "C5"
+      ],
+      "totalQuarter": 4,
+      "sourceSegments": [
+        {
+          "pdfPage": 115,
+          "system": 3,
+          "eventIndicesInclusive": [
+            1,
+            7
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            750,
+            1650,
+            850,
+            125
+          ]
+        },
+        {
+          "pdfPage": 115,
+          "system": 4,
+          "eventIndicesInclusive": [
+            8,
+            14
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            500,
+            1935,
+            800,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "section": "refrain",
+      "pairs": [
+        [
+          71,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "B4",
+        "A4",
+        "F4",
+        "E4",
+        "F4",
+        "A4",
+        "A4",
+        "F4"
+      ],
+      "totalQuarter": 2,
+      "sourceSegments": [
+        {
+          "pdfPage": 115,
+          "system": 4,
+          "eventIndicesInclusive": [
+            1,
+            2
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-115.png",
+          "box240Dpi": [
+            1420,
+            1950,
+            160,
+            130
+          ]
+        },
+        {
+          "pdfPage": 116,
+          "system": 1,
+          "eventIndicesInclusive": [
+            3,
+            8
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            450,
+            830,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "section": "first verse",
+      "pairs": [
+        [
+          null,
+          0.25
+        ],
+        [
+          69,
+          0.125
+        ],
+        [
+          65,
+          0.125
+        ],
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          72,
+          0.3333333333333333
+        ],
+        [
+          72,
+          0.3333333333333333
+        ],
+        [
+          72,
+          0.5
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "rest",
+        "A4",
+        "F4",
+        "A4",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "C5"
+      ],
+      "totalQuarter": 2.5,
+      "sourceSegments": [
+        {
+          "pdfPage": 116,
+          "system": 1,
+          "eventIndicesInclusive": [
+            1,
+            1
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            1540,
+            470,
+            70,
+            90
+          ]
+        },
+        {
+          "pdfPage": 116,
+          "system": 2,
+          "eventIndicesInclusive": [
+            2,
+            9
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            715,
+            810,
+            125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D6",
+      "section": "first verse",
+      "pairs": [
+        [
+          72,
+          0.5
+        ],
+        [
+          null,
+          0.25
+        ],
+        [
+          72,
+          0.125
+        ],
+        [
+          72,
+          0.125
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.5
+        ],
+        [
+          null,
+          0.25
+        ],
+        [
+          72,
+          0.125
+        ],
+        [
+          72,
+          0.125
+        ],
+        [
+          72,
+          0.5
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "C5",
+        "rest",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "rest",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "C5"
+      ],
+      "totalQuarter": 4,
+      "sourceSegments": [
+        {
+          "pdfPage": 116,
+          "system": 2,
+          "eventIndicesInclusive": [
+            1,
+            2
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            1410,
+            735,
+            200,
+            110
+          ]
+        },
+        {
+          "pdfPage": 116,
+          "system": 3,
+          "eventIndicesInclusive": [
+            3,
+            13
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            975,
+            1100,
+            135
+          ]
+        },
+        {
+          "pdfPage": 116,
+          "system": 4,
+          "eventIndicesInclusive": [
+            14,
+            15
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            1260,
+            150,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D7",
+      "section": "first verse",
+      "pairs": [
+        [
+          71,
+          0.3333333333333333
+        ],
+        [
+          72,
+          0.3333333333333333
+        ],
+        [
+          73,
+          0.3333333333333333
+        ],
+        [
+          73,
+          0.25
+        ],
+        [
+          71,
+          0.25
+        ],
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          65,
+          0.3333333333333333
+        ],
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          null,
+          0.75
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          64,
+          0.25
+        ],
+        [
+          64,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "B4",
+        "C5",
+        "Db5",
+        "Db5",
+        "B4",
+        "A4",
+        "F4",
+        "A4",
+        "rest",
+        "F4",
+        "F4",
+        "F4",
+        "F4",
+        "F4",
+        "E4",
+        "E4"
+      ],
+      "totalQuarter": 5,
+      "sourceSegments": [
+        {
+          "pdfPage": 116,
+          "system": 4,
+          "eventIndicesInclusive": [
+            1,
+            10
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            750,
+            1260,
+            850,
+            115
+          ]
+        },
+        {
+          "pdfPage": 116,
+          "system": 5,
+          "eventIndicesInclusive": [
+            11,
+            16
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            1520,
+            620,
+            120
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D8",
+      "section": "first verse",
+      "pairs": [
+        [
+          65,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          65,
+          0.3333333333333333
+        ],
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.25
+        ],
+        [
+          72,
+          0.3333333333333333
+        ],
+        [
+          71,
+          0.3333333333333333
+        ],
+        [
+          73,
+          0.3333333333333333
+        ],
+        [
+          73,
+          0.25
+        ],
+        [
+          71,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "F4",
+        "A4",
+        "F4",
+        "A4",
+        "A4",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "C5",
+        "B4",
+        "Db5",
+        "Db5",
+        "B4",
+        "A4",
+        "A4",
+        "F4",
+        "A4"
+      ],
+      "totalQuarter": 5,
+      "sourceSegments": [
+        {
+          "pdfPage": 116,
+          "system": 5,
+          "eventIndicesInclusive": [
+            1,
+            5
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            1240,
+            1520,
+            360,
+            130
+          ]
+        },
+        {
+          "pdfPage": 116,
+          "system": 6,
+          "eventIndicesInclusive": [
+            6,
+            18
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            1770,
+            1100,
+            125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D9",
+      "section": "first verse",
+      "pairs": [
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          71,
+          0.3333333333333333
+        ],
+        [
+          69,
+          0.3333333333333333
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          69,
+          0.25
+        ],
+        [
+          65,
+          0.25
+        ]
+      ],
+      "durationQuarterFractions": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "pitchSpellings": [
+        "A4",
+        "B4",
+        "A4",
+        "F4",
+        "F4",
+        "F4",
+        "A4",
+        "A4",
+        "F4"
+      ],
+      "totalQuarter": 2.5,
+      "sourceSegments": [
+        {
+          "pdfPage": 116,
+          "system": 7,
+          "eventIndicesInclusive": [
+            1,
+            9
+          ],
+          "render": "tmp/pdfs/nindati-rhythm-240-116.png",
+          "box240Dpi": [
+            500,
+            2030,
+            1000,
+            125
+          ]
+        }
+      ]
+    }
+  ],
+  "repeatBoundaries": [
+    {
+      "afterDivision": "D4",
+      "beforeDivision": "D5",
+      "pdfPage": 116,
+      "system": 1,
+      "box240Dpi": [
+        1380,
+        470,
+        80,
+        90
+      ],
+      "printedSymbol": ":||:",
+      "reading": "Dots on both sides: backward-repeat closure and forward-repeat opening. The verse-leading rest is to the right of this boundary.",
+      "performanceUncertainty": "No explicit opening repeat before D1. Return to the beginning is a conventional inference, not expanded here. The forward-repeat opening has no matching dotted closure on the final printed staff."
+    },
+    {
+      "afterDivision": "D9",
+      "pdfPage": 116,
+      "system": 7,
+      "box240Dpi": [
+        1490,
+        2030,
+        65,
+        110
+      ],
+      "printedSymbol": "plain final double bar",
+      "reading": "No repeat dots visible. Do not silently turn it into a backward repeat."
+    }
+  ],
+  "conventionEvidence": [
+    {
+      "pdfPage": 49,
+      "printedPage": "45",
+      "topic": "vibhajika rekha",
+      "finding": "Introduction describes vertical lines dividing the tala mancha according to matras and calls these bars. This is evidence of a tala-oriented use of divisions, not proof of the precise quarter-note mapping in this appendix."
+    },
+    {
+      "pdfPage": 50,
+      "printedPage": "46",
+      "topic": "Madhyamana",
+      "finding": "Introduction identifies eight matras to a bar for Madhyamana. No demonstrated mapping of those eight matras to four quarter notes in this particular staff transcription; does not authorize padding the unequal literal totals."
+    }
+  ],
+  "uncertainties": [
+    {
+      "id": "meter-mapping",
+      "severity": "blocks-meter-certification",
+      "finding": "C is printed but literal D1 is 2 quarter notes; divisions have unequal totals. Whether this is tala segmentation, historical practice, or engraving inconsistency is unresolved. No pickup assertion, regrouping, padding, deletion, or inferred missing rest.",
+      "affectedDivisions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9"
+      ]
+    },
+    {
+      "id": "repeat-performance",
+      "severity": "blocks-performance-order-certification",
+      "finding": "Combined repeat after D4 and plain final double bar leave verse-repeat completion and full performance ordering unresolved. Ledger records printed order once only."
+    },
+    {
+      "id": "historical-rest-interpretation",
+      "severity": "explicit-reading-assumption",
+      "finding": "Seven rests read using historical hook conventions; D7 event 9 is dotted eighth, not dotted quarter. Retain scan evidence for a second-reader check.",
+      "locations": [
+        {
+          "division": "D2",
+          "events": [
+            3,
+            8,
+            10
+          ]
+        },
+        {
+          "division": "D5",
+          "events": [
+            1
+          ]
+        },
+        {
+          "division": "D6",
+          "events": [
+            2,
+            10
+          ]
+        },
+        {
+          "division": "D7",
+          "events": [
+            9
+          ]
+        }
+      ],
+      "cropReferences": [
+        "tmp/pdfs/nindati-rests-600.png",
+        "tmp/pdfs/nindati-rest-orientation-800.png"
+      ]
+    },
+    {
+      "id": "tonic",
+      "severity": "not-inferred",
+      "finding": "No key signature and raga title do not by themselves establish a western key or tonic MIDI. Pitches are absolute written staff values; no modern Sohini scale normalization."
+    },
+    {
+      "id": "pitch-review",
+      "severity": "resolved-geometry-not-performance",
+      "finding": "No unresolved notehead pitch in this literal reading. In particular D8 events 10-14 read C5-B4-Db5-Db5-B4 (72,71,73,73,71), events 15-18 A4-A4-F4-A4 (69,69,65,69). Flats lie on the D5 line, not the C5 space. D7 events 3 and 4 are also Db5.",
+      "source": {
+        "pdfPage": 116,
+        "system": 6,
+        "box240Dpi": [
+          850,
+          1780,
+          730,
+          110
+        ],
+        "highResolutionCrop": "tmp/pdfs/nindati-p116-bottom-600.png"
+      },
+      "note": "This supersedes any provisional Cb5 or B4-A4-Cb5 reading; stylistic plausibility was not used."
+    }
+  ],
+  "inspectionImages": [
+    "tmp/pdfs/nindati-first-staff-600.png",
+    "tmp/pdfs/nindati-p115-middle-600.png",
+    "tmp/pdfs/nindati-p115-system4-600.png",
+    "tmp/pdfs/nindati-p116-top-600.png",
+    "tmp/pdfs/nindati-p116-middle-600.png",
+    "tmp/pdfs/nindati-p116-bottom-600.png"
+  ]
+}

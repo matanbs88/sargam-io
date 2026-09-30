@@ -1,0 +1,36 @@
+{
+  "title": "Nindati-chandana / Sa virahe tava dina",
+  "status": "research-only-source-meter-mismatch",
+  "reviewed": "2026-10-01",
+  "source": "https://urresearch.rochester.edu/fileDownloadForInstitutionalItem.action?itemId=27236&itemFileId=109486",
+  "edition": "Sourindro Mohun Tagore, Six Principal Ragas, second edition, 1877, appendix pages vi-viii",
+  "printedRaga": "Sohini",
+  "printedTala": "Madhyamana",
+  "printedSignature": "C",
+  "conventionEvidence": [
+    { "pdfPage": 49, "printedPage": 45, "finding": "Vertical vibhajika rekha divides the tala's mancha by matras; translated as bars." },
+    { "pdfPage": 50, "printedPage": 46, "finding": "Madhyamana example labels eight matras to the bar; mapping to appendix Western quarter notes is not explained." }
+  ],
+  "literalDivisionQuarterBeats": [2, 4, 4, 2, 2.5, 4, 5, 5, 2.5],
+  "openingIndependentlyConfirmed": {
+    "location": "PDF115 first staff, before di",
+    "durations": [0.75, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25],
+    "quarterBeatTotal": 2,
+    "finding": "Dotted eighth, two thirty-seconds and four sixteenths. Main visual reading and independent agent agree."
+  },
+  "independentRhythmReview": {
+    "restConvention": "Left-facing one-hook rest is an eighth; two-hook rest is a sixteenth. Do not count staff lines as rest hooks.",
+    "triplets": "Single-beamed triplets marked 3 have one-third quarter-beat duration per note.",
+    "dottedRest": "D7 contains a dotted eighth rest, three-quarters of a quarter beat.",
+    "repeat": "PDF116 first staff double bar has dots on both sides; following rest belongs after the boundary. Final staff plain double bar has no repeat dots.",
+    "slurs": "Curves connecting different pitches are not ties."
+  },
+  "remainingGates": [
+    "Complete pitch/rest ledger and independent note-by-note comparison",
+    "Preserve printed division boundaries and literal timing; do not invent padding or silently relabel every division as a complete 4/4 measure",
+    "Resolve or clearly retain edition-specific meter uncertainty before catalog publication",
+    "Full readable Sargam, supported-instrument playback and visually verified PDF",
+    "Live library discovery and production acceptance"
+  ],
+  "countedComplete": false
+}

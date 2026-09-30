@@ -7,6 +7,14 @@ import {
 } from "./songCatalog";
 
 describe("MVP song catalog", () => {
+  it("retains a source's 2/4 signature during catalog attachment", () => {
+    const imported = attachImportedScoreToCatalog(SONG_CATALOG[0], {
+      noteEvents: [{ midi: 60, startMs: 0, durationMs: 1200 }],
+      sourceFormat: "musicxml", sourceRef: "test:two-beat-source", timeSignature: "2/4", title: "Source fixture",
+      validation: { issues: [], requiresReview: false, status: "ready" },
+    });
+    expect(imported.timeSignature).toBe("2/4");
+  });
   it("contains the committed 100-entry demand map", () => {
     expect(SONG_CATALOG).toHaveLength(100);
     expect(new Set(SONG_CATALOG.map((song) => song.id)).size).toBe(100);

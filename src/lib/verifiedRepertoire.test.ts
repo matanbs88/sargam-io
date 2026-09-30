@@ -4,9 +4,58 @@ import { readFileSync } from "node:fs";
 import source from "../../content/catalog/verified/minuet-g.json";
 import silentNight from "../../content/catalog/verified/silent-night.json";
 import wenceslas from "../../content/catalog/verified/good-king-wenceslas.json";
-import { minuetMelodyEvents, verifiedMelodyEvents, VERIFIED_REPERTOIRE } from "./verifiedRepertoire";
+import raghupati from "../../content/catalog/verified/raghupati-raghav.json";
+import raghupatiLedger from "../../content/catalog/research/raghupati-hymnary-reviewed.json";
+import { minuetMelodyEvents, verifiedMelodyEvents, VERIFIED_REPERTOIRE, type VerifiedMelody } from "./verifiedRepertoire";
 
 describe("verified repertoire meter validation", () => {
+  it("preserves two-beat bhajan measures rather than padding to common time", () => {
+    const events = verifiedMelodyEvents({ title: "Two-beat bhajan fixture", tempoBpm: 100,
+      timeSignature: "2/4", form: [0], sections: [[[[60, 0.5], [59, 0.5], [60, 1]], [[62, 2]]]] });
+    expect(events).toHaveLength(4);
+    expect(events.at(-1)).toEqual({ midi: 62, startMs: 1200, durationMs: 1200, velocity: 88 });
+  });
+  it("preserves leading rests, silent bars and repeated rests without phantom notes", () => {
+    const score: VerifiedMelody = { title: "Written rests", tempoBpm: 120,
+      timeSignature: "4/4", form: [0, 0], sections: [[
+        [[null, 1], [60, 1], [null, 1], [62, 1]],
+        [[null, 4]],
+        [[64, 4]],
+      ]] };
+    expect(verifiedMelodyEvents(score)).toEqual([
+      { midi: 60, startMs: 500, durationMs: 500, velocity: 88 },
+      { midi: 62, startMs: 1500, durationMs: 500, velocity: 88 },
+      { midi: 64, startMs: 4000, durationMs: 2000, velocity: 88 },
+      { midi: 60, startMs: 6500, durationMs: 500, velocity: 88 },
+      { midi: 62, startMs: 7500, durationMs: 500, velocity: 88 },
+      { midi: 64, startMs: 10000, durationMs: 2000, velocity: 88 },
+    ]);
+  });
+
+  it("validates rest durations and repeat section references", () => {
+    const score: VerifiedMelody = { title: "Bad rests", tempoBpm: 120,
+      timeSignature: "4/4", form: [0], sections: [[[[null, 4]]]] };
+    expect(verifiedMelodyEvents(score)).toEqual([]);
+    expect(() => verifiedMelodyEvents({ ...score, sections: [[[[null, -1], [60, 5]]]] })).toThrow("valid notes");
+    for (const section of [-1, 0.5, 1, NaN]) {
+      expect(() => verifiedMelodyEvents({ ...score, form: [section] })).toThrow("source section");
+    }
+    expect(() => verifiedMelodyEvents({ ...score, sections: [[]] })).toThrow("source section");
+    expect(() => verifiedMelodyEvents({ ...score, form: [] })).toThrow("source section");
+    for (const note of [[60], [60, 4, 1], [60, null], [null, NaN], [128, 4]]) {
+      expect(() => verifiedMelodyEvents({ ...score, sections: [[[note]]] })).toThrow("valid notes");
+    }
+  });
+
+  it("rounds cumulative triplet time rather than accumulating rounded durations", () => {
+    const notes: [number, number][] = Array.from({ length: 12 }, (_, i) => [60 + i % 3, 1 / 3]);
+    const events = verifiedMelodyEvents({ title: "Triplets", tempoBpm: 84,
+      timeSignature: "4/4", form: [0, 0], sections: [[notes]] });
+    expect(events).toHaveLength(24);
+    expect(events.at(-1)!.startMs + events.at(-1)!.durationMs).toBe(Math.round(8 * 60000 / 84));
+    expect(events.every((e, i) => i === 0 || e.startMs === events[i - 1].startMs + events[i - 1].durationMs)).toBe(true);
+  });
+
   it("uses the declared meter rather than assuming every source is a waltz", () => {
     const events = verifiedMelodyEvents({ title: "Four-beat fixture", tempoBpm: 120,
       timeSignature: "4/4", form: [0], sections: [[[[60, 1], [62, 1], [64, 2]]]] });
@@ -88,5 +137,30 @@ describe("complete Good King Wenceslas source intake", () => {
       expect(note!.durationTicks / midi.header.ppq * 500).toBe(event.durationMs);
     }
     expect(events.every((e, i) => i === 0 || e.startMs === events[i - 1].startMs + events[i - 1].durationMs)).toBe(true);
+  });
+});
+
+describe("complete Raghupati RAM source intake", () => {
+  it("matches every selected-stanza pitch and exact duration in the independent scan ledger", () => {
+    const written = raghupati.sections.flat();
+    expect(written).toHaveLength(20);
+    for (const [index, bar] of written.entries()) {
+      const ledger = raghupatiLedger.bars[index].selectedStanzaNotes;
+      expect(bar.map(([pitch]) => pitch)).toEqual(ledger.map(n => n.midi));
+      bar.forEach(([, beats], i) => expect(beats).toBeCloseTo(ledger[i].durationTicks / 12, 12));
+    }
+  });
+
+  it("unfolds the printed repeat without gaps and preserves the final source cadence", () => {
+    const events = verifiedMelodyEvents(raghupati);
+    expect(events).toHaveLength(80);
+    expect(events.at(-1)).toMatchObject({ midi: 65, startMs: 32400, durationMs: 1200 });
+    expect(events.every((e, i) => i === 0 || e.startMs === events[i - 1].startMs + events[i - 1].durationMs)).toBe(true);
+    expect(events.filter(e => e.durationMs === 200)).toHaveLength(6);
+    expect(VERIFIED_REPERTOIRE.find(s => s.id === raghupati.id)).toMatchObject({
+      timeSignature: "2/4", rootMidi: 60, tempoBpm: 100,
+    });
+    expect(raghupati.status).not.toBe("live-complete");
+    expect(raghupati.liveVerification).toEqual({ library: false, playback: false, pdf: false });
   });
 });

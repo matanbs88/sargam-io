@@ -1,0 +1,1141 @@
+{
+  "schemaVersion": 1,
+  "status": "research-only-independent-manual-scan-review",
+  "reviewedOn": "2026-10-01",
+  "title": "Raghupati",
+  "tune": "RAM",
+  "catalogEligible": false,
+  "published": false,
+  "countsTowardCatalog": false,
+  "scope": "Complete upper unison melody of the specified 20-written-bar hymnal setting. Not the bass accompaniment, not a generic arrangement of all Raghupati variants, and not an audio-derived transcription.",
+  "sources": {
+    "tuneUrl": "https://hymnary.org/tune/ram_hindu",
+    "pageUrl": "https://hymnary.org/hymn/SLT1993/page/226",
+    "scanUrl": "https://hymnary.org/page/fetch/SLT1993/226/high",
+    "hymnal": "Singing the Living Tradition",
+    "publicationYear": 1993,
+    "hymnNumber": 178,
+    "scanPage": 226,
+    "tuneMetadataObserved": {
+      "source": "Traditional Hindu hymn",
+      "copyright": "Public Domain",
+      "key": "C Major",
+      "meter": "Irregular",
+      "incipit": "17121 76721 24342"
+    },
+    "rightsScope": "Public Domain is the observed tune-authority label, not a claim that the 1993 page image or every arrangement is cleared for redistribution.",
+    "inspectionMethod": "Independent visual reading of the full-resolution 1800x2700 scan in a separate Chrome tab, including all four upper-staff systems; tune authority metadata inspected in Chrome. Web fetch was unavailable.",
+    "independence": "Ledger read directly from the scan; not copied from another agent ledger or inferred from a recording."
+  },
+  "notation": {
+    "clef": "treble",
+    "timeSignature": "2/4",
+    "tempoBpm": 100,
+    "tempoUnit": "quarter",
+    "keySignature": "No sharps or flats in the printed key signature; flats and naturals are local accidentals.",
+    "keyMetadataCaveat": "C Major is Hymnary tune metadata. Preserve the printed Bb3, Eb4 and Ab4 accidentals; this is not a raga identification.",
+    "ticksPerQuarter": 12,
+    "ticksPerBar": 24,
+    "millisecondsPerTick": 50,
+    "pitchConvention": "Scientific pitch notation; C4 is middle C (MIDI 60).",
+    "durationLegend": {
+      "quarter": 12,
+      "eighth": 6,
+      "dottedEighth": 9,
+      "sixteenth": 3,
+      "half": 24,
+      "eighthNoteTriplet": 4
+    },
+    "pickup": false,
+    "restsInUpperMelody": false,
+    "triplets": [
+      {
+        "writtenBar": 11,
+        "writtenNotes": [
+          2,
+          3,
+          4
+        ],
+        "description": "Three eighths in the time of two, filling the second quarter beat."
+      },
+      {
+        "writtenBar": 19,
+        "writtenNotes": [
+          2,
+          3,
+          4
+        ],
+        "description": "Three eighths in the time of two, filling the second quarter beat."
+      }
+    ],
+    "dottedRhythm": [
+      {
+        "writtenBar": 3,
+        "writtenNotes": [
+          2,
+          3
+        ],
+        "durationTicks": [
+          9,
+          3
+        ]
+      }
+    ]
+  },
+  "stanzaSelection": {
+    "stanzaNumber": 1,
+    "identifier": "First numbered stanza: See-ta Ram jai.",
+    "policy": "Use stanza 1 for bars 9-20. The opening bars 1-8 are unnumbered and repeated as printed. Other printed stanzas are lyric variants, not extra written measures in this ledger.",
+    "tiesApplied": [
+      {
+        "writtenBar": 9,
+        "fromWrittenNote": 3,
+        "toWrittenNote": 4,
+        "pitch": "E4",
+        "mark": "dashed optional tie",
+        "appliesToStanzas": [
+          1,
+          3
+        ],
+        "excludedForStanza": 2,
+        "mergedDurationTicks": 12,
+        "reason": "One ta syllable in stanza 1; stanza 2 separates wa and ra."
+      },
+      {
+        "writtenBar": 17,
+        "fromWrittenNote": 3,
+        "toWrittenNote": 4,
+        "pitch": "E4",
+        "mark": "dashed optional tie",
+        "appliesToStanzas": [
+          1,
+          3
+        ],
+        "excludedForStanza": 2,
+        "mergedDurationTicks": 12,
+        "reason": "Same lyric-dependent tie in the refrain."
+      }
+    ],
+    "arcsNotMerged": [
+      {
+        "writtenBar": 13,
+        "fromWrittenNote": 1,
+        "toWrittenNote": 2,
+        "pitches": [
+          "D4",
+          "F4"
+        ],
+        "mark": "dashed optional slur",
+        "reason": "Different pitches cannot be tied. Stanza 1 Pa-ti has separate syllables; stanza 2 Sab uses a melisma. Preserve both note durations in either case."
+      }
+    ],
+    "rearticulation": "Adjacent same-pitch notes without an applicable printed tie remain separate, including bars 10 and 18 and notes 2-3 of bars 9 and 17.",
+    "reviewWarning": "Source and lyric variants matter: do not apply all dashed arcs globally or merge repeated pitches merely because they match."
+  },
+  "form": {
+    "writtenBars": 20,
+    "systemBarRanges": [
+      [
+        1,
+        5
+      ],
+      [
+        6,
+        10
+      ],
+      [
+        11,
+        15
+      ],
+      [
+        16,
+        20
+      ]
+    ],
+    "sections": [
+      {
+        "name": "opening",
+        "firstWrittenBar": 1,
+        "lastWrittenBar": 8,
+        "performedTimes": 2
+      },
+      {
+        "name": "verse",
+        "firstWrittenBar": 9,
+        "lastWrittenBar": 16,
+        "performedTimes": 1
+      },
+      {
+        "name": "refrain",
+        "firstWrittenBar": 17,
+        "lastWrittenBar": 20,
+        "performedTimes": 1
+      }
+    ],
+    "engravedRepeat": {
+      "startWrittenBar": 1,
+      "endWrittenBar": 8,
+      "totalPasses": 2
+    },
+    "expandedWrittenBarOrder": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "performedBars": 28,
+    "performedQuarterBeats": 56,
+    "performedDurationMs": 33600,
+    "stanzaPolicy": "One selected stanza and its refrain after the opening repeat. No additional D.C., D.S., second ending, final refrain repeat or cadence prolongation is assumed. Singing all three numbered lyric stanzas would require a separately declared strophic performance order.",
+    "endPitch": "F4",
+    "endDurationTicks": 24,
+    "endingCaveat": "Preserve the printed final F4 half note and Bb chord label; do not replace it with a C tonic cadence."
+  },
+  "bars": [
+    {
+      "writtenBar": 1,
+      "system": 1,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "B3",
+          "midi": 59,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "B3",
+          "midi": 59,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 2,
+      "system": 1,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "Bb3",
+          "midi": 58,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "A3",
+          "midi": 57,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "Bb3",
+          "midi": 58,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "A3",
+          "midi": 57,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 3,
+      "system": 1,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "Bb3",
+          "midi": 58,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 9
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 3
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "Bb3",
+          "midi": 58,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 9,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 3,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 4,
+      "system": 1,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 5,
+      "system": 1,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 6,
+      "system": 2,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "A3",
+          "midi": 57,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "Bb3",
+          "midi": 58,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "A3",
+          "midi": 57,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "Bb3",
+          "midi": 58,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 7,
+      "system": 2,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 8,
+      "system": 2,
+      "section": "opening",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 24
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 24,
+          "writtenNoteNumbers": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 9,
+      "system": 2,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 10,
+      "system": 2,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 11,
+      "system": 3,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 4
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 4,
+          "writtenNoteNumbers": [
+            3
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4,
+          "writtenNoteNumbers": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 12,
+      "system": 3,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 24
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 24,
+          "writtenNoteNumbers": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 13,
+      "system": 3,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 14,
+      "system": 3,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "G4",
+          "midi": 67,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "Ab4",
+          "midi": 68,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "G4",
+          "midi": 67,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "G4",
+          "midi": 67,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "Ab4",
+          "midi": 68,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "G4",
+          "midi": 67,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 15,
+      "system": 3,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "Eb4",
+          "midi": 63,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "D4",
+          "midi": 62,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 16,
+      "system": 4,
+      "section": "verse",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 24
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 24,
+          "writtenNoteNumbers": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 17,
+      "system": 4,
+      "section": "refrain",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 6,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 18,
+      "system": 4,
+      "section": "refrain",
+      "writtenNotes": [
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 19,
+      "system": 4,
+      "section": "refrain",
+      "writtenNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 4
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 12,
+          "writtenNoteNumbers": [
+            1
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4,
+          "writtenNoteNumbers": [
+            2
+          ]
+        },
+        {
+          "pitch": "C4",
+          "midi": 60,
+          "durationTicks": 4,
+          "writtenNoteNumbers": [
+            3
+          ]
+        },
+        {
+          "pitch": "E4",
+          "midi": 64,
+          "durationTicks": 4,
+          "writtenNoteNumbers": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "writtenBar": 20,
+      "system": 4,
+      "section": "refrain",
+      "writtenNotes": [
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 24
+        }
+      ],
+      "selectedStanzaNotes": [
+        {
+          "pitch": "F4",
+          "midi": 65,
+          "durationTicks": 24,
+          "writtenNoteNumbers": [
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "writtenNoteheads": 57,
+    "selectedStanzaWrittenOnsets": 55,
+    "expandedWrittenNoteheads": 82,
+    "expandedSelectedStanzaOnsets": 80,
+    "everyWrittenBarTotals24Ticks": true,
+    "everySelectedBarTotals24Ticks": true,
+    "checks": "All 20 bar totals and repeat expansion checked arithmetically. MIDI pitches checked against scientific pitch names; two triplet groups retain exact integer ticks. First 15 written-note scale degrees match Hymnary's incipit 17121 76721 24342 (incipit omits accidental quality).",
+    "unverified": [
+      "No listening/performance comparison.",
+      "No second-musician certification.",
+      "No catalog import, practice playback, PDF export or deployment verification performed."
+    ]
+  }
+}
