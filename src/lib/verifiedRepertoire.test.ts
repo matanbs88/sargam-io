@@ -3,7 +3,28 @@ import { Midi } from "@tonejs/midi";
 import { readFileSync } from "node:fs";
 import source from "../../content/catalog/verified/minuet-g.json";
 import silentNight from "../../content/catalog/verified/silent-night.json";
+import wenceslas from "../../content/catalog/research/good-king-wenceslas-reviewed.json";
 import { minuetMelodyEvents, verifiedMelodyEvents, VERIFIED_REPERTOIRE } from "./verifiedRepertoire";
+
+describe("verified repertoire meter validation", () => {
+  it("uses the declared meter rather than assuming every source is a waltz", () => {
+    const events = verifiedMelodyEvents({ title: "Four-beat fixture", tempoBpm: 120,
+      timeSignature: "4/4", form: [0], sections: [[[[60, 1], [62, 1], [64, 2]]]] });
+    expect(events).toEqual([
+      { midi: 60, startMs: 0, durationMs: 500, velocity: 88 },
+      { midi: 62, startMs: 500, durationMs: 500, velocity: 88 },
+      { midi: 64, startMs: 1000, durationMs: 1000, velocity: 88 },
+    ]);
+  });
+
+  it("rejects incomplete measures, zero durations and invalid tempo", () => {
+    const score = { title: "Invalid fixture", tempoBpm: 120, timeSignature: "4/4",
+      form: [0], sections: [[[[60, 3]]]] };
+    expect(() => verifiedMelodyEvents(score)).toThrow("4 quarter beats");
+    expect(() => verifiedMelodyEvents({ ...score, sections: [[[[60, 4], [62, 0]]]] })).toThrow("valid notes");
+    expect(() => verifiedMelodyEvents({ ...score, tempoBpm: 0 })).toThrow("positive tempo");
+  });
+});
 
 describe("source-verified Minuet", () => {
   it("matches every principal pitch and duration in the archived source MIDI", () => {
@@ -51,5 +72,21 @@ describe("source-verified Silent Night", () => {
     }
     expect(events.every((e, i) => i === 0 || e.startMs === events[i - 1].startMs + events[i - 1].durationMs)).toBe(true);
     expect(events[0]).toMatchObject({ midi: 74, startMs: 0, durationMs: 1500 });
+  });
+});
+
+describe("complete Good King Wenceslas source intake", () => {
+  it("matches every explicit soprano onset, pitch and duration in source MIDI", () => {
+    const midi = new Midi(readFileSync("content/catalog/inbox/launch-100/good-king-wenceslas.mid"));
+    const events = verifiedMelodyEvents(wenceslas);
+    expect(wenceslas.sections[0]).toHaveLength(17);
+    expect(events.at(-1)).toMatchObject({ midi: 69, startMs: 32000, durationMs: 2000 });
+    for (const event of events) {
+      const ticks = event.startMs / 500 * midi.header.ppq;
+      const note = midi.tracks[0].notes.find(n => n.ticks === ticks && n.midi === event.midi);
+      expect(note, `Missing soprano note at ${ticks}`).toBeDefined();
+      expect(note!.durationTicks / midi.header.ppq * 500).toBe(event.durationMs);
+    }
+    expect(events.every((e, i) => i === 0 || e.startMs === events[i - 1].startMs + events[i - 1].durationMs)).toBe(true);
   });
 });

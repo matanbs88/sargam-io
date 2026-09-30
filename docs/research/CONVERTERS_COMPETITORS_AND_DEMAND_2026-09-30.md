@@ -104,7 +104,7 @@ Record volume, geography, reporting date, trend, intent, competing results, and 
 
 ## Proposed product priorities
 
-1. **Finish the core promise first.** Deliver source-verified complete catalog entries and a measured live audio-transcription path. The current Vault records 35 playable studies/exercises, not 100 completed songs, and labels the transcription demo as Mock. A converter page must not conceal those gaps.
+1. **Finish the core promise first.** Deliver source-verified complete catalog entries and a measured live audio-transcription path. The October 1 checkpoint records 35 playable studies/exercises plus two source-verified complete pieces (37 ready entries, only 2/100 verified complete), and labels the transcription demo as Mock. A converter page must not conceal those gaps.
 2. **Add a small free notation converter.** Input format, output format, explicit Sa, paired preview, copy/download, and Open in Practice. Deterministic note conversion should not incur audio-provider calls. Keep the primary home action for YouTube/audio.
 3. **Introduce correction of rhythm as well as pitch.** Users need onset, duration, rests, bar structure, and phrase corrections before exporting or trusting transcription. Show ambiguous results explicitly.
 4. **Make library entries discoverable individually.** Propose canonical `/songs/[slug]` pages with immediate notation, title/composer/source/version, practice and PDF. These are a recommendation, not an assertion that the current app already exposes them.
@@ -124,6 +124,10 @@ Publish a first set of individually searchable, complete song pages and measure 
 ### Evidence limits and refresh
 
 #### October 1 evidence refresh
+
+Additional discovery during the founder's requested review: [Swara Notebook](https://swaranotebook.com/) advertises Bhatkhande-format editing, playback while typing, and Bangla/English/Devanagari. Its public counter reports 175 bandishes and 33,605 notes across four taals and three languages. This is a self-reported content counter, not a user or traffic count. Search also surfaced [Playsoloist's harmonium page](https://www.playsoloist.com/harmonium), describing on-device transcription and feedback, but the direct page could not be retrieved; treat it as a competitor lead, not independently verified functionality. Fresh public searches for the two supplied domains still yielded no reliable traffic or active-user estimates.
+
+Recommended implementation scope from these findings: a separate deterministic text converter, not a homepage pivot. Explicit input/output dialects and Sa; original/translated side-by-side preview; preserved octaves, bar lines, beat grouping and unknown text; copy, PDF and Open in Practice. Validate with fixtures before claiming Carnatic support. This refresh changes research and priorities only; no product functionality was implemented by this report.
 
 Reopened both supplied pages, the linked Google Play listing, SRGM.io, Swarakosh, Bollypiano, and the primary Semrush NotationsWorld report. The converter app still displays **1K+ downloads**. The accessible Semrush report still refers to **January 2026**, not current-month traffic: 171,770 estimated visits and the keyword volumes above. Fresh domain-specific searches did not establish monthly traffic or active users for either supplied website. Conflicting, undated traffic figures from secondary aggregators were excluded rather than combined into a misleading range. No competitor conversion accuracy or sound quality benchmark was performed during this refresh.
 

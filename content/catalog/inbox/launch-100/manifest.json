@@ -3,6 +3,18 @@
   "status": "downloaded-parsed-not-musically-verified",
   "items": [
     {
+      "title": "Good King Wenceslas",
+      "path": "good-king-wenceslas.mid",
+      "url": "https://www.mutopiaproject.org/ftp/Anonymous/GoodKingWenceslas/GoodKingWenceslas.mid",
+      "edition": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=905",
+      "sourceLicense": "Public Domain as declared by Mutopia and typesetter",
+      "credit": "James Kilfiger; Hutchins 1916, Carol #415; Mutopia-2007/01/10-905",
+      "sha256": "f854da74a0790af27192f9b0002348649852dbcfcaa26e490e789517b2dde97a",
+      "durationSeconds": 34,
+      "noteCounts": [100,106,0],
+      "review": "All 53 explicit soprano notes across 17 bars match source MIDI onset, pitch and duration; lower voices excluded, not highest-note extraction."
+    },
+    {
       "title": "Amazing Grace",
       "path": "amazing-grace.mid",
       "url": "https://www.mutopiaproject.org/ftp/Traditional/amazing-mutopia/amazing-mutopia.mid",
