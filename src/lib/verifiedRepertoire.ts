@@ -1,6 +1,6 @@
 import minuet from "../../content/catalog/verified/minuet-g.json";
 import silentNight from "../../content/catalog/verified/silent-night.json";
-import wenceslas from "../../content/catalog/research/good-king-wenceslas-reviewed.json";
+import wenceslas from "../../content/catalog/verified/good-king-wenceslas.json";
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
 

@@ -1,0 +1,32 @@
+{
+  "status": "source-located-not-transcribed-or-counted",
+  "edition": "Sourindro Mohun Tagore, Six Principal Ragas, second edition, Calcutta Central Press Company, 1877, appendix Songs of Jayadeva",
+  "catalogue": "https://urresearch.rochester.edu/institutionalPublicationPublicView.action?institutionalItemId=26631&versionNumber=1",
+  "scan": "https://urresearch.rochester.edu/fileDownloadForInstitutionalItem.action?itemId=27236&itemFileId=109486",
+  "editionRecord": "https://imslp.org/wiki/6_Principal_R%C3%A1gas_and_4_Songs_of_Jayadeva_(Tagore,_Sourindro_Mohun)",
+  "rightsEvidence": "Sibley catalogue explicitly declares item public domain; IMSLP separately identifies this edition as public domain.",
+  "items": [
+    {
+      "title": "Lalita-lavanga-lata / Viharati Harir iha",
+      "printedRaga": "Basanta / Bahar",
+      "printedTala": "Madhyamana",
+      "pdfPages": [110,111,112,113,114],
+      "appendixPages": "i-v",
+      "form": "Notated refrain and verses 1-3, with verses 4-8 printed as lyrics",
+      "rhythm": "Common time, explicit note values, triplets and quintuplets, accidentals and slurs",
+      "conversion": "Transcribe complete printed musical sections, preserve tuplets and local accidentals. Declare historical strophic edition; do not invent remaining-stanza underlay."
+    },
+    {
+      "title": "Nindati-chandana / Sa virahe tava dina",
+      "printedRaga": "Sohini",
+      "printedTala": "Madhyamana",
+      "pdfPages": [115,116,117],
+      "appendixPages": "vi-viii",
+      "form": "Notated refrain and first verse; verses 2-8 printed as lyrics",
+      "rhythm": "Common time, explicit short values and rests, triplets and repeats",
+      "conversion": "Preferred next intake: transcribe all notated refrain/verse sections and printed repeats to MusicXML. Do not remap historical pitches to a modern Sohini scale."
+    }
+  ],
+  "countedComplete": 0,
+  "verification": "Independent research agent rendered relevant pages. Main-agent transcription, independent music comparison, runtime and PDF acceptance remain required."
+}

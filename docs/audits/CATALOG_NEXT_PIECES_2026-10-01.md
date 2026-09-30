@@ -1,6 +1,6 @@
 # Complete repertoire continuation
 
-Verified live count remains **2/100** pending the next release checks.
+Verified live count is now **3/100**, after the checks below.
 
 ## Jana Gana Mana
 
@@ -30,10 +30,33 @@ Local Chrome shows correct title, 17 bars, 53 notes and Sa A4. Piano and harmoni
 each reached Replay at 34,000 ms with final Next disabled and no reported errors.
 Bansuri also reached Replay at 34,000 ms with final Next disabled and no
 reported browser errors. Download score produced the PDF-ready link.
-Production checks remain pending; no live-complete increment yet.
+Release `61ef5f8` deployed successfully (Vercel commit status success).
+Live public Library search finds the complete edition. Direct URL opens to
+all 17 bars and 53 notes in readable Sargam, reference A4. Piano, harmonium
+and recorded Ventus bansuri each reached Replay at 34,000 ms; final Next
+disabled and no reported browser errors. This checks runtime transport and
+sample loading, not subjective sound quality or expert fingering calibration.
+Production Download score produced a PDF-ready link. Live export endpoint
+returned HTTP 200 application/pdf; rendered one-page A4 PDF visually confirms
+all 17 bars, final tonic and readable source credit without clipping.
+https://sargam-io.vercel.app/?score=verified-good-king-wenceslas-complete#practice
 
 Shared source adapter now validates declared meter rather than assuming 3/4.
 New tests cover 4/4, incomplete measures, invalid durations and invalid tempo.
 All 272 tests, lint and production build passed. The new candidate is locally
-playable; this is not yet evidence of live completion.
+playable and its live acceptance gates passed. Total ready entries are 38,
+including 35 old studies/exercises; only three complete source editions count.
 Mehfil design and audio engine unchanged.
+
+## Next Indian source conversion
+
+Independent research located Sibley's explicitly public-domain 1877 second
+edition of Tagore's Six Principal Ragas, appendix Songs of Jayadeva.
+Exact scan, edition metadata and page routing are saved in
+`content/catalog/research/jayadeva-source-intake-2026-10-01.json`.
+Next candidate is Nindati-chandana / Sa virahe tava dina, printed Sohini and
+Madhyamana: PDF pages 115-117. Staff includes real durations, rests, triplets
+and repeats. Transcribe the full printed refrain/verse with its repeats,
+explicitly label the historical strophic edition, and do not invent lyric
+underlay for later stanzas or alter source pitches to fit a modern raga scale.
+No new Indian source is counted complete yet.

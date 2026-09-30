@@ -2,7 +2,7 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
-**2/100 distinct complete pieces are live verified:** Petzold's Minuet in G,
+**3/100 distinct complete pieces are live verified:** Petzold's Minuet in G,
 complete declared unornamented upper melody with A-A-B-B repeats, 64 played
 bars, 252 notes. Public library discovery, full Sargam, all three instruments
 to Replay at 82,286 ms, and rendered one-page live PDF passed. Release `0e3552d`.
@@ -10,6 +10,10 @@ See [acceptance evidence](./audits/CATALOG_MINUET_CHECKPOINT_2026-10-01.md).
 Silent Night's full source-edition melody is also live: 23 bars, 47 notes,
 69 seconds. Library discovery, all three instruments to Replay, and the rendered
 one-page production PDF with edition credit passed. Release `c0f1792`.
+Good King Wenceslas is live: complete 17-bar source soprano, 53 notes, 34 seconds.
+Live library discovery, full Sargam, all three instruments to Replay and
+visually verified one-page production PDF passed. Release `61ef5f8`.
+See [new acceptance evidence](./audits/CATALOG_NEXT_PIECES_2026-10-01.md).
 The 35 older studies/exercises are not counted as newly verified complete songs.
 The full 100-piece goal remains active; Mehfil is preserved.
 

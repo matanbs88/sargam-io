@@ -3,7 +3,7 @@ import { Midi } from "@tonejs/midi";
 import { readFileSync } from "node:fs";
 import source from "../../content/catalog/verified/minuet-g.json";
 import silentNight from "../../content/catalog/verified/silent-night.json";
-import wenceslas from "../../content/catalog/research/good-king-wenceslas-reviewed.json";
+import wenceslas from "../../content/catalog/verified/good-king-wenceslas.json";
 import { minuetMelodyEvents, verifiedMelodyEvents, VERIFIED_REPERTOIRE } from "./verifiedRepertoire";
 
 describe("verified repertoire meter validation", () => {
