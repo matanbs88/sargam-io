@@ -1,15 +1,16 @@
 import minuet from "../../content/catalog/verified/minuet-g.json";
+import silentNight from "../../content/catalog/verified/silent-night.json";
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
 
 /** Source-reviewed bar data, not approximate familiar-tune fixtures. */
-export function minuetMelodyEvents(): readonly MidiNoteEvent[] {
-  const beatMs = 60_000 / minuet.tempoBpm;
+export function verifiedMelodyEvents(score: Pick<typeof minuet, "title" | "tempoBpm" | "form" | "sections">): readonly MidiNoteEvent[] {
+  const beatMs = 60_000 / score.tempoBpm;
   let beat = 0;
-  return minuet.form.flatMap((section) =>
-    minuet.sections[section].flatMap((bar) => {
+  return score.form.flatMap((section) =>
+    score.sections[section].flatMap((bar) => {
       if (bar.reduce((sum, [, duration]) => sum + duration, 0) !== 3) {
-        throw new Error("Verified Minuet measure must contain three quarter beats.");
+        throw new Error(`Verified ${score.title} measure must contain three quarter beats.`);
       }
       return bar.map(([midi, duration]) => {
         const startMs = Math.round(beat * beatMs);
@@ -25,10 +26,14 @@ export function minuetMelodyEvents(): readonly MidiNoteEvent[] {
   );
 }
 
-export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [{
-  id: minuet.id,
-  title: minuet.title,
-  artistOrSource: `${minuet.composer} · ${minuet.edition}`,
+export function minuetMelodyEvents(): readonly MidiNoteEvent[] {
+  return verifiedMelodyEvents(minuet);
+}
+
+export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [minuet, silentNight].map((score) => ({
+  id: score.id,
+  title: score.title,
+  artistOrSource: `${score.composer} · ${score.edition}`,
   language: "Instrumental",
   category: "Public domain",
   difficulty: "Intermediate",
@@ -36,12 +41,12 @@ export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [{
   status: "ready",
   transcriptionStatus: "ready",
   sourceKind: "manual",
-  sourceRef: minuet.source,
-  rightsBasis: "public-domain",
+  sourceRef: score.source,
+  rightsBasis: score.sourceLicense.startsWith("Public Domain") ? "public-domain" : "rights-review",
   exportAllowed: true,
-  tempoBpm: minuet.tempoBpm,
+  tempoBpm: score.tempoBpm,
   timeSignature: "3/4",
-  rootMidi: minuet.rootMidi,
-  noteEvents: minuetMelodyEvents(),
-  rightsNote: `${minuet.sourceCredit}. ${minuet.sourceLicense}. ${minuet.edition}.`,
-}];
+  rootMidi: score.rootMidi,
+  noteEvents: verifiedMelodyEvents(score),
+  rightsNote: `${score.sourceCredit}. ${score.sourceLicense}. ${score.edition}.`,
+}));

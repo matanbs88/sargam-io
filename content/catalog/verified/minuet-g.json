@@ -51,6 +51,8 @@
       [[67,3]]
     ]
   ],
-  "liveVerification": { "library": false, "playback": false, "pdf": false },
-  "status": "source-verified-awaiting-live-verification"
+  "liveVerification": { "library": true, "playback": true, "pdf": true },
+  "liveUrl": "https://sargam-io.vercel.app/?score=verified-minuet-g-complete#practice",
+  "liveVerified": "2026-10-01",
+  "status": "live-complete"
 }

@@ -43,6 +43,8 @@ export type SargamPdfExportInput = {
   readonly tempoBpm?: number;
   readonly timeSignature?: string;
   readonly title: string;
+  /** Edition provenance retained in printable catalog adaptations. */
+  readonly sourceCredit?: string;
   /** Parsed MusicXML/MXL data from the local score-import pilot. */
   readonly score?: SargamPdfScore;
 };
@@ -375,6 +377,21 @@ function drawCompactHeader(page: PDFPage, fonts: PdfFonts, input: SargamPdfExpor
   );
   // Keep a real reading gap below the metadata; the first measure's label
   // must never compete with the key, meter, or notation declaration.
+  if (input.sourceCredit) {
+    const words = cleanText(input.sourceCredit, "", 600).replace(/[^\x20-\x7e]/g, " ").split(/\s+/);
+    let line = "";
+    const lines: string[] = [];
+    for (const word of words) {
+      if (fonts.regular.widthOfTextAtSize(`${line} ${word}`, 6) > CONTENT_WIDTH && line) {
+        lines.push(line); line = word;
+      } else line = line ? `${line} ${word}` : word;
+    }
+    if (line) lines.push(line);
+    lines.slice(0, 4).forEach((text, index) => page.drawText(text, {
+      x: PAGE_MARGIN, y: PAGE_HEIGHT - 137 - index * 8, size: 6,
+      font: fonts.regular, color: colors.charcoal,
+    }));
+  }
   return PAGE_HEIGHT - 184;
 }
 

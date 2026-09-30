@@ -10,7 +10,7 @@ import { DEFAULT_BANSURI_VOICE, type BansuriVoice } from '@/src/lib/ventusAudio'
 import { expressBansuri, type BansuriArticulation, type BansuriExpression } from '@/src/lib/ventusPerformance';
 import { adjustMidiEvent } from '@/src/lib/editableMidi';
 
-export type PracticePiece = { id?: string; title: string; artistOrSource?: string; tempoBpm: number; timeSignature: string; rootMidi: number; noteEvents: readonly MidiNoteEvent[]; reviewIssues?: readonly string[] };
+export type PracticePiece = { id?: string; title: string; artistOrSource?: string; rightsNote?: string; tempoBpm: number; timeSignature: string; rootMidi: number; noteEvents: readonly MidiNoteEvent[]; reviewIssues?: readonly string[] };
 const DEFAULT_PIECE: PracticePiece = { ...PILOT, noteEvents: PILOT_EVENTS };
 
 export const ROOT_NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
@@ -54,7 +54,7 @@ export function usePilotSession(piece: PracticePiece = DEFAULT_PIECE, catalogSel
   async function download() {
     setExporting(true); setExportError('');
     try {
-      const response = await fetch('/api/exports/sargam-pdf', { method: 'POST', signal: AbortSignal.timeout(30_000), headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ events, rootMidi: root, rootLabel: `${ROOT_NAMES[((root % 12) + 12) % 12]}${Math.floor(root / 12) - 1}`, notation, title: piece.title, tempoBpm: piece.tempoBpm, timeSignature: piece.timeSignature, compact: true }) });
+      const response = await fetch('/api/exports/sargam-pdf', { method: 'POST', signal: AbortSignal.timeout(30_000), headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ events, rootMidi: root, rootLabel: `${ROOT_NAMES[((root % 12) + 12) % 12]}${Math.floor(root / 12) - 1}`, notation, title: piece.title, sourceCredit: piece.rightsNote, tempoBpm: piece.tempoBpm, timeSignature: piece.timeSignature, compact: true }) });
       if (!response.ok) throw new Error('Could not export the score. Please try again.');
       const url = URL.createObjectURL(await response.blob());
       if (pdfUrl.current) URL.revokeObjectURL(pdfUrl.current);

@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 import { Midi } from "@tonejs/midi";
 import { readFileSync } from "node:fs";
 import source from "../../content/catalog/verified/minuet-g.json";
-import { minuetMelodyEvents, VERIFIED_REPERTOIRE } from "./verifiedRepertoire";
+import silentNight from "../../content/catalog/verified/silent-night.json";
+import { minuetMelodyEvents, verifiedMelodyEvents, VERIFIED_REPERTOIRE } from "./verifiedRepertoire";
 
 describe("source-verified Minuet", () => {
   it("matches every principal pitch and duration in the archived source MIDI", () => {
@@ -31,6 +32,24 @@ describe("source-verified Minuet", () => {
     const last = events.at(-1)!;
     expect(last.startMs + last.durationMs).toBe(Math.round(192 * 60_000 / 140));
     expect(VERIFIED_REPERTOIRE[0].noteEvents).toEqual(events);
-    expect(source.liveVerification).toEqual({ library: false, playback: false, pdf: false });
+    expect(source.liveVerification).toEqual({ library: true, playback: true, pdf: true });
+    expect(source.status).toBe("live-complete");
+  });
+});
+
+describe("source-verified Silent Night", () => {
+  it("matches every explicit source-voice note, not a highest-note heuristic", () => {
+    const midi = new Midi(readFileSync("content/catalog/inbox/launch-100/silent-night.mid"));
+    const events = verifiedMelodyEvents(silentNight);
+    expect(silentNight.sections[0]).toHaveLength(23);
+    expect(events.at(-1)).toMatchObject({ midi: 67, startMs: 66000, durationMs: 3000 });
+    for (const event of events) {
+      const tick = event.startMs / 1000 * midi.header.ppq;
+      const note = midi.tracks[0].notes.find((n) => n.ticks === tick && n.midi === event.midi);
+      expect(note, `Missing source pitch at ${tick}`).toBeDefined();
+      expect(note!.durationTicks / midi.header.ppq * 1000).toBe(event.durationMs);
+    }
+    expect(events.every((e, i) => i === 0 || e.startMs === events[i - 1].startMs + events[i - 1].durationMs)).toBe(true);
+    expect(events[0]).toMatchObject({ midi: 74, startMs: 0, durationMs: 1500 });
   });
 });

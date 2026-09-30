@@ -4,7 +4,7 @@ type: strategy
 status: active
 owner: shared
 created: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-01
 review_by: 2026-10-30
 ---
 
@@ -122,6 +122,12 @@ Run a small measured pilot with approximately 20 musicians across our three inst
 Publish a first set of individually searchable, complete song pages and measure discovery-to-play, play-to-PDF/save, and return-to-practice. Establish targets from pilot baselines rather than inventing industry conversion rates. Free utility traffic is useful only when it feeds successful practice.
 
 ### Evidence limits and refresh
+
+#### October 1 evidence refresh
+
+Reopened both supplied pages, the linked Google Play listing, SRGM.io, Swarakosh, Bollypiano, and the primary Semrush NotationsWorld report. The converter app still displays **1K+ downloads**. The accessible Semrush report still refers to **January 2026**, not current-month traffic: 171,770 estimated visits and the keyword volumes above. Fresh domain-specific searches did not establish monthly traffic or active users for either supplied website. Conflicting, undated traffic figures from secondary aggregators were excluded rather than combined into a misleading range. No competitor conversion accuracy or sound quality benchmark was performed during this refresh.
+
+Implementation decision: retain YouTube/audio transcription as the primary intake; propose a separate deterministic text-conversion utility with explicit Sa, notation-dialect selection and preserved rhythm/octaves. This research does not authorize replacing the selected Mehfil design or asserting that Carnatic performance nuances can be recovered by a chromatic lookup table.
 
 Confidence is high for what public pages and install counters display, moderate for third-party historical estimates, and unresolved for competitor accuracy, active users and payment conversion. The report deliberately excludes undated secondary traffic aggregates, search-result counts, spam comments and unsupported total-market numbers.
 

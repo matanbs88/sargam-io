@@ -80,6 +80,7 @@ function isExportInput(value: unknown): value is SargamPdfExportInput {
     (input.notation === undefined || isNotationSystem(input.notation)) &&
     (input.tempoBpm === undefined || typeof input.tempoBpm === "number") &&
     (input.timeSignature === undefined || typeof input.timeSignature === "string") &&
+    (input.sourceCredit === undefined || (typeof input.sourceCredit === "string" && input.sourceCredit.length <= 600)) &&
     typeof input.title === "string"
   );
 }

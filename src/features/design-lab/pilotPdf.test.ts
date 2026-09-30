@@ -7,6 +7,17 @@ import { PILOT, PILOT_EVENTS } from './pilotData';
 import { timelineToMeasures, createNotationMeasureLayout } from '@/src/server/export/sargamPdf';
 
 describe('design lab pilot export journey', () => {
+  it('exports bounded edition provenance and rejects malformed credits', async () => {
+    const payload = { events: PILOT_EVENTS, rootMidi: 60, rootLabel: 'C4', notation: 'Sargam_EN', title: PILOT.title, tempoBpm: PILOT.tempoBpm, timeSignature: PILOT.timeSignature, compact: true };
+    const send = (sourceCredit: unknown) => POST(new Request('http://localhost/api/exports/sargam-pdf', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...payload, sourceCredit }),
+    }));
+    const response = await send('Daniel Widyanto; CC BY-SA 2.0; adapted melody');
+    expect(response.status).toBe(200);
+    expect((await PDFDocument.load(await response.arrayBuffer())).getPageCount()).toBe(1);
+    expect((await send(42)).status).toBe(400);
+    expect((await send('x'.repeat(601))).status).toBe(400);
+  });
   it('preserves 15 distinct onsets across exactly four bars despite millisecond rounding', () => {
     const measures = timelineToMeasures({ events: PILOT_EVENTS, rootMidi: 60, rootLabel: 'C4', title: PILOT.title, tempoBpm: PILOT.tempoBpm, timeSignature: PILOT.timeSignature });
     expect(measures).toHaveLength(4);
