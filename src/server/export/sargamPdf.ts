@@ -2,6 +2,7 @@ import "server-only";
 
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
+import { join } from "node:path";
 import { PDFDocument, StandardFonts, rgb, type PDFPage, type PDFFont } from "pdf-lib";
 import {
   formatRelativeNote,
@@ -82,7 +83,9 @@ const ROW_GAP = 22;
 const BHATKHANDE_ROW_GAP = 32;
 const BHATKHANDE_MEASURES_PER_ROW = 4;
 const MAX_SLOTS_PER_MEASURE = 16;
-const DEVANAGARI_FONT_URL = new URL("./fonts/NotoSansDevanagari-Regular.ttf", import.meta.url);
+// A filesystem string avoids bundler-created URL objects rejected by Node fs.
+// next.config.ts explicitly includes this asset in the serverless route trace.
+const DEVANAGARI_FONT_PATH = join(process.cwd(), "src/server/export/fonts/NotoSansDevanagari-Regular.ttf");
 
 const colors = {
   charcoal: rgb(0.059, 0.09, 0.165),
@@ -547,7 +550,7 @@ async function createFonts(document: PDFDocument): Promise<PdfFonts> {
     document.embedFont(StandardFonts.Helvetica),
     document.embedFont(StandardFonts.HelveticaBold),
     document.embedFont(StandardFonts.TimesRoman),
-    readFile(DEVANAGARI_FONT_URL),
+    readFile(DEVANAGARI_FONT_PATH),
   ]);
   // fontkit v2 provides reliable Indic shaping but not the streaming subset
   // interface expected by pdf-lib, so embed this small (141 KB) font whole.

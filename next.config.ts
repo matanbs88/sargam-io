@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/api/exports/sargam-pdf": ["./src/server/export/fonts/*.ttf"],
+  },
   async headers() {
     return [
       {

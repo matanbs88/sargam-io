@@ -6,7 +6,10 @@ The founder selected **Mehfil** and authorized independent UI/UX audit,
 implementation of its recommendations, Vault reconciliation and production
 promotion after verification. This supersedes the historical preview-only
 release restrictions below; it does not waive verification or permit invented
-musical content. The release is not yet verified or deployed in this checkpoint.
+musical content. Release `872d7ed` is deployed: the public root serves Mehfil,
+the compact library lists 35 existing playable studies/exercises, and opening a
+piece immediately displays Sargam. The live PDF smoke test found a font-loading
+defect; its hotfix and verification are tracked in the current audit.
 
 The active catalog goal is **100 distinct complete source-verified pieces**.
 Completion means public Notes Library discovery, immediate full Sargam on open,

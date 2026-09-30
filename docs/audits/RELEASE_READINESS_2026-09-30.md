@@ -101,8 +101,21 @@ Mehfil is now the root experience; the earlier application is preserved at
 `/legacy`. Secret-pattern filename scan found no credential material in release
 sources/assets; local environment and generated QA files remain ignored.
 
-Production deployment and 100-song completion are **not yet verified**.
-Git credentials can fetch the remote, but GitHub CLI's token is invalid. If
-direct fast-forward promotion is necessary, record that release-workflow
-exception; never force history. Historical 95/100 self-scores are not a current
-independent launch-readiness rating.
+### Production verification and hotfix
+
+Release `872d7ed1e202c3a01b3ea858d725aa14f981de5f` was pushed normally
+to feature, dev and main. Vercel reported deployment complete; Chrome confirmed
+Mehfil at `https://sargam-io.vercel.app/`, compact library with 35 playable
+studies/exercises and immediate 15-note Sargam for Ode to Joy.
+Release workflow exception: direct fast-forward promotion under explicit founder
+authority because GitHub CLI credentials were invalid; Git credentials worked.
+No force push or deletion of previous work.
+
+The live PDF smoke test failed despite passing locally: Webpack's bundled URL
+object was rejected by Node `readFile`. Hotfix uses a filesystem string and
+explicitly traces the font into the PDF serverless function. Public export must
+be retested after hotfix deployment before that acceptance gate is satisfied.
+
+100-song completion is **not verified**; this release has 35 existing playable
+studies/exercises, not 100 full songs. Historical 95/100 self-scores are not a
+current independent launch-readiness rating.
