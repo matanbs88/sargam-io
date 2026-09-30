@@ -6,6 +6,8 @@ root because they are linked directly from the public README.
 
 ## Start here
 
+- [Complete Minuet source verification and remaining live gates](./audits/CATALOG_MINUET_CHECKPOINT_2026-10-01.md)
+- [Indian notation converters, direct competitors and search-demand evidence](./research/CONVERTERS_COMPETITORS_AND_DEMAND_2026-09-30.md)
 - [Current independent audit, remediation and production-release checkpoint](./audits/RELEASE_READINESS_2026-09-30.md)
 - [100-piece candidate selection (not completed inventory)](../content/catalog/launch-100-selection.json)
 - [September 30 source research and live completion evidence](../content/catalog/research/repertoire-discovery-2026-09-30.json)

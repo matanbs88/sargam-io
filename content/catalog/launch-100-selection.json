@@ -876,10 +876,12 @@
         {
           "selectionId": "launch-073",
           "title": "Petzold — Minuet in G major, BWV Anh. 114",
-          "completionStatus": "candidate",
-          "sourceStatus": "needs-exact-score",
-          "sourceUrl": null,
-          "verifiedFreeToUse": false,
+          "completionStatus": "source-verified-awaiting-live-verification",
+          "sourceStatus": "full-principal-melody-verified-with-both-repeats",
+          "sourceUrl": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=75",
+          "verifiedFreeToUse": true,
+          "catalogId": "verified-minuet-g-complete",
+          "edition": "Complete unornamented upper melody, A–A–B–B; grace notes and ornamental signs omitted explicitly",
           "playbackVerified": false,
           "libraryVerified": false,
           "pdfVerified": false

@@ -3,8 +3,8 @@ import { FULL_PRACTICE_CATALOG, READY_PRACTICE_CATALOG } from "./practiceCatalog
 
 describe("full practice catalog", () => {
   it("exposes the 100-title queue plus the playable public-domain sets", () => {
-    expect(FULL_PRACTICE_CATALOG).toHaveLength(123);
-    expect(READY_PRACTICE_CATALOG).toHaveLength(35);
+    expect(FULL_PRACTICE_CATALOG).toHaveLength(124);
+    expect(READY_PRACTICE_CATALOG).toHaveLength(36);
     expect(FULL_PRACTICE_CATALOG.filter((song) => song.status === "planned")).toHaveLength(88);
   });
 
