@@ -1038,14 +1038,14 @@
         {
           "selectionId": "launch-087",
           "title": "Silent Night",
-          "completionStatus": "source-verified-awaiting-live-verification",
+          "completionStatus": "live-complete",
           "sourceStatus": "explicit-melody-voice-and-final-tonic-verified",
           "sourceUrl": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=521",
           "catalogId": "verified-silent-night-complete",
           "verifiedFreeToUse": false,
-          "playbackVerified": false,
-          "libraryVerified": false,
-          "pdfVerified": false
+          "playbackVerified": true,
+          "libraryVerified": true,
+          "pdfVerified": true
         },
         {
           "selectionId": "launch-088",

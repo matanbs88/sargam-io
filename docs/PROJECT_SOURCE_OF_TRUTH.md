@@ -2,13 +2,14 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
-**1/100 distinct complete pieces is live verified:** Petzold's Minuet in G,
+**2/100 distinct complete pieces are live verified:** Petzold's Minuet in G,
 complete declared unornamented upper melody with A-A-B-B repeats, 64 played
 bars, 252 notes. Public library discovery, full Sargam, all three instruments
 to Replay at 82,286 ms, and rendered one-page live PDF passed. Release `0e3552d`.
 See [acceptance evidence](./audits/CATALOG_MINUET_CHECKPOINT_2026-10-01.md).
-Silent Night's full source-edition melody is now locally implemented and MIDI
-checked; it is not counted live until its remaining runtime/export gates pass.
+Silent Night's full source-edition melody is also live: 23 bars, 47 notes,
+69 seconds. Library discovery, all three instruments to Replay, and the rendered
+one-page production PDF with edition credit passed. Release `c0f1792`.
 The 35 older studies/exercises are not counted as newly verified complete songs.
 The full 100-piece goal remains active; Mehfil is preserved.
 

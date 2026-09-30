@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-01",
+  "status": "research-verified-not-published",
+  "countsTowardLiveGoal": false,
+  "items": [
+    {
+      "title": "Jana-Gana-Mana",
+      "edition": "Gilbert DeBenedetti Level One simplified arrangement",
+      "composer": "Rabindranath Tagore",
+      "source": "https://www.gmajormusictheory.org/Freebies/Level1/1India/1India.pdf",
+      "finding": "Complete declared melody through final Jaya He; second page lyrics. Source first page rendered and inspected. No associated MIDI verified. Requires note-by-note transcription and rhythm/tie checks.",
+      "license": "No explicit reuse license established in inspected source"
+    },
+    {
+      "title": "Composition 107 Volume 2 Kramik Pustak Malika",
+      "source": "https://github.com/cmisra/Sangeet/blob/494add42e254da10bb88a368b9110ed41fa508ea/Bhatkhande%20Dataset/Bhairav-1-168.xml",
+      "paper": "https://arxiv.org/abs/2306.04148",
+      "schema": "/swarlipi/SHEET/LINES/LINE[@INDEX]/ROW[@INDEX]/COL[@INDEX]/CONTENT",
+      "raga": "Bhairav",
+      "taal": "Tritaal, 16 matras, 4-4-4-4, tali 1-5-13, khali 9",
+      "observed": "7 lines, 26 cells, 104 tokens: 86 pitched tokens and 18 dashes",
+      "dialectReference": "https://omenad.github.io/fonts/ome-swarlipi/",
+      "dialect": "Lowercase natural swaras; uppercase R/G/D/N komal, M tivra; u suffix upper octave",
+      "unresolved": [
+        "No explicit durations, pickup, repeats, lyrics or section boundaries",
+        "Dash could mean sustain/rest: not resolved",
+        "Catalogue title is not lyric-based composition name",
+        "Embedded NDLI link 404; alternative scan page168 did not match",
+        "Repository XSD inconsistent with XML names and fails compilation",
+        "Paper CC BY4.0 does not establish dataset license"
+      ],
+      "verdict": "Lossless token-grid parser feasible; trustworthy timed catalog conversion requires exact source matching and rhythmic-semantic review. Do not count 116 XML files as complete songs."
+    }
+  ]
+}

@@ -37,8 +37,30 @@ https://sargam-io.vercel.app/?score=verified-minuet-g-complete#practice
 Silent Night is now locally source-reviewed: all 22 explicit melody measures
 plus upper tonic in the 23rd closing chord, 69 seconds. Every melodic onset,
 pitch and duration matches archived source MIDI. No highest-note heuristic.
-Credit and CC BY-SA 2.0 license retained. Runtime/export acceptance remains.
+Credit and CC BY-SA 2.0 license retained. Release `c0f1792` is deployed (Vercel
+commit status success). Production Chrome library search finds this complete
+edition. Piano, harmonium and recorded Ventus bansuri each reached Replay at
+69,000 ms, with no reported browser errors. Download score produced the ready
+link; direct production API returned HTTP 200 application/pdf. Poppler visual
+inspection confirms all 23 bars and closing tonic on one A4 page, with readable
+edition attribution and no clipping. **Silent Night live acceptance passed.**
+https://sargam-io.vercel.app/?score=verified-silent-night-complete#practice
 
 The catalog now has 37 locally ready items including two complete source editions;
 the older 35 studies/exercises are not newly verified complete pieces.
-New live-complete count is **1/100**, not 37/100. The full goal stays active.
+New live-complete count is **2/100**, not 37/100. The full goal stays active.
+
+## Next continuation
+
+- Jana Gana Mana full score found at
+  https://www.gmajormusictheory.org/Freebies/Level1/1India/1India.pdf.
+  Downloaded source page rendered and inspected; no MIDI link on detail page.
+  It is not converted or counted yet. Preserve written durations and tied notes.
+- Sangeet research agent completed: XML contains pitches/grid but lacks explicit
+  rhythm, lyrics and reliable matched scan. See Indian intake report. Do not
+  count its 116 files as 116 complete songs or assign guessed dash semantics.
+- Amazing Grace source review recorded separately: 9/8, pickup/end partial bars
+  and grace groups. Do not force it into the 3/4 adapter.
+- 269 tests, lint, repository audit and production build passed for `c0f1792`.
+- Existing 30-minute catalog heartbeat is configured ACTIVE and its prompt matches
+  this goal. Configuration does not establish that a subsequent run occurred.

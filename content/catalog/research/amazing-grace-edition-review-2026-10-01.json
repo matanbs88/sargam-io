@@ -1,0 +1,14 @@
+{
+  "title": "Amazing Grace",
+  "source": "https://www.mutopiaproject.org/ftp/Traditional/amazing-mutopia/amazing-mutopia.ly",
+  "edition": "Breizh Partitions Scottish bagpipe arrangement, 2012",
+  "status": "source-inspected-not-converted",
+  "sourceLicense": "CC BY-SA 3.0",
+  "findings": [
+    "Explicit bagpipeOne principal voice in E-flat major; 9/8 meter, initial dotted-quarter pickup and final dotted-half partial measure.",
+    "Numerous grace groups must not be counted as full-length principal notes or allowed to displace principal rhythm.",
+    "Source bar-number comments are inconsistent around the ending; derive measures from actual music, not comments.",
+    "Do not force this edition into the existing 3/4 verified-score adapter. Add explicit meter and pickup support or choose a separately verified simpler edition."
+  ],
+  "countsTowardLiveGoal": false
+}
