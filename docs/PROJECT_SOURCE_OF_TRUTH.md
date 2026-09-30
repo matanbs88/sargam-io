@@ -8,8 +8,9 @@ promotion after verification. This supersedes the historical preview-only
 release restrictions below; it does not waive verification or permit invented
 musical content. Release `872d7ed` is deployed: the public root serves Mehfil,
 the compact library lists 35 existing playable studies/exercises, and opening a
-piece immediately displays Sargam. The live PDF smoke test found a font-loading
-defect; its hotfix and verification are tracked in the current audit.
+piece immediately displays Sargam. Hotfix `888a67d` fixed the live PDF font-loading
+defect: public export returns HTTP 200 PDF and Chrome offers the generated score
+for download. Release evidence and remaining UX gates are tracked in the audit.
 
 The active catalog goal is **100 distinct complete source-verified pieces**.
 Completion means public Notes Library discovery, immediate full Sargam on open,

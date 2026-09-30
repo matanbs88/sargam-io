@@ -116,6 +116,28 @@ object was rejected by Node `readFile`. Hotfix uses a filesystem string and
 explicitly traces the font into the PDF serverless function. Public export must
 be retested after hotfix deployment before that acceptance gate is satisfied.
 
+Hotfix `888a67d` deployed successfully. Public endpoint retest returned HTTP 200,
+`application/pdf`, 65,348 bytes for a one-note probe. Chrome's Ode to Joy export
+displayed “Your PDF is ready” and a downloadable generated-score link. Browser
+OS download-folder verification remains unclaimed. Recorded Ventus asset
+`/audio/bansuri/performance/natural-69-v1-rr1-f7e86788.wav` returned HTTP 200,
+`audio/wave`. All code verification gates passed again before hotfix publication.
+
+Live practice check: https://sargam-io.vercel.app/?score=pd-ode-to-joy-theme#practice
+Live library: https://sargam-io.vercel.app/#library
+
+### Next independent work
+
+The catalog goal and 30-minute continuation remain active. Next batch: inspect
+the source edition and repeats for Petzold's Minuet in G, extract its full
+melody rather than the existing short study, then verify playback, complete
+Sargam, PDF and public discovery before incrementing the full-song count.
+Follow with Amazing Grace, Silent Night and Gymnopédie from the intake manifest;
+do not count downloaded MIDI tracks or candidate titles as finished pieces.
+Later UX gates: persist practice settings, rhythm/voice correction workflow,
+physical mobile and screen-reader QA, durable multi-instance transcription jobs
+and real-provider validation. These are not hidden by the successful UI release.
+
 100-song completion is **not verified**; this release has 35 existing playable
 studies/exercises, not 100 full songs. Historical 95/100 self-scores are not a
 current independent launch-readiness rating.
