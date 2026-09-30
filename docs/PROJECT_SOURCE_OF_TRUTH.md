@@ -2,7 +2,7 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
-**3/100 distinct complete pieces are live verified:** Petzold's Minuet in G,
+**4/100 distinct complete pieces are live verified:** Petzold's Minuet in G,
 complete declared unornamented upper melody with A-A-B-B repeats, 64 played
 bars, 252 notes. Public library discovery, full Sargam, all three instruments
 to Replay at 82,286 ms, and rendered one-page live PDF passed. Release `0e3552d`.
@@ -17,11 +17,15 @@ See [new acceptance evidence](./audits/CATALOG_NEXT_PIECES_2026-10-01.md).
 The 35 older studies/exercises are not counted as newly verified complete songs.
 The full 100-piece goal remains active; Mehfil is preserved.
 
-Local next candidate: Raghupati Raghav / RAM, complete specified hymnal upper
+Raghupati Raghav / RAM is live: complete specified hymnal upper
 melody, 28 performed bars, 80 onsets, 33.6 seconds, 2/4 at 100 BPM, Sa C4.
-Source-ledger comparison and local one-page PDF checks pass. It increases the
-local ready count to 39, not the production verified-complete count. Browser
-playback and public deployment/download acceptance remain outstanding.
+Release `2c70248` deployed successfully. Public Library search opens all 28 bars
+in Sargam; piano, harmonium and recorded Ventus bansuri each reach Replay at
+33,600 ms without reported browser errors. Production download produces a
+PDF-ready link; live export returns 200 application/pdf, 68,784 bytes. The
+rendered one-page PDF shows all bars and source credit without clipping.
+39 ready entries include 35 older exercises/studies and these four complete
+pieces. Historical checkpoints below retain their original dated counts.
 
 ## Current authority and acceptance criteria — 2026-09-30
 

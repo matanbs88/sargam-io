@@ -133,3 +133,38 @@ in available Chrome, verify full 28-bar reading and each instrument to Replay
 at 33,600 ms, then promote the scoped catalog release and verify public library
 discovery plus the actual production PDF. Preserve Mehfil; do not claim a
 fourth live-complete piece until these gates pass.
+
+### Raghupati live acceptance passed
+
+Previous goal continuation: progress (full candidate, export gates and saved
+commit), not a no-progress wait. This continuation recovered browser access
+using the newly available Chrome connection and a fresh tab; existing source
+tab capture still timed out. No security interstitial was bypassed.
+
+Local piano, harmonium and recorded Ventus bansuri each reached Replay at
+33,600 ms; all 28 Sargam bars and 80 note onsets present. Download produced
+the PDF-ready link. Release `2c70248` was then pushed to main, preserving
+Mehfil; Vercel commit status reports success.
+
+Live public Library search for Raghupati shows the complete RAM melody as
+Devotional, 100 BPM, 2/4, distinct from the old short practice study. Opening
+the searched entry displays all 28 bars. Live piano, harmonium and recorded
+Ventus bansuri each reached Replay at 33,600 ms; no reported browser errors.
+Live Download score generated the PDF-ready link. Actual production export
+returned HTTP 200 application/pdf, 68,784 bytes. Rendered one-page PDF
+visually confirms all 28 bars, Roman Sargam, final source F4 and readable
+source/edition credit without clipping. Recorded samples are pitch-shifted
+below their native E4 range; this is runtime verification, not an expert
+listening/fingering certification.
+
+Live verified-complete count is now **4/100**, ready inventory 39 (35 old
+studies/exercises plus four complete editions). The 100-piece goal remains
+active. Public link:
+https://sargam-io.vercel.app/?score=verified-raghupati-raghav-complete#practice
+
+Next source reviews are saved separately: `gymnopedie-1-reviewed.json` proves
+the source form is 78 performed bars while its official MIDI plays only 47;
+do not promote that MIDI unchanged. Explicit top voice includes rests, skips,
+ties and ending chords. `indian-source-next-2026-10-01.json` routes a historical
+Bande Mataram setting, but full score completeness is not yet verified.
+Neither is registered or counted. No purchases or contracts.

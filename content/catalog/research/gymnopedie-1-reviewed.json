@@ -1,0 +1,2249 @@
+{
+  "schema": "research-source-reviewed-music-ledger-v1",
+  "status": "RESEARCH_ONLY",
+  "title": "Gymnopedie No. 1 — explicit top voice, complete source form",
+  "restrictions": {
+    "register": false,
+    "publish": false,
+    "countAsVerifiedRepertoire": false,
+    "highestNoteHeuristic": false,
+    "introSkipped": false,
+    "endingTruncated": false
+  },
+  "reviewOutcome": "Confident full written top-voice ledger. Not certified as a complete monophonic MIDI extraction: the voice has ending chords, and the official MIDI does not realize the source's complete repeat form.",
+  "sources": {
+    "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=37",
+    "lilypond": "https://www.mutopiaproject.org/ftp/SatieE/gymnopedie_1/gymnopedie_1.ly",
+    "officialMidi": "https://www.mutopiaproject.org/ftp/SatieE/gymnopedie_1/gymnopedie_1.mid",
+    "localMidi": "content/catalog/inbox/launch-100/gymnopedie-1.mid",
+    "sourceLinkVerification": "The official piece page's LilyPond file link resolves to this exact .ly URL; its MIDI file link resolves to this exact .mid URL.",
+    "retrieval": "Web reader verified links but rejected text/x-lilypond and audio/sp-midi. Allowed read-only shell requests successfully read both official resources into memory; no downloaded source file was saved.",
+    "edition": "Mutopia-2014/12/14-37; LilyPond 2.18.2; Evin Robertson; source Dover Edition",
+    "licenseEvidence": {
+      "piecePage": "Copyright: Public Domain",
+      "sourceHeader": "license = \"Public Domain\"",
+      "editionFooter": "Placed in the public domain by the typesetter; free to distribute, modify, and perform",
+      "sourceComment": "Dover reproduces the original work; its copyrighted French translations are omitted from this LilyPond file."
+    },
+    "sourceTextUTF8SHA256": "420A52244E9FBE106DD33BA2CAC84414FD66E0D01C6D472205BAD39678D4CE04",
+    "sourceTextHashDefinition": "SHA-256 of decoded response text encoded as UTF-8; not a claim about original wire bytes.",
+    "midiBytes": 2892,
+    "localMidiSHA256": "09CE7337B4BF42BA12E1AA64B4C7DC7FCFA6455F1070CB12F8880A755DF97384",
+    "officialMidiSHA256": "09CE7337B4BF42BA12E1AA64B4C7DC7FCFA6455F1070CB12F8880A755DF97384",
+    "midiByteIdentity": true
+  },
+  "voiceEvidence": {
+    "explicitVoice": "top",
+    "declaration": "top = \\context Staff \\relative c'' {",
+    "sourceLine": 40,
+    "scorePlacement": "\\top and \\middle appear together on Staff = treble; \\bottom appears on Staff = bass.",
+    "accompanimentDeclaration": "middle = \\context Voice = \"accomp\" \\relative c' {",
+    "method": "Transcribe the explicit top expression, not a MIDI track or a highest-note selection. Top has stemUp/slurUp; middle is separately authored accompaniment. MIDI combines top and middle on track 1/channel 0, so track identity is not voice identity.",
+    "key": "\\key b \\minor (two-sharp signature, not an asserted tonal interpretation)",
+    "meter": "\\time 3/4",
+    "tempoText": "Lent et douloureux",
+    "midiTempoMicrosecondsPerQuarter": 1000000,
+    "midiTempoQuarterBPM": 60
+  },
+  "encoding": {
+    "pairs": "[MIDI, quarter duration]; null for rest OR source skip, distinguished by events.kind; an array of MIDI pitches is an explicit chord, not an unresolved pitch.",
+    "midiConvention": "C4=60. Pitches follow relative notation, explicit accidentals and octave marks. Chord pitch arrays preserve source order.",
+    "durationUnit": "Quarter note; dotted half=3, half=2, quarter=1. Each bar totals exactly 3.",
+    "tiePolicy": "All written note segments retained with tieIn/tieOut. Slurs are not ties. For sounding output merge only tie-connected same-pitch segments; do not merge repeated attacks.",
+    "sourceLocations": "1-based lines in exact retrieved LilyPond text; IDs B1-B31/E1-1-E1-8/E2-1-E2-8 avoid misleading flattened bar numbers."
+  },
+  "form": {
+    "printedSyntax": "\\repeat volta 2 { 31 common bars } \\alternative { { 8 bars } { 8 bars } }",
+    "sourceComment": "The original does not use a volta; changing volta to unfolded in each voice reproduces the original layout.",
+    "uniqueWrittenBars": 47,
+    "commonBars": 31,
+    "firstEndingBars": 8,
+    "secondEndingBars": 8,
+    "intendedPerformanceBars": 78,
+    "intendedPerformanceQuarter": 234,
+    "performanceSequence": "B1-B31, E1-1-E1-8, B1-B31, E2-1-E2-8",
+    "midiObservedBars": 47,
+    "midiObservedQuarter": 141,
+    "midiEndTick": 54144,
+    "midiPPQ": 384,
+    "midiObservedSequence": "B1-B31, E1-1-E1-8, E2-1-E2-8",
+    "discrepancy": "Official MIDI contains both alternatives but no second common-body pass; it is 31 bars/93 quarters shorter than the source-implied performance.",
+    "start": "Four complete top-voice bars of printed multimeasure-type rests, followed by a one-quarter invisible skip in B5. First melody attack at quarter 13, tick 4992.",
+    "secondEntry": "B13 begins with another invisible quarter skip; preserve it separately from printed rests.",
+    "end": "Second ending includes the full C-major voicing [72,69,64,60] then D-minor voicing [74,69,65,62], each held 3 quarters, followed by final barline."
+  },
+  "counts": {
+    "writtenTopEvents": 85,
+    "writtenMonophonicNoteSegments": 75,
+    "writtenChordEvents": 4,
+    "writtenNoteheadsIncludingChords": 91,
+    "writtenFullBarRestEvents": 4,
+    "writtenSilentSkipEvents": 2,
+    "writtenQuarter": 141,
+    "writtenTieContinuationSegments": 7,
+    "writtenSoundingAttackEventsAfterTieMerge": 72
+  },
+  "bars": [
+    {
+      "id": "B1",
+      "writtenSequenceIndex": 1,
+      "section": "common repeat body",
+      "sourceLine": 47,
+      "sourceMusicLine": "R2.^\\markup{\\hspace #10 \"Lent et douloureux\"} |",
+      "events": [
+        {
+          "kind": "rest",
+          "midi": null,
+          "durationQuarter": 3,
+          "notation": "R2."
+        }
+      ],
+      "pairs": [
+        [
+          null,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B2",
+      "writtenSequenceIndex": 2,
+      "section": "common repeat body",
+      "sourceLine": 48,
+      "sourceMusicLine": "R2. |",
+      "events": [
+        {
+          "kind": "rest",
+          "midi": null,
+          "durationQuarter": 3,
+          "notation": "R2."
+        }
+      ],
+      "pairs": [
+        [
+          null,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B3",
+      "writtenSequenceIndex": 3,
+      "section": "common repeat body",
+      "sourceLine": 49,
+      "sourceMusicLine": "R2. |",
+      "events": [
+        {
+          "kind": "rest",
+          "midi": null,
+          "durationQuarter": 3,
+          "notation": "R2."
+        }
+      ],
+      "pairs": [
+        [
+          null,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B4",
+      "writtenSequenceIndex": 4,
+      "section": "common repeat body",
+      "sourceLine": 50,
+      "sourceMusicLine": "R2. |",
+      "events": [
+        {
+          "kind": "rest",
+          "midi": null,
+          "durationQuarter": 3,
+          "notation": "R2."
+        }
+      ],
+      "pairs": [
+        [
+          null,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B5",
+      "writtenSequenceIndex": 5,
+      "section": "common repeat body",
+      "sourceLine": 51,
+      "sourceMusicLine": "s4 fis( \\pp \\< a |",
+      "events": [
+        {
+          "kind": "skip",
+          "midi": null,
+          "durationQuarter": 1,
+          "notation": "s4",
+          "printedRest": false
+        },
+        {
+          "kind": "note",
+          "midi": 78,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 81,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          null,
+          1
+        ],
+        [
+          78,
+          1
+        ],
+        [
+          81,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B6",
+      "writtenSequenceIndex": 6,
+      "section": "common repeat body",
+      "sourceLine": 52,
+      "sourceMusicLine": "g fis cis |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 79,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 78,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          79,
+          1
+        ],
+        [
+          78,
+          1
+        ],
+        [
+          73,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B7",
+      "writtenSequenceIndex": 7,
+      "section": "common repeat body",
+      "sourceLine": 54,
+      "sourceMusicLine": "b cis\\! \\once\\override Hairpin.Y-offset = #7 d\\> |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          71,
+          1
+        ],
+        [
+          73,
+          1
+        ],
+        [
+          74,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B8",
+      "writtenSequenceIndex": 8,
+      "section": "common repeat body",
+      "sourceLine": 56,
+      "sourceMusicLine": "a2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 69,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          69,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B9",
+      "writtenSequenceIndex": 9,
+      "section": "common repeat body",
+      "sourceLine": 57,
+      "sourceMusicLine": "fis2.\\!) ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 66,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          66,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B10",
+      "writtenSequenceIndex": 10,
+      "section": "common repeat body",
+      "sourceLine": 58,
+      "sourceMusicLine": "fis2. ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 66,
+          "durationQuarter": 3,
+          "tieIn": true,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          66,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B11",
+      "writtenSequenceIndex": 11,
+      "section": "common repeat body",
+      "sourceLine": 59,
+      "sourceMusicLine": "fis2. ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 66,
+          "durationQuarter": 3,
+          "tieIn": true,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          66,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B12",
+      "writtenSequenceIndex": 12,
+      "section": "common repeat body",
+      "sourceLine": 60,
+      "sourceMusicLine": "fis2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 66,
+          "durationQuarter": 3,
+          "tieIn": true,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          66,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B13",
+      "writtenSequenceIndex": 13,
+      "section": "common repeat body",
+      "sourceLine": 61,
+      "sourceMusicLine": "s4 fis'\\<( a | g fis cis |",
+      "events": [
+        {
+          "kind": "skip",
+          "midi": null,
+          "durationQuarter": 1,
+          "notation": "s4",
+          "printedRest": false
+        },
+        {
+          "kind": "note",
+          "midi": 78,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 81,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          null,
+          1
+        ],
+        [
+          78,
+          1
+        ],
+        [
+          81,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B14",
+      "writtenSequenceIndex": 14,
+      "section": "common repeat body",
+      "sourceLine": 61,
+      "sourceMusicLine": "s4 fis'\\<( a | g fis cis |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 79,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 78,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          79,
+          1
+        ],
+        [
+          78,
+          1
+        ],
+        [
+          73,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B15",
+      "writtenSequenceIndex": 15,
+      "section": "common repeat body",
+      "sourceLine": 62,
+      "sourceMusicLine": "b cis  d\\! |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          71,
+          1
+        ],
+        [
+          73,
+          1
+        ],
+        [
+          74,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B16",
+      "writtenSequenceIndex": 16,
+      "section": "common repeat body",
+      "sourceLine": 63,
+      "sourceMusicLine": "a2.\\> |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 69,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          69,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B17",
+      "writtenSequenceIndex": 17,
+      "section": "common repeat body",
+      "sourceLine": 65,
+      "sourceMusicLine": "cis2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          73,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B18",
+      "writtenSequenceIndex": 18,
+      "section": "common repeat body",
+      "sourceLine": 66,
+      "sourceMusicLine": "fis2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 78,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          78,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B19",
+      "writtenSequenceIndex": 19,
+      "section": "common repeat body",
+      "sourceLine": 67,
+      "sourceMusicLine": "e,2.\\!) ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 64,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          64,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B20",
+      "writtenSequenceIndex": 20,
+      "section": "common repeat body",
+      "sourceLine": 68,
+      "sourceMusicLine": "e2. ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 64,
+          "durationQuarter": 3,
+          "tieIn": true,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          64,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B21",
+      "writtenSequenceIndex": 21,
+      "section": "common repeat body",
+      "sourceLine": 69,
+      "sourceMusicLine": "e2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 64,
+          "durationQuarter": 3,
+          "tieIn": true,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          64,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B22",
+      "writtenSequenceIndex": 22,
+      "section": "common repeat body",
+      "sourceLine": 70,
+      "sourceMusicLine": "a4(\\< b c |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 69,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 72,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          69,
+          1
+        ],
+        [
+          71,
+          1
+        ],
+        [
+          72,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B23",
+      "writtenSequenceIndex": 23,
+      "section": "common repeat body",
+      "sourceLine": 71,
+      "sourceMusicLine": "e d b |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          76,
+          1
+        ],
+        [
+          74,
+          1
+        ],
+        [
+          71,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B24",
+      "writtenSequenceIndex": 24,
+      "section": "common repeat body",
+      "sourceLine": 72,
+      "sourceMusicLine": "d c  b\\! |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 72,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          74,
+          1
+        ],
+        [
+          72,
+          1
+        ],
+        [
+          71,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B25",
+      "writtenSequenceIndex": 25,
+      "section": "common repeat body",
+      "sourceLine": 74,
+      "sourceMusicLine": "d2.\\> ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          74,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B26",
+      "writtenSequenceIndex": 26,
+      "section": "common repeat body",
+      "sourceLine": 75,
+      "sourceMusicLine": "d2\\!) d4(\\< |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 2,
+          "tieIn": true,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          74,
+          2
+        ],
+        [
+          74,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B27",
+      "writtenSequenceIndex": 27,
+      "section": "common repeat body",
+      "sourceLine": 76,
+      "sourceMusicLine": "e f g |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 77,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 79,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          76,
+          1
+        ],
+        [
+          77,
+          1
+        ],
+        [
+          79,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B28",
+      "writtenSequenceIndex": 28,
+      "section": "common repeat body",
+      "sourceLine": 77,
+      "sourceMusicLine": "a c,  d\\! |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 81,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 72,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          81,
+          1
+        ],
+        [
+          72,
+          1
+        ],
+        [
+          74,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B29",
+      "writtenSequenceIndex": 29,
+      "section": "common repeat body",
+      "sourceLine": 78,
+      "sourceMusicLine": "e\\> d b |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          76,
+          1
+        ],
+        [
+          74,
+          1
+        ],
+        [
+          71,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B30",
+      "writtenSequenceIndex": 30,
+      "section": "common repeat body",
+      "sourceLine": 79,
+      "sourceMusicLine": "d2.\\! ~ |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": true
+        }
+      ],
+      "pairs": [
+        [
+          74,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "B31",
+      "writtenSequenceIndex": 31,
+      "section": "common repeat body",
+      "sourceLine": 80,
+      "sourceMusicLine": "d2) d4  |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 2,
+          "tieIn": true,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          74,
+          2
+        ],
+        [
+          74,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-1",
+      "writtenSequenceIndex": 32,
+      "section": "first alternative",
+      "sourceLine": 85,
+      "sourceMusicLine": "g2.( \\< |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 79,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          79,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-2",
+      "writtenSequenceIndex": 33,
+      "section": "first alternative",
+      "sourceLine": 86,
+      "sourceMusicLine": "fis2.\\! |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 78,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          78,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-3",
+      "writtenSequenceIndex": 34,
+      "section": "first alternative",
+      "sourceLine": 87,
+      "sourceMusicLine": "b,4 a b |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 69,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          71,
+          1
+        ],
+        [
+          69,
+          1
+        ],
+        [
+          71,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-4",
+      "writtenSequenceIndex": 35,
+      "section": "first alternative",
+      "sourceLine": 88,
+      "sourceMusicLine": "cis d e |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          73,
+          1
+        ],
+        [
+          74,
+          1
+        ],
+        [
+          76,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-5",
+      "writtenSequenceIndex": 36,
+      "section": "first alternative",
+      "sourceLine": 89,
+      "sourceMusicLine": "cis d \\> e |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 73,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          73,
+          1
+        ],
+        [
+          74,
+          1
+        ],
+        [
+          76,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-6",
+      "writtenSequenceIndex": 37,
+      "section": "first alternative",
+      "sourceLine": 90,
+      "sourceMusicLine": "fis,2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 66,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          66,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-7",
+      "writtenSequenceIndex": 38,
+      "section": "first alternative",
+      "sourceLine": 91,
+      "sourceMusicLine": "< c' a e c>2.\\!) |",
+      "events": [
+        {
+          "kind": "chord",
+          "midi": [
+            72,
+            69,
+            64,
+            60
+          ],
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          [
+            72,
+            69,
+            64,
+            60
+          ],
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E1-8",
+      "writtenSequenceIndex": 39,
+      "section": "first alternative",
+      "sourceLine": 92,
+      "sourceMusicLine": "<d a fis d>2. |",
+      "events": [
+        {
+          "kind": "chord",
+          "midi": [
+            74,
+            69,
+            66,
+            62
+          ],
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          [
+            74,
+            69,
+            66,
+            62
+          ],
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-1",
+      "writtenSequenceIndex": 40,
+      "section": "second alternative",
+      "sourceLine": 95,
+      "sourceMusicLine": "g2.( \\< |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 79,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          79,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-2",
+      "writtenSequenceIndex": 41,
+      "section": "second alternative",
+      "sourceLine": 96,
+      "sourceMusicLine": "f2.\\! |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 77,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          77,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-3",
+      "writtenSequenceIndex": 42,
+      "section": "second alternative",
+      "sourceLine": 97,
+      "sourceMusicLine": "b,4 c f |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 71,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 72,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 77,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          71,
+          1
+        ],
+        [
+          72,
+          1
+        ],
+        [
+          77,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-4",
+      "writtenSequenceIndex": 43,
+      "section": "second alternative",
+      "sourceLine": 98,
+      "sourceMusicLine": "e d c |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 72,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          76,
+          1
+        ],
+        [
+          74,
+          1
+        ],
+        [
+          72,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-5",
+      "writtenSequenceIndex": 44,
+      "section": "second alternative",
+      "sourceLine": 99,
+      "sourceMusicLine": "e d c \\> |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 76,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 74,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        },
+        {
+          "kind": "note",
+          "midi": 72,
+          "durationQuarter": 1,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          76,
+          1
+        ],
+        [
+          74,
+          1
+        ],
+        [
+          72,
+          1
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-6",
+      "writtenSequenceIndex": 45,
+      "section": "second alternative",
+      "sourceLine": 100,
+      "sourceMusicLine": "f,2. |",
+      "events": [
+        {
+          "kind": "note",
+          "midi": 65,
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          65,
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-7",
+      "writtenSequenceIndex": 46,
+      "section": "second alternative",
+      "sourceLine": 101,
+      "sourceMusicLine": "<c' a e c>2. |",
+      "events": [
+        {
+          "kind": "chord",
+          "midi": [
+            72,
+            69,
+            64,
+            60
+          ],
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          [
+            72,
+            69,
+            64,
+            60
+          ],
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    },
+    {
+      "id": "E2-8",
+      "writtenSequenceIndex": 47,
+      "section": "second alternative",
+      "sourceLine": 102,
+      "sourceMusicLine": "< d a f d>2.\\!) \\bar \"|.\"",
+      "events": [
+        {
+          "kind": "chord",
+          "midi": [
+            74,
+            69,
+            65,
+            62
+          ],
+          "durationQuarter": 3,
+          "tieIn": false,
+          "tieOut": false
+        }
+      ],
+      "pairs": [
+        [
+          [
+            74,
+            69,
+            65,
+            62
+          ],
+          3
+        ]
+      ],
+      "totalQuarter": 3
+    }
+  ],
+  "performanceBarMap": [
+    {
+      "performanceBar": 1,
+      "sourceBarId": "B1",
+      "repeatPass": 1,
+      "startQuarter": 0,
+      "startTickAt384PPQ": 0
+    },
+    {
+      "performanceBar": 2,
+      "sourceBarId": "B2",
+      "repeatPass": 1,
+      "startQuarter": 3,
+      "startTickAt384PPQ": 1152
+    },
+    {
+      "performanceBar": 3,
+      "sourceBarId": "B3",
+      "repeatPass": 1,
+      "startQuarter": 6,
+      "startTickAt384PPQ": 2304
+    },
+    {
+      "performanceBar": 4,
+      "sourceBarId": "B4",
+      "repeatPass": 1,
+      "startQuarter": 9,
+      "startTickAt384PPQ": 3456
+    },
+    {
+      "performanceBar": 5,
+      "sourceBarId": "B5",
+      "repeatPass": 1,
+      "startQuarter": 12,
+      "startTickAt384PPQ": 4608
+    },
+    {
+      "performanceBar": 6,
+      "sourceBarId": "B6",
+      "repeatPass": 1,
+      "startQuarter": 15,
+      "startTickAt384PPQ": 5760
+    },
+    {
+      "performanceBar": 7,
+      "sourceBarId": "B7",
+      "repeatPass": 1,
+      "startQuarter": 18,
+      "startTickAt384PPQ": 6912
+    },
+    {
+      "performanceBar": 8,
+      "sourceBarId": "B8",
+      "repeatPass": 1,
+      "startQuarter": 21,
+      "startTickAt384PPQ": 8064
+    },
+    {
+      "performanceBar": 9,
+      "sourceBarId": "B9",
+      "repeatPass": 1,
+      "startQuarter": 24,
+      "startTickAt384PPQ": 9216
+    },
+    {
+      "performanceBar": 10,
+      "sourceBarId": "B10",
+      "repeatPass": 1,
+      "startQuarter": 27,
+      "startTickAt384PPQ": 10368
+    },
+    {
+      "performanceBar": 11,
+      "sourceBarId": "B11",
+      "repeatPass": 1,
+      "startQuarter": 30,
+      "startTickAt384PPQ": 11520
+    },
+    {
+      "performanceBar": 12,
+      "sourceBarId": "B12",
+      "repeatPass": 1,
+      "startQuarter": 33,
+      "startTickAt384PPQ": 12672
+    },
+    {
+      "performanceBar": 13,
+      "sourceBarId": "B13",
+      "repeatPass": 1,
+      "startQuarter": 36,
+      "startTickAt384PPQ": 13824
+    },
+    {
+      "performanceBar": 14,
+      "sourceBarId": "B14",
+      "repeatPass": 1,
+      "startQuarter": 39,
+      "startTickAt384PPQ": 14976
+    },
+    {
+      "performanceBar": 15,
+      "sourceBarId": "B15",
+      "repeatPass": 1,
+      "startQuarter": 42,
+      "startTickAt384PPQ": 16128
+    },
+    {
+      "performanceBar": 16,
+      "sourceBarId": "B16",
+      "repeatPass": 1,
+      "startQuarter": 45,
+      "startTickAt384PPQ": 17280
+    },
+    {
+      "performanceBar": 17,
+      "sourceBarId": "B17",
+      "repeatPass": 1,
+      "startQuarter": 48,
+      "startTickAt384PPQ": 18432
+    },
+    {
+      "performanceBar": 18,
+      "sourceBarId": "B18",
+      "repeatPass": 1,
+      "startQuarter": 51,
+      "startTickAt384PPQ": 19584
+    },
+    {
+      "performanceBar": 19,
+      "sourceBarId": "B19",
+      "repeatPass": 1,
+      "startQuarter": 54,
+      "startTickAt384PPQ": 20736
+    },
+    {
+      "performanceBar": 20,
+      "sourceBarId": "B20",
+      "repeatPass": 1,
+      "startQuarter": 57,
+      "startTickAt384PPQ": 21888
+    },
+    {
+      "performanceBar": 21,
+      "sourceBarId": "B21",
+      "repeatPass": 1,
+      "startQuarter": 60,
+      "startTickAt384PPQ": 23040
+    },
+    {
+      "performanceBar": 22,
+      "sourceBarId": "B22",
+      "repeatPass": 1,
+      "startQuarter": 63,
+      "startTickAt384PPQ": 24192
+    },
+    {
+      "performanceBar": 23,
+      "sourceBarId": "B23",
+      "repeatPass": 1,
+      "startQuarter": 66,
+      "startTickAt384PPQ": 25344
+    },
+    {
+      "performanceBar": 24,
+      "sourceBarId": "B24",
+      "repeatPass": 1,
+      "startQuarter": 69,
+      "startTickAt384PPQ": 26496
+    },
+    {
+      "performanceBar": 25,
+      "sourceBarId": "B25",
+      "repeatPass": 1,
+      "startQuarter": 72,
+      "startTickAt384PPQ": 27648
+    },
+    {
+      "performanceBar": 26,
+      "sourceBarId": "B26",
+      "repeatPass": 1,
+      "startQuarter": 75,
+      "startTickAt384PPQ": 28800
+    },
+    {
+      "performanceBar": 27,
+      "sourceBarId": "B27",
+      "repeatPass": 1,
+      "startQuarter": 78,
+      "startTickAt384PPQ": 29952
+    },
+    {
+      "performanceBar": 28,
+      "sourceBarId": "B28",
+      "repeatPass": 1,
+      "startQuarter": 81,
+      "startTickAt384PPQ": 31104
+    },
+    {
+      "performanceBar": 29,
+      "sourceBarId": "B29",
+      "repeatPass": 1,
+      "startQuarter": 84,
+      "startTickAt384PPQ": 32256
+    },
+    {
+      "performanceBar": 30,
+      "sourceBarId": "B30",
+      "repeatPass": 1,
+      "startQuarter": 87,
+      "startTickAt384PPQ": 33408
+    },
+    {
+      "performanceBar": 31,
+      "sourceBarId": "B31",
+      "repeatPass": 1,
+      "startQuarter": 90,
+      "startTickAt384PPQ": 34560
+    },
+    {
+      "performanceBar": 32,
+      "sourceBarId": "E1-1",
+      "repeatPass": 1,
+      "startQuarter": 93,
+      "startTickAt384PPQ": 35712
+    },
+    {
+      "performanceBar": 33,
+      "sourceBarId": "E1-2",
+      "repeatPass": 1,
+      "startQuarter": 96,
+      "startTickAt384PPQ": 36864
+    },
+    {
+      "performanceBar": 34,
+      "sourceBarId": "E1-3",
+      "repeatPass": 1,
+      "startQuarter": 99,
+      "startTickAt384PPQ": 38016
+    },
+    {
+      "performanceBar": 35,
+      "sourceBarId": "E1-4",
+      "repeatPass": 1,
+      "startQuarter": 102,
+      "startTickAt384PPQ": 39168
+    },
+    {
+      "performanceBar": 36,
+      "sourceBarId": "E1-5",
+      "repeatPass": 1,
+      "startQuarter": 105,
+      "startTickAt384PPQ": 40320
+    },
+    {
+      "performanceBar": 37,
+      "sourceBarId": "E1-6",
+      "repeatPass": 1,
+      "startQuarter": 108,
+      "startTickAt384PPQ": 41472
+    },
+    {
+      "performanceBar": 38,
+      "sourceBarId": "E1-7",
+      "repeatPass": 1,
+      "startQuarter": 111,
+      "startTickAt384PPQ": 42624
+    },
+    {
+      "performanceBar": 39,
+      "sourceBarId": "E1-8",
+      "repeatPass": 1,
+      "startQuarter": 114,
+      "startTickAt384PPQ": 43776
+    },
+    {
+      "performanceBar": 40,
+      "sourceBarId": "B1",
+      "repeatPass": 2,
+      "startQuarter": 117,
+      "startTickAt384PPQ": 44928
+    },
+    {
+      "performanceBar": 41,
+      "sourceBarId": "B2",
+      "repeatPass": 2,
+      "startQuarter": 120,
+      "startTickAt384PPQ": 46080
+    },
+    {
+      "performanceBar": 42,
+      "sourceBarId": "B3",
+      "repeatPass": 2,
+      "startQuarter": 123,
+      "startTickAt384PPQ": 47232
+    },
+    {
+      "performanceBar": 43,
+      "sourceBarId": "B4",
+      "repeatPass": 2,
+      "startQuarter": 126,
+      "startTickAt384PPQ": 48384
+    },
+    {
+      "performanceBar": 44,
+      "sourceBarId": "B5",
+      "repeatPass": 2,
+      "startQuarter": 129,
+      "startTickAt384PPQ": 49536
+    },
+    {
+      "performanceBar": 45,
+      "sourceBarId": "B6",
+      "repeatPass": 2,
+      "startQuarter": 132,
+      "startTickAt384PPQ": 50688
+    },
+    {
+      "performanceBar": 46,
+      "sourceBarId": "B7",
+      "repeatPass": 2,
+      "startQuarter": 135,
+      "startTickAt384PPQ": 51840
+    },
+    {
+      "performanceBar": 47,
+      "sourceBarId": "B8",
+      "repeatPass": 2,
+      "startQuarter": 138,
+      "startTickAt384PPQ": 52992
+    },
+    {
+      "performanceBar": 48,
+      "sourceBarId": "B9",
+      "repeatPass": 2,
+      "startQuarter": 141,
+      "startTickAt384PPQ": 54144
+    },
+    {
+      "performanceBar": 49,
+      "sourceBarId": "B10",
+      "repeatPass": 2,
+      "startQuarter": 144,
+      "startTickAt384PPQ": 55296
+    },
+    {
+      "performanceBar": 50,
+      "sourceBarId": "B11",
+      "repeatPass": 2,
+      "startQuarter": 147,
+      "startTickAt384PPQ": 56448
+    },
+    {
+      "performanceBar": 51,
+      "sourceBarId": "B12",
+      "repeatPass": 2,
+      "startQuarter": 150,
+      "startTickAt384PPQ": 57600
+    },
+    {
+      "performanceBar": 52,
+      "sourceBarId": "B13",
+      "repeatPass": 2,
+      "startQuarter": 153,
+      "startTickAt384PPQ": 58752
+    },
+    {
+      "performanceBar": 53,
+      "sourceBarId": "B14",
+      "repeatPass": 2,
+      "startQuarter": 156,
+      "startTickAt384PPQ": 59904
+    },
+    {
+      "performanceBar": 54,
+      "sourceBarId": "B15",
+      "repeatPass": 2,
+      "startQuarter": 159,
+      "startTickAt384PPQ": 61056
+    },
+    {
+      "performanceBar": 55,
+      "sourceBarId": "B16",
+      "repeatPass": 2,
+      "startQuarter": 162,
+      "startTickAt384PPQ": 62208
+    },
+    {
+      "performanceBar": 56,
+      "sourceBarId": "B17",
+      "repeatPass": 2,
+      "startQuarter": 165,
+      "startTickAt384PPQ": 63360
+    },
+    {
+      "performanceBar": 57,
+      "sourceBarId": "B18",
+      "repeatPass": 2,
+      "startQuarter": 168,
+      "startTickAt384PPQ": 64512
+    },
+    {
+      "performanceBar": 58,
+      "sourceBarId": "B19",
+      "repeatPass": 2,
+      "startQuarter": 171,
+      "startTickAt384PPQ": 65664
+    },
+    {
+      "performanceBar": 59,
+      "sourceBarId": "B20",
+      "repeatPass": 2,
+      "startQuarter": 174,
+      "startTickAt384PPQ": 66816
+    },
+    {
+      "performanceBar": 60,
+      "sourceBarId": "B21",
+      "repeatPass": 2,
+      "startQuarter": 177,
+      "startTickAt384PPQ": 67968
+    },
+    {
+      "performanceBar": 61,
+      "sourceBarId": "B22",
+      "repeatPass": 2,
+      "startQuarter": 180,
+      "startTickAt384PPQ": 69120
+    },
+    {
+      "performanceBar": 62,
+      "sourceBarId": "B23",
+      "repeatPass": 2,
+      "startQuarter": 183,
+      "startTickAt384PPQ": 70272
+    },
+    {
+      "performanceBar": 63,
+      "sourceBarId": "B24",
+      "repeatPass": 2,
+      "startQuarter": 186,
+      "startTickAt384PPQ": 71424
+    },
+    {
+      "performanceBar": 64,
+      "sourceBarId": "B25",
+      "repeatPass": 2,
+      "startQuarter": 189,
+      "startTickAt384PPQ": 72576
+    },
+    {
+      "performanceBar": 65,
+      "sourceBarId": "B26",
+      "repeatPass": 2,
+      "startQuarter": 192,
+      "startTickAt384PPQ": 73728
+    },
+    {
+      "performanceBar": 66,
+      "sourceBarId": "B27",
+      "repeatPass": 2,
+      "startQuarter": 195,
+      "startTickAt384PPQ": 74880
+    },
+    {
+      "performanceBar": 67,
+      "sourceBarId": "B28",
+      "repeatPass": 2,
+      "startQuarter": 198,
+      "startTickAt384PPQ": 76032
+    },
+    {
+      "performanceBar": 68,
+      "sourceBarId": "B29",
+      "repeatPass": 2,
+      "startQuarter": 201,
+      "startTickAt384PPQ": 77184
+    },
+    {
+      "performanceBar": 69,
+      "sourceBarId": "B30",
+      "repeatPass": 2,
+      "startQuarter": 204,
+      "startTickAt384PPQ": 78336
+    },
+    {
+      "performanceBar": 70,
+      "sourceBarId": "B31",
+      "repeatPass": 2,
+      "startQuarter": 207,
+      "startTickAt384PPQ": 79488
+    },
+    {
+      "performanceBar": 71,
+      "sourceBarId": "E2-1",
+      "repeatPass": 2,
+      "startQuarter": 210,
+      "startTickAt384PPQ": 80640
+    },
+    {
+      "performanceBar": 72,
+      "sourceBarId": "E2-2",
+      "repeatPass": 2,
+      "startQuarter": 213,
+      "startTickAt384PPQ": 81792
+    },
+    {
+      "performanceBar": 73,
+      "sourceBarId": "E2-3",
+      "repeatPass": 2,
+      "startQuarter": 216,
+      "startTickAt384PPQ": 82944
+    },
+    {
+      "performanceBar": 74,
+      "sourceBarId": "E2-4",
+      "repeatPass": 2,
+      "startQuarter": 219,
+      "startTickAt384PPQ": 84096
+    },
+    {
+      "performanceBar": 75,
+      "sourceBarId": "E2-5",
+      "repeatPass": 2,
+      "startQuarter": 222,
+      "startTickAt384PPQ": 85248
+    },
+    {
+      "performanceBar": 76,
+      "sourceBarId": "E2-6",
+      "repeatPass": 2,
+      "startQuarter": 225,
+      "startTickAt384PPQ": 86400
+    },
+    {
+      "performanceBar": 77,
+      "sourceBarId": "E2-7",
+      "repeatPass": 2,
+      "startQuarter": 228,
+      "startTickAt384PPQ": 87552
+    },
+    {
+      "performanceBar": 78,
+      "sourceBarId": "E2-8",
+      "repeatPass": 2,
+      "startQuarter": 231,
+      "startTickAt384PPQ": 88704
+    }
+  ],
+  "tieGroups": [
+    {
+      "sourceBars": [
+        "B9",
+        "B10",
+        "B11",
+        "B12"
+      ],
+      "midi": 66,
+      "totalQuarter": 12
+    },
+    {
+      "sourceBars": [
+        "B19",
+        "B20",
+        "B21"
+      ],
+      "midi": 64,
+      "totalQuarter": 9
+    },
+    {
+      "sourceBars": [
+        "B25",
+        "B26"
+      ],
+      "midi": 74,
+      "totalQuarter": 5,
+      "detail": "B26 ends with a separate quarter-note D5 attack."
+    },
+    {
+      "sourceBars": [
+        "B30",
+        "B31"
+      ],
+      "midi": 74,
+      "totalQuarter": 5,
+      "detail": "B31 ends with a separate quarter-note D5 attack."
+    }
+  ],
+  "validation": {
+    "jsonParsed": true,
+    "all47WrittenBarsTotalThreeQuarters": true,
+    "performanceMapContains78Bars": true,
+    "sourceNoteheadSegmentsMatchedToMidi": 87,
+    "matchingMethod": "Every scalar/chord notehead segment outside B9-B12 was checked at its source-derived onset and duration against a covering track-1 MIDI event. Tied continuations were allowed to fall inside a sustained event. No highest-pitch selection was used.",
+    "excludedSourceNoteheadSegments": 4,
+    "excludedReason": "The four tied F#4 segments B9-B12 collide with accompaniment F#4 on the same track/channel; documented separately.",
+    "formalMIDICompletenessPassed": false,
+    "researchOnly": true
+  },
+  "uncertainties": [
+    {
+      "id": "monophonic-ending-policy",
+      "blocking": true,
+      "finding": "The explicit top voice is polyphonic in the final two bars of both alternatives. There is no separately encoded scalar melody voice inside those chords. Selecting C5/D5, the highest pitch, or another chord member would be an editorial arrangement, not literal source extraction. No selection made."
+    },
+    {
+      "id": "midi-repeat-form",
+      "blocking": true,
+      "finding": "Byte-identical official MIDI has only 47 bars, not the 78-bar source performance. It cannot be certified as full-form merely by matching the official download."
+    },
+    {
+      "id": "midi-shared-pitch-tie",
+      "blocking": true,
+      "finding": "B9-B12 source holds F#4 for 12 quarters while accompaniment also strikes F#4 on the same MIDI track/channel. Observed MIDI contains F#4 on/off segments at tick 9216-9600, 9600-10752, 10752-11904, 11904-13056 and 13056-13824 instead of a clean top-voice 9216-13824 sustained note. This is a merged-voice MIDI note-event ambiguity; use source tie evidence, not highest-note filtering or raw note duration."
+    },
+    {
+      "id": "silent-skips-versus-rests",
+      "blocking": false,
+      "finding": "B5 and B13 use s4, not r4. Ledger records one quarter of top-voice silence with kind skip and printedRest false; this is not a guessed or padded rest."
+    },
+    {
+      "id": "source-editorial-form",
+      "blocking": false,
+      "finding": "Mutopia expressly compresses the original layout using volta alternatives. Review certifies the retrieved notation edition, not an independently inspected Dover facsimile."
+    }
+  ],
+  "sourceTopExcerpt": "top = \\context Staff \\relative c'' {\n  \\dynamicUp\n  \\stemUp\n  \\slurUp\n  \\override Hairpin.to-barline = ##f\n  \\bar \".|:\"\n  \\repeat volta 2 {\n    R2.^\\markup{\\hspace #10 \"Lent et douloureux\"} |\n    R2. |\n    R2. |\n    R2. |\n    s4 fis( \\pp \\< a |\n    g fis cis |\n    % The hairpin override is to align it with a previous hairpin\n    b cis\\! \\once\\override Hairpin.Y-offset = #7 d\\> |\n    \\barNumberCheck #8\n    a2. |\n    fis2.\\!) ~ |\n    fis2. ~ |\n    fis2. ~ |\n    fis2. |\n    s4 fis'\\<( a | g fis cis |\n    b cis  d\\! |\n    a2.\\> |\n    \\barNumberCheck #17\n    cis2. |\n    fis2. |\n    e,2.\\!) ~ |\n    e2. ~ |\n    e2. |\n    a4(\\< b c |\n    e d b |\n    d c  b\\! |\n    \\barNumberCheck #25\n    d2.\\> ~ |\n    d2\\!) d4(\\< |\n    e f g |\n    a c,  d\\! |\n    e\\> d b |\n    d2.\\! ~ |\n    d2) d4  |\n    \\barNumberCheck #32\n\n  } \\alternative {\n    {\n      g2.( \\< |\n      fis2.\\! |\n      b,4 a b |\n      cis d e |\n      cis d \\> e |\n      fis,2. |\n      < c' a e c>2.\\!) |\n      <d a fis d>2. |\n      \\barNumberCheck #40\n    } {\n      g2.( \\< |\n      f2.\\! |\n      b,4 c f |\n      e d c |\n      e d c \\> |\n      f,2. |\n      <c' a e c>2. |\n      < d a f d>2.\\!) \\bar \"|.\"\n    }\n  }\n}"
+}

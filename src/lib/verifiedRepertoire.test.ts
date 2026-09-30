@@ -160,7 +160,7 @@ describe("complete Raghupati RAM source intake", () => {
     expect(VERIFIED_REPERTOIRE.find(s => s.id === raghupati.id)).toMatchObject({
       timeSignature: "2/4", rootMidi: 60, tempoBpm: 100,
     });
-    expect(raghupati.status).not.toBe("live-complete");
-    expect(raghupati.liveVerification).toEqual({ library: false, playback: false, pdf: false });
+    expect(raghupati.status).toBe("live-complete");
+    expect(raghupati.liveVerification).toEqual({ library: true, playback: true, pdf: true });
   });
 });

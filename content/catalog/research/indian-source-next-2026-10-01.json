@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-01",
+  "status": "research-only-source-route-found-completeness-unverified",
+  "catalogEligible": false,
+  "published": false,
+  "countsTowardCatalog": false,
+  "qualifiedCompleteMelodyFound": false,
+  "candidate": {
+    "title": "Bande Mataram (Vande Mataram)",
+    "category": "Indian patriotic song; historical setting, not a claim of the current official tune",
+    "primaryEdition": {
+      "title": "The Music of Hindostan",
+      "author": "A. H. Fox Strangways",
+      "publisher": "Oxford: Clarendon Press",
+      "year": 1914,
+      "notationLocator": "Example 250; indexed under Bande Mataram on printed page 354",
+      "scorePrintedPage": null,
+      "scorePdfPageIndex": null
+    },
+    "routing": {
+      "editionAndRightsRecord": "https://imslp.org/wiki/The_Music_of_Hindostan_(Fox_Strangways,_Arthur_Henry)",
+      "imslpFileId": "285332",
+      "primaryScanPdf": "https://www.ibiblio.org/guruguha/MusicResearchLibrary/Books-English/BkE-FoxStrangways-MusicofHindostan-0025.pdf",
+      "archiveItem": "https://archive.org/details/musicofhindostan00foxs",
+      "bibliographicRecord": "https://openlibrary.org/books/OL14560785M/The_music_of_Hindostan",
+      "instructions": "Use the original 1914 scan, locate Example 250 (not printed page 250), and inspect its preceding and following pages for continuation and attribution. Do not substitute a modern reprint or familiar audio melody."
+    },
+    "rightsEvidence": {
+      "observed": "IMSLP identifies the complete original book as Oxford: Clarendon Press, 1914, and explicitly labels its copyright Public Domain; file 285332 is an Internet Archive scan, 416 PDF pages.",
+      "limitation": "Repository-level public-domain label observed; not independent jurisdiction-specific legal clearance, and not evidence that a modern arrangement or recording is public domain."
+    },
+    "completeMusicalScope": {
+      "verified": false,
+      "observed": "The indexed primary PDF explicitly routes Bande Mataram to musical Example 250. The notation itself was not rendered or inspected.",
+      "unknown": [
+        "Whether Example 250 contains the complete melodic setting or only an illustrative excerpt",
+        "Composer or collected variant attribution",
+        "Number of stanzas, sections, bars and required repeats",
+        "Pitch, duration, meter, ties, ornaments and continuation pages"
+      ],
+      "promotionGate": "First inspect the actual score pixels and surrounding explanatory text; accept only a complete explicitly notated historical setting with its attribution and form. If it is an excerpt, reject it for this task."
+    }
+  },
+  "preferredTitleRoutesNotQualified": [
+    {
+      "title": "Vaishnav Jana To",
+      "url": "https://www.sharda.org/wp-content/uploads/2015/12/Vaishnav-Jana-To.pdf",
+      "evidence": "Search-indexed educational sheet identifies the bhajan, Keharva and sthai notation; direct web opening failed.",
+      "reason": "Modern sheet edition rights and complete timed melodic scope not verified. Traditional lyrics do not establish public-domain notation rights."
+    },
+    {
+      "title": "Ashram Bhajanavali notation edition",
+      "url": "https://archive.org/details/ashram-bhajanavali-edited-by-ramchandra-mathuri-khare",
+      "discoveryUrl": "https://www.vishwamohini.com/collections/45",
+      "evidence": "Secondary collection routes to a notation edition edited by Ramchandra and Madhuri Khare, distinct from the lyrics-only Ashram Bhajanavali.",
+      "reason": "Original scan unavailable in this review; edition date, rights and preferred-title coverage not established."
+    },
+    {
+      "title": "Om Jai Jagdish Hare",
+      "url": "https://harmoniumweb.org/songs/om-jai-jagdish",
+      "reason": "Site flags music-review need; short study phrases are not a verified complete familiar melody. Modern tutorial sheets and arrangements found elsewhere lacked established public-domain edition rights."
+    }
+  ],
+  "verificationBoundary": {
+    "method": "Primary web metadata and indexed primary-source text, with secondary pages used only for discovery routing",
+    "browserTests": false,
+    "scorePixelsInspected": false,
+    "sourceScreenshotSaved": false,
+    "sourcePdfSaved": false,
+    "accessLimits": "Web PDF reader rejected the 24 MB scan as too large. Local fetch was denied by sandbox; escalated download was rejected by approval review. No challenge bypass, repeated download attempt, signup or purchase followed.",
+    "nextAction": "When ordinary permitted scan viewing is available, inspect Example 250 once and record exact score pages and complete form. This report supplies a rights-supported route, not a completed melody qualification.",
+    "excluded": "Rejected Jana Gana Mana edition was not reconsidered, published or counted. No catalog, code or publication changes."
+  }
+}
