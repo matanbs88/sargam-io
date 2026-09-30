@@ -1,0 +1,8 @@
+# Bansuri illustration asset
+
+Asset: `public/artwork/bansuri-bamboo.png` (1024×1536 generated raster).
+Generated with built-in ImageGen on September 18; visually inspected. Source output: `exec-ab77369c-c803-4ab3-80c8-b73a52faf0ac.png`.
+
+Prompt: Create a premium editorial illustration asset for an Indian music learning application. Portrait 1024x1536 composition. A single authentic slender bamboo bansuri body standing perfectly vertical centered at x=512. Full pipe from y=60 to y=1476, body edges approximately x=450 to x=574 (constant slender width), subtly tapering. Rich warm honey bamboo, beautifully observed organic grain in restrained flat gouache / silk-screen illustration, refined artisan detail rather than plastic 3D gradients. Narrow oxblood and indigo woven thread bindings near both ends only. On a transparent background. IMPORTANT: the pipe surface must be completely UNDRILLED: NO holes, no finger holes, no embouchure hole; this is a compositing asset and live interactive holes will be rendered accurately in code. No shadows outside the pipe, no tassels, hands, feathers, religious icons, text, borders or other objects. Keep silhouette completely visible, straight front view, no perspective diagonal. Museum-quality instrument illustration.
+
+Result has more naturalistic texture than a strictly flat gouache illustration. Rendered silhouette clip removes the surrounding halo; not represented as a guaranteed transparent original. Six labelled live holes and the separate embouchure are functional SVG overlays in BansuriIllustration. Closed/half/open are encoded by shape as well as color. This asset is illustration, not an authoritative instrument geometry or fingering source.

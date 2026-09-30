@@ -21,3 +21,18 @@ export function frequencyFromSa(saHz: number, cents: number): number {
 export function centsFromSa(hz: number, saHz: number): number | null {
   return hz > 0 && saHz > 0 && Number.isFinite(hz) && Number.isFinite(saHz) ? 1200 * Math.log2(hz / saHz) : null;
 }
+
+/** Sample seconds consumed by a piecewise-linear cents curve in score time.
+ * Required for a seek into a glide: elapsed time alone is not sample position. */
+export function pitchCurveSampleSeconds(points: readonly PitchPoint[], offsetMs: number, tempoRate: number): number {
+  if (offsetMs <= 0) return 0;
+  let total = 0, start = 0;
+  const ends = [...points.filter(p=>p.offsetMs>0 && p.offsetMs<offsetMs).map(p=>p.offsetMs), offsetMs];
+  for(const end of ends) {
+    const a=pitchCentsAt(points,start), b=pitchCentsAt(points,end), duration=(end-start)/1000;
+    const exponent=(b-a)*Math.LN2/1200;
+    total += duration * 2**(a/1200) * (Math.abs(exponent)<1e-10 ? 1 : Math.expm1(exponent)/exponent);
+    start=end;
+  }
+  return total/tempoRate;
+}

@@ -4,6 +4,18 @@ Sargam.io turns songs into learner-friendly relative note notation for the way I
 
 ## Current local MVP
 
+The preview at `/living-score` is transcription-first, with a separate compact
+searchable/paginated library and a shared practice/print workspace. YouTube
+conversion remains a mock backend seam, not a live service. See the
+[current product contract](./docs/strategy/TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md).
+
+The September 16 preview sprint adds viewport Focus, a resizable score/roll split,
+compact whole-score reading, explicit BPM and A–B repeat, refreshable catalog
+links, mobile library filters and verified PDF download. Current browser evidence
+and remaining limits are in the
+[three-hour sprint record](./docs/reviews/LIVING_SCORE_THREE_HOUR_SPRINT_2026-09-16.md).
+This is local preview work, not a production release or a live-transcription claim.
+
 The local, mock-driven demo includes:
 
 - Relative MIDI-to-Sargam conversion with komal/shuddh, Devanagari, and repeated octave markers
@@ -15,7 +27,8 @@ The local, mock-driven demo includes:
   ties, validates the score, and opens a temporary practice-review session
 - A local two-credit mock flow and a zero-credit guard
 - Mock note playback controls with active-note highlighting
-- MIDI-timed falling-note piano roll and a physical six-lane Bansuri fingering roll; every Bansuri cue is aligned to its real finger hole
+- MIDI-timed piano/harmonium rolls and a continuous Bansuri pitch timeline with
+  an adjacent whole-fingering reference; a pitch is not mapped to one physical hole
 - Cinema performance view for clean, recording-oriented visual practice
 - Persistent light/dark mode with a high-contrast creator-practice surface
 - Self-hosted Poppins UI typography, Rozha One display typography, and Noto

@@ -84,14 +84,14 @@ export const CURRENT_PRACTICE_AUDIO_ASSETS: readonly PracticeAudioAsset[] = [
   },
   {
     role: "bansuri.guide",
-    status: "generated",
-    provider: "Sargam Bansuri breath-and-resonance engine",
+    status: "candidate",
+    provider: "Ventus Winds Bansuri / ISW — recorded sustain bank",
     sourceUrl: null,
-    canLoop: false,
+    canLoop: true,
     canPitchMap: true,
     canStreamInApp: true,
     notes:
-      "Browser-native Bansuri model with breath noise, harmonic body resonance and vibrato; no raw recording is distributed. A cleared multi-sample pack can replace this role later.",
+      "Default guide uses a 352-sample Ventus Close bank: natural, tongued, recorded vibrato and flutter, with velocity layers, round-robin variations and sustain loops. E4–F#6 anchors; pitch-shifted extrapolation outside. Optional algorithmic meend/gamak studies are not Kontakt recorded legato. Procedural synthesis is explicit comparison only.",
   },
   {
     role: "harmonium.guide",

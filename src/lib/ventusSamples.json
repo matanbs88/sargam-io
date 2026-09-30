@@ -1,0 +1,226 @@
+[
+  {
+    "url": "/audio/bansuri/ventus-sustain-64-156a562a.wav",
+    "midi": 64,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_E4_V1_RR1.ncw",
+    "sourceSha256": "746d51f1a0d800ade3660c3021150e613019e0b10c796aafe9451a32c962979d",
+    "sha256": "156a562abe68842ea1d0d3b67957a33f533e3e90eae301b2864d71dcdf451bb1",
+    "checks": [
+      63.98015900078227,
+      64.00642962872264,
+      63.99592616078895
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-66-f65a8be8.wav",
+    "midi": 66,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_F#4_V1_RR1.ncw",
+    "sourceSha256": "d871e96d3ee12a74d6b1125592f010b31a84f4d0e909ba17a55fac5bd2f28754",
+    "sha256": "f65a8be819d37ba4e03ede93c9f54e6739cdb542485d466ba1da46f7180c59fa",
+    "checks": [
+      65.98621823730267,
+      66.0049393426584,
+      66.00727805802714
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-68-d0a078e5.wav",
+    "midi": 68,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_G#4_V1_RR1.ncw",
+    "sourceSha256": "5cd10b277c830c8b07b900cb744f4ade728ab1bee6ec63defc158d29c5632407",
+    "sha256": "d0a078e5111d405ccf20535b5413efdfec67b6bc5c2869f50c8e2472ea0f3f7b",
+    "checks": [
+      68.00605599944988,
+      68.00605599944988,
+      67.99563503935032
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-69-f7e86788.wav",
+    "midi": 69,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_A4_V1_RR1.ncw",
+    "sourceSha256": "0a3cae0fe8bba6f069f8348e4c7348118f6799e4ed383ab27b1ab018022d96a0",
+    "sha256": "f7e86788fc46a3a6e8a0f4c8c65f7e55dedac890729028780e3b0d806f778d2e",
+    "checks": [
+      69.00196719964882,
+      68.99212896531537,
+      68.99606492997724
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-71-0c77a4c8.wav",
+    "midi": 71,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_B4_V1_RR1.ncw",
+    "sourceSha256": "dfaa38049fe517fc8719591c72c4d1f804b6d9a71a1560d4ba843d25d31cd893",
+    "sha256": "0c77a4c8a7856491816ba041dbb7134bfd04b9d4f08512b5fffe3b70e35c9885",
+    "checks": [
+      71.02335436775428,
+      71.00759438442589,
+      70.99006644884876
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-73-3ac48ba6.wav",
+    "midi": 73,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_C#5_V1_RR1.ncw",
+    "sourceSha256": "7b2dc38ec1d52d027792bed2c28763282ba5dabd8c0c528a01a83a2dbcb5b5d3",
+    "sha256": "3ac48ba65187a61c3e6159fbfc50d02c7558c1859859725e2218f96c29253855",
+    "checks": [
+      72.99171411949881,
+      72.99952337602107,
+      72.99640009611171
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-75-dca18e20.wav",
+    "midi": 75,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_D#5_V1_RR1.ncw",
+    "sourceSha256": "549fdca147271a5a923305765a575cfcfb162de97990e26cad915caf78bffcdf",
+    "sha256": "dca18e20588f93aaa4ba8c4929e09c1188768d44121bb512b4e146391e8e138e",
+    "checks": [
+      74.99014912102254,
+      74.98875717404766,
+      74.99710717766162
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-76-95cd05b7.wav",
+    "midi": 76,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_E5_V1_RR1.ncw",
+    "sourceSha256": "4b8769e6184f01a1fe13ebf2d5e16d06e90375128863df3d5d0dbaf516d0a37a",
+    "sha256": "95cd05b774128dc7ba8061fb438f0ac1ddaffbfbf5912f8133854981a713e2f2",
+    "checks": [
+      75.9959261607889,
+      76.00380435910034,
+      76.00511704367395
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-78-1bba1fd9.wav",
+    "midi": 78,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_F#5_V1_RR1.ncw",
+    "sourceSha256": "9b02fb8c2aa4f1b1f757643874f7b21155fd6daed14f10f295d035aeadab847a",
+    "sha256": "1bba1fd9c7fa74469bd32c4cc0342dba8ca1f00a684758c0a61dbe21d4ff32a1",
+    "checks": [
+      77.99909117164347,
+      78.00610873983469,
+      78.00260031131104
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-80-9cadb5a0.wav",
+    "midi": 80,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_G#5_V1_RR1.ncw",
+    "sourceSha256": "351c38c335942da38d462c11b86855787f342164750e4485fe074e33d9815170",
+    "sha256": "9cadb5a094fa9807d7271d84e6f1702d5fce412a8030163eaabdb8abeacc7d5c",
+    "checks": [
+      79.99980417615323,
+      80.01542950332846,
+      79.97581791700551
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-81-0807ddc3.wav",
+    "midi": 81,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_A5_V1_RR1.ncw",
+    "sourceSha256": "c82e4e4806d72949ed5e944003b85cce0d815333d88b811a0be4045af0651ec0",
+    "sha256": "0807ddc39d947ab86155c1af09102e43ec4c81c56bc0b06fa0fb5234e29ab6b1",
+    "checks": [
+      80.9960649299772,
+      80.99803257679304,
+      80.99311304037545
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-83-4acc99c5.wav",
+    "midi": 83,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_B5_V1_RR1.ncw",
+    "sourceSha256": "906b2f1fc9f37b8a385bdd07da223ac2765dab37f3bc91a07b2c4d2c27bc67a0",
+    "sha256": "4acc99c5faf45c2307dee3fe562d6800d529f886f8fd1c2e80b8f9256c9a6697",
+    "checks": [
+      82.9997090094361,
+      83.00146162540142,
+      83.00409021672021
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-85-6a432c66.wav",
+    "midi": 85,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_C#6_V1_RR1.ncw",
+    "sourceSha256": "d0d2daf22e7d75dddab786b37991430be430c782f87e6c1565772f44f3f13dd9",
+    "sha256": "6a432c66cd39a62489cd19421fac8a98caaf9c0c75499fcd8c7fb3f5dfb3a107",
+    "checks": [
+      85.00186546623559,
+      84.99640009611173,
+      84.9995233760211
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-87-d1bca6e0.wav",
+    "midi": 87,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_D#6_V1_RR1.ncw",
+    "sourceSha256": "e23fb38a7b3c2c39d0c73dfe7d8d2ad85b2ad5aa75573ba999cd7c7242d8aef5",
+    "sha256": "d1bca6e078c41e87dffeeb5ffd1bbc00b8399c2f4d0d29ae12137b28b090cd01",
+    "checks": [
+      87.00753902192693,
+      87.00753902192693,
+      87.00545315588403
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-88-231bf16d.wav",
+    "midi": 88,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_E6_V1_RR1.ncw",
+    "sourceSha256": "977288d44e4a027790dfabdc7f1d7a83d671ccc4a1c8108db133ec6819966460",
+    "sha256": "231bf16d8ff484f8b118c756e590721b73742b756bc9be72cc1ce99130642b30",
+    "checks": [
+      88.00117869131786,
+      88.00183514559761,
+      87.99855262525432
+    ]
+  },
+  {
+    "url": "/audio/bansuri/ventus-sustain-90-5ad5b288.wav",
+    "midi": 90,
+    "loopStart": 2.15,
+    "loopEnd": 6.85,
+    "source": "SusNormal_Close_F#6_V1_RR1.ncw",
+    "sourceSha256": "6443f4bc78341654796423f5fde8ca5171ed29e79b532f89deae1f3d1969d221",
+    "sha256": "5ad5b288b53a52f7de5d208e04cf3692db8f5d059d82a37360dfda2d49cfb1d7",
+    "checks": [
+      90.00143067711878,
+      90.00260031131106,
+      89.9990911716435
+    ]
+  }
+]

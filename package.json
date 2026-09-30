@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -17,10 +17,11 @@
     "closeout": "npm run audit:repo && npm run verify && git diff --check && git status --short"
   },
   "dependencies": {
+    "@tonejs/midi": "^2.0.28",
     "fast-xml-parser": "^5.11.0",
     "fflate": "^0.8.3",
     "fontkit": "^2.0.4",
-    "next": "16.3.0",
+    "next": "^16.3.5",
     "pdf-lib": "^1.17.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -32,7 +33,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.0",
+    "eslint-config-next": "^16.3.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.10"

@@ -9,6 +9,7 @@ import { FallingNotesPianoRoll } from '@/src/components/visualizers/FallingNotes
 import { BansuriFallingNotes } from '@/src/components/visualizers/BansuriFallingNotes';
 import { KeyboardRoll } from '@/src/components/visualizers/KeyboardRoll';
 import styles from './studio.module.css';
+import { DEFAULT_BANSURI_VOICE, type BansuriVoice } from '@/src/lib/ventusAudio';
 
 const instruments = ['Piano', 'Harmonium', 'Bansuri'] as const;
 const roots = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
@@ -20,7 +21,7 @@ export function StudioDirection() {
   const [rate, setRate] = useState(1);
   const [double, setDouble] = useState(false);
   const [room, setRoom] = useState(false);
-  const [bansuriVoice, setBansuriVoice] = useState<'procedural' | 'ventus-study'>('procedural');
+  const [bansuriVoice, setBansuriVoice] = useState<BansuriVoice>(DEFAULT_BANSURI_VOICE);
   const [opened, setOpened] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState('');
@@ -59,7 +60,7 @@ export function StudioDirection() {
           <div className={styles.setup}>
             <div className={styles.instruments} aria-label="Instrument">{instruments.map(item => <button key={item} aria-pressed={instrument === item} onClick={() => setInstrument(item)}>{item}</button>)}</div>
             <label>Sa<select value={root} onChange={event => setRoot(Number(event.target.value))}>{roots.map((name, index) => <option key={name} value={60 + index}>{name}4</option>)}</select></label>
-            {instrument === 'Bansuri' && <label>Voice comparison<select value={bansuriVoice} onChange={event => setBansuriVoice(event.target.value as typeof bansuriVoice)}><option value="procedural">Procedural reference</option><option value="ventus-study">Ventus sustain · experimental</option></select><small>Single sampled anchor, C4–C5. Listening QA pending.</small></label>}
+            {instrument === 'Bansuri' && <label>Sound<select value={bansuriVoice} onChange={event => setBansuriVoice(event.target.value as BansuriVoice)}><option value="ventus">Ventus · recorded bansuri</option><option value="procedural">Synthetic · comparison only</option></select><small>16 original sustain samples · E4–F♯6; outside this range, pitch-shifted.</small></label>}
             <label>Notation<select value={notation} onChange={event => setNotation(event.target.value as NotationSystem)}><option value="Sargam_EN">Sargam</option><option value="Sargam_HI">देवनागरी</option><option value="ABC">C D E</option></select></label>
             {instrument === 'Harmonium' && <>
               <label>Reeds<select value={double ? 'double' : 'single'} onChange={event => setDouble(event.target.value === 'double')}><option value="single">Single</option><option value="double">Double</option></select></label>

@@ -1,5 +1,9 @@
 # Ventus prototype comparison asset
 
+Historical single-anchor comparison. Superseded as the application default by
+the recorded three-anchor bank in `../bansuri` on 2026-09-17. The limitations
+below describe this legacy `ventus-study` voice only.
+
 `ventus-fsharp4-sustain.wav` is a measured 3.7-second extraction of the user's
 Ventus Winds Bansuri `Phrases_Close_212.wav`, source 0.3–4.0 seconds, with 25ms
 fades. Mono 44.1kHz PCM16; measured anchor MIDI 65.993 (approximately F#4).

@@ -1,7 +1,29 @@
 /** Original, resolution-independent cabinet illustration. No timing or key geometry. */
-export function drawKeyboardCabinet(ctx: CanvasRenderingContext2D, harmonium: boolean, width: number, top: number) {
+export function drawKeyboardCabinet(ctx: CanvasRenderingContext2D, harmonium: boolean, width: number, top: number, height = 76) {
   ctx.save();
   ctx.translate(0, top);
+  if (height < 40) {
+    // A deliberate compact fascia, not the top crop of a 76px illustration.
+    ctx.fillStyle = harmonium ? '#503b30' : '#161e25';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = harmonium ? '#bc9162' : '#56636c';
+    ctx.fillRect(0, 0, width, 2);
+    ctx.strokeStyle = harmonium ? '#966b49' : '#34414b';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(8, 5, Math.max(0, width - 16), Math.max(0, height - 10));
+    if (harmonium) {
+      ctx.fillStyle = '#d9c29a';
+      for (const x of [width * .12, width * .18, width * .82, width * .88]) {
+        ctx.beginPath(); ctx.arc(x, height / 2, 2.5, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.restore();
+    return;
+  }
+  const compact = width < 500;
+  // Cabinet hardware remains proportionate even in a narrow practice viewport.
+  ctx.scale(width / 1200, 1);
+  width = 1200;
   ctx.fillStyle = harmonium ? "#503b30" : "#161e25";
   ctx.fillRect(0, 0, width, 76);
   ctx.fillStyle = harmonium ? "#966b49" : "#34414b";
@@ -31,7 +53,7 @@ export function drawKeyboardCabinet(ctx: CanvasRenderingContext2D, harmonium: bo
     ctx.strokeStyle = "#43505b"; ctx.lineWidth = .8;
     ctx.beginPath(); ctx.moveTo(20, 14); ctx.lineTo(width - 20, 14); ctx.stroke();
     ctx.fillStyle = "#a6a99f"; ctx.font = "12px Georgia, serif"; ctx.textAlign = "center";
-    ctx.fillText("S A R G A M", width / 2, 43);
+    if (!compact) ctx.fillText("S A R G A M", width / 2, 43);
     ctx.fillStyle = "#75828b";
     for (const x of [24, width - 28]) { ctx.fillRect(x, 28, 4, 17); }
     ctx.fillStyle = "#0c131a"; ctx.fillRect(12, 59, width - 24, 9);

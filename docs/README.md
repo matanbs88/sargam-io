@@ -6,6 +6,16 @@ root because they are linked directly from the public README.
 
 ## Start here
 
+- [Current independent audit, remediation and production-release checkpoint](./audits/RELEASE_READINESS_2026-09-30.md)
+- [100-piece candidate selection (not completed inventory)](../content/catalog/launch-100-selection.json)
+- [September 30 source research and live completion evidence](../content/catalog/research/repertoire-discovery-2026-09-30.json)
+- [Downloaded score-source checksums and provenance](../content/catalog/inbox/launch-100/manifest.json)
+
+- [Audio/YouTube Mock-to-live delivery, provider and cache boundaries](./operations/TRANSCRIPTION_MOCK_TO_LIVE_2026-09-17.md)
+- [Completed three-hour quality sprint and evidence](./reviews/LIVING_SCORE_THREE_HOUR_SPRINT_2026-09-16.md)
+- [Current transcription-first product contract and library scale](./strategy/TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md)
+- [Living Score application expansion checkpoint](./reviews/LIVING_SCORE_APP_CHECKPOINT_2026-09-16.md)
+
 - [Pilot piece and preview checkpoint](./audits/PILOT_PIECE_2026-09-15.md)
 - [Practice experience quality review and scores](./audits/PRACTICE_QUALITY_REVIEW_2026-09-09.md)
 - [Yousician, Simply Piano and flowkey research](./research/PRACTICE_BENCHMARK_2026-09-08.md)

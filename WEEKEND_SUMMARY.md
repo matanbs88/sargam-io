@@ -1,5 +1,10 @@
 # Sargam.io weekend handoff and current build status
 
+> Historical August snapshot. Current preview implementation and verification
+> are recorded in the [September 16 sprint audit](./docs/reviews/LIVING_SCORE_THREE_HOUR_SPRINT_2026-09-16.md)
+> and [project source of truth](./docs/PROJECT_SOURCE_OF_TRUTH.md). The deployment
+> below does not contain the current uncommitted Living Score sprint changes.
+
 **Status date:** 2026-08-26
 **Baseline commit:** `e059a27`
 **Production preview:** <https://sargam-io.vercel.app/>

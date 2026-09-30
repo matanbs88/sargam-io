@@ -1,0 +1,12 @@
+.figure{position:relative;min-width:0;min-height:0;margin:0}
+.figure figcaption{position:absolute;top:0;left:0;right:0;height:26px;text-align:center;margin:0}
+.figure>span{position:absolute;bottom:0;left:2px;right:2px;height:24px;margin:0;line-height:12px}
+.flute{position:absolute;inset:28px 0;display:flex;justify-content:center;min-height:0}
+.flute svg{height:100%;width:100%;max-height:none;max-width:none}
+.compact{display:none}
+:global([data-practice-focus=true]) .surface{container-type:size;container-name:bansuri-stage}
+@container bansuri-stage (max-height:220px){
+  .flute{display:none}
+  .compact{position:absolute;inset:28px 0;display:flex;width:100%;gap:1px;align-items:center;justify-content:center}
+  .compact svg{width:16%;max-width:18px;flex:none!important;height:32px!important}
+}

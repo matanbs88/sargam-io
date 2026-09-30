@@ -1,6 +1,76 @@
 # Sargam.io project source of truth
 
+## Current authority and acceptance criteria — 2026-09-30
+
+The founder selected **Mehfil** and authorized independent UI/UX audit,
+implementation of its recommendations, Vault reconciliation and production
+promotion after verification. This supersedes the historical preview-only
+release restrictions below; it does not waive verification or permit invented
+musical content. The release is not yet verified or deployed in this checkpoint.
+
+The active catalog goal is **100 distinct complete source-verified pieces**.
+Completion means public Notes Library discovery, immediate full Sargam on open,
+working practice playback and a verified downloadable PDF. A title, a short
+study, a bare raga scale, or a localhost-only result does not count.
+`content/catalog/launch-100-selection.json` contains 100 candidates, not 100
+completed songs. The September 30 intake contains four checksum-verified MIDI
+sources, not four published verified arrangements. New live-complete count: **0**.
+
+The existing catalog has 35 playable exercises/studies and 88 planned entries;
+recognizable-tune accuracy and completeness still require source review.
+Research and intake evidence live in
+`content/catalog/research/repertoire-discovery-2026-09-30.json` and
+`content/catalog/inbox/launch-100/manifest.json`.
+
+An active goal and the `Sargam — complete 100 live scores` local heartbeat
+provide continuation. Local scheduled work requires the app and computer running.
+Never infer completed work from elapsed time or automation configuration.
+See [the current audit and release checkpoint](./audits/RELEASE_READINESS_2026-09-30.md).
+
+## Current delivery — 2026-09-17
+
+**Bansuri audio correction:** GuideVoiceBank, Living Score and Studio now default
+to 352 original Ventus Close recordings (natural, tongued, vibrato, flutter), not phrase cuts
+or the procedural flute. Native coverage E4–F#6; at most one semitone interpolation
+inside that range; wider pitch shifts outside remain a timbral limitation.
+Looped sustains support slow/long notes; sample detune supports pitch curves.
+Source provenance and limits: `public/audio/bansuri/README.md` and
+`src/lib/ventusPerformanceSamples.json`. Living Score adds articulation selection,
+85% default Bansuri gain, velocity layers/round robins, and optional algorithmic
+Meend / Gamak-study pitch curves. This is not the complete Kontakt articulation bank;
+live listening QA and production deployment are not claimed.
+
+Current implementation and verification: [Ventus performance bank checkpoint](./reviews/VENTUS_PERFORMANCE_BANK_2026-09-17.md).
+
+The founder authorized Mock-first development of YouTube/audio-to-MIDI intake,
+with complete UI states, caching and one isolated provider boundary. The Living
+Score home now connects to `/api/transcription-jobs`, produces a labelled demo
+MIDI without credentials, and opens the result in practice. The documented live
+Klangio audio adapter is implemented, not credential-tested. Actual YouTube
+acquisition is still separate and unavailable in live mode. Current details,
+cache/deployment boundaries and evidence are in the
+[Mock-to-live delivery record](./operations/TRANSCRIPTION_MOCK_TO_LIVE_2026-09-17.md).
+Historical UI scores below do not imply completed source recognition.
+
 ## Active directive — 2026-09-16
+
+**Completed autonomous UI sprint:** the founder authorized a three-hour preview
+improvement window, 09:51–12:51 UTC on September 16, targeting an evidence-backed
+95/100. The [sprint record](./reviews/LIVING_SCORE_THREE_HOUR_SPRINT_2026-09-16.md)
+owns current results and remaining gaps; the September 9 metrics below are
+historical. Final interface self-review: **95/100**, with 178 tests/51 files,
+lint and production build passing. This is not a product launch-readiness score:
+YouTube conversion is disconnected and browser import E2E remains unverified.
+The time-bounded heartbeat was activated for this sprint and successfully paused
+at completion. This does not establish that the earlier week-long automation
+ever ran. No production promotion is authorized by this quality target.
+
+**Product hierarchy correction:** YouTube/song-to-Sargam is the primary home
+action; the growing searchable library is the second entry point. Living Score
+is the design/practice foundation, not a library-first product pivot. The
+[transcription-first contract](./strategy/TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md)
+owns this hierarchy, scale requirements, research and backend gaps. The preview
+at `/living-score` now follows it; live transcription remains unimplemented.
 
 **Design selection update:** the founder selected Living Score as the base and
 authorized synthesis of Studio's visible instrument/transport, Riyaz's Sa anchor,
@@ -20,8 +90,9 @@ substantive design reset. Follow the [autonomous sprint contract](./operations/A
 Earlier visual choices are not fixed constraints. Build four meaningfully
 different interactive alternatives before requesting a final design choice.
 Preserve musical correctness and production. Ventus prototype investigation is
-authorized at the supplied local folder. The goal is active, but scheduling is
-not yet verified: automation tool calls failed with a closed transport on setup.
+authorized at the supplied local folder. In that earlier checkpoint, scheduling
+was not verified: automation tool calls failed with a closed transport on setup.
+The later bounded sprint result above supersedes only its own scheduling status.
 The dated status below is historical and does not describe the September 15
 preview deployment; see the [pilot checkpoint](./audits/PILOT_PIECE_2026-09-15.md).
 
@@ -76,7 +147,7 @@ audio or score source
         -> saved personal/library session
 ```
 
-The two future entry points are:
+The two source intake paths are (live audio remains future implementation):
 
 1. Audio or permitted video URL, processed through a replaceable provider
    adapter and a cache-first job pipeline.

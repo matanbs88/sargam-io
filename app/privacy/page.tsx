@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Privacy and early access",
-  description: "How the Sargam.io early-access preview handles waitlist information.",
+  description: "How the Sargam preview handles scores, audio uploads, local drafts and early-access information.",
 };
 
 export default function PrivacyPage() {
@@ -25,6 +25,13 @@ export default function PrivacyPage() {
           It is not yet a live transcription or paid SaaS service.
         </p>
 
+        <section className="mt-10 space-y-4 text-sm leading-7" aria-labelledby="upload-handling">
+          <h2 id="upload-handling" className="font-heading text-2xl">Scores, audio and practice drafts</h2>
+          <p>Uploading sends your selected file to our server. MusicXML/MXL scores are parsed there; PDF recognition depends on the configured recognition service and may be unavailable. PDF export sends your score notes and title to our server to create the download.</p>
+          <p>The transcription form displays its active mode. In Mock mode, the server accepts your source but returns a fixed demonstration: it does not analyze the audio or send it to a transcription provider. In Klangio mode, uploaded audio is forwarded to Klangio for analysis. Live YouTube acquisition is not connected.</p>
+          <p>Our transcription job/result cache is temporary, held in server memory for up to 30 minutes; restart or another server instance can make it disappear sooner. This limit is not a promise about a provider’s retention. Cancellation stops this app waiting but does not guarantee that provider processing or retention ends.</p>
+          <p>Saved practice drafts, when you choose to save one, contain note data rather than source audio and are stored in this browser. Shared devices can expose them to other users of the same browser. Use Delete saved draft to remove your local copy. These drafts are not cloud backups.</p>
+        </section>
         <div className="mt-12 grid gap-4 sm:grid-cols-2">
           <section className="rounded-[1.2rem] bg-white/75 p-5 shadow-teal-soft">
             <h2 className="font-heading text-2xl text-charcoal">What we collect</h2>
@@ -60,8 +67,8 @@ export default function PrivacyPage() {
 
         <p className="mt-10 border-t border-teal/10 pt-5 text-xs leading-6 text-charcoal/45">
           This is a product preview notice, not a substitute for final legal
-          terms. The production service will publish an updated policy before
-          accounts, payments, audio uploads, or persistent libraries are enabled.
+          terms. Accounts, payments and cloud-saved personal libraries are not
+          enabled in this preview.
         </p>
       </div>
     </main>

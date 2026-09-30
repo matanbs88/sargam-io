@@ -2,6 +2,11 @@
 
 ## Product promise
 
+The [2026-09-16 product contract](./TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md)
+sets home priority: YouTube/song transcription first, searchable library second,
+score import as an additional path. The practice studio is their shared result,
+not a replacement for the source-entry homepage.
+
 Sargam.io gives an Indian musician one consistent practice experience whether
 they start from a recording, a digital score, or a photographed staff page:
 

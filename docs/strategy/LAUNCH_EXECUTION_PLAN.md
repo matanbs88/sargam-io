@@ -1,5 +1,11 @@
 # Sargam.io 90-day launch execution plan
 
+**2026-09-16 priority update:** the dates/gates below are the historical baseline,
+not a current calendar. Preserve a transcription-first home; implement the real
+URL-to-score job path alongside the searchable library rather than postponing it
+behind further practice-only redesign. See the
+[current product contract](./TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md).
+
 **Baseline:** 2026-08-23  
 **North star:** Bring a melody into your Sa. See it, play it, and practice it your way.  
 **Launch posture:** waitlist-first, practice-quality-led; launch review is

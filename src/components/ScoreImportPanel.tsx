@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import {
   importedScoreToPracticeScore,
   type ImportedPracticeScore,
@@ -23,6 +23,8 @@ type ImportResponse = {
 export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pdfInputRef = useRef<HTMLInputElement>(null);
+  const importController = useRef<AbortController | null>(null);
+  useEffect(() => () => importController.current?.abort(), []);
   const [state, setState] = useState<ImportState>("idle");
   const [message, setMessage] = useState(
     "MusicXML and MXL open directly into your private review draft.",
@@ -30,6 +32,17 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
 
   async function importScore(file: File): Promise<void> {
     const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    const limit = (isPdf ? 12 : 6) * 1024 * 1024;
+    if (!file.size || file.size > limit) {
+      setState('error');
+      setMessage(`Choose a non-empty ${isPdf ? 'PDF up to 12 MB' : 'MusicXML or MXL file up to 6 MB'}.`);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      if (pdfInputRef.current) pdfInputRef.current.value = '';
+      return;
+    }
+    importController.current?.abort();
+    const controller = new AbortController();
+    importController.current = controller;
     const endpoint = isPdf ? "/api/imports/score-pdf" : "/api/imports/musicxml";
     setState("reading");
     setMessage(
@@ -45,6 +58,7 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
       const response = await fetch(endpoint, {
         body: formData,
         method: "POST",
+        signal: AbortSignal.any([controller.signal, AbortSignal.timeout(isPdf ? 150_000 : 30_000)]),
       });
       const payload = (await response.json()) as ImportResponse;
 
@@ -61,6 +75,10 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
         payload.score,
         payload.validation,
       );
+      if (!practiceScore.noteEvents.length) {
+        throw new Error('No playable notes were found in this score. Try a score containing pitched notes.');
+      }
+      if (controller.signal.aborted) return;
       onImported(practiceScore);
       setState("ready");
       setMessage(
@@ -71,12 +89,15 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
             : "Score ready. Review the Sa, notation, tempo, and practice view.",
       );
     } catch (error) {
+      if (controller.signal.aborted) return;
       setState("error");
       setMessage(
         error instanceof Error ? error.message : "The score could not be imported.",
       );
     } finally {
       if (fileInputRef.current !== null) fileInputRef.current.value = "";
+      if (pdfInputRef.current !== null) pdfInputRef.current.value = "";
+      if (importController.current === controller) importController.current = null;
     }
   }
 
@@ -86,13 +107,14 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
   }
 
   return (
-    <div className="mt-3 flex flex-col gap-2 rounded-lg border border-dashed border-teal/20 bg-teal/[0.035] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+    <div data-score-import data-import-state={state} className="mt-3 flex flex-col gap-2 rounded-lg border border-dashed border-teal/20 bg-teal/[0.035] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
         <p className="text-[10px] font-black uppercase tracking-[0.14em] text-teal">
           Have staff notation?
         </p>
         <p
           aria-live="polite"
+          data-import-message
           className={[
             "mt-1 text-xs font-medium",
             state === "error" ? "text-red-700" : "text-charcoal/55",
@@ -104,33 +126,37 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
       <div className="flex shrink-0 items-center gap-2">
         <input
           accept=".musicxml,.xml,.mxl,application/vnd.recordare.musicxml+xml,application/xml,text/xml"
-          className="sr-only"
+          hidden
           disabled={state === "reading"}
           id="musicxml-upload"
+          aria-label="Choose a MusicXML or MXL score"
           onChange={handleFileChange}
           ref={fileInputRef}
           type="file"
         />
         <input
           accept=".pdf,application/pdf"
-          className="sr-only"
+          hidden
           disabled={state === "reading"}
           id="score-pdf-upload"
+          aria-label="Choose a PDF score"
           onChange={handleFileChange}
           ref={pdfInputRef}
           type="file"
         />
-        <label
+        <button
           className={[
             "cursor-pointer rounded-md border px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] transition focus-within:outline-none focus-within:ring-2 focus-within:ring-teal",
             state === "reading"
               ? "cursor-wait border-teal/10 bg-teal/5 text-teal/40"
               : "border-teal/15 bg-white text-teal hover:border-mint-emerald hover:bg-mint-emerald/10",
           ].join(" ")}
-          htmlFor="musicxml-upload"
+          type="button"
+          disabled={state === 'reading'}
+          onClick={() => fileInputRef.current?.click()}
         >
           {state === "reading" ? "Reading score…" : "Import MusicXML"}
-        </label>
+        </button>
         <button
           className={[
             "rounded-md border px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] transition focus:outline-none focus:ring-2 focus:ring-teal",
@@ -144,9 +170,11 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
         >
           Import PDF pilot
         </button>
-        <span className="hidden rounded-md bg-white px-2 py-1 text-[9px] font-black uppercase tracking-[0.1em] text-charcoal/35 sm:inline">
-          MXL ready
-        </span>
+        {state === 'reading' && <button type="button" onClick={() => {
+          importController.current?.abort();
+          setState('idle');
+          setMessage('Import cancelled. You can choose another file.');
+        }}>Cancel import</button>}
       </div>
     </div>
   );

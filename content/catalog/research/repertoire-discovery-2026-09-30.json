@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-30",
+  "status": "research-and-source-intake-in-progress",
+  "activeGoal": true,
+  "automation": {
+    "id": "sargam-complete-100-live-scores",
+    "status": "ACTIVE",
+    "intervalMinutes": 30
+  },
+  "acceptance": "100 complete sourced melodic forms live in Notes Library, immediate full Sargam on opening, playback and verified downloadable PDF; candidate or local-only work never counts.",
+  "selectedCount": 100,
+  "newLiveVerifiedCount": 0,
+  "research": [
+    {
+      "url": "https://music.apple.com/us/playlist/top-100-india/pl.c0e98d2423e54c39b3df955c24df3cc5",
+      "kind": "listening-demand",
+      "finding": "Current India listening chart includes contemporary Punjabi, Tamil and Indian-pop artists. Streaming popularity is not evidence of notation availability; avoid restricting India to Hindi devotional music."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=nS1dOZ5HFZQ",
+      "kind": "cultural-recognition",
+      "finding": "Google India's participatory Jana Gana Mana project supports prioritizing the anthem; not a notation source."
+    },
+    {
+      "url": "https://culture.gov.in/commemorations/150-years-vande-mataram",
+      "kind": "cultural-recognition",
+      "finding": "Ministry of Culture commemoration supports national-song relevance; exact musical version remains to select."
+    },
+    {
+      "url": "https://ich.unesco.org/en/RL/garba-of-gujarat-01962",
+      "kind": "regional-repertoire",
+      "finding": "Garba provides a regional/festival repertoire direction; does not verify any selected song or arrangement."
+    },
+    {
+      "url": "https://blogs.loc.gov/loc/2025/07/amazing-grace-didnt-stand-out-as-amazing-when-first-published/",
+      "kind": "recognition",
+      "finding": "Library of Congress describes Amazing Grace as one of the most recorded songs."
+    },
+    {
+      "url": "https://www.classicfm.com/radio/hall-of-fame/",
+      "kind": "classical-demand",
+      "finding": "Listener-voted classical taste signal, not a global representative survey or source license."
+    },
+    {
+      "url": "https://github.com/cmisra/Sangeet",
+      "kind": "structured-notation",
+      "finding": "README reports 116 composition XML files: 42 Bhairav, 39 Todi, 35 Poorvi. Proprietary Swarlipi schema, not MusicXML; exact composition, musical semantics and reuse metadata remain to inspect."
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.04148",
+      "kind": "dataset-paper",
+      "finding": "Research paper describing digitization of Bhatkhande compositions."
+    },
+    {
+      "url": "https://imslp.org/wiki/Happy_Birthday_to_You_(Hill,_Mildred)",
+      "kind": "score-discovery",
+      "finding": "Historical score collection identified; exact edition not yet ingested."
+    }
+  ],
+  "checkpoint": {
+    "branch": "codex/playback-clock-regression",
+    "deployment": "No production changes this pass. Existing dirty worktree preserved.",
+    "nextActions": [
+      "Inspect LilyPond/source score for four downloaded MIDIs; select full melody voice and repeats, do not automatically merge bass/accompaniment into flute melody.",
+      "Implement reusable source-to-catalog import with provenance and completeness tracking; remove hardcoded catalog count assertions when extending catalog, retaining uniqueness and genuine completion checks.",
+      "Start with Minuet in G full 32-bar melody: separate track exists. Check repeats and tempo against edition before marking complete.",
+      "Inspect SANGEET XML schema and one Bhairav composition; map durations/tala/sections explicitly, never pretend it is standard MusicXML.",
+      "Continue research for exact Indian anthem and bhajan score editions, then test library/playback/PDF and deploy only reviewed catalog changes."
+    ],
+    "warnings": [
+      "Existing publicDomainCatalog.ts contains compact studies, not full pieces. Several pitch arrays require source-based revalidation; never reuse them just because status says ready.",
+      "publicDomainDevotionalCatalog.ts explicitly contains internally authored study melodies. These are not verified familiar bhajan tunes and do not satisfy this goal.",
+      "Do not count 100 candidate selection entries as deliverables. Most remain unsourced."
+    ]
+  }
+}

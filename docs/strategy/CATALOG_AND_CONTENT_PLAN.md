@@ -1,6 +1,8 @@
 # Sargam.io catalog and content plan
 
-**Status:** 100-entry MVP content queue implemented in the local MVP.
+**Status (2026-09-16):** 123 catalog records, 35 playable studies/exercises and
+88 planned titles. `src/lib/practiceCatalog.ts` is the single catalog composition
+point; the Living Score preview must use it rather than selecting partial sets.
 
 ## What is in the product now
 
@@ -14,8 +16,6 @@ and corpus tracking stay stable.
 
 - 12 original Riyaz exercises are playable immediately and can flow through
   the existing practice timeline and Sargam PDF export.
-- 11 conservative public-domain melody studies are playable immediately and can
-  flow through the same practice and PDF pipelines.
 - 88 popular repertoire entries are searchable and categorized across Hindi
   Bollywood, devotional, Indian pop, regional music, evergreen Hindi songs,
   and The Beatles.
@@ -23,9 +23,10 @@ and corpus tracking stay stable.
   transcription. This includes Beatles titles, current Bollywood releases,
   and any traditional arrangement whose jurisdictional status has not been
   verified.
-- Every catalog record also carries a structured `rightsBasis` and
-  `exportAllowed` flag. The UI exposes that boundary in each card, so a title
-  cannot look printable merely because it appears in search.
+- The additional 11 classical studies and 12 devotional/traditional-text studies
+  live outside that 100-entry queue and join through `practiceCatalog.ts`.
+- Records carry provenance and launch metadata; playable status requires actual
+  note data. A listed title alone is not a completed transcription.
 
 ## Why the catalog carries launch metadata
 
@@ -67,8 +68,11 @@ fields are completed.
 
 ## Product behavior
 
-The landing-page library supports search and category filtering across the 111
-records by default. Ready entries open the shared practice canvas without
-spending a transcription credit and can use the existing PDF export. Planned
-entries remain visible as content-pipeline tasks; they are not hidden because
-of legal metadata and become playable once note events are added.
+The transcription-first home and the library are separate entry points under
+the [current product contract](./TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md).
+The preview library uses compact rows with search, collection/level filters,
+title/tempo sorting and 20 results per page. All 35 ready records open the shared
+practice/PDF workspace. The 88 planned titles remain content-pipeline work,
+not nonfunctional playback buttons. Future converted scores enter the growing
+library through explicit review/save and publication workflows. At scale, move
+metadata queries to the server and fetch note timelines on demand.

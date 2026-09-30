@@ -12,4 +12,14 @@ describe("normalizeYouTubeUrl", () => {
     expect(normalizeYouTubeUrl("https://example.com/watch?v=abc123")).toBeNull();
     expect(normalizeYouTubeUrl("not a URL")).toBeNull();
   });
+  it('does not mislabel channel, playlist, multi-path or credential URLs as videos', () => {
+    for (const url of [
+      'https://www.youtube.com/playlist?v=abc123',
+      'https://www.youtube.com/@channel?v=abc123',
+      'https://youtu.be/abc123/extra',
+      'https://www.youtube.com/watch?v=a%26b',
+      'https://user:password@youtube.com/watch?v=abc123',
+      'https://youtube.com:8443/watch?v=abc123',
+    ]) expect(normalizeYouTubeUrl(url), url).toBeNull();
+  });
 });

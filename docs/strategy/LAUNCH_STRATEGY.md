@@ -2,6 +2,12 @@
 
 ## Decision
 
+**2026-09-16 clarification:** the application homepage is transcription-first,
+with a growing library alongside it. A waitlist may be a secondary pre-release
+campaign, not the application's primary action. The historical landing-page
+sequence below is superseded for the app by the
+[current product contract](./TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md).
+
 Launch first as a focused waitlist landing experience with a working,
 clearly-labelled interactive practice demo. Do **not** launch as a promise
 that any YouTube link is already transcribed: live ingestion, provider terms,

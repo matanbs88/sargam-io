@@ -5,6 +5,11 @@ This is the target specification, not a claim that every requirement ships today
 
 ## Product contract
 
+Scope clarification (2026-09-16): this document specifies the practice stage,
+not the homepage. The canonical entry hierarchy is defined in
+[Transcription-first product contract](./TRANSCRIPTION_FIRST_PRODUCT_CONTRACT.md).
+The library journey below is one route into practice, not the main product pitch.
+
 A learner can open a playable piece, understand its tonic, hear a reference,
 practice a bounded passage at an appropriate speed and obtain the same notation
 as a printable artifact. Piano, harmonium and bansuri remain equal instrument

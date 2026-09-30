@@ -1,0 +1,1223 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-09-30",
+  "targetCount": 100,
+  "status": "candidate-selection-not-completed-library",
+  "scope": "A globally varied, India-first repertoire: devotional songs, named raga compositions, regional folk and cultural melodies, anthems, celebrations, international folk, classical music and seasonal carols. Research-informed editorial selection; not a claimed statistical top-100 ranking.",
+  "completionCriteria": [
+    "Full declared melody/form, not a teaser",
+    "Exact tune/version and notation source recorded",
+    "Verified rhythm, pitch, rests, repeats and endings",
+    "Published and discoverable in the Notes Library on the live public website, not only localhost, a preview branch or a source file",
+    "Opening the song immediately displays its complete Sargam notation without requiring an upload, transcription request or PDF download",
+    "Playable from that live song page on supported instruments",
+    "Sargam PDF generated and verified against the same note events"
+  ],
+  "sourcePolicy": "Prefer public-domain or openly licensed notation. Every exact melody/edition requires source verification; traditional lyrics alone do not verify the melody. Do not substitute an invented tune under a familiar song title.",
+  "ragaPolicy": "Each raga slot requires a named sourced bandish/gat with its complete applicable sections and tala; a scale or alankar does not fill the slot.",
+  "sourceDiscoveryStartingPoints": [
+    "https://www.mutopiaproject.org/browse.html",
+    "https://www.cpdl.org/",
+    "https://arxiv.org/abs/2409.10831"
+  ],
+  "verificationRules": {
+    "libraryVerified": "True only after opening the deployed public library, finding the song and verifying that its live page displays the complete Sargam score.",
+    "playbackVerified": "True only after verifying playback on that deployed song page.",
+    "pdfVerified": "True only after downloading and inspecting the complete Sargam PDF from that deployed song page.",
+    "completionStatus": "Complete requires all three live checks plus verified complete musical content; candidate selection alone does not count."
+  },
+  "groups": [
+    {
+      "category": "Indian bhajans and devotional melodies",
+      "count": 20,
+      "items": [
+        {
+          "selectionId": "launch-101",
+          "title": "Hanuman Chalisa",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-001",
+          "title": "Raghupati Raghav Raja Ram",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-002",
+          "title": "Vaishnava Jana To",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-003",
+          "title": "Om Jai Jagdish Hare",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-004",
+          "title": "Achyutam Keshavam",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-005",
+          "title": "Hare Krishna Mahamantra",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-007",
+          "title": "Jai Ganesh Deva",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-008",
+          "title": "Jai Ambe Gauri",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-009",
+          "title": "Om Jai Shiv Omkara",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-010",
+          "title": "Shri Ramchandra Kripalu Bhajman",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-011",
+          "title": "Payo Ji Maine Ram Ratan Dhan Payo",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-012",
+          "title": "Mere To Giridhar Gopal",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-013",
+          "title": "Thumak Chalat Ramchandra",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-017",
+          "title": "Prabhu Ji Tum Chandan Hum Pani",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-018",
+          "title": "Shri Krishna Govind Hare Murari",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-021",
+          "title": "Jai Jai Ram Krishna Hari",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-023",
+          "title": "Bhaja Govindam",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-025",
+          "title": "Krishna Nee Begane Baaro",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-026",
+          "title": "Bhagyada Lakshmi Baramma",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-027",
+          "title": "Brahmam Okate",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        }
+      ]
+    },
+    {
+      "category": "Raga compositions",
+      "count": 12,
+      "items": [
+        {
+          "selectionId": "launch-031",
+          "title": "Yaman",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-032",
+          "title": "Bhairav",
+          "completionStatus": "candidate",
+          "sourceStatus": "composition-collection-discovered",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false,
+          "discoveryUrl": "https://github.com/cmisra/Sangeet",
+          "sourceNote": "Collection has composition-level XML, not standard MusicXML; choose exact named composition and verify tala, sections, durations and edition."
+        },
+        {
+          "selectionId": "launch-033",
+          "title": "Bhairavi",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-034",
+          "title": "Bhupali",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-035",
+          "title": "Kafi",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-036",
+          "title": "Khamaj",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-037",
+          "title": "Durga",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-038",
+          "title": "Desh",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-039",
+          "title": "Bageshri",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-041",
+          "title": "Malkauns",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-048",
+          "title": "Todi",
+          "completionStatus": "candidate",
+          "sourceStatus": "composition-collection-discovered",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false,
+          "discoveryUrl": "https://github.com/cmisra/Sangeet",
+          "sourceNote": "Collection has composition-level XML, not standard MusicXML; choose exact named composition and verify tala, sections, durations and edition."
+        },
+        {
+          "selectionId": "launch-102",
+          "title": "Poorvi",
+          "completionStatus": "candidate",
+          "sourceStatus": "composition-collection-discovered",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "compositionTitle": null,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false,
+          "discoveryUrl": "https://github.com/cmisra/Sangeet",
+          "sourceNote": "Collection has composition-level XML, not standard MusicXML; choose exact named composition and verify tala, sections, durations and edition."
+        }
+      ]
+    },
+    {
+      "category": "Indian regional folk and cultural songs",
+      "count": 15,
+      "items": [
+        {
+          "selectionId": "launch-103",
+          "title": "Kesariya Balam",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-104",
+          "title": "Nimbuda",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-105",
+          "title": "Ghoomar — traditional Rajasthani melody",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-106",
+          "title": "Mor Bani Thanghat Kare",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-107",
+          "title": "Dholida — traditional Garba melody",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-108",
+          "title": "Sunder Mundriye",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-109",
+          "title": "Lathe Di Chadar",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-110",
+          "title": "Jugni — traditional Punjabi melody",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-111",
+          "title": "Bumbro — traditional Kashmiri melody",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-112",
+          "title": "Rind Posh Maal",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-113",
+          "title": "Ekla Chalo Re",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-114",
+          "title": "Purano Shei Diner Kotha",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-115",
+          "title": "Omanathinkal Kidavo",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-116",
+          "title": "Chandamama Raave",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-117",
+          "title": "Cheluvayya Cheluvo",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        }
+      ]
+    },
+    {
+      "category": "Anthems and national songs",
+      "count": 8,
+      "items": [
+        {
+          "selectionId": "launch-118",
+          "title": "Jana Gana Mana",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-119",
+          "title": "Vande Mataram",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-120",
+          "title": "Amar Shonar Bangla",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-121",
+          "title": "La Marseillaise",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-122",
+          "title": "The Star-Spangled Banner",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-123",
+          "title": "God Save the King",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-124",
+          "title": "Hatikvah",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-125",
+          "title": "Kimigayo",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        }
+      ]
+    },
+    {
+      "category": "Familiar international and celebration melodies",
+      "count": 15,
+      "items": [
+        {
+          "selectionId": "launch-051",
+          "title": "Happy Birthday to You",
+          "completionStatus": "candidate",
+          "sourceStatus": "score-collection-discovered",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false,
+          "discoveryUrl": "https://imslp.org/wiki/Happy_Birthday_to_You_(Hill,_Mildred)"
+        },
+        {
+          "selectionId": "launch-052",
+          "title": "Twinkle, Twinkle, Little Star",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-053",
+          "title": "Amazing Grace",
+          "completionStatus": "candidate",
+          "sourceStatus": "score-edition-discovered",
+          "sourceUrl": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=1832",
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false,
+          "sourceNote": "Bagpipe arrangement; MIDI, LilyPond and PDF available. CC BY-SA 3.0 shown on source. Audit ornaments and melody before adapting."
+        },
+        {
+          "selectionId": "launch-054",
+          "title": "Greensleeves",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-055",
+          "title": "Scarborough Fair",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-056",
+          "title": "Auld Lang Syne",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-057",
+          "title": "Frere Jacques",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-065",
+          "title": "When the Saints Go Marching In",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-068",
+          "title": "Danny Boy (Londonderry Air)",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-069",
+          "title": "The Skye Boat Song",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-070",
+          "title": "La Cucaracha",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-126",
+          "title": "Sakura Sakura",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-127",
+          "title": "Mo Li Hua",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-128",
+          "title": "Hava Nagila",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-129",
+          "title": "Waltzing Matilda",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        }
+      ]
+    },
+    {
+      "category": "Classical melodies",
+      "count": 15,
+      "items": [
+        {
+          "selectionId": "launch-071",
+          "title": "Beethoven — Fur Elise, WoO 59",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-072",
+          "title": "Beethoven — Ode to Joy, complete theme arrangement",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-073",
+          "title": "Petzold — Minuet in G major, BWV Anh. 114",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-074",
+          "title": "Bach — Prelude in C major, BWV 846",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-130",
+          "title": "Mozart — Rondo alla Turca, K.331, complete melody arrangement",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-076",
+          "title": "Mozart — Eine kleine Nachtmusik, K.525, complete first movement melody arrangement",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-077",
+          "title": "Brahms — Wiegenlied, Op.49 No.4",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-078",
+          "title": "Schumann — Melody, Op.68 No.1",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-079",
+          "title": "Schumann — The Happy Farmer, Op.68 No.10",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-080",
+          "title": "Tchaikovsky — Morning Prayer, Op.39 No.1",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-081",
+          "title": "Tchaikovsky — Old French Song, Op.39 No.16",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-082",
+          "title": "Grieg — Arietta, Op.12 No.1",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-083",
+          "title": "Satie — Gymnopedie No.1",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-084",
+          "title": "Schubert — Heidenroslein, D.257",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-085",
+          "title": "Dvorak — Humoresque, Op.101 No.7",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        }
+      ]
+    },
+    {
+      "category": "Christmas carols",
+      "count": 15,
+      "items": [
+        {
+          "selectionId": "launch-086",
+          "title": "Jingle Bells",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-087",
+          "title": "Silent Night",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-088",
+          "title": "Joy to the World",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-089",
+          "title": "O Come, All Ye Faithful",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-090",
+          "title": "The First Noel",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-091",
+          "title": "Hark! The Herald Angels Sing",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-092",
+          "title": "Angels We Have Heard on High",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-093",
+          "title": "O Little Town of Bethlehem",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-094",
+          "title": "Away in a Manger",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-095",
+          "title": "God Rest Ye Merry, Gentlemen",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-096",
+          "title": "Deck the Halls",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-097",
+          "title": "We Wish You a Merry Christmas",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-098",
+          "title": "Good King Wenceslas",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-099",
+          "title": "We Three Kings",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        },
+        {
+          "selectionId": "launch-100",
+          "title": "O Christmas Tree",
+          "completionStatus": "candidate",
+          "sourceStatus": "needs-exact-score",
+          "sourceUrl": null,
+          "verifiedFreeToUse": false,
+          "playbackVerified": false,
+          "libraryVerified": false,
+          "pdfVerified": false
+        }
+      ]
+    }
+  ],
+  "selectionPolicy": {
+    "authority": "Founder authorized independent repertoire selection on 2026-09-30.",
+    "quotas": "Working balance, not rigid category limits; replace weak candidates when stronger source-backed melodies emerge.",
+    "priorities": [
+      "recognizable melody",
+      "Indian audience relevance",
+      "instrumental practice value",
+      "complete trustworthy notation",
+      "regional and global diversity"
+    ],
+    "avoid": [
+      "duplicate tunes counted twice under different titles",
+      "bare raga scales counted as compositions",
+      "invented practice melodies presented as well-known songs",
+      "modern arrangement silently substituted for a historical tune"
+    ]
+  },
+  "researchFile": "content/catalog/research/repertoire-discovery-2026-09-30.json",
+  "firstBatchCandidates": [
+    "Happy Birthday to You",
+    "Jana Gana Mana",
+    "Raghupati Raghav Raja Ram",
+    "Vaishnava Jana To",
+    "Om Jai Jagdish Hare",
+    "Amazing Grace",
+    "Frere Jacques",
+    "Jingle Bells",
+    "Sakura Sakura",
+    "Bhairav"
+  ]
+}

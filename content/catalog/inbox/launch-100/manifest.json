@@ -1,0 +1,64 @@
+{
+  "batch": "launch-100-source-intake-01",
+  "status": "downloaded-parsed-not-musically-verified",
+  "items": [
+    {
+      "title": "Amazing Grace",
+      "path": "amazing-grace.mid",
+      "url": "https://www.mutopiaproject.org/ftp/Traditional/amazing-mutopia/amazing-mutopia.mid",
+      "edition": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=1832",
+      "sourceLicense": "CC BY-SA 3.0",
+      "credit": "Trad. / Arr.: Breizh Partitions, 2012",
+      "sha256": "cc4cbec98afe0776d35e26333103e0bab7e7b078f2928c96022e0f42bd2a10f5",
+      "durationSeconds": 72,
+      "noteCounts": [
+        115
+      ],
+      "review": "Bagpipe ornamentation and 9/8 source meter; not yet clean learner melody."
+    },
+    {
+      "title": "Silent Night",
+      "path": "silent-night.mid",
+      "url": "https://www.mutopiaproject.org/ftp/GruberFX/stille-nacht/stille-nacht.mid",
+      "edition": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=521",
+      "sourceLicense": "CC BY-SA 2.0",
+      "credit": "F. X. Gruber; guitar arrangement Daniel Widyanto",
+      "sha256": "60641f67db4e0867a22e24212b520a935a425233a0ece43203558269f61d2e2d",
+      "durationSeconds": 69,
+      "noteCounts": [
+        142
+      ],
+      "review": "Guitar score, one MIDI track. Separate melody from accompaniment using source score, not highest-note heuristic alone."
+    },
+    {
+      "title": "Gymnopédie No. 1",
+      "path": "gymnopedie-1.mid",
+      "url": "https://www.mutopiaproject.org/ftp/SatieE/gymnopedie_1/gymnopedie_1.mid",
+      "edition": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=37",
+      "sourceLicense": "Public Domain (as declared by Mutopia)",
+      "credit": "Erik Satie; typeset Evin Robertson; Dover Edition",
+      "sha256": "09ce7337b4bf42ba12e1aa64b4c7dc7fcfa6455f1070cb12f8880a755df97384",
+      "durationSeconds": 141,
+      "noteCounts": [
+        181,
+        101
+      ],
+      "review": "Treble may contain harmony as well as melody. Verify full melodic voice and rests from notation."
+    },
+    {
+      "title": "Minuet in G major, BWV Anh.114",
+      "path": "minuet-g.mid",
+      "url": "https://www.mutopiaproject.org/ftp/BachJS/BWVAnh114/anna-magdalena-04/anna-magdalena-04.mid",
+      "edition": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=75",
+      "sourceLicense": "Public Domain (as declared by Mutopia)",
+      "credit": "Christian Petzold, historically attributed to J. S. Bach; typeset Allen Garvin",
+      "sha256": "fd87a6673e18104047842a1c858d2c9d8eb9ad845d7a8fa46e3664b17642cb75",
+      "durationSeconds": 41.142816,
+      "noteCounts": [
+        129,
+        75
+      ],
+      "review": "Melody and bass tracks available. Check source repeats and full form; do not count the current theme study as equivalent."
+    }
+  ]
+}

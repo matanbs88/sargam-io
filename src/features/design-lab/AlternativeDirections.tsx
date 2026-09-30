@@ -7,33 +7,41 @@ import type { NotationSystem } from '@/src/lib/midiToSargam';
 import { usePilotSession, type PilotSession, PILOT, PILOT_EVENTS, ROOT_NAMES } from './usePilotSession';
 import s from './alternatives.module.css';
 import { LivingScoreWorkspace } from './LivingScoreWorkspace';
+import { formatPlaybackTime, isAtScoreEnd } from '@/src/lib/transportPresentation';
+import { BansuriControls } from './BansuriControls';
 
 type Direction = 'score' | 'riyaz' | 'coach';
-function Settings({ session: p }: { session: PilotSession }) {
+export function Settings({ session: p }: { session: PilotSession }) {
   return <div className={s.settings}>
     <label>Instrument<select value={p.instrument} onChange={e => p.setInstrument(e.target.value as PilotSession['instrument'])}>{['Piano', 'Harmonium', 'Bansuri'].map(i => <option key={i}>{i}</option>)}</select></label>
-    {p.instrument === 'Bansuri' && <label>Voice comparison<select value={p.bansuriVoice} onChange={e => p.setBansuriVoice(e.target.value as PilotSession['bansuriVoice'])}><option value="procedural">Procedural reference</option><option value="ventus-study">Ventus sustain · experimental</option></select><small>Single sampled anchor, C4–C5. Listening QA pending.</small></label>}
-    <label>Sa<select value={p.root} onChange={e => p.setRoot(Number(e.target.value))}>{ROOT_NAMES.map((n, i) => <option key={n} value={60 + i}>{n}4</option>)}</select></label>
+    {p.instrument === 'Bansuri' && <><label>Sound<select value={p.bansuriVoice} onChange={e => p.setBansuriVoice(e.target.value as PilotSession['bansuriVoice'])}><option value="ventus">Ventus · recorded bansuri</option><option value="procedural">Synthetic · comparison only</option></select></label>{p.bansuriVoice==='ventus' && <BansuriControls session={p}/>}</>}
+    <label>Sa<select title="Reference pitch for the notation; changing Sa does not transpose the recording." value={p.root} onChange={e => p.setRoot(Number(e.target.value))}>{(p.root < 60 || p.root > 71) && <option value={p.root}>{ROOT_NAMES[((p.root % 12) + 12) % 12]}{Math.floor(p.root / 12) - 1}</option>}{ROOT_NAMES.map((n, i) => <option key={n} value={60 + i}>{n}4</option>)}</select></label>
     <label>Notation<select value={p.notation} onChange={e => p.setNotation(e.target.value as NotationSystem)}><option value="Sargam_EN">Sargam</option><option value="Sargam_HI">देवनागरी</option><option value="ABC">C D E</option></select></label>
+    <small>Sa changes the notation reference, not playback pitch.{p.instrument === 'Bansuri' && ' Fingering is a generic six-hole reference; match it to your flute.'}</small>
+    <details><summary>Correct selected note</summary><p>Note {Math.max(0, p.transport.activeEventIndex) + 1}: {p.notes[Math.max(0, p.transport.activeEventIndex)]}. Edits affect playback and PDF; the original score stays unchanged.</p><button onClick={() => { p.transport.pause(); p.correctNote(Math.max(0, p.transport.activeEventIndex), -1); }}>Pitch −1</button><button onClick={() => { p.transport.pause(); p.correctNote(Math.max(0, p.transport.activeEventIndex), 1); }}>Pitch +1</button><button disabled={!p.hasCorrections} onClick={() => { p.transport.pause(); p.resetCorrections(); }}>Reset corrections</button><p>Rhythm/voice issues still require editing the source score and re-importing it.</p></details>
     {p.instrument === 'Harmonium' && <><label>Reeds<select value={String(p.double)} onChange={e => p.setDouble(e.target.value === 'true')}><option value="false">Single</option><option value="true">Double</option></select></label><label>Space<select value={String(p.room)} onChange={e => p.setRoom(e.target.value === 'true')}><option value="false">Dry</option><option value="true">Room</option></select></label></>}
   </div>;
 }
-function Transport({ session: p }: { session: PilotSession }) {
+export function Transport({ session: p }: { session: PilotSession }) {
   const t = p.transport;
-  return <div className={s.transport}>
-    <button className={s.play} onClick={() => void t.togglePlayback()}>{t.isLoading ? 'Cancel loading' : t.isPlaying ? 'Pause' : 'Play'}</button>
+  return <div className={s.transport} data-transport>
+    <button className={s.play} onClick={() => void t.togglePlayback()}>{t.isLoading ? 'Cancel loading' : t.isPlaying ? 'Pause' : isAtScoreEnd(t.positionMs, t.durationMs) ? 'Replay' : 'Play'}</button>
     <button onClick={t.reset}>Restart</button>
-    <label className={s.seek}>Position<input type="range" min={0} max={t.durationMs} value={t.positionMs} onChange={e => t.seek(Number(e.target.value))} /><span>{(t.positionMs / 1000).toFixed(1)}s</span></label>
-    <label>Speed<select value={p.rate} onChange={e => p.setRate(Number(e.target.value))}>{[0.5, 0.75, 1, 1.25].map(rate => <option key={rate} value={rate}>{rate}×</option>)}</select></label>
+    <button aria-pressed={!p.soundEnabled} onClick={() => p.setSoundEnabled(!p.soundEnabled)}>{p.soundEnabled ? 'Mute guide' : 'Unmute guide'}</button>
+    <button aria-label="Previous note" disabled={t.activeEventIndex <= 0} onClick={() => t.selectEvent(t.activeEventIndex - 1)}>←</button>
+    <button aria-label="Next note" disabled={t.activeEventIndex >= p.notes.length - 1} onClick={() => t.selectEvent(t.activeEventIndex + 1)}>→</button>
+    <label className={s.seek}>Position<input aria-label="Playback position" aria-valuetext={`${(t.positionMs / 1000).toFixed(1)} of ${(t.durationMs / 1000).toFixed(1)} seconds`} type="range" min={0} max={t.durationMs} value={t.positionMs} onChange={e => t.seek(Number(e.target.value))} /><span title="Position / duration in the source score">{formatPlaybackTime(t.positionMs)} / {formatPlaybackTime(t.durationMs)}</span></label>
+    <label>Speed<select value={p.rate} onChange={e => p.setRate(Number(e.target.value))}>{![0.5, 0.75, 1, 1.25].includes(p.rate) && <option value={p.rate}>{p.rate.toFixed(2)}×</option>}{[0.5, 0.75, 1, 1.25].map(rate => <option key={rate} value={rate}>{rate}×</option>)}</select></label>
+    <label>BPM<input key={p.rate} aria-label="Tempo in beats per minute" type="number" min={Math.ceil(p.piece.tempoBpm * .25)} max={Math.floor(p.piece.tempoBpm * 2)} step={1} defaultValue={Math.round(p.piece.tempoBpm * p.rate)} onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur(); }} onBlur={e => { const bpm = e.target.valueAsNumber; if (Number.isFinite(bpm)) { const safe = Math.min(Math.floor(p.piece.tempoBpm * 2), Math.max(Math.ceil(p.piece.tempoBpm * .25), bpm)); e.target.value = String(safe); p.setRate(safe / p.piece.tempoBpm); } else e.target.value = String(Math.round(p.piece.tempoBpm * p.rate)); }} /></label>
   </div>;
 }
-function Roll({ session: p }: { session: PilotSession }) {
-  return <div className={s.roll}>{p.instrument === 'Bansuri' ? <BansuriFallingNotes {...p.roll} /> : <KeyboardRoll {...p.roll} title={p.instrument} />}</div>;
+export function Roll({ session: p, fitViewport = false }: { session: PilotSession; fitViewport?: boolean }) {
+  return <div className={s.roll}>{p.instrument === 'Bansuri' ? <BansuriFallingNotes {...p.roll} fitViewport={fitViewport} /> : <KeyboardRoll {...p.roll} fitViewport={fitViewport} title={p.instrument} />}</div>;
 }
 function Score({ session: p, onSelect }: { session: PilotSession; onSelect?: (index: number) => void }) {
   // Measured beat positions, not an equal-width row: held notes retain their span.
   const beatMs = 60000 / PILOT.tempoBpm;
-  return <div className={s.score} aria-label="Four-bar score">
+  return <div className={s.score} data-notation={p.notation} aria-label="Four-bar score">
     {[0, 1, 2, 3].map(bar => <div className={s.bar} key={bar}><small>{bar + 1}</small><div className={s.beats}>{PILOT_EVENTS.map((note, index) => {
       const beat = note.startMs / beatMs;
       if (Math.floor((beat + 0.001) / 4) !== bar) return null;
@@ -58,7 +66,7 @@ export function AlternativeDirections({ direction }: { direction: Direction }) {
       <button className={s.selection} onClick={() => p.setOpened(true)}><span>01 / BEGINNER</span><h2>Ode to Joy</h2><p>Beethoven · Four-bar opening study</p><strong>{direction === 'score' ? 'Open the score' : direction === 'riyaz' ? 'Enter practice' : 'Begin session'} →</strong></button>
     </section> : <>
       <header className={s.heading}><div><p className={s.kicker}>BEETHOVEN · OPENING STUDY</p><h1>Ode to Joy</h1></div><button onClick={p.download} disabled={p.exporting}>{p.exporting ? 'Preparing…' : 'Download score'}</button></header>
-      {direction === 'score' ? <LivingScoreWorkspace session={p} settings={<Settings session={p} />} transport={<Transport session={p} />} visualizer={<Roll session={p} />} renderScore={onSelect => <Score session={p} onSelect={onSelect} />} /> : direction === 'riyaz' ? <div className={s.roomLayout}>
+      {direction === 'score' ? <LivingScoreWorkspace session={p} settings={<Settings session={p} />} transport={<Transport session={p} />} visualizer={<Roll session={p} fitViewport />} renderScore={onSelect => <Score session={p} onSelect={onSelect} />} /> : direction === 'riyaz' ? <div className={s.roomLayout}>
         <aside className={s.anchor}><span>YOUR SA</span><strong>{ROOT_NAMES[p.root - 60]}</strong><span>Octave 4</span><hr /><p>NOW IN THE PHRASE</p><b>{p.notes[p.transport.activeEventIndex] ?? '—'}</b><p>Reference voice · {p.instrument}</p></aside>
         <section className={s.roomStage}><Settings session={p} /><Roll session={p} /><Transport session={p} /><Score session={p} /></section>
       </div> : <div className={s.coachLayout}>

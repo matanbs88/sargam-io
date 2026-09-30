@@ -2,7 +2,9 @@ import { readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const root = process.cwd();
-const ignoredDirectories = new Set([".git", ".next", ".vercel", "node_modules"]);
+// Generated tooling, recordings and build output are not repository sources.
+// In particular, imported Python environments can contain inaccessible folders.
+const ignoredDirectories = new Set([".git", ".next", ".vercel", "node_modules", "output", "tmp", "coverage", "build", "out"]);
 const requiredFiles = [
   "README.md",
   "GEMINI_REVIEW_REPORT.md",
