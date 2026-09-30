@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-01",
+  "status": "research-only-browser-unavailable-stopped",
+  "title": "Bande Mataram (Vande Mataram)",
+  "catalogEligible": false,
+  "published": false,
+  "countsTowardCatalog": false,
+  "edition": {
+    "title": "The Music of Hindostan",
+    "author": "A. H. Fox Strangways",
+    "publisher": "Oxford: Clarendon Press",
+    "year": 1914,
+    "locatorFromPriorResearch": "Example 250; index entry on printed page 354",
+    "primaryScanUrl": "https://www.ibiblio.org/guruguha/MusicResearchLibrary/Books-English/BkE-FoxStrangways-MusicofHindostan-0025.pdf",
+    "editionRecordUrl": "https://imslp.org/wiki/The_Music_of_Hindostan_(Fox_Strangways,_Arthur_Henry)",
+    "archiveItemUrl": "https://archive.org/details/musicofhindostan00foxs"
+  },
+  "viewingAttempt": {
+    "requestedBrowserId": "4",
+    "inventory": "The current computer-use connection exposed Chrome browser 2 only; browser 4 was absent.",
+    "action": "One ordinary fresh-tab creation attempt in browser 4 using the primary scan URL",
+    "result": "Browser is not available: 4",
+    "sourceOpened": false,
+    "stopReason": "User instructed stopping this source if browser viewing is unavailable or blocked.",
+    "shellDownloadAttemptedThisReview": false,
+    "alternateBrowserAttempted": false,
+    "securityBypassAttempted": false
+  },
+  "sourcePixels": {
+    "inspected": false,
+    "screenshots": [],
+    "scorePrintedPages": [],
+    "scorePdfPageIndices": []
+  },
+  "completeness": {
+    "classification": "unverified",
+    "sourceProseInspected": false,
+    "isExcerpt": null,
+    "isComplete": null,
+    "notationReadable": null,
+    "notationLedger": null,
+    "reason": "No source page was displayed. An index entry and a public-domain book label cannot establish complete melodic scope; neither complete nor excerpt is asserted."
+  },
+  "checkpoint": "Reconnect browser 4 or provide accessible source-page pixels for Example 250 and adjoining prose. Inspect attribution, continuation, all sections and form before transcribing or qualifying. No publication or count eligibility is established.",
+  "scope": "Only this research report was created. Prior reports and all code/catalog/publication files were preserved."
+}

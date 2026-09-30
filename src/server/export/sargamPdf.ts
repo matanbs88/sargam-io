@@ -66,6 +66,8 @@ export type NotationMeasureCell = {
   readonly isContinuation: boolean;
   readonly midi: number | null;
   readonly isRest: boolean;
+  /** Simultaneous voices, in source order. Never discard lower chord pitches. */
+  readonly voices: readonly { readonly midi: number; readonly isContinuation: boolean }[];
 };
 
 export type NotationMeasureLayout = {
@@ -259,6 +261,7 @@ export function createNotationMeasureLayout(measure: RenderMeasure): NotationMea
     isContinuation: false,
     isRest: true,
     midi: null,
+    voices: [],
   }));
 
   for (const event of measure.events) {
@@ -267,11 +270,15 @@ export function createNotationMeasureLayout(measure: RenderMeasure): NotationMea
     const continuationOnly = event.tie === "stop" || event.tie === "continue";
     for (let offset = 0; offset < width && start + offset < slots; offset += 1) {
       const index = start + offset;
-      if (index === undefined || !cells[index]?.isRest) continue;
+      if (index === undefined || !cells[index] || event.midi === null) continue;
+      const voices = [...cells[index].voices, {
+        midi: event.midi, isContinuation: continuationOnly || offset > 0,
+      }];
       cells[index] = {
-        isContinuation: continuationOnly || offset > 0,
-        isRest: event.midi === null,
-        midi: event.midi,
+        isContinuation: voices.every(voice => voice.isContinuation),
+        isRest: false,
+        midi: voices[0].midi,
+        voices,
       };
     }
   }
@@ -458,23 +465,27 @@ function drawMeasure(page: PDFPage, fonts: PdfFonts, layout: NotationMeasureLayo
   layout.cells.forEach((cell, index) => {
     const cellX = x + index * cellWidth;
     if (cell.isRest) return;
-    if (cell.isContinuation) {
-      page.drawText("-", { x: cellX + cellWidth / 2 - 2, y: y + drawing.continuationY, size: drawing.continuationSize, font: fonts.serif, color: colors.charcoal });
-      return;
-    }
-    if (cell.midi !== null) {
+    const size = Math.min(notation === "Sargam_HI" ? drawing.hiNotationSize : drawing.notationSize,
+      (drawing.height - 24) / Math.max(1, cell.voices.length) - 4);
+    cell.voices.forEach((voice, voiceIndex) => {
+      const voiceY = cell.voices.length === 1 ? y + drawing.notationY
+        : y + drawing.height - 22 - voiceIndex * (size + 4);
+      if (voice.isContinuation) {
+        page.drawText("-", { x: cellX + cellWidth / 2 - 2, y: voiceY, size, font: fonts.serif, color: colors.charcoal });
+        return;
+      }
       drawNotation(
         page,
         fonts,
-        cell.midi,
+        voice.midi,
         input.rootMidi,
         notation,
         cellX,
-        y + drawing.notationY,
+        voiceY,
         cellWidth,
-        notation === "Sargam_HI" ? drawing.hiNotationSize : drawing.notationSize,
+        size,
       );
-    }
+    });
   });
 }
 
@@ -495,9 +506,10 @@ function beatTokens(
   const end = Math.floor(((beatIndex + 1) * layout.slots) / beatsPerMeasure);
   return layout.cells.slice(start, Math.max(start + 1, end)).flatMap((cell) => {
     if (cell.isRest) return [];
-    if (cell.isContinuation) return ["-"];
-    if (cell.midi === null) return [];
-    return [formatRelativeNote(midiToRelativeNote(cell.midi, input.rootMidi), notation)];
+    const tokens = cell.voices.map(voice => voice.isContinuation ? "-"
+      : formatRelativeNote(midiToRelativeNote(voice.midi, input.rootMidi), notation));
+    // Brackets mean simultaneous pitches; spaces outside brackets mean successive onsets.
+    return [tokens.length > 1 ? `[${tokens.join(' ')}]` : tokens[0]];
   });
 }
 
@@ -598,6 +610,11 @@ export async function createSargamPdf(input: SargamPdfExportInput): Promise<Uint
   let y = compact ? drawCompactHeader(page, fonts, input, false) : drawHeader(page, fonts, input, false);
 
   if (compact) {
+    const rows = Math.ceil(measures.length / BHATKHANDE_MEASURES_PER_ROW);
+    // Modest spacing compression, not smaller glyphs: avoid a mostly empty
+    // second page for 73–84 bars. Longer scores still paginate normally.
+    const onePageGap = rows > 1 ? (y - (FOOTER_Y + 52)) / (rows - 1) : BHATKHANDE_ROW_GAP;
+    const rowGap = Math.min(BHATKHANDE_ROW_GAP, Math.max(27, onePageGap));
     for (let index = 0; index < measures.length; index += BHATKHANDE_MEASURES_PER_ROW) {
       if (y - 16 < FOOTER_Y + 32) {
         drawFooter(page, fonts, pageNumber);
@@ -607,7 +624,7 @@ export async function createSargamPdf(input: SargamPdfExportInput): Promise<Uint
         y = drawCompactHeader(page, fonts, input, true);
       }
       drawBhatkhandeRow(page, fonts, measures.slice(index, index + BHATKHANDE_MEASURES_PER_ROW), input, y);
-      y -= BHATKHANDE_ROW_GAP;
+      y -= rowGap;
     }
   } else {
     const drawing = STANDARD_MEASURE_DRAWING;

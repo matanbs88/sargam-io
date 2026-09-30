@@ -2,6 +2,8 @@ import minuet from "../../content/catalog/verified/minuet-g.json";
 import silentNight from "../../content/catalog/verified/silent-night.json";
 import wenceslas from "../../content/catalog/verified/good-king-wenceslas.json";
 import raghupati from "../../content/catalog/verified/raghupati-raghav.json";
+import gymnopedie from "../../content/catalog/verified/gymnopedie-1.json";
+import { verifiedVoiceEvents } from './verifiedVoiceEvents';
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
 
@@ -65,7 +67,10 @@ export function minuetMelodyEvents(): readonly MidiNoteEvent[] {
 }
 
 // Ready means source-reviewed playable data; live-complete is separately audited in the ledger.
-export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [minuet, silentNight, wenceslas, raghupati].map((score) => ({
+function catalogEntry(score: {
+  id: string; title: string; composer: string; edition: string; source: string;
+  sourceCredit: string; sourceLicense: string; tempoBpm: number; timeSignature: string; rootMidi: number;
+}, noteEvents: readonly MidiNoteEvent[]): CatalogSong { return {
   id: score.id,
   title: score.title,
   artistOrSource: `${score.composer} · ${score.edition}`,
@@ -82,9 +87,14 @@ export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [minuet, silentNight,
   tempoBpm: score.tempoBpm,
   timeSignature: catalogMeter(score.timeSignature),
   rootMidi: score.rootMidi,
-  noteEvents: verifiedMelodyEvents(score),
+  noteEvents,
   rightsNote: `${score.sourceCredit}. ${score.sourceLicense}. ${score.edition}.`,
-}));
+}; }
+
+export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [
+  ...[minuet, silentNight, wenceslas, raghupati].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
+  catalogEntry(gymnopedie, verifiedVoiceEvents(gymnopedie)),
+];
 
 function catalogMeter(meter: string): CatalogSong["timeSignature"] {
   if (meter === "2/4" || meter === "3/4" || meter === "4/4" || meter === "3/8" || meter === "6/8") return meter;

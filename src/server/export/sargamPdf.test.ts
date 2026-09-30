@@ -4,6 +4,23 @@ import { mockMidiData } from "@/src/lib/mockMidiData";
 import { createNotationMeasureLayout, createSargamPdf } from "./sargamPdf";
 
 describe("createSargamPdf", () => {
+  it("preserves every chord voice and a new attack over a sustained voice", () => {
+    const layout = createNotationMeasureLayout({ duration: 3, number: 1, events: [
+      { midi: 72, start: 0, duration: 3, tie: 'none' },
+      { midi: 69, start: 0, duration: 3, tie: 'none' },
+      { midi: 64, start: 0, duration: 3, tie: 'none' },
+      { midi: 60, start: 0, duration: 3, tie: 'none' },
+      { midi: 67, start: 1, duration: 1, tie: 'none' },
+    ] });
+    expect(layout.cells[0].voices).toEqual([72, 69, 64, 60].map(midi => ({ midi, isContinuation: false })));
+    expect(layout.cells[1].voices).toEqual([
+      ...[72, 69, 64, 60].map(midi => ({ midi, isContinuation: true })),
+      { midi: 67, isContinuation: false },
+    ]);
+    expect(layout.cells[1].isContinuation).toBe(false);
+    expect(layout.cells[2].voices.map(voice => voice.midi)).toEqual([72, 69, 64, 60]);
+    expect(layout.cells[2].isContinuation).toBe(true);
+  });
   it("creates a readable one-page Sargam practice sheet", async () => {
     const bytes = await createSargamPdf({
       events: mockMidiData.noteEvents,

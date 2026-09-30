@@ -19,7 +19,7 @@ describe('complete catalog PDF acceptance', () => {
       } as const;
       const measures = timelineToMeasures(payload);
       const onsets = measures.flatMap(measure => createNotationMeasureLayout(measure).cells
-        .filter(cell => !cell.isRest && !cell.isContinuation).map(cell => cell.midi));
+        .flatMap(cell => cell.voices.filter(voice => !voice.isContinuation).map(voice => voice.midi)));
       expect(onsets).toEqual(events.map(note => note.midi));
       const last = events.at(-1)!;
       const [n, d] = song.timeSignature.split('/').map(Number);
@@ -34,6 +34,7 @@ describe('complete catalog PDF acceptance', () => {
       const pdf = await PDFDocument.load(bytes);
       expect(pdf.getTitle()).toBe(song.title);
       expect(pdf.getPageCount()).toBeGreaterThan(0);
+      if (song.id === 'verified-gymnopedie-1-complete') expect(pdf.getPageCount()).toBe(1);
       for (const page of pdf.getPages()) expect(page.getWidth()).toBeCloseTo(595.28, 1);
       // Explicit opt-in artifact generation, never a test-only live completion claim.
       if (process.env.SARGAM_CATALOG_PDF_QA_ID === song.id) {

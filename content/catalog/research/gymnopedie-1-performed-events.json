@@ -1,0 +1,5746 @@
+{
+  "schema": "research-source-performed-midi-note-events-v1",
+  "status": "RESEARCH_ONLY",
+  "title": "Gymnopedie No. 1 — complete performed explicit top voice",
+  "restrictions": {
+    "register": false,
+    "publish": false,
+    "countAsVerifiedRepertoire": false,
+    "highestNoteHeuristic": false,
+    "appCodeChanged": false
+  },
+  "derivation": {
+    "reviewedLedgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+    "reviewedLedgerSHA256": "f949e9cda1e58010f86217a1692661db476ec2670405b8f19dcccc77ef6be47f",
+    "lilypondSource": "https://www.mutopiaproject.org/ftp/SatieE/gymnopedie_1/gymnopedie_1.ly",
+    "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=37",
+    "sourceTextUTF8SHA256": "420A52244E9FBE106DD33BA2CAC84414FD66E0D01C6D472205BAD39678D4CE04",
+    "explicitVoice": "top",
+    "authority": "The reviewed LilyPond top expression and its performanceBarMap; not a highest-note extraction from the merged-track MIDI.",
+    "licenseEvidence": {
+      "piecePage": "Copyright: Public Domain",
+      "sourceHeader": "license = \"Public Domain\"",
+      "editionFooter": "Placed in the public domain by the typesetter; free to distribute, modify, and perform",
+      "sourceComment": "Dover reproduces the original work; its copyrighted French translations are omitted from this LilyPond file."
+    },
+    "form": "B1-B31, E1-1-E1-8, B1-B31, E2-1-E2-8"
+  },
+  "tempoBpm": 60,
+  "quarterDurationMs": 1000,
+  "timeSignature": {
+    "numerator": 3,
+    "denominator": 4
+  },
+  "durationMs": 234000,
+  "barDurationMs": 3000,
+  "encoding": {
+    "noteEvents": "Scalar MidiNoteEvent entries only: midi, startMs, durationMs. No invented velocity or performance dynamics. Each written chord is expanded to one simultaneous scalar event per pitch, preserving the source chord pitch order.",
+    "eventProvenance": "Parallel to noteEvents. noteEventIndex and all *Indices fields are zero-based. sourceEventIndex, chordPitchIndex, performanceBar, sourceLine and repeatPass are one-based. sourceEventOrder is zero-based across the performed source event stream, including rests/skips.",
+    "silenceEvents": "Printed R2. rests and invisible s4 skips retain their original kind and duration. Neither is encoded as a fake MIDI pitch or note. Adjacent printed rest bars remain separate events.",
+    "barBoundaries": "Half-open [startMs,endMs) intervals. Bar n spans [(n-1)*3000,n*3000). A merged tied note may cross several boundaries; noteEventIndicesSustainingAtStart explicitly lists it. Events ending exactly at a boundary are not sustaining there.",
+    "ties": "Merge only consecutive segments of the same MIDI pitch with an explicit preceding tieOut and incoming tieIn, at exactly contiguous source times. Retain every segment backreference. Untied repeated pitches remain distinct attacks, even if their times touch.",
+    "timeOrigin": "Score start at 0 ms; all introduction silence retained. First attack at 13000 ms, second-pass first attack at 130000 ms."
+  },
+  "counts": {
+    "performanceBars": 78,
+    "performedSourceEventsIncludingSilence": 142,
+    "performedNoteheadSegmentsBeforeTieMerge": 142,
+    "explicitTieContinuationSegmentsMerged": 14,
+    "scalarMidiNoteEvents": 128,
+    "scalarUntiedAndMergedMonophonicAttackEvents": 112,
+    "scalarChordPitchEvents": 16,
+    "chordAttackTimes": 4,
+    "mergedTieChains": 8,
+    "fullBarPrintedRests": 8,
+    "oneQuarterInvisibleSkips": 4,
+    "silenceEvents": 12
+  },
+  "sectionBoundaries": [
+    {
+      "section": "first pass common body",
+      "performanceBars": [
+        1,
+        31
+      ],
+      "startMs": 0,
+      "endMs": 93000
+    },
+    {
+      "section": "first ending",
+      "performanceBars": [
+        32,
+        39
+      ],
+      "startMs": 93000,
+      "endMs": 117000
+    },
+    {
+      "section": "second pass common body",
+      "performanceBars": [
+        40,
+        70
+      ],
+      "startMs": 117000,
+      "endMs": 210000
+    },
+    {
+      "section": "second ending",
+      "performanceBars": [
+        71,
+        78
+      ],
+      "startMs": 210000,
+      "endMs": 234000
+    }
+  ],
+  "tieTreatment": {
+    "sourceTiePatterns": [
+      {
+        "sourceBars": [
+          "B9",
+          "B10",
+          "B11",
+          "B12"
+        ],
+        "midi": 66,
+        "durationMs": 12000
+      },
+      {
+        "sourceBars": [
+          "B19",
+          "B20",
+          "B21"
+        ],
+        "midi": 64,
+        "durationMs": 9000
+      },
+      {
+        "sourceBars": [
+          "B25",
+          "B26"
+        ],
+        "midi": 74,
+        "durationMs": 5000
+      },
+      {
+        "sourceBars": [
+          "B30",
+          "B31"
+        ],
+        "midi": 74,
+        "durationMs": 5000
+      }
+    ],
+    "repeatPasses": [
+      1,
+      2
+    ],
+    "mergedEventIndices": [
+      9,
+      21,
+      31,
+      42,
+      73,
+      85,
+      95,
+      106
+    ],
+    "separateRepeatedD5Attacks": "B26 event 2 and B31 event 2 each remain a new 1000 ms D5 attack after the preceding 5000 ms tied D5, on both passes.",
+    "noTiesAcrossRepeatOrAlternativeJumps": true
+  },
+  "endingChords": [
+    {
+      "performanceBar": 38,
+      "sourceBarId": "E1-7",
+      "startMs": 111000,
+      "durationMs": 3000,
+      "midiInSourceOrder": [
+        72,
+        69,
+        64,
+        60
+      ]
+    },
+    {
+      "performanceBar": 39,
+      "sourceBarId": "E1-8",
+      "startMs": 114000,
+      "durationMs": 3000,
+      "midiInSourceOrder": [
+        74,
+        69,
+        66,
+        62
+      ]
+    },
+    {
+      "performanceBar": 77,
+      "sourceBarId": "E2-7",
+      "startMs": 228000,
+      "durationMs": 3000,
+      "midiInSourceOrder": [
+        72,
+        69,
+        64,
+        60
+      ]
+    },
+    {
+      "performanceBar": 78,
+      "sourceBarId": "E2-8",
+      "startMs": 231000,
+      "durationMs": 3000,
+      "midiInSourceOrder": [
+        74,
+        69,
+        65,
+        62
+      ]
+    }
+  ],
+  "noteEvents": [
+    {
+      "midi": 78,
+      "startMs": 13000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 81,
+      "startMs": 14000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 15000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 78,
+      "startMs": 16000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 17000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 18000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 19000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 20000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 69,
+      "startMs": 21000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 66,
+      "startMs": 24000,
+      "durationMs": 12000
+    },
+    {
+      "midi": 78,
+      "startMs": 37000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 81,
+      "startMs": 38000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 39000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 78,
+      "startMs": 40000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 41000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 42000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 43000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 44000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 69,
+      "startMs": 45000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 73,
+      "startMs": 48000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 78,
+      "startMs": 51000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 64,
+      "startMs": 54000,
+      "durationMs": 9000
+    },
+    {
+      "midi": 69,
+      "startMs": 63000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 64000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 65000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 66000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 67000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 68000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 69000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 70000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 71000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 72000,
+      "durationMs": 5000
+    },
+    {
+      "midi": 74,
+      "startMs": 77000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 78000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 77,
+      "startMs": 79000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 80000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 81,
+      "startMs": 81000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 82000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 83000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 84000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 85000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 86000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 87000,
+      "durationMs": 5000
+    },
+    {
+      "midi": 74,
+      "startMs": 92000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 93000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 78,
+      "startMs": 96000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 71,
+      "startMs": 99000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 69,
+      "startMs": 100000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 101000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 102000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 103000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 104000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 105000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 106000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 107000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 66,
+      "startMs": 108000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 72,
+      "startMs": 111000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 69,
+      "startMs": 111000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 64,
+      "startMs": 111000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 60,
+      "startMs": 111000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 74,
+      "startMs": 114000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 69,
+      "startMs": 114000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 66,
+      "startMs": 114000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 62,
+      "startMs": 114000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 78,
+      "startMs": 130000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 81,
+      "startMs": 131000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 132000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 78,
+      "startMs": 133000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 134000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 135000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 136000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 137000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 69,
+      "startMs": 138000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 66,
+      "startMs": 141000,
+      "durationMs": 12000
+    },
+    {
+      "midi": 78,
+      "startMs": 154000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 81,
+      "startMs": 155000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 156000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 78,
+      "startMs": 157000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 158000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 159000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 73,
+      "startMs": 160000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 161000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 69,
+      "startMs": 162000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 73,
+      "startMs": 165000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 78,
+      "startMs": 168000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 64,
+      "startMs": 171000,
+      "durationMs": 9000
+    },
+    {
+      "midi": 69,
+      "startMs": 180000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 181000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 182000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 183000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 184000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 185000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 186000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 187000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 188000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 189000,
+      "durationMs": 5000
+    },
+    {
+      "midi": 74,
+      "startMs": 194000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 195000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 77,
+      "startMs": 196000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 197000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 81,
+      "startMs": 198000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 199000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 200000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 201000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 202000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 71,
+      "startMs": 203000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 204000,
+      "durationMs": 5000
+    },
+    {
+      "midi": 74,
+      "startMs": 209000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 79,
+      "startMs": 210000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 77,
+      "startMs": 213000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 71,
+      "startMs": 216000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 217000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 77,
+      "startMs": 218000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 219000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 220000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 221000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 76,
+      "startMs": 222000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 74,
+      "startMs": 223000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 72,
+      "startMs": 224000,
+      "durationMs": 1000
+    },
+    {
+      "midi": 65,
+      "startMs": 225000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 72,
+      "startMs": 228000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 69,
+      "startMs": 228000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 64,
+      "startMs": 228000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 60,
+      "startMs": 228000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 74,
+      "startMs": 231000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 69,
+      "startMs": 231000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 65,
+      "startMs": 231000,
+      "durationMs": 3000
+    },
+    {
+      "midi": 62,
+      "startMs": 231000,
+      "durationMs": 3000
+    }
+  ],
+  "eventProvenance": [
+    {
+      "id": "N001",
+      "noteEventIndex": 0,
+      "sourceEventOrder": 5,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/4/events/1",
+          "sourceBarId": "B5",
+          "sourceEventIndex": 2,
+          "sourceLine": 51,
+          "performanceBar": 5,
+          "repeatPass": 1,
+          "sourceEventOrder": 5,
+          "segmentStartMs": 13000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N002",
+      "noteEventIndex": 1,
+      "sourceEventOrder": 6,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/4/events/2",
+          "sourceBarId": "B5",
+          "sourceEventIndex": 3,
+          "sourceLine": 51,
+          "performanceBar": 5,
+          "repeatPass": 1,
+          "sourceEventOrder": 6,
+          "segmentStartMs": 14000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N003",
+      "noteEventIndex": 2,
+      "sourceEventOrder": 7,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/5/events/0",
+          "sourceBarId": "B6",
+          "sourceEventIndex": 1,
+          "sourceLine": 52,
+          "performanceBar": 6,
+          "repeatPass": 1,
+          "sourceEventOrder": 7,
+          "segmentStartMs": 15000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N004",
+      "noteEventIndex": 3,
+      "sourceEventOrder": 8,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/5/events/1",
+          "sourceBarId": "B6",
+          "sourceEventIndex": 2,
+          "sourceLine": 52,
+          "performanceBar": 6,
+          "repeatPass": 1,
+          "sourceEventOrder": 8,
+          "segmentStartMs": 16000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N005",
+      "noteEventIndex": 4,
+      "sourceEventOrder": 9,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/5/events/2",
+          "sourceBarId": "B6",
+          "sourceEventIndex": 3,
+          "sourceLine": 52,
+          "performanceBar": 6,
+          "repeatPass": 1,
+          "sourceEventOrder": 9,
+          "segmentStartMs": 17000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N006",
+      "noteEventIndex": 5,
+      "sourceEventOrder": 10,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/6/events/0",
+          "sourceBarId": "B7",
+          "sourceEventIndex": 1,
+          "sourceLine": 54,
+          "performanceBar": 7,
+          "repeatPass": 1,
+          "sourceEventOrder": 10,
+          "segmentStartMs": 18000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N007",
+      "noteEventIndex": 6,
+      "sourceEventOrder": 11,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/6/events/1",
+          "sourceBarId": "B7",
+          "sourceEventIndex": 2,
+          "sourceLine": 54,
+          "performanceBar": 7,
+          "repeatPass": 1,
+          "sourceEventOrder": 11,
+          "segmentStartMs": 19000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N008",
+      "noteEventIndex": 7,
+      "sourceEventOrder": 12,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/6/events/2",
+          "sourceBarId": "B7",
+          "sourceEventIndex": 3,
+          "sourceLine": 54,
+          "performanceBar": 7,
+          "repeatPass": 1,
+          "sourceEventOrder": 12,
+          "segmentStartMs": 20000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N009",
+      "noteEventIndex": 8,
+      "sourceEventOrder": 13,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/7/events/0",
+          "sourceBarId": "B8",
+          "sourceEventIndex": 1,
+          "sourceLine": 56,
+          "performanceBar": 8,
+          "repeatPass": 1,
+          "sourceEventOrder": 13,
+          "segmentStartMs": 21000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N010",
+      "noteEventIndex": 9,
+      "sourceEventOrder": 14,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/8/events/0",
+          "sourceBarId": "B9",
+          "sourceEventIndex": 1,
+          "sourceLine": 57,
+          "performanceBar": 9,
+          "repeatPass": 1,
+          "sourceEventOrder": 14,
+          "segmentStartMs": 24000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/9/events/0",
+          "sourceBarId": "B10",
+          "sourceEventIndex": 1,
+          "sourceLine": 58,
+          "performanceBar": 10,
+          "repeatPass": 1,
+          "sourceEventOrder": 15,
+          "segmentStartMs": 27000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/10/events/0",
+          "sourceBarId": "B11",
+          "sourceEventIndex": 1,
+          "sourceLine": 59,
+          "performanceBar": 11,
+          "repeatPass": 1,
+          "sourceEventOrder": 16,
+          "segmentStartMs": 30000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/11/events/0",
+          "sourceBarId": "B12",
+          "sourceEventIndex": 1,
+          "sourceLine": 60,
+          "performanceBar": 12,
+          "repeatPass": 1,
+          "sourceEventOrder": 17,
+          "segmentStartMs": 33000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N011",
+      "noteEventIndex": 10,
+      "sourceEventOrder": 19,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/12/events/1",
+          "sourceBarId": "B13",
+          "sourceEventIndex": 2,
+          "sourceLine": 61,
+          "performanceBar": 13,
+          "repeatPass": 1,
+          "sourceEventOrder": 19,
+          "segmentStartMs": 37000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N012",
+      "noteEventIndex": 11,
+      "sourceEventOrder": 20,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/12/events/2",
+          "sourceBarId": "B13",
+          "sourceEventIndex": 3,
+          "sourceLine": 61,
+          "performanceBar": 13,
+          "repeatPass": 1,
+          "sourceEventOrder": 20,
+          "segmentStartMs": 38000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N013",
+      "noteEventIndex": 12,
+      "sourceEventOrder": 21,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/13/events/0",
+          "sourceBarId": "B14",
+          "sourceEventIndex": 1,
+          "sourceLine": 61,
+          "performanceBar": 14,
+          "repeatPass": 1,
+          "sourceEventOrder": 21,
+          "segmentStartMs": 39000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N014",
+      "noteEventIndex": 13,
+      "sourceEventOrder": 22,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/13/events/1",
+          "sourceBarId": "B14",
+          "sourceEventIndex": 2,
+          "sourceLine": 61,
+          "performanceBar": 14,
+          "repeatPass": 1,
+          "sourceEventOrder": 22,
+          "segmentStartMs": 40000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N015",
+      "noteEventIndex": 14,
+      "sourceEventOrder": 23,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/13/events/2",
+          "sourceBarId": "B14",
+          "sourceEventIndex": 3,
+          "sourceLine": 61,
+          "performanceBar": 14,
+          "repeatPass": 1,
+          "sourceEventOrder": 23,
+          "segmentStartMs": 41000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N016",
+      "noteEventIndex": 15,
+      "sourceEventOrder": 24,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/14/events/0",
+          "sourceBarId": "B15",
+          "sourceEventIndex": 1,
+          "sourceLine": 62,
+          "performanceBar": 15,
+          "repeatPass": 1,
+          "sourceEventOrder": 24,
+          "segmentStartMs": 42000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N017",
+      "noteEventIndex": 16,
+      "sourceEventOrder": 25,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/14/events/1",
+          "sourceBarId": "B15",
+          "sourceEventIndex": 2,
+          "sourceLine": 62,
+          "performanceBar": 15,
+          "repeatPass": 1,
+          "sourceEventOrder": 25,
+          "segmentStartMs": 43000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N018",
+      "noteEventIndex": 17,
+      "sourceEventOrder": 26,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/14/events/2",
+          "sourceBarId": "B15",
+          "sourceEventIndex": 3,
+          "sourceLine": 62,
+          "performanceBar": 15,
+          "repeatPass": 1,
+          "sourceEventOrder": 26,
+          "segmentStartMs": 44000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N019",
+      "noteEventIndex": 18,
+      "sourceEventOrder": 27,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/15/events/0",
+          "sourceBarId": "B16",
+          "sourceEventIndex": 1,
+          "sourceLine": 63,
+          "performanceBar": 16,
+          "repeatPass": 1,
+          "sourceEventOrder": 27,
+          "segmentStartMs": 45000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N020",
+      "noteEventIndex": 19,
+      "sourceEventOrder": 28,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/16/events/0",
+          "sourceBarId": "B17",
+          "sourceEventIndex": 1,
+          "sourceLine": 65,
+          "performanceBar": 17,
+          "repeatPass": 1,
+          "sourceEventOrder": 28,
+          "segmentStartMs": 48000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N021",
+      "noteEventIndex": 20,
+      "sourceEventOrder": 29,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/17/events/0",
+          "sourceBarId": "B18",
+          "sourceEventIndex": 1,
+          "sourceLine": 66,
+          "performanceBar": 18,
+          "repeatPass": 1,
+          "sourceEventOrder": 29,
+          "segmentStartMs": 51000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N022",
+      "noteEventIndex": 21,
+      "sourceEventOrder": 30,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/18/events/0",
+          "sourceBarId": "B19",
+          "sourceEventIndex": 1,
+          "sourceLine": 67,
+          "performanceBar": 19,
+          "repeatPass": 1,
+          "sourceEventOrder": 30,
+          "segmentStartMs": 54000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/19/events/0",
+          "sourceBarId": "B20",
+          "sourceEventIndex": 1,
+          "sourceLine": 68,
+          "performanceBar": 20,
+          "repeatPass": 1,
+          "sourceEventOrder": 31,
+          "segmentStartMs": 57000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/20/events/0",
+          "sourceBarId": "B21",
+          "sourceEventIndex": 1,
+          "sourceLine": 69,
+          "performanceBar": 21,
+          "repeatPass": 1,
+          "sourceEventOrder": 32,
+          "segmentStartMs": 60000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N023",
+      "noteEventIndex": 22,
+      "sourceEventOrder": 33,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/21/events/0",
+          "sourceBarId": "B22",
+          "sourceEventIndex": 1,
+          "sourceLine": 70,
+          "performanceBar": 22,
+          "repeatPass": 1,
+          "sourceEventOrder": 33,
+          "segmentStartMs": 63000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N024",
+      "noteEventIndex": 23,
+      "sourceEventOrder": 34,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/21/events/1",
+          "sourceBarId": "B22",
+          "sourceEventIndex": 2,
+          "sourceLine": 70,
+          "performanceBar": 22,
+          "repeatPass": 1,
+          "sourceEventOrder": 34,
+          "segmentStartMs": 64000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N025",
+      "noteEventIndex": 24,
+      "sourceEventOrder": 35,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/21/events/2",
+          "sourceBarId": "B22",
+          "sourceEventIndex": 3,
+          "sourceLine": 70,
+          "performanceBar": 22,
+          "repeatPass": 1,
+          "sourceEventOrder": 35,
+          "segmentStartMs": 65000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N026",
+      "noteEventIndex": 25,
+      "sourceEventOrder": 36,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/22/events/0",
+          "sourceBarId": "B23",
+          "sourceEventIndex": 1,
+          "sourceLine": 71,
+          "performanceBar": 23,
+          "repeatPass": 1,
+          "sourceEventOrder": 36,
+          "segmentStartMs": 66000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N027",
+      "noteEventIndex": 26,
+      "sourceEventOrder": 37,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/22/events/1",
+          "sourceBarId": "B23",
+          "sourceEventIndex": 2,
+          "sourceLine": 71,
+          "performanceBar": 23,
+          "repeatPass": 1,
+          "sourceEventOrder": 37,
+          "segmentStartMs": 67000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N028",
+      "noteEventIndex": 27,
+      "sourceEventOrder": 38,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/22/events/2",
+          "sourceBarId": "B23",
+          "sourceEventIndex": 3,
+          "sourceLine": 71,
+          "performanceBar": 23,
+          "repeatPass": 1,
+          "sourceEventOrder": 38,
+          "segmentStartMs": 68000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N029",
+      "noteEventIndex": 28,
+      "sourceEventOrder": 39,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/23/events/0",
+          "sourceBarId": "B24",
+          "sourceEventIndex": 1,
+          "sourceLine": 72,
+          "performanceBar": 24,
+          "repeatPass": 1,
+          "sourceEventOrder": 39,
+          "segmentStartMs": 69000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N030",
+      "noteEventIndex": 29,
+      "sourceEventOrder": 40,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/23/events/1",
+          "sourceBarId": "B24",
+          "sourceEventIndex": 2,
+          "sourceLine": 72,
+          "performanceBar": 24,
+          "repeatPass": 1,
+          "sourceEventOrder": 40,
+          "segmentStartMs": 70000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N031",
+      "noteEventIndex": 30,
+      "sourceEventOrder": 41,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/23/events/2",
+          "sourceBarId": "B24",
+          "sourceEventIndex": 3,
+          "sourceLine": 72,
+          "performanceBar": 24,
+          "repeatPass": 1,
+          "sourceEventOrder": 41,
+          "segmentStartMs": 71000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N032",
+      "noteEventIndex": 31,
+      "sourceEventOrder": 42,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/24/events/0",
+          "sourceBarId": "B25",
+          "sourceEventIndex": 1,
+          "sourceLine": 74,
+          "performanceBar": 25,
+          "repeatPass": 1,
+          "sourceEventOrder": 42,
+          "segmentStartMs": 72000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/25/events/0",
+          "sourceBarId": "B26",
+          "sourceEventIndex": 1,
+          "sourceLine": 75,
+          "performanceBar": 26,
+          "repeatPass": 1,
+          "sourceEventOrder": 43,
+          "segmentStartMs": 75000,
+          "segmentDurationMs": 2000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N033",
+      "noteEventIndex": 32,
+      "sourceEventOrder": 44,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/25/events/1",
+          "sourceBarId": "B26",
+          "sourceEventIndex": 2,
+          "sourceLine": 75,
+          "performanceBar": 26,
+          "repeatPass": 1,
+          "sourceEventOrder": 44,
+          "segmentStartMs": 77000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N034",
+      "noteEventIndex": 33,
+      "sourceEventOrder": 45,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/26/events/0",
+          "sourceBarId": "B27",
+          "sourceEventIndex": 1,
+          "sourceLine": 76,
+          "performanceBar": 27,
+          "repeatPass": 1,
+          "sourceEventOrder": 45,
+          "segmentStartMs": 78000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N035",
+      "noteEventIndex": 34,
+      "sourceEventOrder": 46,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/26/events/1",
+          "sourceBarId": "B27",
+          "sourceEventIndex": 2,
+          "sourceLine": 76,
+          "performanceBar": 27,
+          "repeatPass": 1,
+          "sourceEventOrder": 46,
+          "segmentStartMs": 79000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N036",
+      "noteEventIndex": 35,
+      "sourceEventOrder": 47,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/26/events/2",
+          "sourceBarId": "B27",
+          "sourceEventIndex": 3,
+          "sourceLine": 76,
+          "performanceBar": 27,
+          "repeatPass": 1,
+          "sourceEventOrder": 47,
+          "segmentStartMs": 80000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N037",
+      "noteEventIndex": 36,
+      "sourceEventOrder": 48,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/27/events/0",
+          "sourceBarId": "B28",
+          "sourceEventIndex": 1,
+          "sourceLine": 77,
+          "performanceBar": 28,
+          "repeatPass": 1,
+          "sourceEventOrder": 48,
+          "segmentStartMs": 81000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N038",
+      "noteEventIndex": 37,
+      "sourceEventOrder": 49,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/27/events/1",
+          "sourceBarId": "B28",
+          "sourceEventIndex": 2,
+          "sourceLine": 77,
+          "performanceBar": 28,
+          "repeatPass": 1,
+          "sourceEventOrder": 49,
+          "segmentStartMs": 82000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N039",
+      "noteEventIndex": 38,
+      "sourceEventOrder": 50,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/27/events/2",
+          "sourceBarId": "B28",
+          "sourceEventIndex": 3,
+          "sourceLine": 77,
+          "performanceBar": 28,
+          "repeatPass": 1,
+          "sourceEventOrder": 50,
+          "segmentStartMs": 83000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N040",
+      "noteEventIndex": 39,
+      "sourceEventOrder": 51,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/28/events/0",
+          "sourceBarId": "B29",
+          "sourceEventIndex": 1,
+          "sourceLine": 78,
+          "performanceBar": 29,
+          "repeatPass": 1,
+          "sourceEventOrder": 51,
+          "segmentStartMs": 84000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N041",
+      "noteEventIndex": 40,
+      "sourceEventOrder": 52,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/28/events/1",
+          "sourceBarId": "B29",
+          "sourceEventIndex": 2,
+          "sourceLine": 78,
+          "performanceBar": 29,
+          "repeatPass": 1,
+          "sourceEventOrder": 52,
+          "segmentStartMs": 85000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N042",
+      "noteEventIndex": 41,
+      "sourceEventOrder": 53,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/28/events/2",
+          "sourceBarId": "B29",
+          "sourceEventIndex": 3,
+          "sourceLine": 78,
+          "performanceBar": 29,
+          "repeatPass": 1,
+          "sourceEventOrder": 53,
+          "segmentStartMs": 86000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N043",
+      "noteEventIndex": 42,
+      "sourceEventOrder": 54,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/29/events/0",
+          "sourceBarId": "B30",
+          "sourceEventIndex": 1,
+          "sourceLine": 79,
+          "performanceBar": 30,
+          "repeatPass": 1,
+          "sourceEventOrder": 54,
+          "segmentStartMs": 87000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/30/events/0",
+          "sourceBarId": "B31",
+          "sourceEventIndex": 1,
+          "sourceLine": 80,
+          "performanceBar": 31,
+          "repeatPass": 1,
+          "sourceEventOrder": 55,
+          "segmentStartMs": 90000,
+          "segmentDurationMs": 2000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N044",
+      "noteEventIndex": 43,
+      "sourceEventOrder": 56,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/30/events/1",
+          "sourceBarId": "B31",
+          "sourceEventIndex": 2,
+          "sourceLine": 80,
+          "performanceBar": 31,
+          "repeatPass": 1,
+          "sourceEventOrder": 56,
+          "segmentStartMs": 92000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N045",
+      "noteEventIndex": 44,
+      "sourceEventOrder": 57,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/31/events/0",
+          "sourceBarId": "E1-1",
+          "sourceEventIndex": 1,
+          "sourceLine": 85,
+          "performanceBar": 32,
+          "repeatPass": 1,
+          "sourceEventOrder": 57,
+          "segmentStartMs": 93000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N046",
+      "noteEventIndex": 45,
+      "sourceEventOrder": 58,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/32/events/0",
+          "sourceBarId": "E1-2",
+          "sourceEventIndex": 1,
+          "sourceLine": 86,
+          "performanceBar": 33,
+          "repeatPass": 1,
+          "sourceEventOrder": 58,
+          "segmentStartMs": 96000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N047",
+      "noteEventIndex": 46,
+      "sourceEventOrder": 59,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/33/events/0",
+          "sourceBarId": "E1-3",
+          "sourceEventIndex": 1,
+          "sourceLine": 87,
+          "performanceBar": 34,
+          "repeatPass": 1,
+          "sourceEventOrder": 59,
+          "segmentStartMs": 99000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N048",
+      "noteEventIndex": 47,
+      "sourceEventOrder": 60,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/33/events/1",
+          "sourceBarId": "E1-3",
+          "sourceEventIndex": 2,
+          "sourceLine": 87,
+          "performanceBar": 34,
+          "repeatPass": 1,
+          "sourceEventOrder": 60,
+          "segmentStartMs": 100000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N049",
+      "noteEventIndex": 48,
+      "sourceEventOrder": 61,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/33/events/2",
+          "sourceBarId": "E1-3",
+          "sourceEventIndex": 3,
+          "sourceLine": 87,
+          "performanceBar": 34,
+          "repeatPass": 1,
+          "sourceEventOrder": 61,
+          "segmentStartMs": 101000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N050",
+      "noteEventIndex": 49,
+      "sourceEventOrder": 62,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/34/events/0",
+          "sourceBarId": "E1-4",
+          "sourceEventIndex": 1,
+          "sourceLine": 88,
+          "performanceBar": 35,
+          "repeatPass": 1,
+          "sourceEventOrder": 62,
+          "segmentStartMs": 102000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N051",
+      "noteEventIndex": 50,
+      "sourceEventOrder": 63,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/34/events/1",
+          "sourceBarId": "E1-4",
+          "sourceEventIndex": 2,
+          "sourceLine": 88,
+          "performanceBar": 35,
+          "repeatPass": 1,
+          "sourceEventOrder": 63,
+          "segmentStartMs": 103000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N052",
+      "noteEventIndex": 51,
+      "sourceEventOrder": 64,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/34/events/2",
+          "sourceBarId": "E1-4",
+          "sourceEventIndex": 3,
+          "sourceLine": 88,
+          "performanceBar": 35,
+          "repeatPass": 1,
+          "sourceEventOrder": 64,
+          "segmentStartMs": 104000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N053",
+      "noteEventIndex": 52,
+      "sourceEventOrder": 65,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/35/events/0",
+          "sourceBarId": "E1-5",
+          "sourceEventIndex": 1,
+          "sourceLine": 89,
+          "performanceBar": 36,
+          "repeatPass": 1,
+          "sourceEventOrder": 65,
+          "segmentStartMs": 105000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N054",
+      "noteEventIndex": 53,
+      "sourceEventOrder": 66,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/35/events/1",
+          "sourceBarId": "E1-5",
+          "sourceEventIndex": 2,
+          "sourceLine": 89,
+          "performanceBar": 36,
+          "repeatPass": 1,
+          "sourceEventOrder": 66,
+          "segmentStartMs": 106000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N055",
+      "noteEventIndex": 54,
+      "sourceEventOrder": 67,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/35/events/2",
+          "sourceBarId": "E1-5",
+          "sourceEventIndex": 3,
+          "sourceLine": 89,
+          "performanceBar": 36,
+          "repeatPass": 1,
+          "sourceEventOrder": 67,
+          "segmentStartMs": 107000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N056",
+      "noteEventIndex": 55,
+      "sourceEventOrder": 68,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/36/events/0",
+          "sourceBarId": "E1-6",
+          "sourceEventIndex": 1,
+          "sourceLine": 90,
+          "performanceBar": 37,
+          "repeatPass": 1,
+          "sourceEventOrder": 68,
+          "segmentStartMs": 108000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N057",
+      "noteEventIndex": 56,
+      "sourceEventOrder": 69,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/37/events/0",
+          "sourceBarId": "E1-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 91,
+          "performanceBar": 38,
+          "repeatPass": 1,
+          "sourceEventOrder": 69,
+          "segmentStartMs": 111000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "N058",
+      "noteEventIndex": 57,
+      "sourceEventOrder": 69,
+      "chordPitchOrder": 2,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/37/events/0",
+          "sourceBarId": "E1-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 91,
+          "performanceBar": 38,
+          "repeatPass": 1,
+          "sourceEventOrder": 69,
+          "segmentStartMs": 111000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "N059",
+      "noteEventIndex": 58,
+      "sourceEventOrder": 69,
+      "chordPitchOrder": 3,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/37/events/0",
+          "sourceBarId": "E1-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 91,
+          "performanceBar": 38,
+          "repeatPass": 1,
+          "sourceEventOrder": 69,
+          "segmentStartMs": 111000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 3
+        }
+      ]
+    },
+    {
+      "id": "N060",
+      "noteEventIndex": 59,
+      "sourceEventOrder": 69,
+      "chordPitchOrder": 4,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/37/events/0",
+          "sourceBarId": "E1-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 91,
+          "performanceBar": 38,
+          "repeatPass": 1,
+          "sourceEventOrder": 69,
+          "segmentStartMs": 111000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 4
+        }
+      ]
+    },
+    {
+      "id": "N061",
+      "noteEventIndex": 60,
+      "sourceEventOrder": 70,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/38/events/0",
+          "sourceBarId": "E1-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 92,
+          "performanceBar": 39,
+          "repeatPass": 1,
+          "sourceEventOrder": 70,
+          "segmentStartMs": 114000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "N062",
+      "noteEventIndex": 61,
+      "sourceEventOrder": 70,
+      "chordPitchOrder": 2,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/38/events/0",
+          "sourceBarId": "E1-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 92,
+          "performanceBar": 39,
+          "repeatPass": 1,
+          "sourceEventOrder": 70,
+          "segmentStartMs": 114000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "N063",
+      "noteEventIndex": 62,
+      "sourceEventOrder": 70,
+      "chordPitchOrder": 3,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/38/events/0",
+          "sourceBarId": "E1-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 92,
+          "performanceBar": 39,
+          "repeatPass": 1,
+          "sourceEventOrder": 70,
+          "segmentStartMs": 114000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 3
+        }
+      ]
+    },
+    {
+      "id": "N064",
+      "noteEventIndex": 63,
+      "sourceEventOrder": 70,
+      "chordPitchOrder": 4,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/38/events/0",
+          "sourceBarId": "E1-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 92,
+          "performanceBar": 39,
+          "repeatPass": 1,
+          "sourceEventOrder": 70,
+          "segmentStartMs": 114000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 4
+        }
+      ]
+    },
+    {
+      "id": "N065",
+      "noteEventIndex": 64,
+      "sourceEventOrder": 76,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/4/events/1",
+          "sourceBarId": "B5",
+          "sourceEventIndex": 2,
+          "sourceLine": 51,
+          "performanceBar": 44,
+          "repeatPass": 2,
+          "sourceEventOrder": 76,
+          "segmentStartMs": 130000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N066",
+      "noteEventIndex": 65,
+      "sourceEventOrder": 77,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/4/events/2",
+          "sourceBarId": "B5",
+          "sourceEventIndex": 3,
+          "sourceLine": 51,
+          "performanceBar": 44,
+          "repeatPass": 2,
+          "sourceEventOrder": 77,
+          "segmentStartMs": 131000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N067",
+      "noteEventIndex": 66,
+      "sourceEventOrder": 78,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/5/events/0",
+          "sourceBarId": "B6",
+          "sourceEventIndex": 1,
+          "sourceLine": 52,
+          "performanceBar": 45,
+          "repeatPass": 2,
+          "sourceEventOrder": 78,
+          "segmentStartMs": 132000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N068",
+      "noteEventIndex": 67,
+      "sourceEventOrder": 79,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/5/events/1",
+          "sourceBarId": "B6",
+          "sourceEventIndex": 2,
+          "sourceLine": 52,
+          "performanceBar": 45,
+          "repeatPass": 2,
+          "sourceEventOrder": 79,
+          "segmentStartMs": 133000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N069",
+      "noteEventIndex": 68,
+      "sourceEventOrder": 80,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/5/events/2",
+          "sourceBarId": "B6",
+          "sourceEventIndex": 3,
+          "sourceLine": 52,
+          "performanceBar": 45,
+          "repeatPass": 2,
+          "sourceEventOrder": 80,
+          "segmentStartMs": 134000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N070",
+      "noteEventIndex": 69,
+      "sourceEventOrder": 81,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/6/events/0",
+          "sourceBarId": "B7",
+          "sourceEventIndex": 1,
+          "sourceLine": 54,
+          "performanceBar": 46,
+          "repeatPass": 2,
+          "sourceEventOrder": 81,
+          "segmentStartMs": 135000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N071",
+      "noteEventIndex": 70,
+      "sourceEventOrder": 82,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/6/events/1",
+          "sourceBarId": "B7",
+          "sourceEventIndex": 2,
+          "sourceLine": 54,
+          "performanceBar": 46,
+          "repeatPass": 2,
+          "sourceEventOrder": 82,
+          "segmentStartMs": 136000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N072",
+      "noteEventIndex": 71,
+      "sourceEventOrder": 83,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/6/events/2",
+          "sourceBarId": "B7",
+          "sourceEventIndex": 3,
+          "sourceLine": 54,
+          "performanceBar": 46,
+          "repeatPass": 2,
+          "sourceEventOrder": 83,
+          "segmentStartMs": 137000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N073",
+      "noteEventIndex": 72,
+      "sourceEventOrder": 84,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/7/events/0",
+          "sourceBarId": "B8",
+          "sourceEventIndex": 1,
+          "sourceLine": 56,
+          "performanceBar": 47,
+          "repeatPass": 2,
+          "sourceEventOrder": 84,
+          "segmentStartMs": 138000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N074",
+      "noteEventIndex": 73,
+      "sourceEventOrder": 85,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/8/events/0",
+          "sourceBarId": "B9",
+          "sourceEventIndex": 1,
+          "sourceLine": 57,
+          "performanceBar": 48,
+          "repeatPass": 2,
+          "sourceEventOrder": 85,
+          "segmentStartMs": 141000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/9/events/0",
+          "sourceBarId": "B10",
+          "sourceEventIndex": 1,
+          "sourceLine": 58,
+          "performanceBar": 49,
+          "repeatPass": 2,
+          "sourceEventOrder": 86,
+          "segmentStartMs": 144000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/10/events/0",
+          "sourceBarId": "B11",
+          "sourceEventIndex": 1,
+          "sourceLine": 59,
+          "performanceBar": 50,
+          "repeatPass": 2,
+          "sourceEventOrder": 87,
+          "segmentStartMs": 147000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/11/events/0",
+          "sourceBarId": "B12",
+          "sourceEventIndex": 1,
+          "sourceLine": 60,
+          "performanceBar": 51,
+          "repeatPass": 2,
+          "sourceEventOrder": 88,
+          "segmentStartMs": 150000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N075",
+      "noteEventIndex": 74,
+      "sourceEventOrder": 90,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/12/events/1",
+          "sourceBarId": "B13",
+          "sourceEventIndex": 2,
+          "sourceLine": 61,
+          "performanceBar": 52,
+          "repeatPass": 2,
+          "sourceEventOrder": 90,
+          "segmentStartMs": 154000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N076",
+      "noteEventIndex": 75,
+      "sourceEventOrder": 91,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/12/events/2",
+          "sourceBarId": "B13",
+          "sourceEventIndex": 3,
+          "sourceLine": 61,
+          "performanceBar": 52,
+          "repeatPass": 2,
+          "sourceEventOrder": 91,
+          "segmentStartMs": 155000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N077",
+      "noteEventIndex": 76,
+      "sourceEventOrder": 92,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/13/events/0",
+          "sourceBarId": "B14",
+          "sourceEventIndex": 1,
+          "sourceLine": 61,
+          "performanceBar": 53,
+          "repeatPass": 2,
+          "sourceEventOrder": 92,
+          "segmentStartMs": 156000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N078",
+      "noteEventIndex": 77,
+      "sourceEventOrder": 93,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/13/events/1",
+          "sourceBarId": "B14",
+          "sourceEventIndex": 2,
+          "sourceLine": 61,
+          "performanceBar": 53,
+          "repeatPass": 2,
+          "sourceEventOrder": 93,
+          "segmentStartMs": 157000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N079",
+      "noteEventIndex": 78,
+      "sourceEventOrder": 94,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/13/events/2",
+          "sourceBarId": "B14",
+          "sourceEventIndex": 3,
+          "sourceLine": 61,
+          "performanceBar": 53,
+          "repeatPass": 2,
+          "sourceEventOrder": 94,
+          "segmentStartMs": 158000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N080",
+      "noteEventIndex": 79,
+      "sourceEventOrder": 95,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/14/events/0",
+          "sourceBarId": "B15",
+          "sourceEventIndex": 1,
+          "sourceLine": 62,
+          "performanceBar": 54,
+          "repeatPass": 2,
+          "sourceEventOrder": 95,
+          "segmentStartMs": 159000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N081",
+      "noteEventIndex": 80,
+      "sourceEventOrder": 96,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/14/events/1",
+          "sourceBarId": "B15",
+          "sourceEventIndex": 2,
+          "sourceLine": 62,
+          "performanceBar": 54,
+          "repeatPass": 2,
+          "sourceEventOrder": 96,
+          "segmentStartMs": 160000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N082",
+      "noteEventIndex": 81,
+      "sourceEventOrder": 97,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/14/events/2",
+          "sourceBarId": "B15",
+          "sourceEventIndex": 3,
+          "sourceLine": 62,
+          "performanceBar": 54,
+          "repeatPass": 2,
+          "sourceEventOrder": 97,
+          "segmentStartMs": 161000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N083",
+      "noteEventIndex": 82,
+      "sourceEventOrder": 98,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/15/events/0",
+          "sourceBarId": "B16",
+          "sourceEventIndex": 1,
+          "sourceLine": 63,
+          "performanceBar": 55,
+          "repeatPass": 2,
+          "sourceEventOrder": 98,
+          "segmentStartMs": 162000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N084",
+      "noteEventIndex": 83,
+      "sourceEventOrder": 99,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/16/events/0",
+          "sourceBarId": "B17",
+          "sourceEventIndex": 1,
+          "sourceLine": 65,
+          "performanceBar": 56,
+          "repeatPass": 2,
+          "sourceEventOrder": 99,
+          "segmentStartMs": 165000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N085",
+      "noteEventIndex": 84,
+      "sourceEventOrder": 100,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/17/events/0",
+          "sourceBarId": "B18",
+          "sourceEventIndex": 1,
+          "sourceLine": 66,
+          "performanceBar": 57,
+          "repeatPass": 2,
+          "sourceEventOrder": 100,
+          "segmentStartMs": 168000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N086",
+      "noteEventIndex": 85,
+      "sourceEventOrder": 101,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/18/events/0",
+          "sourceBarId": "B19",
+          "sourceEventIndex": 1,
+          "sourceLine": 67,
+          "performanceBar": 58,
+          "repeatPass": 2,
+          "sourceEventOrder": 101,
+          "segmentStartMs": 171000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/19/events/0",
+          "sourceBarId": "B20",
+          "sourceEventIndex": 1,
+          "sourceLine": 68,
+          "performanceBar": 59,
+          "repeatPass": 2,
+          "sourceEventOrder": 102,
+          "segmentStartMs": 174000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/20/events/0",
+          "sourceBarId": "B21",
+          "sourceEventIndex": 1,
+          "sourceLine": 69,
+          "performanceBar": 60,
+          "repeatPass": 2,
+          "sourceEventOrder": 103,
+          "segmentStartMs": 177000,
+          "segmentDurationMs": 3000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N087",
+      "noteEventIndex": 86,
+      "sourceEventOrder": 104,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/21/events/0",
+          "sourceBarId": "B22",
+          "sourceEventIndex": 1,
+          "sourceLine": 70,
+          "performanceBar": 61,
+          "repeatPass": 2,
+          "sourceEventOrder": 104,
+          "segmentStartMs": 180000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N088",
+      "noteEventIndex": 87,
+      "sourceEventOrder": 105,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/21/events/1",
+          "sourceBarId": "B22",
+          "sourceEventIndex": 2,
+          "sourceLine": 70,
+          "performanceBar": 61,
+          "repeatPass": 2,
+          "sourceEventOrder": 105,
+          "segmentStartMs": 181000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N089",
+      "noteEventIndex": 88,
+      "sourceEventOrder": 106,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/21/events/2",
+          "sourceBarId": "B22",
+          "sourceEventIndex": 3,
+          "sourceLine": 70,
+          "performanceBar": 61,
+          "repeatPass": 2,
+          "sourceEventOrder": 106,
+          "segmentStartMs": 182000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N090",
+      "noteEventIndex": 89,
+      "sourceEventOrder": 107,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/22/events/0",
+          "sourceBarId": "B23",
+          "sourceEventIndex": 1,
+          "sourceLine": 71,
+          "performanceBar": 62,
+          "repeatPass": 2,
+          "sourceEventOrder": 107,
+          "segmentStartMs": 183000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N091",
+      "noteEventIndex": 90,
+      "sourceEventOrder": 108,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/22/events/1",
+          "sourceBarId": "B23",
+          "sourceEventIndex": 2,
+          "sourceLine": 71,
+          "performanceBar": 62,
+          "repeatPass": 2,
+          "sourceEventOrder": 108,
+          "segmentStartMs": 184000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N092",
+      "noteEventIndex": 91,
+      "sourceEventOrder": 109,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/22/events/2",
+          "sourceBarId": "B23",
+          "sourceEventIndex": 3,
+          "sourceLine": 71,
+          "performanceBar": 62,
+          "repeatPass": 2,
+          "sourceEventOrder": 109,
+          "segmentStartMs": 185000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N093",
+      "noteEventIndex": 92,
+      "sourceEventOrder": 110,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/23/events/0",
+          "sourceBarId": "B24",
+          "sourceEventIndex": 1,
+          "sourceLine": 72,
+          "performanceBar": 63,
+          "repeatPass": 2,
+          "sourceEventOrder": 110,
+          "segmentStartMs": 186000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N094",
+      "noteEventIndex": 93,
+      "sourceEventOrder": 111,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/23/events/1",
+          "sourceBarId": "B24",
+          "sourceEventIndex": 2,
+          "sourceLine": 72,
+          "performanceBar": 63,
+          "repeatPass": 2,
+          "sourceEventOrder": 111,
+          "segmentStartMs": 187000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N095",
+      "noteEventIndex": 94,
+      "sourceEventOrder": 112,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/23/events/2",
+          "sourceBarId": "B24",
+          "sourceEventIndex": 3,
+          "sourceLine": 72,
+          "performanceBar": 63,
+          "repeatPass": 2,
+          "sourceEventOrder": 112,
+          "segmentStartMs": 188000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N096",
+      "noteEventIndex": 95,
+      "sourceEventOrder": 113,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/24/events/0",
+          "sourceBarId": "B25",
+          "sourceEventIndex": 1,
+          "sourceLine": 74,
+          "performanceBar": 64,
+          "repeatPass": 2,
+          "sourceEventOrder": 113,
+          "segmentStartMs": 189000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/25/events/0",
+          "sourceBarId": "B26",
+          "sourceEventIndex": 1,
+          "sourceLine": 75,
+          "performanceBar": 65,
+          "repeatPass": 2,
+          "sourceEventOrder": 114,
+          "segmentStartMs": 192000,
+          "segmentDurationMs": 2000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N097",
+      "noteEventIndex": 96,
+      "sourceEventOrder": 115,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/25/events/1",
+          "sourceBarId": "B26",
+          "sourceEventIndex": 2,
+          "sourceLine": 75,
+          "performanceBar": 65,
+          "repeatPass": 2,
+          "sourceEventOrder": 115,
+          "segmentStartMs": 194000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N098",
+      "noteEventIndex": 97,
+      "sourceEventOrder": 116,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/26/events/0",
+          "sourceBarId": "B27",
+          "sourceEventIndex": 1,
+          "sourceLine": 76,
+          "performanceBar": 66,
+          "repeatPass": 2,
+          "sourceEventOrder": 116,
+          "segmentStartMs": 195000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N099",
+      "noteEventIndex": 98,
+      "sourceEventOrder": 117,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/26/events/1",
+          "sourceBarId": "B27",
+          "sourceEventIndex": 2,
+          "sourceLine": 76,
+          "performanceBar": 66,
+          "repeatPass": 2,
+          "sourceEventOrder": 117,
+          "segmentStartMs": 196000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N100",
+      "noteEventIndex": 99,
+      "sourceEventOrder": 118,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/26/events/2",
+          "sourceBarId": "B27",
+          "sourceEventIndex": 3,
+          "sourceLine": 76,
+          "performanceBar": 66,
+          "repeatPass": 2,
+          "sourceEventOrder": 118,
+          "segmentStartMs": 197000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N101",
+      "noteEventIndex": 100,
+      "sourceEventOrder": 119,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/27/events/0",
+          "sourceBarId": "B28",
+          "sourceEventIndex": 1,
+          "sourceLine": 77,
+          "performanceBar": 67,
+          "repeatPass": 2,
+          "sourceEventOrder": 119,
+          "segmentStartMs": 198000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N102",
+      "noteEventIndex": 101,
+      "sourceEventOrder": 120,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/27/events/1",
+          "sourceBarId": "B28",
+          "sourceEventIndex": 2,
+          "sourceLine": 77,
+          "performanceBar": 67,
+          "repeatPass": 2,
+          "sourceEventOrder": 120,
+          "segmentStartMs": 199000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N103",
+      "noteEventIndex": 102,
+      "sourceEventOrder": 121,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/27/events/2",
+          "sourceBarId": "B28",
+          "sourceEventIndex": 3,
+          "sourceLine": 77,
+          "performanceBar": 67,
+          "repeatPass": 2,
+          "sourceEventOrder": 121,
+          "segmentStartMs": 200000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N104",
+      "noteEventIndex": 103,
+      "sourceEventOrder": 122,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/28/events/0",
+          "sourceBarId": "B29",
+          "sourceEventIndex": 1,
+          "sourceLine": 78,
+          "performanceBar": 68,
+          "repeatPass": 2,
+          "sourceEventOrder": 122,
+          "segmentStartMs": 201000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N105",
+      "noteEventIndex": 104,
+      "sourceEventOrder": 123,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/28/events/1",
+          "sourceBarId": "B29",
+          "sourceEventIndex": 2,
+          "sourceLine": 78,
+          "performanceBar": 68,
+          "repeatPass": 2,
+          "sourceEventOrder": 123,
+          "segmentStartMs": 202000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N106",
+      "noteEventIndex": 105,
+      "sourceEventOrder": 124,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/28/events/2",
+          "sourceBarId": "B29",
+          "sourceEventIndex": 3,
+          "sourceLine": 78,
+          "performanceBar": 68,
+          "repeatPass": 2,
+          "sourceEventOrder": 124,
+          "segmentStartMs": 203000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N107",
+      "noteEventIndex": 106,
+      "sourceEventOrder": 125,
+      "chordPitchOrder": 1,
+      "tieMerged": true,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/29/events/0",
+          "sourceBarId": "B30",
+          "sourceEventIndex": 1,
+          "sourceLine": 79,
+          "performanceBar": 69,
+          "repeatPass": 2,
+          "sourceEventOrder": 125,
+          "segmentStartMs": 204000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": true,
+          "kind": "note",
+          "chordPitchIndex": null
+        },
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/30/events/0",
+          "sourceBarId": "B31",
+          "sourceEventIndex": 1,
+          "sourceLine": 80,
+          "performanceBar": 70,
+          "repeatPass": 2,
+          "sourceEventOrder": 126,
+          "segmentStartMs": 207000,
+          "segmentDurationMs": 2000,
+          "tieIn": true,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N108",
+      "noteEventIndex": 107,
+      "sourceEventOrder": 127,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/30/events/1",
+          "sourceBarId": "B31",
+          "sourceEventIndex": 2,
+          "sourceLine": 80,
+          "performanceBar": 70,
+          "repeatPass": 2,
+          "sourceEventOrder": 127,
+          "segmentStartMs": 209000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N109",
+      "noteEventIndex": 108,
+      "sourceEventOrder": 128,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/39/events/0",
+          "sourceBarId": "E2-1",
+          "sourceEventIndex": 1,
+          "sourceLine": 95,
+          "performanceBar": 71,
+          "repeatPass": 2,
+          "sourceEventOrder": 128,
+          "segmentStartMs": 210000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N110",
+      "noteEventIndex": 109,
+      "sourceEventOrder": 129,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/40/events/0",
+          "sourceBarId": "E2-2",
+          "sourceEventIndex": 1,
+          "sourceLine": 96,
+          "performanceBar": 72,
+          "repeatPass": 2,
+          "sourceEventOrder": 129,
+          "segmentStartMs": 213000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N111",
+      "noteEventIndex": 110,
+      "sourceEventOrder": 130,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/41/events/0",
+          "sourceBarId": "E2-3",
+          "sourceEventIndex": 1,
+          "sourceLine": 97,
+          "performanceBar": 73,
+          "repeatPass": 2,
+          "sourceEventOrder": 130,
+          "segmentStartMs": 216000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N112",
+      "noteEventIndex": 111,
+      "sourceEventOrder": 131,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/41/events/1",
+          "sourceBarId": "E2-3",
+          "sourceEventIndex": 2,
+          "sourceLine": 97,
+          "performanceBar": 73,
+          "repeatPass": 2,
+          "sourceEventOrder": 131,
+          "segmentStartMs": 217000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N113",
+      "noteEventIndex": 112,
+      "sourceEventOrder": 132,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/41/events/2",
+          "sourceBarId": "E2-3",
+          "sourceEventIndex": 3,
+          "sourceLine": 97,
+          "performanceBar": 73,
+          "repeatPass": 2,
+          "sourceEventOrder": 132,
+          "segmentStartMs": 218000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N114",
+      "noteEventIndex": 113,
+      "sourceEventOrder": 133,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/42/events/0",
+          "sourceBarId": "E2-4",
+          "sourceEventIndex": 1,
+          "sourceLine": 98,
+          "performanceBar": 74,
+          "repeatPass": 2,
+          "sourceEventOrder": 133,
+          "segmentStartMs": 219000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N115",
+      "noteEventIndex": 114,
+      "sourceEventOrder": 134,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/42/events/1",
+          "sourceBarId": "E2-4",
+          "sourceEventIndex": 2,
+          "sourceLine": 98,
+          "performanceBar": 74,
+          "repeatPass": 2,
+          "sourceEventOrder": 134,
+          "segmentStartMs": 220000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N116",
+      "noteEventIndex": 115,
+      "sourceEventOrder": 135,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/42/events/2",
+          "sourceBarId": "E2-4",
+          "sourceEventIndex": 3,
+          "sourceLine": 98,
+          "performanceBar": 74,
+          "repeatPass": 2,
+          "sourceEventOrder": 135,
+          "segmentStartMs": 221000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N117",
+      "noteEventIndex": 116,
+      "sourceEventOrder": 136,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/43/events/0",
+          "sourceBarId": "E2-5",
+          "sourceEventIndex": 1,
+          "sourceLine": 99,
+          "performanceBar": 75,
+          "repeatPass": 2,
+          "sourceEventOrder": 136,
+          "segmentStartMs": 222000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N118",
+      "noteEventIndex": 117,
+      "sourceEventOrder": 137,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/43/events/1",
+          "sourceBarId": "E2-5",
+          "sourceEventIndex": 2,
+          "sourceLine": 99,
+          "performanceBar": 75,
+          "repeatPass": 2,
+          "sourceEventOrder": 137,
+          "segmentStartMs": 223000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N119",
+      "noteEventIndex": 118,
+      "sourceEventOrder": 138,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/43/events/2",
+          "sourceBarId": "E2-5",
+          "sourceEventIndex": 3,
+          "sourceLine": 99,
+          "performanceBar": 75,
+          "repeatPass": 2,
+          "sourceEventOrder": 138,
+          "segmentStartMs": 224000,
+          "segmentDurationMs": 1000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N120",
+      "noteEventIndex": 119,
+      "sourceEventOrder": 139,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/44/events/0",
+          "sourceBarId": "E2-6",
+          "sourceEventIndex": 1,
+          "sourceLine": 100,
+          "performanceBar": 76,
+          "repeatPass": 2,
+          "sourceEventOrder": 139,
+          "segmentStartMs": 225000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "note",
+          "chordPitchIndex": null
+        }
+      ]
+    },
+    {
+      "id": "N121",
+      "noteEventIndex": 120,
+      "sourceEventOrder": 140,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/45/events/0",
+          "sourceBarId": "E2-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 101,
+          "performanceBar": 77,
+          "repeatPass": 2,
+          "sourceEventOrder": 140,
+          "segmentStartMs": 228000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "N122",
+      "noteEventIndex": 121,
+      "sourceEventOrder": 140,
+      "chordPitchOrder": 2,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/45/events/0",
+          "sourceBarId": "E2-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 101,
+          "performanceBar": 77,
+          "repeatPass": 2,
+          "sourceEventOrder": 140,
+          "segmentStartMs": 228000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "N123",
+      "noteEventIndex": 122,
+      "sourceEventOrder": 140,
+      "chordPitchOrder": 3,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/45/events/0",
+          "sourceBarId": "E2-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 101,
+          "performanceBar": 77,
+          "repeatPass": 2,
+          "sourceEventOrder": 140,
+          "segmentStartMs": 228000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 3
+        }
+      ]
+    },
+    {
+      "id": "N124",
+      "noteEventIndex": 123,
+      "sourceEventOrder": 140,
+      "chordPitchOrder": 4,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/45/events/0",
+          "sourceBarId": "E2-7",
+          "sourceEventIndex": 1,
+          "sourceLine": 101,
+          "performanceBar": 77,
+          "repeatPass": 2,
+          "sourceEventOrder": 140,
+          "segmentStartMs": 228000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 4
+        }
+      ]
+    },
+    {
+      "id": "N125",
+      "noteEventIndex": 124,
+      "sourceEventOrder": 141,
+      "chordPitchOrder": 1,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/46/events/0",
+          "sourceBarId": "E2-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 102,
+          "performanceBar": 78,
+          "repeatPass": 2,
+          "sourceEventOrder": 141,
+          "segmentStartMs": 231000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "N126",
+      "noteEventIndex": 125,
+      "sourceEventOrder": 141,
+      "chordPitchOrder": 2,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/46/events/0",
+          "sourceBarId": "E2-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 102,
+          "performanceBar": 78,
+          "repeatPass": 2,
+          "sourceEventOrder": 141,
+          "segmentStartMs": 231000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "N127",
+      "noteEventIndex": 126,
+      "sourceEventOrder": 141,
+      "chordPitchOrder": 3,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/46/events/0",
+          "sourceBarId": "E2-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 102,
+          "performanceBar": 78,
+          "repeatPass": 2,
+          "sourceEventOrder": 141,
+          "segmentStartMs": 231000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 3
+        }
+      ]
+    },
+    {
+      "id": "N128",
+      "noteEventIndex": 127,
+      "sourceEventOrder": 141,
+      "chordPitchOrder": 4,
+      "tieMerged": false,
+      "segments": [
+        {
+          "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+          "jsonPointer": "/bars/46/events/0",
+          "sourceBarId": "E2-8",
+          "sourceEventIndex": 1,
+          "sourceLine": 102,
+          "performanceBar": 78,
+          "repeatPass": 2,
+          "sourceEventOrder": 141,
+          "segmentStartMs": 231000,
+          "segmentDurationMs": 3000,
+          "tieIn": false,
+          "tieOut": false,
+          "kind": "chord",
+          "chordPitchIndex": 4
+        }
+      ]
+    }
+  ],
+  "silenceEvents": [
+    {
+      "kind": "rest",
+      "startMs": 0,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/0/events/0",
+        "sourceBarId": "B1",
+        "sourceEventIndex": 1,
+        "sourceLine": 47,
+        "performanceBar": 1,
+        "repeatPass": 1,
+        "sourceEventOrder": 0,
+        "segmentStartMs": 0,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 3000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/1/events/0",
+        "sourceBarId": "B2",
+        "sourceEventIndex": 1,
+        "sourceLine": 48,
+        "performanceBar": 2,
+        "repeatPass": 1,
+        "sourceEventOrder": 1,
+        "segmentStartMs": 3000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 6000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/2/events/0",
+        "sourceBarId": "B3",
+        "sourceEventIndex": 1,
+        "sourceLine": 49,
+        "performanceBar": 3,
+        "repeatPass": 1,
+        "sourceEventOrder": 2,
+        "segmentStartMs": 6000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 9000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/3/events/0",
+        "sourceBarId": "B4",
+        "sourceEventIndex": 1,
+        "sourceLine": 50,
+        "performanceBar": 4,
+        "repeatPass": 1,
+        "sourceEventOrder": 3,
+        "segmentStartMs": 9000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "skip",
+      "startMs": 12000,
+      "durationMs": 1000,
+      "notation": "s4",
+      "printedRest": false,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/4/events/0",
+        "sourceBarId": "B5",
+        "sourceEventIndex": 1,
+        "sourceLine": 51,
+        "performanceBar": 5,
+        "repeatPass": 1,
+        "sourceEventOrder": 4,
+        "segmentStartMs": 12000,
+        "segmentDurationMs": 1000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "skip",
+      "startMs": 36000,
+      "durationMs": 1000,
+      "notation": "s4",
+      "printedRest": false,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/12/events/0",
+        "sourceBarId": "B13",
+        "sourceEventIndex": 1,
+        "sourceLine": 61,
+        "performanceBar": 13,
+        "repeatPass": 1,
+        "sourceEventOrder": 18,
+        "segmentStartMs": 36000,
+        "segmentDurationMs": 1000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 117000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/0/events/0",
+        "sourceBarId": "B1",
+        "sourceEventIndex": 1,
+        "sourceLine": 47,
+        "performanceBar": 40,
+        "repeatPass": 2,
+        "sourceEventOrder": 71,
+        "segmentStartMs": 117000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 120000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/1/events/0",
+        "sourceBarId": "B2",
+        "sourceEventIndex": 1,
+        "sourceLine": 48,
+        "performanceBar": 41,
+        "repeatPass": 2,
+        "sourceEventOrder": 72,
+        "segmentStartMs": 120000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 123000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/2/events/0",
+        "sourceBarId": "B3",
+        "sourceEventIndex": 1,
+        "sourceLine": 49,
+        "performanceBar": 42,
+        "repeatPass": 2,
+        "sourceEventOrder": 73,
+        "segmentStartMs": 123000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "rest",
+      "startMs": 126000,
+      "durationMs": 3000,
+      "notation": "R2.",
+      "printedRest": true,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/3/events/0",
+        "sourceBarId": "B4",
+        "sourceEventIndex": 1,
+        "sourceLine": 50,
+        "performanceBar": 43,
+        "repeatPass": 2,
+        "sourceEventOrder": 74,
+        "segmentStartMs": 126000,
+        "segmentDurationMs": 3000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "skip",
+      "startMs": 129000,
+      "durationMs": 1000,
+      "notation": "s4",
+      "printedRest": false,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/4/events/0",
+        "sourceBarId": "B5",
+        "sourceEventIndex": 1,
+        "sourceLine": 51,
+        "performanceBar": 44,
+        "repeatPass": 2,
+        "sourceEventOrder": 75,
+        "segmentStartMs": 129000,
+        "segmentDurationMs": 1000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    },
+    {
+      "kind": "skip",
+      "startMs": 153000,
+      "durationMs": 1000,
+      "notation": "s4",
+      "printedRest": false,
+      "provenance": {
+        "ledgerPath": "content/catalog/research/gymnopedie-1-reviewed.json",
+        "jsonPointer": "/bars/12/events/0",
+        "sourceBarId": "B13",
+        "sourceEventIndex": 1,
+        "sourceLine": 61,
+        "performanceBar": 52,
+        "repeatPass": 2,
+        "sourceEventOrder": 89,
+        "segmentStartMs": 153000,
+        "segmentDurationMs": 1000,
+        "tieIn": false,
+        "tieOut": false
+      }
+    }
+  ],
+  "barBoundaries": [
+    {
+      "performanceBar": 1,
+      "sourceBarId": "B1",
+      "repeatPass": 1,
+      "startMs": 0,
+      "endMs": 3000,
+      "durationMs": 3000,
+      "sourceLine": 47,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        0
+      ]
+    },
+    {
+      "performanceBar": 2,
+      "sourceBarId": "B2",
+      "repeatPass": 1,
+      "startMs": 3000,
+      "endMs": 6000,
+      "durationMs": 3000,
+      "sourceLine": 48,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        1
+      ]
+    },
+    {
+      "performanceBar": 3,
+      "sourceBarId": "B3",
+      "repeatPass": 1,
+      "startMs": 6000,
+      "endMs": 9000,
+      "durationMs": 3000,
+      "sourceLine": 49,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        2
+      ]
+    },
+    {
+      "performanceBar": 4,
+      "sourceBarId": "B4",
+      "repeatPass": 1,
+      "startMs": 9000,
+      "endMs": 12000,
+      "durationMs": 3000,
+      "sourceLine": 50,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        3
+      ]
+    },
+    {
+      "performanceBar": 5,
+      "sourceBarId": "B5",
+      "repeatPass": 1,
+      "startMs": 12000,
+      "endMs": 15000,
+      "durationMs": 3000,
+      "sourceLine": 51,
+      "noteEventIndicesStarting": [
+        0,
+        1
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        4
+      ]
+    },
+    {
+      "performanceBar": 6,
+      "sourceBarId": "B6",
+      "repeatPass": 1,
+      "startMs": 15000,
+      "endMs": 18000,
+      "durationMs": 3000,
+      "sourceLine": 52,
+      "noteEventIndicesStarting": [
+        2,
+        3,
+        4
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 7,
+      "sourceBarId": "B7",
+      "repeatPass": 1,
+      "startMs": 18000,
+      "endMs": 21000,
+      "durationMs": 3000,
+      "sourceLine": 54,
+      "noteEventIndicesStarting": [
+        5,
+        6,
+        7
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 8,
+      "sourceBarId": "B8",
+      "repeatPass": 1,
+      "startMs": 21000,
+      "endMs": 24000,
+      "durationMs": 3000,
+      "sourceLine": 56,
+      "noteEventIndicesStarting": [
+        8
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 9,
+      "sourceBarId": "B9",
+      "repeatPass": 1,
+      "startMs": 24000,
+      "endMs": 27000,
+      "durationMs": 3000,
+      "sourceLine": 57,
+      "noteEventIndicesStarting": [
+        9
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 10,
+      "sourceBarId": "B10",
+      "repeatPass": 1,
+      "startMs": 27000,
+      "endMs": 30000,
+      "durationMs": 3000,
+      "sourceLine": 58,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        9
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 11,
+      "sourceBarId": "B11",
+      "repeatPass": 1,
+      "startMs": 30000,
+      "endMs": 33000,
+      "durationMs": 3000,
+      "sourceLine": 59,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        9
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 12,
+      "sourceBarId": "B12",
+      "repeatPass": 1,
+      "startMs": 33000,
+      "endMs": 36000,
+      "durationMs": 3000,
+      "sourceLine": 60,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        9
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 13,
+      "sourceBarId": "B13",
+      "repeatPass": 1,
+      "startMs": 36000,
+      "endMs": 39000,
+      "durationMs": 3000,
+      "sourceLine": 61,
+      "noteEventIndicesStarting": [
+        10,
+        11
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        5
+      ]
+    },
+    {
+      "performanceBar": 14,
+      "sourceBarId": "B14",
+      "repeatPass": 1,
+      "startMs": 39000,
+      "endMs": 42000,
+      "durationMs": 3000,
+      "sourceLine": 61,
+      "noteEventIndicesStarting": [
+        12,
+        13,
+        14
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 15,
+      "sourceBarId": "B15",
+      "repeatPass": 1,
+      "startMs": 42000,
+      "endMs": 45000,
+      "durationMs": 3000,
+      "sourceLine": 62,
+      "noteEventIndicesStarting": [
+        15,
+        16,
+        17
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 16,
+      "sourceBarId": "B16",
+      "repeatPass": 1,
+      "startMs": 45000,
+      "endMs": 48000,
+      "durationMs": 3000,
+      "sourceLine": 63,
+      "noteEventIndicesStarting": [
+        18
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 17,
+      "sourceBarId": "B17",
+      "repeatPass": 1,
+      "startMs": 48000,
+      "endMs": 51000,
+      "durationMs": 3000,
+      "sourceLine": 65,
+      "noteEventIndicesStarting": [
+        19
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 18,
+      "sourceBarId": "B18",
+      "repeatPass": 1,
+      "startMs": 51000,
+      "endMs": 54000,
+      "durationMs": 3000,
+      "sourceLine": 66,
+      "noteEventIndicesStarting": [
+        20
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 19,
+      "sourceBarId": "B19",
+      "repeatPass": 1,
+      "startMs": 54000,
+      "endMs": 57000,
+      "durationMs": 3000,
+      "sourceLine": 67,
+      "noteEventIndicesStarting": [
+        21
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 20,
+      "sourceBarId": "B20",
+      "repeatPass": 1,
+      "startMs": 57000,
+      "endMs": 60000,
+      "durationMs": 3000,
+      "sourceLine": 68,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        21
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 21,
+      "sourceBarId": "B21",
+      "repeatPass": 1,
+      "startMs": 60000,
+      "endMs": 63000,
+      "durationMs": 3000,
+      "sourceLine": 69,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        21
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 22,
+      "sourceBarId": "B22",
+      "repeatPass": 1,
+      "startMs": 63000,
+      "endMs": 66000,
+      "durationMs": 3000,
+      "sourceLine": 70,
+      "noteEventIndicesStarting": [
+        22,
+        23,
+        24
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 23,
+      "sourceBarId": "B23",
+      "repeatPass": 1,
+      "startMs": 66000,
+      "endMs": 69000,
+      "durationMs": 3000,
+      "sourceLine": 71,
+      "noteEventIndicesStarting": [
+        25,
+        26,
+        27
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 24,
+      "sourceBarId": "B24",
+      "repeatPass": 1,
+      "startMs": 69000,
+      "endMs": 72000,
+      "durationMs": 3000,
+      "sourceLine": 72,
+      "noteEventIndicesStarting": [
+        28,
+        29,
+        30
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 25,
+      "sourceBarId": "B25",
+      "repeatPass": 1,
+      "startMs": 72000,
+      "endMs": 75000,
+      "durationMs": 3000,
+      "sourceLine": 74,
+      "noteEventIndicesStarting": [
+        31
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 26,
+      "sourceBarId": "B26",
+      "repeatPass": 1,
+      "startMs": 75000,
+      "endMs": 78000,
+      "durationMs": 3000,
+      "sourceLine": 75,
+      "noteEventIndicesStarting": [
+        32
+      ],
+      "noteEventIndicesSustainingAtStart": [
+        31
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 27,
+      "sourceBarId": "B27",
+      "repeatPass": 1,
+      "startMs": 78000,
+      "endMs": 81000,
+      "durationMs": 3000,
+      "sourceLine": 76,
+      "noteEventIndicesStarting": [
+        33,
+        34,
+        35
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 28,
+      "sourceBarId": "B28",
+      "repeatPass": 1,
+      "startMs": 81000,
+      "endMs": 84000,
+      "durationMs": 3000,
+      "sourceLine": 77,
+      "noteEventIndicesStarting": [
+        36,
+        37,
+        38
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 29,
+      "sourceBarId": "B29",
+      "repeatPass": 1,
+      "startMs": 84000,
+      "endMs": 87000,
+      "durationMs": 3000,
+      "sourceLine": 78,
+      "noteEventIndicesStarting": [
+        39,
+        40,
+        41
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 30,
+      "sourceBarId": "B30",
+      "repeatPass": 1,
+      "startMs": 87000,
+      "endMs": 90000,
+      "durationMs": 3000,
+      "sourceLine": 79,
+      "noteEventIndicesStarting": [
+        42
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 31,
+      "sourceBarId": "B31",
+      "repeatPass": 1,
+      "startMs": 90000,
+      "endMs": 93000,
+      "durationMs": 3000,
+      "sourceLine": 80,
+      "noteEventIndicesStarting": [
+        43
+      ],
+      "noteEventIndicesSustainingAtStart": [
+        42
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 32,
+      "sourceBarId": "E1-1",
+      "repeatPass": 1,
+      "startMs": 93000,
+      "endMs": 96000,
+      "durationMs": 3000,
+      "sourceLine": 85,
+      "noteEventIndicesStarting": [
+        44
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 33,
+      "sourceBarId": "E1-2",
+      "repeatPass": 1,
+      "startMs": 96000,
+      "endMs": 99000,
+      "durationMs": 3000,
+      "sourceLine": 86,
+      "noteEventIndicesStarting": [
+        45
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 34,
+      "sourceBarId": "E1-3",
+      "repeatPass": 1,
+      "startMs": 99000,
+      "endMs": 102000,
+      "durationMs": 3000,
+      "sourceLine": 87,
+      "noteEventIndicesStarting": [
+        46,
+        47,
+        48
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 35,
+      "sourceBarId": "E1-4",
+      "repeatPass": 1,
+      "startMs": 102000,
+      "endMs": 105000,
+      "durationMs": 3000,
+      "sourceLine": 88,
+      "noteEventIndicesStarting": [
+        49,
+        50,
+        51
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 36,
+      "sourceBarId": "E1-5",
+      "repeatPass": 1,
+      "startMs": 105000,
+      "endMs": 108000,
+      "durationMs": 3000,
+      "sourceLine": 89,
+      "noteEventIndicesStarting": [
+        52,
+        53,
+        54
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 37,
+      "sourceBarId": "E1-6",
+      "repeatPass": 1,
+      "startMs": 108000,
+      "endMs": 111000,
+      "durationMs": 3000,
+      "sourceLine": 90,
+      "noteEventIndicesStarting": [
+        55
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 38,
+      "sourceBarId": "E1-7",
+      "repeatPass": 1,
+      "startMs": 111000,
+      "endMs": 114000,
+      "durationMs": 3000,
+      "sourceLine": 91,
+      "noteEventIndicesStarting": [
+        56,
+        57,
+        58,
+        59
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 39,
+      "sourceBarId": "E1-8",
+      "repeatPass": 1,
+      "startMs": 114000,
+      "endMs": 117000,
+      "durationMs": 3000,
+      "sourceLine": 92,
+      "noteEventIndicesStarting": [
+        60,
+        61,
+        62,
+        63
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 40,
+      "sourceBarId": "B1",
+      "repeatPass": 2,
+      "startMs": 117000,
+      "endMs": 120000,
+      "durationMs": 3000,
+      "sourceLine": 47,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        6
+      ]
+    },
+    {
+      "performanceBar": 41,
+      "sourceBarId": "B2",
+      "repeatPass": 2,
+      "startMs": 120000,
+      "endMs": 123000,
+      "durationMs": 3000,
+      "sourceLine": 48,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        7
+      ]
+    },
+    {
+      "performanceBar": 42,
+      "sourceBarId": "B3",
+      "repeatPass": 2,
+      "startMs": 123000,
+      "endMs": 126000,
+      "durationMs": 3000,
+      "sourceLine": 49,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        8
+      ]
+    },
+    {
+      "performanceBar": 43,
+      "sourceBarId": "B4",
+      "repeatPass": 2,
+      "startMs": 126000,
+      "endMs": 129000,
+      "durationMs": 3000,
+      "sourceLine": 50,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        9
+      ]
+    },
+    {
+      "performanceBar": 44,
+      "sourceBarId": "B5",
+      "repeatPass": 2,
+      "startMs": 129000,
+      "endMs": 132000,
+      "durationMs": 3000,
+      "sourceLine": 51,
+      "noteEventIndicesStarting": [
+        64,
+        65
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        10
+      ]
+    },
+    {
+      "performanceBar": 45,
+      "sourceBarId": "B6",
+      "repeatPass": 2,
+      "startMs": 132000,
+      "endMs": 135000,
+      "durationMs": 3000,
+      "sourceLine": 52,
+      "noteEventIndicesStarting": [
+        66,
+        67,
+        68
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 46,
+      "sourceBarId": "B7",
+      "repeatPass": 2,
+      "startMs": 135000,
+      "endMs": 138000,
+      "durationMs": 3000,
+      "sourceLine": 54,
+      "noteEventIndicesStarting": [
+        69,
+        70,
+        71
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 47,
+      "sourceBarId": "B8",
+      "repeatPass": 2,
+      "startMs": 138000,
+      "endMs": 141000,
+      "durationMs": 3000,
+      "sourceLine": 56,
+      "noteEventIndicesStarting": [
+        72
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 48,
+      "sourceBarId": "B9",
+      "repeatPass": 2,
+      "startMs": 141000,
+      "endMs": 144000,
+      "durationMs": 3000,
+      "sourceLine": 57,
+      "noteEventIndicesStarting": [
+        73
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 49,
+      "sourceBarId": "B10",
+      "repeatPass": 2,
+      "startMs": 144000,
+      "endMs": 147000,
+      "durationMs": 3000,
+      "sourceLine": 58,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        73
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 50,
+      "sourceBarId": "B11",
+      "repeatPass": 2,
+      "startMs": 147000,
+      "endMs": 150000,
+      "durationMs": 3000,
+      "sourceLine": 59,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        73
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 51,
+      "sourceBarId": "B12",
+      "repeatPass": 2,
+      "startMs": 150000,
+      "endMs": 153000,
+      "durationMs": 3000,
+      "sourceLine": 60,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        73
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 52,
+      "sourceBarId": "B13",
+      "repeatPass": 2,
+      "startMs": 153000,
+      "endMs": 156000,
+      "durationMs": 3000,
+      "sourceLine": 61,
+      "noteEventIndicesStarting": [
+        74,
+        75
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": [
+        11
+      ]
+    },
+    {
+      "performanceBar": 53,
+      "sourceBarId": "B14",
+      "repeatPass": 2,
+      "startMs": 156000,
+      "endMs": 159000,
+      "durationMs": 3000,
+      "sourceLine": 61,
+      "noteEventIndicesStarting": [
+        76,
+        77,
+        78
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 54,
+      "sourceBarId": "B15",
+      "repeatPass": 2,
+      "startMs": 159000,
+      "endMs": 162000,
+      "durationMs": 3000,
+      "sourceLine": 62,
+      "noteEventIndicesStarting": [
+        79,
+        80,
+        81
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 55,
+      "sourceBarId": "B16",
+      "repeatPass": 2,
+      "startMs": 162000,
+      "endMs": 165000,
+      "durationMs": 3000,
+      "sourceLine": 63,
+      "noteEventIndicesStarting": [
+        82
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 56,
+      "sourceBarId": "B17",
+      "repeatPass": 2,
+      "startMs": 165000,
+      "endMs": 168000,
+      "durationMs": 3000,
+      "sourceLine": 65,
+      "noteEventIndicesStarting": [
+        83
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 57,
+      "sourceBarId": "B18",
+      "repeatPass": 2,
+      "startMs": 168000,
+      "endMs": 171000,
+      "durationMs": 3000,
+      "sourceLine": 66,
+      "noteEventIndicesStarting": [
+        84
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 58,
+      "sourceBarId": "B19",
+      "repeatPass": 2,
+      "startMs": 171000,
+      "endMs": 174000,
+      "durationMs": 3000,
+      "sourceLine": 67,
+      "noteEventIndicesStarting": [
+        85
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 59,
+      "sourceBarId": "B20",
+      "repeatPass": 2,
+      "startMs": 174000,
+      "endMs": 177000,
+      "durationMs": 3000,
+      "sourceLine": 68,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        85
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 60,
+      "sourceBarId": "B21",
+      "repeatPass": 2,
+      "startMs": 177000,
+      "endMs": 180000,
+      "durationMs": 3000,
+      "sourceLine": 69,
+      "noteEventIndicesStarting": [],
+      "noteEventIndicesSustainingAtStart": [
+        85
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 61,
+      "sourceBarId": "B22",
+      "repeatPass": 2,
+      "startMs": 180000,
+      "endMs": 183000,
+      "durationMs": 3000,
+      "sourceLine": 70,
+      "noteEventIndicesStarting": [
+        86,
+        87,
+        88
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 62,
+      "sourceBarId": "B23",
+      "repeatPass": 2,
+      "startMs": 183000,
+      "endMs": 186000,
+      "durationMs": 3000,
+      "sourceLine": 71,
+      "noteEventIndicesStarting": [
+        89,
+        90,
+        91
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 63,
+      "sourceBarId": "B24",
+      "repeatPass": 2,
+      "startMs": 186000,
+      "endMs": 189000,
+      "durationMs": 3000,
+      "sourceLine": 72,
+      "noteEventIndicesStarting": [
+        92,
+        93,
+        94
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 64,
+      "sourceBarId": "B25",
+      "repeatPass": 2,
+      "startMs": 189000,
+      "endMs": 192000,
+      "durationMs": 3000,
+      "sourceLine": 74,
+      "noteEventIndicesStarting": [
+        95
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 65,
+      "sourceBarId": "B26",
+      "repeatPass": 2,
+      "startMs": 192000,
+      "endMs": 195000,
+      "durationMs": 3000,
+      "sourceLine": 75,
+      "noteEventIndicesStarting": [
+        96
+      ],
+      "noteEventIndicesSustainingAtStart": [
+        95
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 66,
+      "sourceBarId": "B27",
+      "repeatPass": 2,
+      "startMs": 195000,
+      "endMs": 198000,
+      "durationMs": 3000,
+      "sourceLine": 76,
+      "noteEventIndicesStarting": [
+        97,
+        98,
+        99
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 67,
+      "sourceBarId": "B28",
+      "repeatPass": 2,
+      "startMs": 198000,
+      "endMs": 201000,
+      "durationMs": 3000,
+      "sourceLine": 77,
+      "noteEventIndicesStarting": [
+        100,
+        101,
+        102
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 68,
+      "sourceBarId": "B29",
+      "repeatPass": 2,
+      "startMs": 201000,
+      "endMs": 204000,
+      "durationMs": 3000,
+      "sourceLine": 78,
+      "noteEventIndicesStarting": [
+        103,
+        104,
+        105
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 69,
+      "sourceBarId": "B30",
+      "repeatPass": 2,
+      "startMs": 204000,
+      "endMs": 207000,
+      "durationMs": 3000,
+      "sourceLine": 79,
+      "noteEventIndicesStarting": [
+        106
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 70,
+      "sourceBarId": "B31",
+      "repeatPass": 2,
+      "startMs": 207000,
+      "endMs": 210000,
+      "durationMs": 3000,
+      "sourceLine": 80,
+      "noteEventIndicesStarting": [
+        107
+      ],
+      "noteEventIndicesSustainingAtStart": [
+        106
+      ],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 71,
+      "sourceBarId": "E2-1",
+      "repeatPass": 2,
+      "startMs": 210000,
+      "endMs": 213000,
+      "durationMs": 3000,
+      "sourceLine": 95,
+      "noteEventIndicesStarting": [
+        108
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 72,
+      "sourceBarId": "E2-2",
+      "repeatPass": 2,
+      "startMs": 213000,
+      "endMs": 216000,
+      "durationMs": 3000,
+      "sourceLine": 96,
+      "noteEventIndicesStarting": [
+        109
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 73,
+      "sourceBarId": "E2-3",
+      "repeatPass": 2,
+      "startMs": 216000,
+      "endMs": 219000,
+      "durationMs": 3000,
+      "sourceLine": 97,
+      "noteEventIndicesStarting": [
+        110,
+        111,
+        112
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 74,
+      "sourceBarId": "E2-4",
+      "repeatPass": 2,
+      "startMs": 219000,
+      "endMs": 222000,
+      "durationMs": 3000,
+      "sourceLine": 98,
+      "noteEventIndicesStarting": [
+        113,
+        114,
+        115
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 75,
+      "sourceBarId": "E2-5",
+      "repeatPass": 2,
+      "startMs": 222000,
+      "endMs": 225000,
+      "durationMs": 3000,
+      "sourceLine": 99,
+      "noteEventIndicesStarting": [
+        116,
+        117,
+        118
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 76,
+      "sourceBarId": "E2-6",
+      "repeatPass": 2,
+      "startMs": 225000,
+      "endMs": 228000,
+      "durationMs": 3000,
+      "sourceLine": 100,
+      "noteEventIndicesStarting": [
+        119
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 77,
+      "sourceBarId": "E2-7",
+      "repeatPass": 2,
+      "startMs": 228000,
+      "endMs": 231000,
+      "durationMs": 3000,
+      "sourceLine": 101,
+      "noteEventIndicesStarting": [
+        120,
+        121,
+        122,
+        123
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    },
+    {
+      "performanceBar": 78,
+      "sourceBarId": "E2-8",
+      "repeatPass": 2,
+      "startMs": 231000,
+      "endMs": 234000,
+      "durationMs": 3000,
+      "sourceLine": 102,
+      "noteEventIndicesStarting": [
+        124,
+        125,
+        126,
+        127
+      ],
+      "noteEventIndicesSustainingAtStart": [],
+      "silenceEventIndices": []
+    }
+  ],
+  "validation": {
+    "jsonAndSourceArithmeticChecked": true,
+    "all78BarsExactly3000Ms": true,
+    "all142SourceNoteheadSegmentsMappedExactlyOnce": true,
+    "scalarEventCount": 128,
+    "tieContinuationMerges": 14,
+    "tiedSoundingEvents": 8,
+    "allChordPitchesPreserved": true,
+    "sorting": "ascending startMs, then performed source event order, then pitch order inside the written chord",
+    "stableOrderingChecked": true,
+    "repeatedUntiedAttacksPreserved": true,
+    "sourceRestAndSkipEventsPreserved": true,
+    "noUnexplainedTimelineGaps": true,
+    "endMs": 234000,
+    "sumScalarNoteDurationMs": 242000,
+    "sumSilenceDurationMs": 28000,
+    "noteDurationSumCaveat": "Scalar durations count concurrent chord pitches separately; they must not be interpreted as elapsed piece duration."
+  },
+  "uncertainties": [
+    {
+      "id": "source-versus-official-midi-form",
+      "blocksThisSourceDerivedSchedule": false,
+      "finding": "Official byte-identical inbox MIDI contains only 47 bars/141000 ms. This 78-bar schedule follows the explicit repeat/alternative source form and is not represented as an extraction from that MIDI."
+    },
+    {
+      "id": "shared-channel-Fsharp-tie",
+      "blocksThisSourceDerivedSchedule": false,
+      "finding": "The MIDI combines accompaniment and top F#4 on one channel and does not expose the source's clean 12-quarter top-voice tie. This schedule uses the explicit source tie chain on each pass; no accompaniment note events are included."
+    },
+    {
+      "id": "polyphonic-source-ending",
+      "blocksThisSourceDerivedSchedule": false,
+      "finding": "Top contains ending chords, not an independent scalar melody within them. All four pitches per chord are retained as concurrent scalar events. The resulting voice schedule is intentionally polyphonic, not a highest-note arrangement."
+    },
+    {
+      "id": "tempo-and-expression",
+      "blocksThisSourceDerivedSchedule": false,
+      "finding": "The requested fixed 60 BPM timing is used without rubato, fermata extension or dynamic interpolation. LilyPond dynamics/slurs are not converted to invented velocities or articulation. Optional velocity is omitted."
+    },
+    {
+      "id": "edition-authority",
+      "blocksThisSourceDerivedSchedule": false,
+      "finding": "Derived from the previously reviewed Mutopia notation edition and its preserved source excerpt; no new Dover facsimile comparison or new official-source fetch was performed in this derivation."
+    }
+  ]
+}
