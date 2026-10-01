@@ -131,7 +131,7 @@ const STANDARD_MEASURE_DRAWING: MeasureDrawing = {
 };
 
 function cleanText(value: string, fallback: string, maximumLength: number): string {
-  const cleaned = value.replaceAll(/[\r\n\t]+/g, " ").trim();
+  const cleaned = value.replaceAll(/[\r\n\t]+/g, " ").replaceAll('♭', 'b').replaceAll('♯', '#').replaceAll('♮', '').trim();
   return cleaned.length === 0 ? fallback : cleaned.slice(0, maximumLength);
 }
 
