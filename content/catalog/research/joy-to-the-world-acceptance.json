@@ -1,9 +1,10 @@
 {
   "date": "2026-10-01",
   "id": "verified-joy-to-the-world-complete",
-  "status": "local accepted; production acceptance pending",
-  "countAsLiveComplete": false,
-  "liveVerifiedCount": 9,
+  "status": "complete live verified",
+  "countAsLiveComplete": true,
+  "liveVerifiedCount": 10,
+  "release": "2961c6f1130ff536592595399b8c7bd77e5b299b",
   "source": {
     "edition": "Mutopia-2008/01/13-1223",
     "scope": "Entire declared soprano, 19 bars, 57 notes, 38 quarter beats; no inferred stanza repeats",
@@ -25,7 +26,22 @@
     "pdf": {"path":"output/pdf/catalog-qa/verified-joy-to-the-world-complete.pdf","endpointStatus":200,"onsetsPreserved":57,"visuallyInspected":true,"pages":1,"format":"A4"},
     "checks": {"testsPassed":329,"testFiles":70,"lintExit":0,"buildExit":0,"catalogPdfTests":10}
   },
-  "production": {"library":false,"sargam":false,"instruments":false,"pdf":false},
-  "next": "Verify deployed exact commit, public library discovery, complete Sargam, all three instruments at 1x to Replay, and live downloadable rendered PDF before incrementing count.",
+  "production": {
+    "deployment": "Exact release Vercel success verified through GitHub commit status",
+    "url": "https://sargam-io.vercel.app/?score=verified-joy-to-the-world-complete#practice",
+    "library": true,
+    "sargam": true,
+    "visibleBars": 19,
+    "instruments": true,
+    "playback": [
+      {"instrument":"Piano","speed":1,"startMs":0,"replay":true,"endMs":24000,"errors":[]},
+      {"instrument":"Harmonium","speed":1,"startMs":0,"replay":true,"endMs":24000,"errors":[]},
+      {"instrument":"Bansuri","speed":1,"startMs":0,"replay":true,"endMs":24000,"errors":[]}
+    ],
+    "pdf": true,
+    "download": {"readyStatus":true,"generatedLink":true,"directLivePostStatus":200,"contentType":"application/pdf","bytes":68433,"pages":1,"width":595.28,"all57OnsetsTested":true,"visuallyInspected":true},
+    "proof": "tmp/catalog-proof/joy-to-the-world-live.jpg"
+  },
+  "next": "Continue India-first primary source qualification and complete source-verified repertoire; Purano kan remain untimed and lower Dha uncertain. No pending candidate counts as complete.",
   "preserved": ["Mehfil", "Sa selection semantics", "existing catalog"]
 }

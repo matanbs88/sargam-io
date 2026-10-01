@@ -2,6 +2,25 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
+**10/100 distinct complete pieces are live verified.** Release `2961c6f` adds
+Joy to the World's complete Antioch soprano: 19 bars, 57 attacks, 24 seconds
+at the declared quarter=95. All source pitch/onset/duration intervals match
+a freshly fetched publisher MIDI. The public Library opens the entire Sargam.
+Piano, harmonium and bansuri reach Replay at 24,000 ms at 1x without captured
+browser errors. Download score offers its generated PDF. The direct live export
+returns HTTP 200 application/pdf, 68,433 bytes, one visually inspected A4 page.
+Public ready entries: 45, comprising 35 older studies and ten verified complete
+pieces. [Acceptance evidence](../content/catalog/research/joy-to-the-world-acceptance.json).
+The 100-piece goal remains active. Mehfil and Sa behavior are unchanged.
+
+Next source work remains India-first. Purano Sei Diner Katha has a pinned
+canonical revision and its complete printed pages located and structurally
+inspected. Its 135 main attacks span 192 matras; two kan have no specified
+duration and one lower-Dha mark remains ambiguous. It is not live-counted.
+Source candidates are never counted merely because encoded.
+
+### Earlier nine piece checkpoint
+
 **9/100 distinct complete pieces are live verified.** Release `2118909` adds
 Au Clair de la Lune's complete Horetzky upper voice: 16 bars, 62 scalar notes,
 17 dyads, four printed rests, 32 seconds at 60 BPM. Public Library discovery
