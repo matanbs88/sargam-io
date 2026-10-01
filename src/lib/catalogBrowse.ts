@@ -1,9 +1,12 @@
-export type BrowseItem = { id: string; title: string; nativeTitle?: string; artistOrSource: string; category: string; difficulty: string; tempoBpm: number };
-export type BrowseOptions = { query: string; category: string; difficulty: string; sort: 'title' | 'tempo'; page: number };
+import type { CatalogSong } from './songCatalog';
+
+export type BrowseItem = { id: string; title: string; nativeTitle?: string; artistOrSource: string; category: string; difficulty: string; tempoBpm: number; completeness?: CatalogSong['completeness'] };
+export type BrowseOptions = { query: string; category: string; difficulty: string; sort: 'title' | 'tempo'; page: number; fullOnly?: boolean };
 export const CATALOG_PAGE_SIZE = 20;
 export function browseCatalog<T extends BrowseItem>(items: readonly T[], options: BrowseOptions) {
   const query = options.query.normalize('NFKC').trim().toLocaleLowerCase();
   const matches = items.filter(item => (options.category === 'All' || item.category === options.category)
+    && (!options.fullOnly || item.completeness === 'complete')
     && (options.difficulty === 'All' || item.difficulty === options.difficulty)
     && `${item.title} ${item.nativeTitle ?? ''} ${item.artistOrSource}`.normalize('NFKC').toLocaleLowerCase().includes(query))
     .sort((a, b) => (options.sort === 'tempo' ? a.tempoBpm - b.tempoBpm : 0) || a.title.localeCompare(b.title) || a.id.localeCompare(b.id));

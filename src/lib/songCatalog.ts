@@ -25,6 +25,7 @@ export type CatalogSong = {
   readonly difficulty: "Beginner" | "Intermediate" | "Advanced";
   readonly instruments: readonly ("Piano" | "Harmonium" | "Bansuri")[];
   readonly status: CatalogStatus;
+  readonly completeness?: "complete" | "excerpt" | "study" | "unknown";
   readonly transcriptionStatus: CatalogTranscriptionStatus;
   readonly sourceKind: CatalogSourceKind | null;
   readonly sourceRef: string | null;

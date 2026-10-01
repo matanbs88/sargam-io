@@ -8,6 +8,7 @@ import odeToJoy from "../../content/catalog/verified/ode-to-joy.json";
 import oatsAndBeans from "../../content/catalog/verified/oats-and-beans.json";
 import auClair from "../../content/catalog/verified/au-clair-de-la-lune.json";
 import joyToTheWorld from "../../content/catalog/verified/joy-to-the-world.json";
+import henWlad from "../../content/catalog/verified/hen-wlad-fy-nhadau.json";
 import { verifiedVoiceEvents } from './verifiedVoiceEvents';
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
@@ -84,6 +85,7 @@ function catalogEntry(score: {
   difficulty: "Intermediate",
   instruments: ["Piano", "Harmonium", "Bansuri"],
   status: "ready",
+  completeness: "complete",
   transcriptionStatus: "ready",
   sourceKind: "manual",
   sourceRef: score.source,
@@ -97,7 +99,7 @@ function catalogEntry(score: {
 }; }
 
 export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [
-  ...[minuet, silentNight, wenceslas, raghupati, harkHerald, odeToJoy, oatsAndBeans, joyToTheWorld].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
+  ...[minuet, silentNight, wenceslas, raghupati, harkHerald, odeToJoy, oatsAndBeans, joyToTheWorld, henWlad].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
   catalogEntry(gymnopedie, verifiedVoiceEvents(gymnopedie)),
   catalogEntry(auClair, verifiedVoiceEvents(auClair)),
 ];

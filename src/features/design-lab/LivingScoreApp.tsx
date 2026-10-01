@@ -47,10 +47,12 @@ export function LivingScoreApp({ direction, published = false }: { direction?: I
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
   const [difficulty, setDifficulty] = useState('All');
+  const [fullOnly, setFullOnly] = useState(false);
   const [sort, setSort] = useState<'title' | 'tempo'>('title');
   const [page, setPage] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filtersId = useId();
+  const fullOnlyDescriptionId = useId();
   const [importNotice, setImportNotice] = useState('');
   const catalogPiece = useMemo(() => {
     const song = library.find(song => song.id === navigation.scoreId);
@@ -113,7 +115,11 @@ export function LivingScoreApp({ direction, published = false }: { direction?: I
     caption?.focus({ preventScroll: true });
     caption?.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
-  const results = browseCatalog(library, { query, category, difficulty, sort, page });
+  const filtersActive = category !== 'All' || difficulty !== 'All' || sort !== 'title' || fullOnly;
+  function clearFilters() {
+    setQuery(''); setCategory('All'); setDifficulty('All'); setSort('title'); setFullOnly(false); setPage(0);
+  }
+  const results = browseCatalog(library, { query, category, difficulty, sort, page, fullOnly });
   const Home = direction ? IndianHome : TranscriptionHome;
   return <main ref={main} data-design-direction={direction} data-screen={screen} className={`${s.shell} ${s.scoreShell} ${a.app} ${direction ? `${indian.variant} ${indian[direction]}` : ''}`}>
     <nav className={s.nav} aria-label="Main navigation"><button className={a.brand} onClick={() => navigate('home')}>{direction ? <IndianBrand direction={direction}/> : 'sargam'}</button><div className={a.navLinks}>
@@ -137,18 +143,23 @@ export function LivingScoreApp({ direction, published = false }: { direction?: I
       {navigation.screen === 'practice' && (!p.opened || unavailable) && <p className={a.notice} role="status">{unavailable ? 'This library score is not available. Choose another piece below.' : 'Your previous in-memory session is unavailable. Open a library score or import your file again.'}{savedDraft && ' You can also restore your saved local draft above.'}</p>}
       <div className={a.filters}>
         <label>Search<input type="search" value={query} onChange={e => { setQuery(e.target.value); setPage(0); }} placeholder="Title or composer" /></label>
-        <button className={a.filterToggle} aria-label="Library filters" aria-expanded={filtersOpen} aria-controls={filtersId} onClick={() => setFiltersOpen(open => !open)}>Filters{category !== 'All' || difficulty !== 'All' || sort !== 'title' ? ' · active' : ''}</button>
+        <div>
+          <label style={{ display: 'flex', alignItems: 'center', minHeight: 44, gap: 8 }}><input type="checkbox" checked={fullOnly} aria-describedby={fullOnlyDescriptionId} style={{ width: 20, height: 20, minWidth: 20, minHeight: 20, padding: 0 }} onChange={e => { setFullOnly(e.target.checked); setPage(0); }} />Full pieces only</label>
+          <small id={fullOnlyDescriptionId}>Only scores marked complete. Excludes excerpts, studies and unclassified scores.</small>
+        </div>
+        <button className={a.filterToggle} aria-label={filtersActive ? 'Library filters · active' : 'Library filters'} aria-expanded={filtersOpen} aria-controls={filtersId} onClick={() => setFiltersOpen(open => !open)}>Filters{filtersActive ? ' · active' : ''}</button>
         <div className={a.advancedFilters} id={filtersId} data-expanded={filtersOpen}>
         <label>Collection<select value={category} onChange={e => { setCategory(e.target.value); setPage(0); }}>{['All', ...new Set(library.map(s => s.category))].map(c => <option key={c}>{c}</option>)}</select></label>
         <label>Level<select value={difficulty} onChange={e => { setDifficulty(e.target.value); setPage(0); }}>{['All', ...new Set(library.map(s => s.difficulty))].map(c => <option key={c}>{c}</option>)}</select></label>
         <label>Sort<select value={sort} onChange={e => { setSort(e.target.value as 'title' | 'tempo'); setPage(0); }}><option value="title">Title A–Z</option><option value="tempo">Tempo: low to high</option></select></label>
         </div>
-        <span role="status">{results.total} playable {results.total === 1 ? 'piece' : 'pieces'}</span>
+        {(query || filtersActive) && <button onClick={clearFilters}>Clear filters</button>}
+        <span role="status">{results.total} {fullOnly ? 'full' : 'playable'} {results.total === 1 ? 'piece' : 'pieces'}</span>
       </div>
       {results.total ? <>
         <div className={a.tableWrap}><table className={a.songTable}><caption tabIndex={-1}>Playable Sargam scores · page {results.page + 1} of {results.pages}</caption><thead><tr><th scope="col">Title / composer</th><th scope="col">Collection</th><th scope="col">Level</th><th scope="col">Tempo</th><th scope="col"><span className={a.srOnly}>Open score</span></th></tr></thead><tbody>{results.items.map(song => <tr key={song.id}><td><strong>{song.title}</strong><small>{song.artistOrSource}</small></td><td>{song.category}</td><td>{song.difficulty}</td><td>{song.tempoBpm} BPM<small>{song.timeSignature}</small></td><td><button aria-label={`Open ${song.title}`} onClick={() => { setImportNotice(''); open({ ...song, noteEvents: song.noteEvents! }); }}>Open →</button></td></tr>)}</tbody></table></div>
         <nav className={a.pagination} aria-label="Library pages"><span>{results.page * CATALOG_PAGE_SIZE + 1}–{Math.min((results.page + 1) * CATALOG_PAGE_SIZE, results.total)} of {results.total}</span><button disabled={results.page === 0} onClick={() => changePage(results.page - 1)}>Previous</button><span>Page {results.page + 1} / {results.pages}</span><button disabled={results.page + 1 >= results.pages} onClick={() => changePage(results.page + 1)}>Next</button></nav>
-      </> : <div className={a.empty}><h2>No matching pieces</h2><p>Try another title, clear the filters or bring a song of your own.</p><button onClick={() => { setQuery(''); setCategory('All'); setDifficulty('All'); setPage(0); }}>Clear filters</button><button onClick={() => navigate('home')}>Transcribe a song</button></div>}
+      </> : <div className={a.empty}><h2>{fullOnly ? 'No matching full pieces' : 'No matching pieces'}</h2><p>{fullOnly ? 'Try another title, turn off Full pieces only or clear the filters.' : 'Try another title, clear the filters or bring a song of your own.'}</p><button onClick={clearFilters}>Clear filters</button><button onClick={() => navigate('home')}>Transcribe a song</button></div>}
     </section>}
     {screen === 'import' && <section className={a.import}>
       <p className={s.kicker}>FROM STAFF NOTATION TO SARGAM</p><h1 tabIndex={-1}>Bring your own score.</h1><p>MusicXML and MXL preserve notes and rhythm. PDF recognition is experimental and may need corrections.</p>
