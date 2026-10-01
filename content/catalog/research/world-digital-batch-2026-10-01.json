@@ -1,0 +1,3251 @@
+{
+  "schema": "research-world-digital-source-batch-v1",
+  "status": "RESEARCH_ONLY",
+  "date": "2026-10-01",
+  "restrictions": {
+    "register": false,
+    "publish": false,
+    "countAsVerifiedRepertoire": false,
+    "appCodeChanged": false
+  },
+  "batchSize": 5,
+  "encoding": "events are [scalar MIDI or null, startQuarter, durationQuarter], in complete source voice order. C4=60. Null is a source skip, distinguished by silenceEvents. sourceTokens aligns one-to-one with events. No inferred notes, rests, tied attacks, stanza counts or omitted cadences.",
+  "selection": "Five complete recognizable seasonal/traditional melody settings from official Mutopia, all notation editions explicitly public domain. Replaced unavailable initial examples with full seasonal carols. Excludes completed Minuet, Silent Night, Wenceslas and Gymnopedie.",
+  "acquisitionScope": "Read-only web and shell acquisition. Only this research JSON written; source excerpts and evidence retained in it.",
+  "omittedCandidate": {
+    "title": "Amazing Grace",
+    "notationUrl": "https://www.mutopiaproject.org/ftp/Traditional/amazing-mutopia/amazing-mutopia.ly",
+    "reason": "Available edition is an explicitly CC BY-SA 3.0 bagpipe arrangement with many grace groups; precise performed grace-note timing and octave/transposition would require additional audit. Not treated as a simple public-domain edition or guessed into the batch."
+  },
+  "summary": {
+    "scalarNoteEvents": 344,
+    "sourceEvents": 345,
+    "allScalarNotesExactlyMatchedToOfficialMidi": true,
+    "allFiveCompleteVoiceEndTimesMatchedToOfficialMidi": true,
+    "metricalOrRepeatUncertaintiesRetained": true
+  },
+  "pieces": [
+    {
+      "title": "Greensleeves",
+      "mutopiaId": 109,
+      "status": "RESEARCH_ONLY",
+      "sourceProof": {
+        "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=109",
+        "notationUrl": "https://www.mutopiaproject.org/ftp/Traditional/Greensleaves/Greensleaves.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/Traditional/Greensleaves/Greensleaves.mid",
+        "editionReference": "Mutopia-2013/03/23-109",
+        "downloadLinkVerified": true,
+        "retrieval": "Official page links verified by web click; LilyPond text and MIDI read via permitted shell requests into memory; no source file downloads saved.",
+        "editionLicense": "Public Domain",
+        "licenseHeader": "copyright = \"Public Domain\"",
+        "licenseFooter": "Placed in the public domain by the typesetter.",
+        "historicalSource": "Unknown",
+        "voiceVariable": "melody",
+        "voiceDeclarationStartLine": 21,
+        "voiceSelection": "Explicit named melody/soprano voice, not highest-note or MIDI-track heuristics.",
+        "voiceSourceExcerpt": "\\voiceOne\n    a4 |\n    c2 d4 e4. f8 e4 | d2 b4 g4. a8 b4 |\n    c2 a4 a4. gis8 a4 | b2 gis4 e2 a4 |\n    c2 d4 e4. f8 e4 | d2 b4 g4. a8 b4 |\n    c4. b8 a4 gis4. fis8 gis4 | a2. a2.\n    \\bar \"||\"\n    g'2. g4. f8 e4 | d2 b4 g4. a8 b4 |\n    c2 a4 a4. gis8 a4 | b2 gis4 e2. |\n    g'2. g4. f8 e4 | d2 b4 g4. a8 b4 |\n    c4. b8 a4 gis4. fis8 gis4 | a2. a2. \\bar \"|.\"",
+        "aliasEvidence": null
+      },
+      "meter": {
+        "numerator": 3,
+        "denominator": 4,
+        "key": "A minor",
+        "explicitPickupQuarter": 1
+      },
+      "tempo": {
+        "sourceQuarterBpm": 160,
+        "sourceEvidence": "\\tempo 4 = 160",
+        "officialMidiMicrosecondsPerQuarter": [
+          375000
+        ],
+        "officialMidiQuarterBpm": [
+          160
+        ],
+        "durationMsAtSourceTempo": 36375,
+        "conversion": "startMs=startQuarter*60000/sourceQuarterBpm; durationMs=durationQuarter*60000/sourceQuarterBpm. Tempo metadata describes this score/export, not a tempo recommendation."
+      },
+      "form": {
+        "description": "Complete two-section melody once, including opening quarter pickup; no encoded repeats; final two dotted-half A4 attacks both retained.",
+        "sectionRangesQuarter": [
+          [
+            0,
+            49
+          ],
+          [
+            49,
+            97
+          ]
+        ],
+        "uncertainties": [
+          "Source voice uses | tokens after six-quarter groups although time is 3/4; these span two actual 3/4 measures. Ledger timings retain all durations. Meter-grid boundaries below use the declared 3/4 and explicit pickup, not six-quarter bar claims.",
+          "Opening pickup is not compensated by a shortened final bar in this edition; literal total is 97 quarters.",
+          "Edition lists its historical source as Unknown. Review supports this public-domain Mutopia edition, not a facsimile-critical reading."
+        ],
+        "totalQuarter": 97,
+        "meterGridSegments": 33,
+        "fullMeasures": 32,
+        "barBoundaries": [
+          {
+            "index": 0,
+            "kind": "explicit pickup",
+            "startQuarter": 0,
+            "endQuarter": 1
+          },
+          {
+            "index": 1,
+            "kind": "full measure",
+            "startQuarter": 1,
+            "endQuarter": 4
+          },
+          {
+            "index": 2,
+            "kind": "full measure",
+            "startQuarter": 4,
+            "endQuarter": 7
+          },
+          {
+            "index": 3,
+            "kind": "full measure",
+            "startQuarter": 7,
+            "endQuarter": 10
+          },
+          {
+            "index": 4,
+            "kind": "full measure",
+            "startQuarter": 10,
+            "endQuarter": 13
+          },
+          {
+            "index": 5,
+            "kind": "full measure",
+            "startQuarter": 13,
+            "endQuarter": 16
+          },
+          {
+            "index": 6,
+            "kind": "full measure",
+            "startQuarter": 16,
+            "endQuarter": 19
+          },
+          {
+            "index": 7,
+            "kind": "full measure",
+            "startQuarter": 19,
+            "endQuarter": 22
+          },
+          {
+            "index": 8,
+            "kind": "full measure",
+            "startQuarter": 22,
+            "endQuarter": 25
+          },
+          {
+            "index": 9,
+            "kind": "full measure",
+            "startQuarter": 25,
+            "endQuarter": 28
+          },
+          {
+            "index": 10,
+            "kind": "full measure",
+            "startQuarter": 28,
+            "endQuarter": 31
+          },
+          {
+            "index": 11,
+            "kind": "full measure",
+            "startQuarter": 31,
+            "endQuarter": 34
+          },
+          {
+            "index": 12,
+            "kind": "full measure",
+            "startQuarter": 34,
+            "endQuarter": 37
+          },
+          {
+            "index": 13,
+            "kind": "full measure",
+            "startQuarter": 37,
+            "endQuarter": 40
+          },
+          {
+            "index": 14,
+            "kind": "full measure",
+            "startQuarter": 40,
+            "endQuarter": 43
+          },
+          {
+            "index": 15,
+            "kind": "full measure",
+            "startQuarter": 43,
+            "endQuarter": 46
+          },
+          {
+            "index": 16,
+            "kind": "full measure",
+            "startQuarter": 46,
+            "endQuarter": 49
+          },
+          {
+            "index": 17,
+            "kind": "full measure",
+            "startQuarter": 49,
+            "endQuarter": 52
+          },
+          {
+            "index": 18,
+            "kind": "full measure",
+            "startQuarter": 52,
+            "endQuarter": 55
+          },
+          {
+            "index": 19,
+            "kind": "full measure",
+            "startQuarter": 55,
+            "endQuarter": 58
+          },
+          {
+            "index": 20,
+            "kind": "full measure",
+            "startQuarter": 58,
+            "endQuarter": 61
+          },
+          {
+            "index": 21,
+            "kind": "full measure",
+            "startQuarter": 61,
+            "endQuarter": 64
+          },
+          {
+            "index": 22,
+            "kind": "full measure",
+            "startQuarter": 64,
+            "endQuarter": 67
+          },
+          {
+            "index": 23,
+            "kind": "full measure",
+            "startQuarter": 67,
+            "endQuarter": 70
+          },
+          {
+            "index": 24,
+            "kind": "full measure",
+            "startQuarter": 70,
+            "endQuarter": 73
+          },
+          {
+            "index": 25,
+            "kind": "full measure",
+            "startQuarter": 73,
+            "endQuarter": 76
+          },
+          {
+            "index": 26,
+            "kind": "full measure",
+            "startQuarter": 76,
+            "endQuarter": 79
+          },
+          {
+            "index": 27,
+            "kind": "full measure",
+            "startQuarter": 79,
+            "endQuarter": 82
+          },
+          {
+            "index": 28,
+            "kind": "full measure",
+            "startQuarter": 82,
+            "endQuarter": 85
+          },
+          {
+            "index": 29,
+            "kind": "full measure",
+            "startQuarter": 85,
+            "endQuarter": 88
+          },
+          {
+            "index": 30,
+            "kind": "full measure",
+            "startQuarter": 88,
+            "endQuarter": 91
+          },
+          {
+            "index": 31,
+            "kind": "full measure",
+            "startQuarter": 91,
+            "endQuarter": 94
+          },
+          {
+            "index": 32,
+            "kind": "full measure",
+            "startQuarter": 94,
+            "endQuarter": 97
+          }
+        ],
+        "repeatExpansionApplied": false
+      },
+      "events": [
+        [
+          69,
+          0,
+          1
+        ],
+        [
+          72,
+          1,
+          2
+        ],
+        [
+          74,
+          3,
+          1
+        ],
+        [
+          76,
+          4,
+          1.5
+        ],
+        [
+          77,
+          5.5,
+          0.5
+        ],
+        [
+          76,
+          6,
+          1
+        ],
+        [
+          74,
+          7,
+          2
+        ],
+        [
+          71,
+          9,
+          1
+        ],
+        [
+          67,
+          10,
+          1.5
+        ],
+        [
+          69,
+          11.5,
+          0.5
+        ],
+        [
+          71,
+          12,
+          1
+        ],
+        [
+          72,
+          13,
+          2
+        ],
+        [
+          69,
+          15,
+          1
+        ],
+        [
+          69,
+          16,
+          1.5
+        ],
+        [
+          68,
+          17.5,
+          0.5
+        ],
+        [
+          69,
+          18,
+          1
+        ],
+        [
+          71,
+          19,
+          2
+        ],
+        [
+          68,
+          21,
+          1
+        ],
+        [
+          64,
+          22,
+          2
+        ],
+        [
+          69,
+          24,
+          1
+        ],
+        [
+          72,
+          25,
+          2
+        ],
+        [
+          74,
+          27,
+          1
+        ],
+        [
+          76,
+          28,
+          1.5
+        ],
+        [
+          77,
+          29.5,
+          0.5
+        ],
+        [
+          76,
+          30,
+          1
+        ],
+        [
+          74,
+          31,
+          2
+        ],
+        [
+          71,
+          33,
+          1
+        ],
+        [
+          67,
+          34,
+          1.5
+        ],
+        [
+          69,
+          35.5,
+          0.5
+        ],
+        [
+          71,
+          36,
+          1
+        ],
+        [
+          72,
+          37,
+          1.5
+        ],
+        [
+          71,
+          38.5,
+          0.5
+        ],
+        [
+          69,
+          39,
+          1
+        ],
+        [
+          68,
+          40,
+          1.5
+        ],
+        [
+          66,
+          41.5,
+          0.5
+        ],
+        [
+          68,
+          42,
+          1
+        ],
+        [
+          69,
+          43,
+          3
+        ],
+        [
+          69,
+          46,
+          3
+        ],
+        [
+          79,
+          49,
+          3
+        ],
+        [
+          79,
+          52,
+          1.5
+        ],
+        [
+          77,
+          53.5,
+          0.5
+        ],
+        [
+          76,
+          54,
+          1
+        ],
+        [
+          74,
+          55,
+          2
+        ],
+        [
+          71,
+          57,
+          1
+        ],
+        [
+          67,
+          58,
+          1.5
+        ],
+        [
+          69,
+          59.5,
+          0.5
+        ],
+        [
+          71,
+          60,
+          1
+        ],
+        [
+          72,
+          61,
+          2
+        ],
+        [
+          69,
+          63,
+          1
+        ],
+        [
+          69,
+          64,
+          1.5
+        ],
+        [
+          68,
+          65.5,
+          0.5
+        ],
+        [
+          69,
+          66,
+          1
+        ],
+        [
+          71,
+          67,
+          2
+        ],
+        [
+          68,
+          69,
+          1
+        ],
+        [
+          64,
+          70,
+          3
+        ],
+        [
+          79,
+          73,
+          3
+        ],
+        [
+          79,
+          76,
+          1.5
+        ],
+        [
+          77,
+          77.5,
+          0.5
+        ],
+        [
+          76,
+          78,
+          1
+        ],
+        [
+          74,
+          79,
+          2
+        ],
+        [
+          71,
+          81,
+          1
+        ],
+        [
+          67,
+          82,
+          1.5
+        ],
+        [
+          69,
+          83.5,
+          0.5
+        ],
+        [
+          71,
+          84,
+          1
+        ],
+        [
+          72,
+          85,
+          1.5
+        ],
+        [
+          71,
+          86.5,
+          0.5
+        ],
+        [
+          69,
+          87,
+          1
+        ],
+        [
+          68,
+          88,
+          1.5
+        ],
+        [
+          66,
+          89.5,
+          0.5
+        ],
+        [
+          68,
+          90,
+          1
+        ],
+        [
+          69,
+          91,
+          3
+        ],
+        [
+          69,
+          94,
+          3
+        ]
+      ],
+      "sourceTokens": [
+        "a4",
+        "c2",
+        "d4",
+        "e4.",
+        "f8",
+        "e4",
+        "d2",
+        "b4",
+        "g4.",
+        "a8",
+        "b4",
+        "c2",
+        "a4",
+        "a4.",
+        "gis8",
+        "a4",
+        "b2",
+        "gis4",
+        "e2",
+        "a4",
+        "c2",
+        "d4",
+        "e4.",
+        "f8",
+        "e4",
+        "d2",
+        "b4",
+        "g4.",
+        "a8",
+        "b4",
+        "c4.",
+        "b8",
+        "a4",
+        "gis4.",
+        "fis8",
+        "gis4",
+        "a2.",
+        "a2.",
+        "g'2.",
+        "g4.",
+        "f8",
+        "e4",
+        "d2",
+        "b4",
+        "g4.",
+        "a8",
+        "b4",
+        "c2",
+        "a4",
+        "a4.",
+        "gis8",
+        "a4",
+        "b2",
+        "gis4",
+        "e2.",
+        "g'2.",
+        "g4.",
+        "f8",
+        "e4",
+        "d2",
+        "b4",
+        "g4.",
+        "a8",
+        "b4",
+        "c4.",
+        "b8",
+        "a4",
+        "gis4.",
+        "fis8",
+        "gis4",
+        "a2.",
+        "a2."
+      ],
+      "silenceEvents": [],
+      "counts": {
+        "sourceEvents": 72,
+        "scalarNoteEvents": 72,
+        "printedRests": 0,
+        "invisibleSkips": 0,
+        "ties": 0,
+        "chordsInSelectedVoice": 0
+      },
+      "validation": {
+        "id": 109,
+        "ppq": 384,
+        "midiEndQuarter": 97,
+        "sourceEndQuarter": 97,
+        "noteEventsChecked": 72,
+        "exactPitchOnsetDurationMatches": 72,
+        "unmatched": [],
+        "tempoMicrosecondsPerQuarter": [
+          375000
+        ],
+        "midiSHA256": "468C9878CFF4709A7F369819313EEA41EB38F90A043E377540AC66D8D2F937F7",
+        "method": "Each pitch/onset/duration was read from the named source voice, then independently matched to an exact scalar note interval in official MIDI. MIDI was used for confirmation, not voice discovery.",
+        "completeSourceAndMidiEndMatch": true
+      }
+    },
+    {
+      "title": "The First Noel",
+      "mutopiaId": 1243,
+      "status": "RESEARCH_ONLY",
+      "sourceProof": {
+        "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=1243",
+        "notationUrl": "https://www.mutopiaproject.org/ftp/Traditional/first_noel/first_noel.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/Traditional/first_noel/first_noel.mid",
+        "editionReference": "Mutopia-2008/01/13-1243",
+        "downloadLinkVerified": true,
+        "retrieval": "Official page links verified by web click; LilyPond text and MIDI read via permitted shell requests into memory; no source file downloads saved.",
+        "editionLicense": "Public Domain",
+        "licenseHeader": "copyright = \"Public Domain\"",
+        "licenseFooter": "Placed in the public domain by the typesetter.",
+        "historicalSource": "www.cyberhymnal.org",
+        "voiceVariable": "Soprano",
+        "voiceDeclarationStartLine": 21,
+        "voiceSelection": "Explicit named melody/soprano voice, not highest-note or MIDI-track heuristics.",
+        "voiceSourceExcerpt": "\\time 3/4  { \\key d \\major fis'8 e' d'4. e'8 fis' g' a'2 b'8 cis'' d''4 cis'' b' a'2 b'8 cis'' d''4 cis'' b' a' b' cis'' d'' a' g' fis'2 fis'8 e' d'4. e'8 fis' g' a'2 b'8 cis'' d''4 cis'' b' a'2 b'8 cis'' d''4 cis'' b' a' b' cis'' d'' a' g' fis'2 fis'8 e' d'4. e'8 fis' g' a'2 d''8 cis'' b'2 b'4 a'2 a'4 d'' cis'' b' a' b' cis'' d'' a' g' fis'2  \\bar \"|.\" }",
+        "aliasEvidence": null
+      },
+      "meter": {
+        "numerator": 3,
+        "denominator": 4,
+        "key": "D major",
+        "explicitPickupQuarter": null
+      },
+      "tempo": {
+        "sourceQuarterBpm": 107,
+        "sourceEvidence": "tempWholesPerMinute = #(ly:make-moment 107 4); embedded ABC Q:1/4=107",
+        "officialMidiMicrosecondsPerQuarter": [
+          1000000
+        ],
+        "officialMidiQuarterBpm": [
+          60
+        ],
+        "durationMsAtSourceTempo": 40373.831775700935,
+        "conversion": "startMs=startQuarter*60000/sourceQuarterBpm; durationMs=durationQuarter*60000/sourceQuarterBpm. Tempo metadata describes this score/export, not a tempo recommendation."
+      },
+      "form": {
+        "description": "Entire encoded soprano hymn tune including final cadence, once; internal melodic repetitions already written out, no repeat expansion.",
+        "sectionRangesQuarter": null,
+        "uncertainties": [
+          "The LilyPond voice omits \\partial and explicit internal barlines despite an opening pair of eighth notes resembling a pickup. Literal event stream totals 72 quarters. Boundaries below use the declared meter starting at time zero, without inserting a pickup or padding.",
+          "Legacy tempWholesPerMinute specifies quarter=107 in the source/embedded ABC, but the official MIDI tempo is quarter=60. Source timing basis and MIDI-export tempo are recorded separately."
+        ],
+        "totalQuarter": 72,
+        "meterGridSegments": 24,
+        "fullMeasures": 24,
+        "barBoundaries": [
+          {
+            "index": 0,
+            "kind": "full measure",
+            "startQuarter": 0,
+            "endQuarter": 3
+          },
+          {
+            "index": 1,
+            "kind": "full measure",
+            "startQuarter": 3,
+            "endQuarter": 6
+          },
+          {
+            "index": 2,
+            "kind": "full measure",
+            "startQuarter": 6,
+            "endQuarter": 9
+          },
+          {
+            "index": 3,
+            "kind": "full measure",
+            "startQuarter": 9,
+            "endQuarter": 12
+          },
+          {
+            "index": 4,
+            "kind": "full measure",
+            "startQuarter": 12,
+            "endQuarter": 15
+          },
+          {
+            "index": 5,
+            "kind": "full measure",
+            "startQuarter": 15,
+            "endQuarter": 18
+          },
+          {
+            "index": 6,
+            "kind": "full measure",
+            "startQuarter": 18,
+            "endQuarter": 21
+          },
+          {
+            "index": 7,
+            "kind": "full measure",
+            "startQuarter": 21,
+            "endQuarter": 24
+          },
+          {
+            "index": 8,
+            "kind": "full measure",
+            "startQuarter": 24,
+            "endQuarter": 27
+          },
+          {
+            "index": 9,
+            "kind": "full measure",
+            "startQuarter": 27,
+            "endQuarter": 30
+          },
+          {
+            "index": 10,
+            "kind": "full measure",
+            "startQuarter": 30,
+            "endQuarter": 33
+          },
+          {
+            "index": 11,
+            "kind": "full measure",
+            "startQuarter": 33,
+            "endQuarter": 36
+          },
+          {
+            "index": 12,
+            "kind": "full measure",
+            "startQuarter": 36,
+            "endQuarter": 39
+          },
+          {
+            "index": 13,
+            "kind": "full measure",
+            "startQuarter": 39,
+            "endQuarter": 42
+          },
+          {
+            "index": 14,
+            "kind": "full measure",
+            "startQuarter": 42,
+            "endQuarter": 45
+          },
+          {
+            "index": 15,
+            "kind": "full measure",
+            "startQuarter": 45,
+            "endQuarter": 48
+          },
+          {
+            "index": 16,
+            "kind": "full measure",
+            "startQuarter": 48,
+            "endQuarter": 51
+          },
+          {
+            "index": 17,
+            "kind": "full measure",
+            "startQuarter": 51,
+            "endQuarter": 54
+          },
+          {
+            "index": 18,
+            "kind": "full measure",
+            "startQuarter": 54,
+            "endQuarter": 57
+          },
+          {
+            "index": 19,
+            "kind": "full measure",
+            "startQuarter": 57,
+            "endQuarter": 60
+          },
+          {
+            "index": 20,
+            "kind": "full measure",
+            "startQuarter": 60,
+            "endQuarter": 63
+          },
+          {
+            "index": 21,
+            "kind": "full measure",
+            "startQuarter": 63,
+            "endQuarter": 66
+          },
+          {
+            "index": 22,
+            "kind": "full measure",
+            "startQuarter": 66,
+            "endQuarter": 69
+          },
+          {
+            "index": 23,
+            "kind": "full measure",
+            "startQuarter": 69,
+            "endQuarter": 72
+          }
+        ],
+        "repeatExpansionApplied": false
+      },
+      "events": [
+        [
+          66,
+          0,
+          0.5
+        ],
+        [
+          64,
+          0.5,
+          0.5
+        ],
+        [
+          62,
+          1,
+          1.5
+        ],
+        [
+          64,
+          2.5,
+          0.5
+        ],
+        [
+          66,
+          3,
+          0.5
+        ],
+        [
+          67,
+          3.5,
+          0.5
+        ],
+        [
+          69,
+          4,
+          2
+        ],
+        [
+          71,
+          6,
+          0.5
+        ],
+        [
+          73,
+          6.5,
+          0.5
+        ],
+        [
+          74,
+          7,
+          1
+        ],
+        [
+          73,
+          8,
+          1
+        ],
+        [
+          71,
+          9,
+          1
+        ],
+        [
+          69,
+          10,
+          2
+        ],
+        [
+          71,
+          12,
+          0.5
+        ],
+        [
+          73,
+          12.5,
+          0.5
+        ],
+        [
+          74,
+          13,
+          1
+        ],
+        [
+          73,
+          14,
+          1
+        ],
+        [
+          71,
+          15,
+          1
+        ],
+        [
+          69,
+          16,
+          1
+        ],
+        [
+          71,
+          17,
+          1
+        ],
+        [
+          73,
+          18,
+          1
+        ],
+        [
+          74,
+          19,
+          1
+        ],
+        [
+          69,
+          20,
+          1
+        ],
+        [
+          67,
+          21,
+          1
+        ],
+        [
+          66,
+          22,
+          2
+        ],
+        [
+          66,
+          24,
+          0.5
+        ],
+        [
+          64,
+          24.5,
+          0.5
+        ],
+        [
+          62,
+          25,
+          1.5
+        ],
+        [
+          64,
+          26.5,
+          0.5
+        ],
+        [
+          66,
+          27,
+          0.5
+        ],
+        [
+          67,
+          27.5,
+          0.5
+        ],
+        [
+          69,
+          28,
+          2
+        ],
+        [
+          71,
+          30,
+          0.5
+        ],
+        [
+          73,
+          30.5,
+          0.5
+        ],
+        [
+          74,
+          31,
+          1
+        ],
+        [
+          73,
+          32,
+          1
+        ],
+        [
+          71,
+          33,
+          1
+        ],
+        [
+          69,
+          34,
+          2
+        ],
+        [
+          71,
+          36,
+          0.5
+        ],
+        [
+          73,
+          36.5,
+          0.5
+        ],
+        [
+          74,
+          37,
+          1
+        ],
+        [
+          73,
+          38,
+          1
+        ],
+        [
+          71,
+          39,
+          1
+        ],
+        [
+          69,
+          40,
+          1
+        ],
+        [
+          71,
+          41,
+          1
+        ],
+        [
+          73,
+          42,
+          1
+        ],
+        [
+          74,
+          43,
+          1
+        ],
+        [
+          69,
+          44,
+          1
+        ],
+        [
+          67,
+          45,
+          1
+        ],
+        [
+          66,
+          46,
+          2
+        ],
+        [
+          66,
+          48,
+          0.5
+        ],
+        [
+          64,
+          48.5,
+          0.5
+        ],
+        [
+          62,
+          49,
+          1.5
+        ],
+        [
+          64,
+          50.5,
+          0.5
+        ],
+        [
+          66,
+          51,
+          0.5
+        ],
+        [
+          67,
+          51.5,
+          0.5
+        ],
+        [
+          69,
+          52,
+          2
+        ],
+        [
+          74,
+          54,
+          0.5
+        ],
+        [
+          73,
+          54.5,
+          0.5
+        ],
+        [
+          71,
+          55,
+          2
+        ],
+        [
+          71,
+          57,
+          1
+        ],
+        [
+          69,
+          58,
+          2
+        ],
+        [
+          69,
+          60,
+          1
+        ],
+        [
+          74,
+          61,
+          1
+        ],
+        [
+          73,
+          62,
+          1
+        ],
+        [
+          71,
+          63,
+          1
+        ],
+        [
+          69,
+          64,
+          1
+        ],
+        [
+          71,
+          65,
+          1
+        ],
+        [
+          73,
+          66,
+          1
+        ],
+        [
+          74,
+          67,
+          1
+        ],
+        [
+          69,
+          68,
+          1
+        ],
+        [
+          67,
+          69,
+          1
+        ],
+        [
+          66,
+          70,
+          2
+        ]
+      ],
+      "sourceTokens": [
+        "fis'8",
+        "e'",
+        "d'4.",
+        "e'8",
+        "fis'",
+        "g'",
+        "a'2",
+        "b'8",
+        "cis''",
+        "d''4",
+        "cis''",
+        "b'",
+        "a'2",
+        "b'8",
+        "cis''",
+        "d''4",
+        "cis''",
+        "b'",
+        "a'",
+        "b'",
+        "cis''",
+        "d''",
+        "a'",
+        "g'",
+        "fis'2",
+        "fis'8",
+        "e'",
+        "d'4.",
+        "e'8",
+        "fis'",
+        "g'",
+        "a'2",
+        "b'8",
+        "cis''",
+        "d''4",
+        "cis''",
+        "b'",
+        "a'2",
+        "b'8",
+        "cis''",
+        "d''4",
+        "cis''",
+        "b'",
+        "a'",
+        "b'",
+        "cis''",
+        "d''",
+        "a'",
+        "g'",
+        "fis'2",
+        "fis'8",
+        "e'",
+        "d'4.",
+        "e'8",
+        "fis'",
+        "g'",
+        "a'2",
+        "d''8",
+        "cis''",
+        "b'2",
+        "b'4",
+        "a'2",
+        "a'4",
+        "d''",
+        "cis''",
+        "b'",
+        "a'",
+        "b'",
+        "cis''",
+        "d''",
+        "a'",
+        "g'",
+        "fis'2"
+      ],
+      "silenceEvents": [],
+      "counts": {
+        "sourceEvents": 73,
+        "scalarNoteEvents": 73,
+        "printedRests": 0,
+        "invisibleSkips": 0,
+        "ties": 0,
+        "chordsInSelectedVoice": 0
+      },
+      "validation": {
+        "id": 1243,
+        "ppq": 384,
+        "midiEndQuarter": 72,
+        "sourceEndQuarter": 72,
+        "noteEventsChecked": 73,
+        "exactPitchOnsetDurationMatches": 73,
+        "unmatched": [],
+        "tempoMicrosecondsPerQuarter": [
+          1000000
+        ],
+        "midiSHA256": "5529D7E725981D92B5649B820C431E77A08FB71F0DB94249D994E67A28546DEA",
+        "method": "Each pitch/onset/duration was read from the named source voice, then independently matched to an exact scalar note interval in official MIDI. MIDI was used for confirmation, not voice discovery.",
+        "completeSourceAndMidiEndMatch": true
+      }
+    },
+    {
+      "title": "The Holly and the Ivy",
+      "mutopiaId": 644,
+      "status": "RESEARCH_ONLY",
+      "sourceProof": {
+        "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=644",
+        "notationUrl": "https://www.mutopiaproject.org/ftp/Traditional/thehollyandtheivy/thehollyandtheivy.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/Traditional/thehollyandtheivy/thehollyandtheivy.mid",
+        "editionReference": "Mutopia-2005/12/23-644",
+        "downloadLinkVerified": true,
+        "retrieval": "Official page links verified by web click; LilyPond text and MIDI read via permitted shell requests into memory; no source file downloads saved.",
+        "editionLicense": "Public Domain",
+        "licenseHeader": "copyright = \"Public Domain\"",
+        "licenseFooter": "Placed in the public domain by the typesetter.",
+        "historicalSource": "http://www.hymnsandcarolsofchristmas.com/Hymns_and_Carols/holly_and_the_ivy.htm",
+        "voiceVariable": "soprano",
+        "voiceDeclarationStartLine": 33,
+        "voiceSelection": "Explicit named melody/soprano voice, not highest-note or MIDI-track heuristics.",
+        "voiceSourceExcerpt": "\\partial 4\n  f4 |\n  f8 f f4 d' | % 1\n  c a4. f8 |\n  f8 f f4 d' | % 3\n  c2 c8( bes) |\n  a8 g f4 a8 a | % 5\n  d,8 d c4 f8 (g) |\n  a bes a4 g | % 7\n  f2 \n\n% Chorus\n\n  f4 |\n  f8 f f4 d' | % 9\n  c a4. f8 |\n  f8 f f4 d' | % 11\n  c2 c8( bes) |\n  a8 g f4 a4 | % 13\n  d,8 d c4 f8 (g) |\n  a bes a4 g | % 15\n  f2",
+        "aliasEvidence": null
+      },
+      "meter": {
+        "numerator": 3,
+        "denominator": 4,
+        "key": "F major",
+        "explicitPickupQuarter": 1
+      },
+      "tempo": {
+        "sourceQuarterBpm": 120,
+        "sourceEvidence": "\\tempo 4 = 120",
+        "officialMidiMicrosecondsPerQuarter": [
+          500000,
+          500000
+        ],
+        "officialMidiQuarterBpm": [
+          120
+        ],
+        "durationMsAtSourceTempo": 24000,
+        "conversion": "startMs=startQuarter*60000/sourceQuarterBpm; durationMs=durationQuarter*60000/sourceQuarterBpm. Tempo metadata describes this score/export, not a tempo recommendation."
+      },
+      "form": {
+        "description": "Complete first verse plus complete refrain once, including opening pickup and shortened final bar. Chorus pickup starts at quarter 24; no invented extra stanzas.",
+        "sectionRangesQuarter": [
+          [
+            0,
+            24
+          ],
+          [
+            24,
+            48
+          ]
+        ],
+        "uncertainties": [
+          "Score ends with \\bar \":|\" but has no \\repeat construct or repeat count. This ledger contains one complete source cycle; do not assert a finite expanded repeat schedule from this file alone.",
+          "Source attribution says Druidic (Celtic?) Traditional; that historical attribution is not independently endorsed."
+        ],
+        "totalQuarter": 48,
+        "meterGridSegments": 17,
+        "fullMeasures": 15,
+        "barBoundaries": [
+          {
+            "index": 0,
+            "kind": "explicit pickup",
+            "startQuarter": 0,
+            "endQuarter": 1
+          },
+          {
+            "index": 1,
+            "kind": "full measure",
+            "startQuarter": 1,
+            "endQuarter": 4
+          },
+          {
+            "index": 2,
+            "kind": "full measure",
+            "startQuarter": 4,
+            "endQuarter": 7
+          },
+          {
+            "index": 3,
+            "kind": "full measure",
+            "startQuarter": 7,
+            "endQuarter": 10
+          },
+          {
+            "index": 4,
+            "kind": "full measure",
+            "startQuarter": 10,
+            "endQuarter": 13
+          },
+          {
+            "index": 5,
+            "kind": "full measure",
+            "startQuarter": 13,
+            "endQuarter": 16
+          },
+          {
+            "index": 6,
+            "kind": "full measure",
+            "startQuarter": 16,
+            "endQuarter": 19
+          },
+          {
+            "index": 7,
+            "kind": "full measure",
+            "startQuarter": 19,
+            "endQuarter": 22
+          },
+          {
+            "index": 8,
+            "kind": "full measure",
+            "startQuarter": 22,
+            "endQuarter": 25
+          },
+          {
+            "index": 9,
+            "kind": "full measure",
+            "startQuarter": 25,
+            "endQuarter": 28
+          },
+          {
+            "index": 10,
+            "kind": "full measure",
+            "startQuarter": 28,
+            "endQuarter": 31
+          },
+          {
+            "index": 11,
+            "kind": "full measure",
+            "startQuarter": 31,
+            "endQuarter": 34
+          },
+          {
+            "index": 12,
+            "kind": "full measure",
+            "startQuarter": 34,
+            "endQuarter": 37
+          },
+          {
+            "index": 13,
+            "kind": "full measure",
+            "startQuarter": 37,
+            "endQuarter": 40
+          },
+          {
+            "index": 14,
+            "kind": "full measure",
+            "startQuarter": 40,
+            "endQuarter": 43
+          },
+          {
+            "index": 15,
+            "kind": "full measure",
+            "startQuarter": 43,
+            "endQuarter": 46
+          },
+          {
+            "index": 16,
+            "kind": "literal final partial",
+            "startQuarter": 46,
+            "endQuarter": 48
+          }
+        ],
+        "repeatExpansionApplied": false
+      },
+      "events": [
+        [
+          65,
+          0,
+          1
+        ],
+        [
+          65,
+          1,
+          0.5
+        ],
+        [
+          65,
+          1.5,
+          0.5
+        ],
+        [
+          65,
+          2,
+          1
+        ],
+        [
+          74,
+          3,
+          1
+        ],
+        [
+          72,
+          4,
+          1
+        ],
+        [
+          69,
+          5,
+          1.5
+        ],
+        [
+          65,
+          6.5,
+          0.5
+        ],
+        [
+          65,
+          7,
+          0.5
+        ],
+        [
+          65,
+          7.5,
+          0.5
+        ],
+        [
+          65,
+          8,
+          1
+        ],
+        [
+          74,
+          9,
+          1
+        ],
+        [
+          72,
+          10,
+          2
+        ],
+        [
+          72,
+          12,
+          0.5
+        ],
+        [
+          70,
+          12.5,
+          0.5
+        ],
+        [
+          69,
+          13,
+          0.5
+        ],
+        [
+          67,
+          13.5,
+          0.5
+        ],
+        [
+          65,
+          14,
+          1
+        ],
+        [
+          69,
+          15,
+          0.5
+        ],
+        [
+          69,
+          15.5,
+          0.5
+        ],
+        [
+          62,
+          16,
+          0.5
+        ],
+        [
+          62,
+          16.5,
+          0.5
+        ],
+        [
+          60,
+          17,
+          1
+        ],
+        [
+          65,
+          18,
+          0.5
+        ],
+        [
+          67,
+          18.5,
+          0.5
+        ],
+        [
+          69,
+          19,
+          0.5
+        ],
+        [
+          70,
+          19.5,
+          0.5
+        ],
+        [
+          69,
+          20,
+          1
+        ],
+        [
+          67,
+          21,
+          1
+        ],
+        [
+          65,
+          22,
+          2
+        ],
+        [
+          65,
+          24,
+          1
+        ],
+        [
+          65,
+          25,
+          0.5
+        ],
+        [
+          65,
+          25.5,
+          0.5
+        ],
+        [
+          65,
+          26,
+          1
+        ],
+        [
+          74,
+          27,
+          1
+        ],
+        [
+          72,
+          28,
+          1
+        ],
+        [
+          69,
+          29,
+          1.5
+        ],
+        [
+          65,
+          30.5,
+          0.5
+        ],
+        [
+          65,
+          31,
+          0.5
+        ],
+        [
+          65,
+          31.5,
+          0.5
+        ],
+        [
+          65,
+          32,
+          1
+        ],
+        [
+          74,
+          33,
+          1
+        ],
+        [
+          72,
+          34,
+          2
+        ],
+        [
+          72,
+          36,
+          0.5
+        ],
+        [
+          70,
+          36.5,
+          0.5
+        ],
+        [
+          69,
+          37,
+          0.5
+        ],
+        [
+          67,
+          37.5,
+          0.5
+        ],
+        [
+          65,
+          38,
+          1
+        ],
+        [
+          69,
+          39,
+          1
+        ],
+        [
+          62,
+          40,
+          0.5
+        ],
+        [
+          62,
+          40.5,
+          0.5
+        ],
+        [
+          60,
+          41,
+          1
+        ],
+        [
+          65,
+          42,
+          0.5
+        ],
+        [
+          67,
+          42.5,
+          0.5
+        ],
+        [
+          69,
+          43,
+          0.5
+        ],
+        [
+          70,
+          43.5,
+          0.5
+        ],
+        [
+          69,
+          44,
+          1
+        ],
+        [
+          67,
+          45,
+          1
+        ],
+        [
+          65,
+          46,
+          2
+        ]
+      ],
+      "sourceTokens": [
+        "f4",
+        "f8",
+        "f",
+        "f4",
+        "d'",
+        "c",
+        "a4.",
+        "f8",
+        "f8",
+        "f",
+        "f4",
+        "d'",
+        "c2",
+        "c8",
+        "bes",
+        "a8",
+        "g",
+        "f4",
+        "a8",
+        "a",
+        "d,8",
+        "d",
+        "c4",
+        "f8",
+        "g",
+        "a",
+        "bes",
+        "a4",
+        "g",
+        "f2",
+        "f4",
+        "f8",
+        "f",
+        "f4",
+        "d'",
+        "c",
+        "a4.",
+        "f8",
+        "f8",
+        "f",
+        "f4",
+        "d'",
+        "c2",
+        "c8",
+        "bes",
+        "a8",
+        "g",
+        "f4",
+        "a4",
+        "d,8",
+        "d",
+        "c4",
+        "f8",
+        "g",
+        "a",
+        "bes",
+        "a4",
+        "g",
+        "f2"
+      ],
+      "silenceEvents": [],
+      "counts": {
+        "sourceEvents": 59,
+        "scalarNoteEvents": 59,
+        "printedRests": 0,
+        "invisibleSkips": 0,
+        "ties": 0,
+        "chordsInSelectedVoice": 0
+      },
+      "validation": {
+        "id": 644,
+        "ppq": 384,
+        "midiEndQuarter": 48,
+        "sourceEndQuarter": 48,
+        "noteEventsChecked": 59,
+        "exactPitchOnsetDurationMatches": 59,
+        "unmatched": [],
+        "tempoMicrosecondsPerQuarter": [
+          500000,
+          500000
+        ],
+        "midiSHA256": "103692F749B39BF85C0BEF8FBA057F74C06D1DE130AEC01FD38F2EEDE2B22C4B",
+        "method": "Each pitch/onset/duration was read from the named source voice, then independently matched to an exact scalar note interval in official MIDI. MIDI was used for confirmation, not voice discovery.",
+        "completeSourceAndMidiEndMatch": true
+      }
+    },
+    {
+      "title": "O Come All Ye Faithful (Adeste Fideles)",
+      "mutopiaId": 367,
+      "status": "RESEARCH_ONLY",
+      "sourceProof": {
+        "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=367",
+        "notationUrl": "https://www.mutopiaproject.org/ftp/WadeJF/adeste/adeste.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/WadeJF/adeste/adeste.mid",
+        "editionReference": "Mutopia-2014/08/05-367",
+        "downloadLinkVerified": true,
+        "retrieval": "Official page links verified by web click; LilyPond text and MIDI read via permitted shell requests into memory; no source file downloads saved.",
+        "editionLicense": "Public Domain",
+        "licenseHeader": "license = \"Public Domain\"",
+        "licenseFooter": "Placed in the public domain by the typesetter.",
+        "historicalSource": "Cantus Diversi, 1751",
+        "voiceVariable": "upperOne",
+        "voiceDeclarationStartLine": 38,
+        "voiceSelection": "Explicit named melody/soprano voice, not highest-note or MIDI-track heuristics.",
+        "voiceSourceExcerpt": "\\voiceOne\n    \\clef \"treble\"\n    \\key a \\major\n    \\override Staff.TimeSignature.style = #'numbered\n    \\time 4/4\n %1\n    \\partial 4 a4 | a2 e4 a |\n    b2 e, |\n    cis'4 b cis d |\n    cis2 b4 a |\n    \\break\n %5\n    a2 gis4 fis |\n    gis4( a) b cis |\n    gis2( fis4.) e8 |\n    e1 | \n    \\break\n %9\n    e'2 d4 cis |\n    d2 cis |\n    b4 cis a b |\n    gis4.( fis8) e4 \n    \\bar \"|\" \\break\n %13\n    a | a gis a b |\n    a2 e4 cis' |\n    cis b cis d |\n    cis2 b4\n    \\bar \"|\" \\break\n %17\n    cis4 |\n    d4 cis b a |\n    gis2 a4( d) |\n    cis2( b4.) a8 |\n    a2. s4\n    \\bar \"||\"\n    a2 a\n    \\bar \"|.\"",
+        "aliasEvidence": {
+          "alternateEditionUrl": "https://www.mutopiaproject.org/ftp/WadeJF/adeste_fideles/adeste_fideles.ly",
+          "text": "Embedded ABC I:Partial=4 Title=O Come, All Ye Faithful"
+        }
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4,
+        "key": "A major",
+        "explicitPickupQuarter": 1
+      },
+      "tempo": {
+        "sourceQuarterBpm": 120,
+        "sourceEvidence": "\\tempo 4 = 120",
+        "officialMidiMicrosecondsPerQuarter": [
+          500000
+        ],
+        "officialMidiQuarterBpm": [
+          120
+        ],
+        "durationMsAtSourceTempo": 42500,
+        "conversion": "startMs=startQuarter*60000/sourceQuarterBpm; durationMs=durationQuarter*60000/sourceQuarterBpm. Tempo metadata describes this score/export, not a tempo recommendation."
+      },
+      "form": {
+        "description": "Complete opening verse tune, all three written refrain invitations, Dominum cadence, one silent quarter skip and the complete two-half-note Amen; no truncation at the preceding cadence.",
+        "sectionRangesQuarter": [
+          [
+            0,
+            49
+          ],
+          [
+            49,
+            81
+          ],
+          [
+            81,
+            85
+          ]
+        ],
+        "uncertainties": [
+          "Parentheses in upperOne are slurs, not ties. Even repeated same-pitch attacks, including both final Amen A4 half notes, remain distinct.",
+          "Multiple lyric stanzas are supplied, but the note source contains one full musical setting. No extra stanza-loop count is imposed.",
+          "The one-quarter s4 before Amen is invisible source silence, not a printed rest."
+        ],
+        "totalQuarter": 85,
+        "meterGridSegments": 22,
+        "fullMeasures": 21,
+        "barBoundaries": [
+          {
+            "index": 0,
+            "kind": "explicit pickup",
+            "startQuarter": 0,
+            "endQuarter": 1
+          },
+          {
+            "index": 1,
+            "kind": "full measure",
+            "startQuarter": 1,
+            "endQuarter": 5
+          },
+          {
+            "index": 2,
+            "kind": "full measure",
+            "startQuarter": 5,
+            "endQuarter": 9
+          },
+          {
+            "index": 3,
+            "kind": "full measure",
+            "startQuarter": 9,
+            "endQuarter": 13
+          },
+          {
+            "index": 4,
+            "kind": "full measure",
+            "startQuarter": 13,
+            "endQuarter": 17
+          },
+          {
+            "index": 5,
+            "kind": "full measure",
+            "startQuarter": 17,
+            "endQuarter": 21
+          },
+          {
+            "index": 6,
+            "kind": "full measure",
+            "startQuarter": 21,
+            "endQuarter": 25
+          },
+          {
+            "index": 7,
+            "kind": "full measure",
+            "startQuarter": 25,
+            "endQuarter": 29
+          },
+          {
+            "index": 8,
+            "kind": "full measure",
+            "startQuarter": 29,
+            "endQuarter": 33
+          },
+          {
+            "index": 9,
+            "kind": "full measure",
+            "startQuarter": 33,
+            "endQuarter": 37
+          },
+          {
+            "index": 10,
+            "kind": "full measure",
+            "startQuarter": 37,
+            "endQuarter": 41
+          },
+          {
+            "index": 11,
+            "kind": "full measure",
+            "startQuarter": 41,
+            "endQuarter": 45
+          },
+          {
+            "index": 12,
+            "kind": "full measure",
+            "startQuarter": 45,
+            "endQuarter": 49
+          },
+          {
+            "index": 13,
+            "kind": "full measure",
+            "startQuarter": 49,
+            "endQuarter": 53
+          },
+          {
+            "index": 14,
+            "kind": "full measure",
+            "startQuarter": 53,
+            "endQuarter": 57
+          },
+          {
+            "index": 15,
+            "kind": "full measure",
+            "startQuarter": 57,
+            "endQuarter": 61
+          },
+          {
+            "index": 16,
+            "kind": "full measure",
+            "startQuarter": 61,
+            "endQuarter": 65
+          },
+          {
+            "index": 17,
+            "kind": "full measure",
+            "startQuarter": 65,
+            "endQuarter": 69
+          },
+          {
+            "index": 18,
+            "kind": "full measure",
+            "startQuarter": 69,
+            "endQuarter": 73
+          },
+          {
+            "index": 19,
+            "kind": "full measure",
+            "startQuarter": 73,
+            "endQuarter": 77
+          },
+          {
+            "index": 20,
+            "kind": "full measure",
+            "startQuarter": 77,
+            "endQuarter": 81
+          },
+          {
+            "index": 21,
+            "kind": "full measure",
+            "startQuarter": 81,
+            "endQuarter": 85
+          }
+        ],
+        "repeatExpansionApplied": false
+      },
+      "events": [
+        [
+          69,
+          0,
+          1
+        ],
+        [
+          69,
+          1,
+          2
+        ],
+        [
+          64,
+          3,
+          1
+        ],
+        [
+          69,
+          4,
+          1
+        ],
+        [
+          71,
+          5,
+          2
+        ],
+        [
+          64,
+          7,
+          2
+        ],
+        [
+          73,
+          9,
+          1
+        ],
+        [
+          71,
+          10,
+          1
+        ],
+        [
+          73,
+          11,
+          1
+        ],
+        [
+          74,
+          12,
+          1
+        ],
+        [
+          73,
+          13,
+          2
+        ],
+        [
+          71,
+          15,
+          1
+        ],
+        [
+          69,
+          16,
+          1
+        ],
+        [
+          69,
+          17,
+          2
+        ],
+        [
+          68,
+          19,
+          1
+        ],
+        [
+          66,
+          20,
+          1
+        ],
+        [
+          68,
+          21,
+          1
+        ],
+        [
+          69,
+          22,
+          1
+        ],
+        [
+          71,
+          23,
+          1
+        ],
+        [
+          73,
+          24,
+          1
+        ],
+        [
+          68,
+          25,
+          2
+        ],
+        [
+          66,
+          27,
+          1.5
+        ],
+        [
+          64,
+          28.5,
+          0.5
+        ],
+        [
+          64,
+          29,
+          4
+        ],
+        [
+          76,
+          33,
+          2
+        ],
+        [
+          74,
+          35,
+          1
+        ],
+        [
+          73,
+          36,
+          1
+        ],
+        [
+          74,
+          37,
+          2
+        ],
+        [
+          73,
+          39,
+          2
+        ],
+        [
+          71,
+          41,
+          1
+        ],
+        [
+          73,
+          42,
+          1
+        ],
+        [
+          69,
+          43,
+          1
+        ],
+        [
+          71,
+          44,
+          1
+        ],
+        [
+          68,
+          45,
+          1.5
+        ],
+        [
+          66,
+          46.5,
+          0.5
+        ],
+        [
+          64,
+          47,
+          1
+        ],
+        [
+          69,
+          48,
+          1
+        ],
+        [
+          69,
+          49,
+          1
+        ],
+        [
+          68,
+          50,
+          1
+        ],
+        [
+          69,
+          51,
+          1
+        ],
+        [
+          71,
+          52,
+          1
+        ],
+        [
+          69,
+          53,
+          2
+        ],
+        [
+          64,
+          55,
+          1
+        ],
+        [
+          73,
+          56,
+          1
+        ],
+        [
+          73,
+          57,
+          1
+        ],
+        [
+          71,
+          58,
+          1
+        ],
+        [
+          73,
+          59,
+          1
+        ],
+        [
+          74,
+          60,
+          1
+        ],
+        [
+          73,
+          61,
+          2
+        ],
+        [
+          71,
+          63,
+          1
+        ],
+        [
+          73,
+          64,
+          1
+        ],
+        [
+          74,
+          65,
+          1
+        ],
+        [
+          73,
+          66,
+          1
+        ],
+        [
+          71,
+          67,
+          1
+        ],
+        [
+          69,
+          68,
+          1
+        ],
+        [
+          68,
+          69,
+          2
+        ],
+        [
+          69,
+          71,
+          1
+        ],
+        [
+          74,
+          72,
+          1
+        ],
+        [
+          73,
+          73,
+          2
+        ],
+        [
+          71,
+          75,
+          1.5
+        ],
+        [
+          69,
+          76.5,
+          0.5
+        ],
+        [
+          69,
+          77,
+          3
+        ],
+        [
+          null,
+          80,
+          1
+        ],
+        [
+          69,
+          81,
+          2
+        ],
+        [
+          69,
+          83,
+          2
+        ]
+      ],
+      "sourceTokens": [
+        "a4",
+        "a2",
+        "e4",
+        "a",
+        "b2",
+        "e,",
+        "cis'4",
+        "b",
+        "cis",
+        "d",
+        "cis2",
+        "b4",
+        "a",
+        "a2",
+        "gis4",
+        "fis",
+        "gis4",
+        "a",
+        "b",
+        "cis",
+        "gis2",
+        "fis4.",
+        "e8",
+        "e1",
+        "e'2",
+        "d4",
+        "cis",
+        "d2",
+        "cis",
+        "b4",
+        "cis",
+        "a",
+        "b",
+        "gis4.",
+        "fis8",
+        "e4",
+        "a",
+        "a",
+        "gis",
+        "a",
+        "b",
+        "a2",
+        "e4",
+        "cis'",
+        "cis",
+        "b",
+        "cis",
+        "d",
+        "cis2",
+        "b4",
+        "cis4",
+        "d4",
+        "cis",
+        "b",
+        "a",
+        "gis2",
+        "a4",
+        "d",
+        "cis2",
+        "b4.",
+        "a8",
+        "a2.",
+        "s4",
+        "a2",
+        "a"
+      ],
+      "silenceEvents": [
+        {
+          "eventIndex": 62,
+          "kind": "skip",
+          "startQuarter": 80,
+          "durationQuarter": 1,
+          "printedRest": false
+        }
+      ],
+      "counts": {
+        "sourceEvents": 65,
+        "scalarNoteEvents": 64,
+        "printedRests": 0,
+        "invisibleSkips": 1,
+        "ties": 0,
+        "chordsInSelectedVoice": 0
+      },
+      "validation": {
+        "id": 367,
+        "ppq": 384,
+        "midiEndQuarter": 85,
+        "sourceEndQuarter": 85,
+        "noteEventsChecked": 64,
+        "exactPitchOnsetDurationMatches": 64,
+        "unmatched": [],
+        "tempoMicrosecondsPerQuarter": [
+          500000
+        ],
+        "midiSHA256": "E245DC241C1C8F8018EC6DE0120EC10614FA77D3613FFD49507FE8748E9085AB",
+        "method": "Each pitch/onset/duration was read from the named source voice, then independently matched to an exact scalar note interval in official MIDI. MIDI was used for confirmation, not voice discovery.",
+        "completeSourceAndMidiEndMatch": true
+      }
+    },
+    {
+      "title": "Hark! The Herald Angels Sing",
+      "mutopiaId": 1261,
+      "status": "RESEARCH_ONLY",
+      "sourceProof": {
+        "piecePage": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=1261",
+        "notationUrl": "https://www.mutopiaproject.org/ftp/Mendelssohn-BartholdyF/mendelssohn/mendelssohn.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/Mendelssohn-BartholdyF/mendelssohn/mendelssohn.mid",
+        "editionReference": "Mutopia-2008/01/13-1261",
+        "downloadLinkVerified": true,
+        "retrieval": "Official page links verified by web click; LilyPond text and MIDI read via permitted shell requests into memory; no source file downloads saved.",
+        "editionLicense": "Public Domain",
+        "licenseHeader": "copyright = \"Public Domain\"",
+        "licenseFooter": "Placed in the public domain by the typesetter.",
+        "historicalSource": "www.cyberhymnal.org",
+        "voiceVariable": "Soprano",
+        "voiceDeclarationStartLine": 21,
+        "voiceSelection": "Explicit named melody/soprano voice, not highest-note or MIDI-track heuristics.",
+        "voiceSourceExcerpt": "\\time 4/4  { \\key f \\major c'4 f' f'4. e'8 f'4 a' a' g' c'' c'' c''4. bes'8 a'4 g' a'2 c'4 f' f'4. e'8 f'4 a' a' g' c'' g' g'4. e'8 e'4 d' c'2 c''4 c'' c'' f' bes' a' a' g' c'' c'' c'' f' bes' a' a' g' d'' d'' d'' c'' bes' a' bes'2 g'4 a'8 bes' c''4. f'8 f'4 g' a'2 d''4. d''8 d''4 c'' bes' a' bes'2 g'4 a'8 bes' c''4. f'8 f'4 g' f'2  \\bar \"|.\" }",
+        "aliasEvidence": "Embedded ABC I:Title=Hark! the Herald Angles Sing"
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4,
+        "key": "F major",
+        "explicitPickupQuarter": null
+      },
+      "tempo": {
+        "sourceQuarterBpm": 115,
+        "sourceEvidence": "tempWholesPerMinute = #(ly:make-moment 115 4); embedded ABC Q:1/4=115",
+        "officialMidiMicrosecondsPerQuarter": [
+          1000000
+        ],
+        "officialMidiQuarterBpm": [
+          60
+        ],
+        "durationMsAtSourceTempo": 41739.13043478261,
+        "conversion": "startMs=startQuarter*60000/sourceQuarterBpm; durationMs=durationQuarter*60000/sourceQuarterBpm. Tempo metadata describes this score/export, not a tempo recommendation."
+      },
+      "form": {
+        "description": "Entire explicitly encoded soprano hymn tune with complete repeated closing material and final F4 cadence; no encoded repeats and no truncation.",
+        "sectionRangesQuarter": null,
+        "uncertainties": [
+          "Legacy tempWholesPerMinute specifies quarter=115 in the source/embedded ABC, but official MIDI tempo is quarter=60. Neither value is silently substituted for the other.",
+          "Official title is Mendelssohn (hymntune); the embedded ABC I:Title identifies Hark! the Herald Angles Sing (source spelling)."
+        ],
+        "totalQuarter": 80,
+        "meterGridSegments": 20,
+        "fullMeasures": 20,
+        "barBoundaries": [
+          {
+            "index": 0,
+            "kind": "full measure",
+            "startQuarter": 0,
+            "endQuarter": 4
+          },
+          {
+            "index": 1,
+            "kind": "full measure",
+            "startQuarter": 4,
+            "endQuarter": 8
+          },
+          {
+            "index": 2,
+            "kind": "full measure",
+            "startQuarter": 8,
+            "endQuarter": 12
+          },
+          {
+            "index": 3,
+            "kind": "full measure",
+            "startQuarter": 12,
+            "endQuarter": 16
+          },
+          {
+            "index": 4,
+            "kind": "full measure",
+            "startQuarter": 16,
+            "endQuarter": 20
+          },
+          {
+            "index": 5,
+            "kind": "full measure",
+            "startQuarter": 20,
+            "endQuarter": 24
+          },
+          {
+            "index": 6,
+            "kind": "full measure",
+            "startQuarter": 24,
+            "endQuarter": 28
+          },
+          {
+            "index": 7,
+            "kind": "full measure",
+            "startQuarter": 28,
+            "endQuarter": 32
+          },
+          {
+            "index": 8,
+            "kind": "full measure",
+            "startQuarter": 32,
+            "endQuarter": 36
+          },
+          {
+            "index": 9,
+            "kind": "full measure",
+            "startQuarter": 36,
+            "endQuarter": 40
+          },
+          {
+            "index": 10,
+            "kind": "full measure",
+            "startQuarter": 40,
+            "endQuarter": 44
+          },
+          {
+            "index": 11,
+            "kind": "full measure",
+            "startQuarter": 44,
+            "endQuarter": 48
+          },
+          {
+            "index": 12,
+            "kind": "full measure",
+            "startQuarter": 48,
+            "endQuarter": 52
+          },
+          {
+            "index": 13,
+            "kind": "full measure",
+            "startQuarter": 52,
+            "endQuarter": 56
+          },
+          {
+            "index": 14,
+            "kind": "full measure",
+            "startQuarter": 56,
+            "endQuarter": 60
+          },
+          {
+            "index": 15,
+            "kind": "full measure",
+            "startQuarter": 60,
+            "endQuarter": 64
+          },
+          {
+            "index": 16,
+            "kind": "full measure",
+            "startQuarter": 64,
+            "endQuarter": 68
+          },
+          {
+            "index": 17,
+            "kind": "full measure",
+            "startQuarter": 68,
+            "endQuarter": 72
+          },
+          {
+            "index": 18,
+            "kind": "full measure",
+            "startQuarter": 72,
+            "endQuarter": 76
+          },
+          {
+            "index": 19,
+            "kind": "full measure",
+            "startQuarter": 76,
+            "endQuarter": 80
+          }
+        ],
+        "repeatExpansionApplied": false
+      },
+      "events": [
+        [
+          60,
+          0,
+          1
+        ],
+        [
+          65,
+          1,
+          1
+        ],
+        [
+          65,
+          2,
+          1.5
+        ],
+        [
+          64,
+          3.5,
+          0.5
+        ],
+        [
+          65,
+          4,
+          1
+        ],
+        [
+          69,
+          5,
+          1
+        ],
+        [
+          69,
+          6,
+          1
+        ],
+        [
+          67,
+          7,
+          1
+        ],
+        [
+          72,
+          8,
+          1
+        ],
+        [
+          72,
+          9,
+          1
+        ],
+        [
+          72,
+          10,
+          1.5
+        ],
+        [
+          70,
+          11.5,
+          0.5
+        ],
+        [
+          69,
+          12,
+          1
+        ],
+        [
+          67,
+          13,
+          1
+        ],
+        [
+          69,
+          14,
+          2
+        ],
+        [
+          60,
+          16,
+          1
+        ],
+        [
+          65,
+          17,
+          1
+        ],
+        [
+          65,
+          18,
+          1.5
+        ],
+        [
+          64,
+          19.5,
+          0.5
+        ],
+        [
+          65,
+          20,
+          1
+        ],
+        [
+          69,
+          21,
+          1
+        ],
+        [
+          69,
+          22,
+          1
+        ],
+        [
+          67,
+          23,
+          1
+        ],
+        [
+          72,
+          24,
+          1
+        ],
+        [
+          67,
+          25,
+          1
+        ],
+        [
+          67,
+          26,
+          1.5
+        ],
+        [
+          64,
+          27.5,
+          0.5
+        ],
+        [
+          64,
+          28,
+          1
+        ],
+        [
+          62,
+          29,
+          1
+        ],
+        [
+          60,
+          30,
+          2
+        ],
+        [
+          72,
+          32,
+          1
+        ],
+        [
+          72,
+          33,
+          1
+        ],
+        [
+          72,
+          34,
+          1
+        ],
+        [
+          65,
+          35,
+          1
+        ],
+        [
+          70,
+          36,
+          1
+        ],
+        [
+          69,
+          37,
+          1
+        ],
+        [
+          69,
+          38,
+          1
+        ],
+        [
+          67,
+          39,
+          1
+        ],
+        [
+          72,
+          40,
+          1
+        ],
+        [
+          72,
+          41,
+          1
+        ],
+        [
+          72,
+          42,
+          1
+        ],
+        [
+          65,
+          43,
+          1
+        ],
+        [
+          70,
+          44,
+          1
+        ],
+        [
+          69,
+          45,
+          1
+        ],
+        [
+          69,
+          46,
+          1
+        ],
+        [
+          67,
+          47,
+          1
+        ],
+        [
+          74,
+          48,
+          1
+        ],
+        [
+          74,
+          49,
+          1
+        ],
+        [
+          74,
+          50,
+          1
+        ],
+        [
+          72,
+          51,
+          1
+        ],
+        [
+          70,
+          52,
+          1
+        ],
+        [
+          69,
+          53,
+          1
+        ],
+        [
+          70,
+          54,
+          2
+        ],
+        [
+          67,
+          56,
+          1
+        ],
+        [
+          69,
+          57,
+          0.5
+        ],
+        [
+          70,
+          57.5,
+          0.5
+        ],
+        [
+          72,
+          58,
+          1.5
+        ],
+        [
+          65,
+          59.5,
+          0.5
+        ],
+        [
+          65,
+          60,
+          1
+        ],
+        [
+          67,
+          61,
+          1
+        ],
+        [
+          69,
+          62,
+          2
+        ],
+        [
+          74,
+          64,
+          1.5
+        ],
+        [
+          74,
+          65.5,
+          0.5
+        ],
+        [
+          74,
+          66,
+          1
+        ],
+        [
+          72,
+          67,
+          1
+        ],
+        [
+          70,
+          68,
+          1
+        ],
+        [
+          69,
+          69,
+          1
+        ],
+        [
+          70,
+          70,
+          2
+        ],
+        [
+          67,
+          72,
+          1
+        ],
+        [
+          69,
+          73,
+          0.5
+        ],
+        [
+          70,
+          73.5,
+          0.5
+        ],
+        [
+          72,
+          74,
+          1.5
+        ],
+        [
+          65,
+          75.5,
+          0.5
+        ],
+        [
+          65,
+          76,
+          1
+        ],
+        [
+          67,
+          77,
+          1
+        ],
+        [
+          65,
+          78,
+          2
+        ]
+      ],
+      "sourceTokens": [
+        "c'4",
+        "f'",
+        "f'4.",
+        "e'8",
+        "f'4",
+        "a'",
+        "a'",
+        "g'",
+        "c''",
+        "c''",
+        "c''4.",
+        "bes'8",
+        "a'4",
+        "g'",
+        "a'2",
+        "c'4",
+        "f'",
+        "f'4.",
+        "e'8",
+        "f'4",
+        "a'",
+        "a'",
+        "g'",
+        "c''",
+        "g'",
+        "g'4.",
+        "e'8",
+        "e'4",
+        "d'",
+        "c'2",
+        "c''4",
+        "c''",
+        "c''",
+        "f'",
+        "bes'",
+        "a'",
+        "a'",
+        "g'",
+        "c''",
+        "c''",
+        "c''",
+        "f'",
+        "bes'",
+        "a'",
+        "a'",
+        "g'",
+        "d''",
+        "d''",
+        "d''",
+        "c''",
+        "bes'",
+        "a'",
+        "bes'2",
+        "g'4",
+        "a'8",
+        "bes'",
+        "c''4.",
+        "f'8",
+        "f'4",
+        "g'",
+        "a'2",
+        "d''4.",
+        "d''8",
+        "d''4",
+        "c''",
+        "bes'",
+        "a'",
+        "bes'2",
+        "g'4",
+        "a'8",
+        "bes'",
+        "c''4.",
+        "f'8",
+        "f'4",
+        "g'",
+        "f'2"
+      ],
+      "silenceEvents": [],
+      "counts": {
+        "sourceEvents": 76,
+        "scalarNoteEvents": 76,
+        "printedRests": 0,
+        "invisibleSkips": 0,
+        "ties": 0,
+        "chordsInSelectedVoice": 0
+      },
+      "validation": {
+        "id": 1261,
+        "ppq": 384,
+        "midiEndQuarter": 80,
+        "sourceEndQuarter": 80,
+        "noteEventsChecked": 76,
+        "exactPitchOnsetDurationMatches": 76,
+        "unmatched": [],
+        "tempoMicrosecondsPerQuarter": [
+          1000000
+        ],
+        "midiSHA256": "0E8CBFFA0A338E1DF93110256D8968B2FD807355151C5130733AA15B1365CC61",
+        "method": "Each pitch/onset/duration was read from the named source voice, then independently matched to an exact scalar note interval in official MIDI. MIDI was used for confirmation, not voice discovery.",
+        "completeSourceAndMidiEndMatch": true
+      }
+    }
+  ]
+}

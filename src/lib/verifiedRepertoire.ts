@@ -3,6 +3,7 @@ import silentNight from "../../content/catalog/verified/silent-night.json";
 import wenceslas from "../../content/catalog/verified/good-king-wenceslas.json";
 import raghupati from "../../content/catalog/verified/raghupati-raghav.json";
 import gymnopedie from "../../content/catalog/verified/gymnopedie-1.json";
+import harkHerald from "../../content/catalog/verified/hark-herald.json";
 import { verifiedVoiceEvents } from './verifiedVoiceEvents';
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
@@ -92,7 +93,7 @@ function catalogEntry(score: {
 }; }
 
 export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [
-  ...[minuet, silentNight, wenceslas, raghupati].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
+  ...[minuet, silentNight, wenceslas, raghupati, harkHerald].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
   catalogEntry(gymnopedie, verifiedVoiceEvents(gymnopedie)),
 ];
 

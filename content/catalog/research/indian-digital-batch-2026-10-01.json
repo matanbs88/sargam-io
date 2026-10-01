@@ -1,0 +1,1859 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-01",
+  "status": "research-only-five-candidate-batch-partially-qualified",
+  "catalogEligible": false,
+  "published": false,
+  "countsTowardCatalog": false,
+  "summary": {
+    "candidates": 5,
+    "completeWrittenNotationSequencesRead": 3,
+    "fullyClearedCompleteCatalogPieces": 0,
+    "derivedLedgers": 2,
+    "qualification": "Three complete written notation sequences were readable (Om Jai Jagdish Hare, Ekla Chalo Re, Anandaloke Mangalaloke). Two anthem MIDI routes are publicly listed but bytes and complete form were not verified. Five fully qualified complete editions were NOT established."
+  },
+  "method": {
+    "browserUsed": false,
+    "shellDownloadsUsed": false,
+    "deniedDownloadsRepeated": false,
+    "notesGuessed": false,
+    "sourceAudioUsed": false,
+    "appChanged": false,
+    "sourcePixelsInspected": false,
+    "pdfBoundary": "Small public anthem PDFs opened through the web reader. Screenshot calls returned reference text without visible pixels in this tool connection; no visual score review is claimed.",
+    "scope": "One research JSON only; no catalog registration, publication, count or code changes. Existing Raghupati and rejected Jana Gana Mana edition excluded."
+  },
+  "candidates": [
+    {
+      "id": "om-jai-jagdish-hare-wikipedia-lilypond",
+      "title": "Om Jai Jagdish Hare",
+      "category": "Hindi aarti/bhajan",
+      "edition": {
+        "name": "Italian Wikipedia contributor LilyPond setting",
+        "revision": 147805346,
+        "revisionDate": "2025-11-14",
+        "historicalNotationEdition": null,
+        "attribution": "Italian Wikipedia contributors; hymn attributed on the page to Shardha Ram Phillauri. The notation's arranger and historical tune witness are not identified."
+      },
+      "sources": {
+        "page": "https://it.wikipedia.org/wiki/Om%CC%90_jaya_Jagad%C4%AB%C5%9Ba_Hare",
+        "revision": "https://it.wikipedia.org/w/index.php?title=Om%CC%90_jaya_Jagad%C4%AB%C5%9Ba_Hare&oldid=147805346",
+        "locator": "Testo e melodia: complete embedded LilyPond melody, repeat/alternative blocks and MIDI score"
+      },
+      "digitalNotation": {
+        "format": "LilyPond",
+        "access": "Entire melody source read in web-rendered page",
+        "voice": "Single pan-flute staff; no accompaniment",
+        "key": "F-sharp major",
+        "relativeAnchor": "c' (C4)",
+        "meter": "4/4 implicit LilyPond default; no explicit time command",
+        "tempoQuarterBpm": 96
+      },
+      "completeForm": {
+        "status": "complete-for-this-encoded-setting",
+        "scope": "Opening refrain and antara melodic types with literal source repeats and endings; not an assertion of a complete sung rendition of every lyric stanza",
+        "sequence": [
+          "pickup",
+          "refrain",
+          "ending1",
+          "refrain",
+          "ending2",
+          "antara",
+          "antara"
+        ],
+        "sectionQuarterBeats": {
+          "pickup": 1,
+          "refrain": 40,
+          "ending1": 4,
+          "ending2": 4,
+          "antara": 48
+        },
+        "unfoldedQuarterBeats": 185,
+        "pitchedOnsets": 264,
+        "restEvents": 14,
+        "unfoldedSecondsAtEncodedTempo": 115.625,
+        "ties": "No tie tokens in this melody; repeated same-pitch notes remain separate."
+      },
+      "rights": {
+        "notationLicense": "CC BY-SA 4.0 via Wikipedia page license",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "attribution": "Italian Wikipedia contributors, Om̐ jaya Jagadīśa Hare, revision 147805346. Derived research note ledger changes representation and unfolds the source form; retain attribution and share-alike obligations for this adaptation.",
+        "underlyingTunePublicDomainVerified": false
+      },
+      "uncertainty": [
+        "Exact historical melody provenance absent; old lyrics do not prove this setting predates modern film versions.",
+        "Implicit meter and contributor-chosen tempo are edition properties, not traditional performance authority.",
+        "Mechanical relative-octave decoding and beat sums checked; no independent compilation, audio comparison or primary scan verification."
+      ],
+      "recommendation": "Strongest immediately readable bhajan notation lead; do not promote until melody lineage and edition reuse obligations are reviewed.",
+      "derivedEvents": {
+        "status": "complete-mechanical-derivation-of-encoded-setting",
+        "columns": [
+          "scientificPitchOrNullRest",
+          "durationInQuarterBeatsRational"
+        ],
+        "onsets": "Cumulative within each segment; concatenate completeForm.sequence for exact unfolded onsets. The pickup occurs once. Null is a rest; E# spelling retained.",
+        "segments": {
+          "pickup": [
+            [
+              "F#4",
+              "1"
+            ]
+          ],
+          "refrain": [
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              null,
+              "2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "D#5",
+              "1/2"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              null,
+              "2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "D#4",
+              "1"
+            ],
+            [
+              null,
+              "1"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ]
+          ],
+          "ending1": [
+            [
+              "F#4",
+              "2"
+            ],
+            [
+              null,
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ]
+          ],
+          "ending2": [
+            [
+              "F#4",
+              "2"
+            ],
+            [
+              null,
+              "2"
+            ]
+          ],
+          "antara": [
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "D#5",
+              "1/2"
+            ],
+            [
+              "C#5",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "2"
+            ],
+            [
+              null,
+              "2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "B4",
+              "1"
+            ],
+            [
+              "B4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "D#4",
+              "1"
+            ],
+            [
+              null,
+              "1"
+            ],
+            [
+              "G#4",
+              "1"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "A#4",
+              "1/2"
+            ],
+            [
+              "G#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "E#4",
+              "1/2"
+            ],
+            [
+              "F#4",
+              "2"
+            ],
+            [
+              null,
+              "2"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "anandaloke-mangalaloke-swaralipi",
+      "title": "Anandaloke Mangalaloke",
+      "category": "Bengali Brahmasangeet/devotional Rabindrasangeet; authored regional tradition, not anonymous folk",
+      "edition": {
+        "name": "Ten Songs of Tagore, In Data / Swaralipi Corpus v0.1",
+        "curator": "Indranil (Neel) Banerjee",
+        "released": "2026-08-11",
+        "lineage": "SNLTR Rabindra Rachanabali digital edition of Swarabitan",
+        "swarabitanVolume": null,
+        "volumeLimitation": "Per-song canonical provenance JSON was not accessible through this web reader; exact printed volume/page not established."
+      },
+      "sources": {
+        "corpus": "https://github.com/NeelVerse-Lab/tagore-swaralipi",
+        "datasetCard": "https://raw.githubusercontent.com/NeelVerse-Lab/tagore-swaralipi/main/docs/DATASET_CARD.md",
+        "notationText": "https://github.com/indranilbanerjee/tagore-swaralipi/blob/main/data/text/anandaloke-mangalaloke.txt",
+        "musicxml": "https://github.com/indranilbanerjee/tagore-swaralipi/blob/main/derived/musicxml/anandaloke-mangalaloke.musicxml",
+        "midiRoute": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/derived/midi/anandaloke-mangalaloke.mid",
+        "primaryArchiveRoot": "https://rabindra-rachanabali.nltr.org/"
+      },
+      "digitalNotation": {
+        "format": "MusicXML 4.0 plus canonical Swaralipi-JSON and round-trip sargam-text",
+        "access": "Complete 72-line notation text read; MusicXML content partially readable, web view truncates before file end",
+        "voice": "One melodic line; kan grace annotations separate",
+        "absoluteTonic": "C4 selected solely for this research projection; original notation is tonic-relative",
+        "tempo": null,
+        "taal": "Ektaal 12 matras, vibhags 3+3+3+3"
+      },
+      "completeForm": {
+        "status": "complete-written-sequence-readable-performance-return-marks-unverified",
+        "sequence": [
+          "sthayi",
+          "antara",
+          "sanchari",
+          "abhog",
+          "body5",
+          "body6",
+          "body7"
+        ],
+        "notatedLines": 28,
+        "matrasPerLine": 12,
+        "matrasPerSection": 48,
+        "totalWrittenMatras": 336,
+        "metricPitchedOnsets": 235,
+        "unmeasuredKanAnnotations": 3,
+        "scope": "All seven text bodies present through the last lyric line. This ledger reads them once in file order. Section labels are curator-inferred; repeat/return marks in canonical JSON have not been independently read. No complete unfolded performance claim."
+      },
+      "rights": {
+        "dataLicense": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "attribution": "Indranil Banerjee, Ten Songs of Tagore, In Data, v0.1 (2026); notation lineage SNLTR / Swarabitan. This report maps swaras to a declared C4 tonic, joins sustain units and separates untimed kan annotations.",
+        "compositionStatus": "Dataset states Tagore compositions entered public domain in India in 2002; not an independent jurisdiction/notation-transcriber clearance."
+      },
+      "uncertainty": [
+        "Not one of the corpus's three declared scan-verified pieces; archive-derived.",
+        "Corpus cautions that some duration semantics remain uncertain, section labels are inferred, and MIDI/MusicXML are lossy.",
+        "No original Swarabitan scan or full per-song confidence/provenance JSON inspected.",
+        "Absolute tonic and beat-to-second speed are not supplied by the primary swaralipi; no tempo invented."
+      ],
+      "recommendation": "Useful fully readable devotional written-note dataset; primary volume/page and repeat/alternate spans are mandatory next verification gates.",
+      "derivedEvents": {
+        "status": "complete-written-sequence-only-not-performance-unfolding",
+        "columns": [
+          "scientificPitchAtDeclaredC4Tonic",
+          "durationInMatrasRational"
+        ],
+        "onsets": "Cumulative within section; section starts are 0,48,96,144,192,240,288 matras. '/' subdivisions divide one matra equally. '-' extends the preceding sounding note, not a new onset or rest.",
+        "tonicMidi": 60,
+        "segments": {
+          "sthayi": [
+            [
+              "E4",
+              "3"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "3"
+            ],
+            [
+              "D4",
+              "3"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "3"
+            ],
+            [
+              "F4",
+              "5/2"
+            ],
+            [
+              "A4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "3"
+            ],
+            [
+              "C4",
+              "3"
+            ],
+            [
+              "D4",
+              "3"
+            ],
+            [
+              "E4",
+              "16/3"
+            ],
+            [
+              "D4",
+              "1/3"
+            ],
+            [
+              "C4",
+              "1/3"
+            ],
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "C4",
+              "1/3"
+            ],
+            [
+              "D4",
+              "1/3"
+            ],
+            [
+              "C4",
+              "16/3"
+            ]
+          ],
+          "antara": [
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "E4",
+              "4"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "A4",
+              "1"
+            ],
+            [
+              "G4",
+              "11/2"
+            ],
+            [
+              "F4",
+              "1/2"
+            ]
+          ],
+          "sanchari": [
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "E4",
+              "4"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "A4",
+              "1"
+            ],
+            [
+              "G4",
+              "11/2"
+            ],
+            [
+              "F4",
+              "1/2"
+            ]
+          ],
+          "abhog": [
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "E4",
+              "4"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "A4",
+              "1"
+            ],
+            [
+              "G4",
+              "11/2"
+            ],
+            [
+              "F4",
+              "1/2"
+            ]
+          ],
+          "body5": [
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "E4",
+              "4"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "3/2"
+            ],
+            [
+              "F#4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "A4",
+              "1"
+            ],
+            [
+              "G4",
+              "11/2"
+            ],
+            [
+              "F4",
+              "1/2"
+            ]
+          ],
+          "body6": [
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "3/2"
+            ],
+            [
+              "B3",
+              "1/2"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "D4",
+              "3/2"
+            ],
+            [
+              "C4",
+              "1/2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "E4",
+              "7/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "A4",
+              "1"
+            ],
+            [
+              "G4",
+              "11/2"
+            ],
+            [
+              "F4",
+              "1/2"
+            ]
+          ],
+          "body7": [
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "C4",
+              "2"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "1"
+            ],
+            [
+              "D4",
+              "2"
+            ],
+            [
+              "C4",
+              "1"
+            ],
+            [
+              "B3",
+              "1"
+            ],
+            [
+              "E4",
+              "2"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "E4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1/2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F4",
+              "1"
+            ],
+            [
+              "E4",
+              "7/2"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "2"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "F#4",
+              "1"
+            ],
+            [
+              "G4",
+              "1"
+            ],
+            [
+              "A4",
+              "1"
+            ],
+            [
+              "G4",
+              "11/2"
+            ],
+            [
+              "F4",
+              "1/2"
+            ]
+          ]
+        },
+        "kanAnnotations": [
+          {
+            "section": "sthayi",
+            "eventIndex": 3,
+            "pitch": "D4",
+            "timing": "unmeasured-kan-not-in-metric-ledger"
+          },
+          {
+            "section": "sthayi",
+            "eventIndex": 13,
+            "pitch": "D4",
+            "timing": "unmeasured-kan-not-in-metric-ledger"
+          },
+          {
+            "section": "body6",
+            "eventIndex": 9,
+            "pitch": "C4",
+            "timing": "unmeasured-kan-not-in-metric-ledger"
+          }
+        ],
+        "gracePolicy": "No metric time assigned to kan notes. They must not be silently dropped or assigned invented durations in publication."
+      }
+    },
+    {
+      "id": "ekla-chalo-re-swaralipi",
+      "title": "Ekla Chalo Re (Jodi Tor Dak Shune Keu Na Ase)",
+      "category": "Bengali swadesh song / Baul-sur Rabindrasangeet",
+      "edition": {
+        "name": "Ten Songs of Tagore, In Data / Swaralipi Corpus v0.1",
+        "curator": "Indranil (Neel) Banerjee",
+        "released": "2026-08-11",
+        "lineage": "SNLTR digital Swarabitan; exact printed volume/page not retrieved"
+      },
+      "sources": {
+        "notationText": "https://github.com/indranilbanerjee/tagore-swaralipi/blob/main/data/text/ekla-chalo-re.txt",
+        "musicxmlRoute": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/derived/musicxml/ekla-chalo-re.musicxml",
+        "midiRoute": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/derived/midi/ekla-chalo-re.mid",
+        "listeningAndRoutes": "https://neelverse-lab.github.io/tagore-swaralipi/"
+      },
+      "digitalNotation": {
+        "format": "MusicXML/MIDI exported from canonical JSON; complete human-readable swara-duration text accessible",
+        "access": "Entire 90-line notation text read. MusicXML URL returned cache miss; bytes not inspected.",
+        "taal": "Dadra 6 matras, vibhags 3+3",
+        "voice": "Single melody, tonic-relative, with grace and subdivision annotations"
+      },
+      "completeForm": {
+        "status": "complete-written-four-section-song-text-read-repeat-routing-unverified",
+        "sequence": [
+          "sthayi",
+          "antara",
+          "sanchari",
+          "abhog"
+        ],
+        "scope": "Distinct notation accompanies the four lyric bodies through the final cadence/pickup. This is not a short opening-theme snippet. Return references to the opening pickup occur in the text; exact alternate/repeat marks require canonical JSON and primary-witness check.",
+        "unfoldedTimingVerified": false
+      },
+      "rights": {
+        "dataLicense": "CC BY 4.0; credit Indranil Banerjee and SNLTR / Swarabitan",
+        "compositionStatus": "Dataset's India-public-domain statement for Tagore, not independent global clearance"
+      },
+      "uncertainty": [
+        "Archive-derived, not among the three scan-verified songs.",
+        "Komal Dha/Ni variants and kan semantics need primary cross-check.",
+        "Full performance order cannot be recovered confidently from exported text alone."
+      ],
+      "recommendation": "High-priority distinct regional/patriotic melody lead; retrieve original per-song provenance and repeat spans through permitted text viewing before deriving events.",
+      "derivedEvents": null
+    },
+    {
+      "id": "vande-mataram-flutetunes",
+      "title": "Vande Mataram",
+      "category": "Indian patriotic song",
+      "edition": {
+        "name": "Flutetunes solo flute edition",
+        "added": "2010-06-07",
+        "updated": "2010-06-07",
+        "attributionOnPage": "Jadunath Bhattacharya (1840-1884)",
+        "historicalSourceEdition": null
+      },
+      "sources": {
+        "page": "https://www.flutetunes.com/tunes.php?id=493",
+        "midiRouting": "Use the MIDI link on the source HTML page (solo-flute track). Direct link was exposed by that page, but audio/midi is not decoded by the web reader.",
+        "terms": "https://www.flutetunes.com/terms.php",
+        "scoreRouting": "PDF Sheet Music on source page, one page; not visually inspected"
+      },
+      "digitalNotation": {
+        "format": "MIDI",
+        "voice": "Flute solo according to publisher",
+        "access": "Public source-page MIDI link verified; web reader reported unsupported audio/midi",
+        "key": "B-flat major",
+        "meter": "4/4",
+        "tempoQuarterBpm": 100,
+        "publisherPerformanceSeconds": 65
+      },
+      "completeForm": {
+        "status": "not-established",
+        "scope": "One-page edition and playback duration are listed; neither proves full historical form or full lyric-stanza coverage. MIDI events, bar count, repeats and final cadence not independently inspected."
+      },
+      "rights": {
+        "status": "not-cleared-for-commercial-catalog",
+        "evidence": "Publisher terms restrict content to noncommercial/personal/educational/public-performance purposes and reserve edition rights; publicly available is not a reusable public-domain edition."
+      },
+      "uncertainty": [
+        "Numerous tune variants exist; the page's composer attribution is not a cited historical notation witness.",
+        "No MIDI decoding or score-pixel review performed."
+      ],
+      "recommendation": "Routing-only lead, not a qualified complete public-domain catalog edition; no derivative ledger made.",
+      "derivedEvents": null
+    },
+    {
+      "id": "saare-jahan-se-achcha-flutetunes",
+      "title": "Saare Jahan Se Achcha",
+      "category": "Indian patriotic song",
+      "edition": {
+        "name": "Flutetunes solo flute edition",
+        "added": "2010-06-15",
+        "updated": "2010-06-15",
+        "attributionOnPage": "Muhammad Iqbal (1877-1938)",
+        "historicalSourceEdition": null
+      },
+      "sources": {
+        "page": "https://www.flutetunes.com/tunes.php?id=501",
+        "midiRouting": "Use the MIDI link on the source HTML page. Web reader cannot expose its note events.",
+        "terms": "https://www.flutetunes.com/terms.php",
+        "scoreRouting": "PDF Sheet Music on source page, one page; not visually inspected"
+      },
+      "digitalNotation": {
+        "format": "MIDI",
+        "voice": "Flute solo according to publisher",
+        "access": "Public source-page MIDI link verified; no bytes/event ledger read",
+        "key": "F minor",
+        "meter": "4/4",
+        "tempoQuarterBpm": 120,
+        "publisherPerformanceSeconds": 35
+      },
+      "completeForm": {
+        "status": "not-established",
+        "scope": "Short solo edition is publicly listed. Complete melody versus shortened ceremonial/theme arrangement cannot be established from duration or poem prose."
+      },
+      "rights": {
+        "status": "not-cleared-for-commercial-catalog",
+        "evidence": "Same restrictive Flutetunes edition terms; no open reuse license verified."
+      },
+      "uncertainty": [
+        "Iqbal's lyric authorship does not establish the composer or age of the particular melody.",
+        "No pitch, repeat form or complete verse/refrain coverage claimed."
+      ],
+      "recommendation": "Routing-only anthem lead; historical tune attribution, full form and reusable edition required.",
+      "derivedEvents": null
+    }
+  ],
+  "rejectedOrDeferred": {
+    "vaishnavaJanaTo": "Search found a paid notation/MIDI order listing and modern chords/lyrics, not a publicly readable complete exact digital melody. Not padded into the five.",
+    "morningRagaAbc": "Full ABC and explicit AABACCDACCDA form readable, but anonymous 'India' metadata lacks a named traditional-song witness; not substituted for a recognizable traditional melody.",
+    "vaishnavaSongbook": "Publisher's MIDI bundle is private-use-only with commercial permission requirement; not used or copied.",
+    "tagoreExperiment": "AI-composed continuation files explicitly excluded; only data/text song files were used."
+  }
+}
