@@ -28,6 +28,10 @@ Local complete-piece playback reached Replay at 84,000 ms in Piano, Harmonium an
 
 These checks do not certify every physical flute. Maker tuning, half-hole technique and octave response still require player confirmation; the interface labels its six-hole guide as generic. No automatic octave correction is performed.
 
+Final verification passed: 355 tests in 73 files, ESLint, TypeScript, optimized Next build, repository inventory and diff checks. The deployed preview at https://sargam-8dr9m6whd-matanbs88s-projects.vercel.app/ runs release `61d1071`. A complete Ode to Joy setting transposed from G4 to D4 reached Replay at 38,400 ms with Ventus selected, no captured browser errors and a successful generated PDF download. Local mode-3 checks preserved concert pitches and the selected 15.871-second position. The UI/UX re-review found no remaining blocking issue.
+
+The final catalog production release and PDF hotfix passed live Library, playback and download acceptance. The former 100-piece goal and its catalog follow-up are paused at the founder's requested 11-piece checkpoint. Preview controls have not replaced production controls.
+
 ## Next automation stage
 
 Continue from the existing transcription adapter, not a new parallel pipeline. First automate canonical MIDI or MusicXML ingestion with explicit source tonic, completeness and source provenance. Persist job state, deduplicated cache keys and recoverable failures before connecting paid audio recognition. Benchmark Indian melody, bansuri and harmonium clips against the same canonical score and report pitch, onset and duration error separately. Current audio and YouTube demo output remains clearly labelled Mock until a live provider is connected and verified.
