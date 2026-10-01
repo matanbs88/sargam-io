@@ -34,4 +34,9 @@ The final catalog production release and PDF hotfix passed live Library, playbac
 
 ## Next automation stage
 
+Production update: the founder approved promotion after the melodic-part
+correction. Release `dc1c3ed` now includes this setup on the public site.
+The earlier preview-only statement above describes the original checkpoint.
+See [production acceptance](../audits/MELODY_PARTS_2026-10-01.md).
+
 Continue from the existing transcription adapter, not a new parallel pipeline. First automate canonical MIDI or MusicXML ingestion with explicit source tonic, completeness and source provenance. Persist job state, deduplicated cache keys and recoverable failures before connecting paid audio recognition. Benchmark Indian melody, bansuri and harmonium clips against the same canonical score and report pitch, onset and duration error separately. Current audio and YouTube demo output remains clearly labelled Mock until a live provider is connected and verified.

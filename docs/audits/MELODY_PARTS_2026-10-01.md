@@ -54,6 +54,22 @@ measure acoustic quality or guarantee an unknown import's melodic accuracy.
 
 ## Release state
 
-Changes are local on codex/playback-clock-regression. Production is unchanged.
+At the initial implementation checkpoint, changes were local on
+codex/playback-clock-regression and production was unchanged.
 The catalog goal remains paused at 11 complete live-verified pieces. Do not
 restart expansion as part of this regression correction.
+
+## Founder approved production promotion
+
+The founder subsequently requested the bansuri interface in production.
+Commit `dc1c3ed182f6e0ef874d21d250f8e7f405a55f1f` was promoted through dev to main.
+Dev verification `36806947331` and main verification `36807061972` succeeded.
+Vercel Production deployment `6774892063` reports success, with immutable URL
+https://sargam-o0ddc5v36-matanbs88s-projects.vercel.app and public alias
+https://sargam-io.vercel.app/.
+
+The public Au Clair practice page shows 45 melodic notes with Ventus selected,
+Melody only, and the three-option bansuri setup before Play. The piano part
+selector and harmonium melody restriction ship through the same shared session.
+Public Ventus bansuri playback reached Replay at 32,000 ms without captured
+browser errors. Production screenshot: `tmp/production-bansuri-dc1c3ed.png`.

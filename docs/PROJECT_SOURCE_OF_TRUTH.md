@@ -13,8 +13,10 @@ Au Clair de la Lune now has an explicit 45-attack melodic line alongside its
 provides a 116-attack melodic reduction, with introduction rests and ties intact.
 Unknown polyphonic imports use a clearly labelled upper-voice estimate; this
 does not certify correct melody recognition. Catalog expansion remains paused.
-This correction is verified locally on the preview branch, not released to
-production. [Acceptance and limitations](./audits/MELODY_PARTS_2026-10-01.md).
+The founder approved production promotion. Release `dc1c3ed` is live at
+https://sargam-io.vercel.app/ with both three-mode bansuri setup and single-line
+instrument parts. Dev and main CI passed; Vercel Production deployment
+`6774892063` completed successfully. [Acceptance and limitations](./audits/MELODY_PARTS_2026-10-01.md).
 
 ## Current catalog and bansuri checkpoint
 
@@ -22,7 +24,7 @@ The founder stopped catalog expansion after one final piece. There are now **11 
 
 Hen Wlad Fy Nhadau is the final addition: all 28 written bars, 75 attacks, 84 seconds at publisher MIDI tempo 60 BPM. Its pitches, onsets and durations match the public publisher MIDI exactly. Live Piano, Harmonium and Bansuri reached Replay at 84,000 ms at 1x without captured browser errors. The Full pieces only Library filter returns 11 entries and opens the full Sargam directly. Live PDF export returns 200 application/pdf with the actual E♭4 interface label after the accidental-font hotfix. [Acceptance](../content/catalog/research/hen-wlad-acceptance.json).
 
-Catalog and filter release: `9b9e553`; production PDF hotfix: `8335558`. Mehfil remains unchanged. The three-option bansuri setup is a preview-branch upgrade: song Sa and flute native Sa are separate, transposition preserves source intervals, and source-pitch mode changes fingerings without shifting audio. UI/UX and musician reviews were run and their findings addressed. [Review and next automation stage](./reviews/BANSURI_SETUP_REVIEW_2026-10-01.md).
+Catalog and filter release: `9b9e553`; production PDF hotfix: `8335558`; bansuri upgrade: `dc1c3ed`. Mehfil remains unchanged. The three-option bansuri setup is now live: song Sa and flute native Sa are separate, transposition preserves source intervals, and source-pitch mode changes fingerings without shifting audio. UI/UX and musician reviews were run and their findings addressed. [Review and next automation stage](./reviews/BANSURI_SETUP_REVIEW_2026-10-01.md).
 
 Next work is canonical automated score ingestion and durable transcription jobs, not manual catalog expansion. Audio/YouTube recognition remains Mock until a real provider is connected and benchmarked; do not claim it is automatic live recognition today.
 
