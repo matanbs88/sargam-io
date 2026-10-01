@@ -14,6 +14,10 @@ This preview slice addresses polyphonic score ingestion after the production
 single-line bansuri release. It does not add catalog pieces or connect live
 audio recognition. Production remains on `dc1c3ed`.
 
+Preview code commit `f28d9bc` deployed successfully as GitHub deployment
+`6781917027`: https://sargam-m3tyvmhgd-matanbs88s-projects.vercel.app/.
+Its deployment status is success, not a completed musical acceptance review.
+
 ## Changes
 
 MusicXML notes now follow the actual ordered note, backup and forward timeline.
@@ -51,6 +55,10 @@ Chrome became unresponsive during the subsequent instrument and save-draft
 check. Bansuri playback, refresh/restore, narrow-viewport layout and a final
 screen capture are not browser-verified for this slice. Automated storage
 tests are not a substitute for those checks. Keep this change on preview.
+An attempted fresh-tab recovery loaded the final application, but uploading
+the regression fixture again lost its browser session. Resume with a working
+Chrome file chooser, then complete the four checks above; do not repeat the
+same failing upload loop or describe it as a parser failure.
 
 The importer still processes only the first instrument part and explicitly
 warns on multipart files. Mid-measure attribute changes and microtonal pitch
