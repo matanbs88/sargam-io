@@ -17,6 +17,16 @@ function memoryStorage() {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('versioned local practice drafts', () => {
+  it('preserves a selected lower melody separately from the full arrangement', () => {
+    const storage = memoryStorage();
+    const selected = { ...piece, melodyEvents: piece.noteEvents, melodyCredit: 'Staff 2 · voice 1', melodyEstimated: true,
+      noteEvents: [{ midi: 84, startMs: 0, durationMs: 1250 }, ...piece.noteEvents] };
+    expect(saveLocalPracticeDraft(selected, () => storage).error).toBeNull();
+    expect(readLocalPracticeDraft(() => storage).piece?.melodyEvents).toEqual(piece.noteEvents);
+    expect(readLocalPracticeDraft(() => storage).piece?.noteEvents).toHaveLength(3);
+    expect(readLocalPracticeDraft(() => storage).piece?.melodyEstimated).toBe(true);
+    expect(parseLocalPracticeDraft(encoded({ ...piece, melodyEvents: [piece.noteEvents[0], piece.noteEvents[0]] }))).toBeNull();
+  });
   it('round-trips piece-only data across a fresh storage read', () => {
     const storage = memoryStorage();
     expect(saveLocalPracticeDraft(piece, () => storage)).toEqual({ piece, error: null });

@@ -11,6 +11,11 @@ This document is the working domain boundary for the product. It covers a learne
 
 ## Engineering implications
 
+MusicXML staff/voice identifiers describe written parts, not automatic melodic
+intent. Polyphonic imports offer explicit melody selection; chordal choices
+remain labelled estimates. Preserve the complete imported arrangement separately.
+Do not round fractional pitch alterations silently to Western semitones.
+
 **Practice part policy (2026-10-01):** Bansuri is monophonic. Harmonium supports
 chords physically, but this product's harmonium practice uses melody only.
 Piano offers Melody or Melody + harmony. Select the part before transposition,

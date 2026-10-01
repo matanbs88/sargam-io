@@ -1,5 +1,14 @@
 # Sargam.io project source of truth
 
+## Score ingestion preview checkpoint
+
+The next preview slice fixes MusicXML chord onsets and ordered backup/forward
+timing, preserves written staff/voice identifiers, merges contiguous ties, and
+asks the learner to select the melodic voice before opening polyphonic imports.
+The full first-part arrangement and the selected single-line melody remain
+separate, including local draft storage. This is not live audio recognition or
+a new production release. [Evidence and remaining browser gates](./audits/SCORE_VOICE_IMPORT_2026-10-01.md).
+
 ## Melody and harmony correction
 
 The October 1 founder correction requires single-line practice for bansuri and

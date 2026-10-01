@@ -4,6 +4,10 @@ Sargam.io turns songs into learner-friendly relative note notation for the way I
 
 ## Current local MVP
 
+The October 1 ingestion preview adds written melody voice selection and fixes
+polyphonic MusicXML timing. It is not yet promoted to production; see the
+[acceptance checkpoint](./docs/audits/SCORE_VOICE_IMPORT_2026-10-01.md).
+
 The preview at `/living-score` is transcription-first, with a separate compact
 searchable/paginated library and a shared practice/print workspace. YouTube
 conversion remains a mock backend seam, not a live service. See the

@@ -77,7 +77,10 @@ export function LivingScoreApp({ direction, published = false }: { direction?: I
     navigation.navigate('practice', isLocal ? null : next.id ?? null);
   }
   function saveDraft() {
-    const result = saveLocalPracticeDraft({ ...currentPiece, noteEvents: p.sourceEvents });
+    const result = saveLocalPracticeDraft({ ...currentPiece,
+      noteEvents: p.part === 'arrangement' ? p.sourceEvents : currentPiece.noteEvents,
+      ...(p.part === 'melody' ? { melodyEvents: p.sourceEvents, melodyCredit: p.melody.credit, melodyEstimated: p.melody.estimated } : {}),
+    });
     setDraftError(result.error ?? '');
     setDraftMessage('');
     if (result.piece) {
@@ -164,7 +167,7 @@ export function LivingScoreApp({ direction, published = false }: { direction?: I
     {screen === 'import' && <section className={a.import}>
       <p className={s.kicker}>FROM STAFF NOTATION TO SARGAM</p><h1 tabIndex={-1}>Bring your own score.</h1><p>MusicXML and MXL preserve notes and rhythm. PDF recognition is experimental and may need corrections.</p>
       {importNotice && <p role="status">{importNotice}</p>}
-      <ScoreImportPanel onImported={score => { setImportNotice(score.validation.requiresReview ? score.validation.issues.map(i => i.message).join(' · ') || 'This imported score needs musical review.' : 'Imported score. Check Sa and timing before practice.'); open({ title: score.title, tempoBpm: 96, rootMidi: 60, timeSignature: score.timeSignature ?? '4/4', noteEvents: score.noteEvents, reviewIssues: score.validation.issues.map(i => i.message) }, true); }} />
+      <ScoreImportPanel onImported={score => { setImportNotice(score.validation.requiresReview ? score.validation.issues.map(i => i.message).join(' · ') || 'This imported score needs musical review.' : 'Imported score. Check Sa and timing before practice.'); open({ title: score.title, tempoBpm: 96, rootMidi: 60, timeSignature: score.timeSignature ?? '4/4', noteEvents: score.noteEvents, melodyEvents: score.melodyEvents, melodyCredit: score.melodyCredit, melodyEstimated: score.melodyEstimated, reviewIssues: score.validation.issues.map(i => i.message) }, true); }} />
       <p className={a.importFormats}>MusicXML / MXL: up to 6 MB. PDF: up to 12 MB. Use Save local draft in practice to keep the notes across refreshes. Unsaved drafts are temporary; keep your original file.</p>
       <aside><h2>What happens next?</h2><ol><li>Review the notes in your chosen notation.</li><li>Choose Sa, instrument and practice BPM.</li><li>Practice with the live score or download its PDF.</li></ol><p>Imports use the existing 96 BPM reference timeline. They are session drafts, not cloud-saved files.</p></aside>
       <p>Have a song instead of sheet music? <button className={a.textAction} onClick={() => navigate('home')}>Return to Transcribe →</button></p>

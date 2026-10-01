@@ -7,6 +7,14 @@ the separate mock API is not a live provider.
 
 ## Automated checks
 
+For the October 1 ingestion preview, upload
+`tests/fixtures/melody-voice-selection.musicxml`, select Staff 2 / voice 2,
+and verify four melody attacks S R G m. Switch to Bansuri and Harmonium:
+only this melody should play and print. Piano full arrangement should show
+seven attacks. Save, refresh and restore: retain the selected low melody and
+the original arrangement. Repeat at narrow width; verify selection controls
+do not overflow. Browser checks beyond selecting the low voice remain pending.
+
 ```powershell
 npm.cmd run audit:repo
 npm.cmd run verify

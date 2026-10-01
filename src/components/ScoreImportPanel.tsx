@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import {
   importedScoreToPracticeScore,
+  selectImportedMelody,
   type ImportedPracticeScore,
   type ImportedScorePayload,
   type ImportedScoreValidation,
@@ -26,6 +27,8 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
   const importController = useRef<AbortController | null>(null);
   useEffect(() => () => importController.current?.abort(), []);
   const [state, setState] = useState<ImportState>("idle");
+  const [pendingScore, setPendingScore] = useState<ImportedPracticeScore | null>(null);
+  const [voiceId, setVoiceId] = useState("");
   const [message, setMessage] = useState(
     "MusicXML and MXL open directly into your private review draft.",
   );
@@ -45,6 +48,7 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
     importController.current = controller;
     const endpoint = isPdf ? "/api/imports/score-pdf" : "/api/imports/musicxml";
     setState("reading");
+    setPendingScore(null);
     setMessage(
       isPdf
         ? `Reading ${file.name} through the local OMR pilot — no AI credit is used.`
@@ -79,10 +83,17 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
         throw new Error('No playable notes were found in this score. Try a score containing pitched notes.');
       }
       if (controller.signal.aborted) return;
-      onImported(practiceScore);
+      if (practiceScore.voices.length > 1 || practiceScore.voices.some(voice => voice.estimated)) {
+        setPendingScore(practiceScore);
+        setVoiceId(practiceScore.voices[0].id);
+        setState("ready");
+        setMessage("Choose the written melody voice. The full arrangement is retained for piano; flute and harmonium use only your selected melody.");
+        return;
+      }
+      onImported(selectImportedMelody(practiceScore, practiceScore.voices[0].id));
       setState("ready");
       setMessage(
-        payload.validation.requiresReview
+        practiceScore.validation.requiresReview
           ? "Opened as a review draft. Check the marked rhythm or voice warnings before sharing."
           : isPdf
             ? "PDF converted in the local pilot. Review the Sa, notation, tempo, and practice view."
@@ -123,6 +134,26 @@ export function ScoreImportPanel({ onImported }: ScoreImportPanelProps) {
           {message}
         </p>
       </div>
+      {pendingScore && <fieldset className="min-w-0 rounded-md border border-teal/20 bg-white p-3">
+        <legend className="px-1 text-xs font-semibold text-teal">Select melody voice</legend>
+        <label className="flex flex-col gap-1 text-xs">
+          Written staff and voice
+          <select value={voiceId} onChange={event => setVoiceId(event.target.value)} className="rounded border p-2">
+            {pendingScore.voices.map(voice => <option key={voice.id} value={voice.id}>
+              {voice.label} · {voice.events.length} notes{voice.estimated ? " · upper-note estimate (review)" : " · single-note line"}
+            </option>)}
+          </select>
+        </label>
+        <p className="my-2 text-xs text-charcoal/70">A voice number does not establish which line is the melody. Check the original score. Chordal voices are reduced to an explicitly marked estimate.</p>
+        <div className="flex gap-3">
+          <button type="button" className="rounded bg-teal px-3 py-2 text-xs font-semibold text-white" onClick={() => {
+            const selected = selectImportedMelody(pendingScore, voiceId);
+            setPendingScore(null);
+            onImported(selected);
+          }}>Open selected melody</button>
+          <button type="button" className="text-xs" onClick={() => { setPendingScore(null); setState("idle"); setMessage("Selection cancelled. Choose another score."); }}>Cancel selection</button>
+        </div>
+      </fieldset>}
       <div className="flex shrink-0 items-center gap-2">
         <input
           accept=".musicxml,.xml,.mxl,application/vnd.recordare.musicxml+xml,application/xml,text/xml"

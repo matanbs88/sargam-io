@@ -1,5 +1,9 @@
 # Sargam.io weekend handoff and current build status
 
+Current October 1 score ingestion work is on preview only. Its voice selection,
+timing fixes and incomplete browser acceptance gates are documented in the
+[ingestion audit](./docs/audits/SCORE_VOICE_IMPORT_2026-10-01.md).
+
 > Historical August snapshot. Current preview implementation and verification
 > are recorded in the [September 16 sprint audit](./docs/reviews/LIVING_SCORE_THREE_HOUR_SPRINT_2026-09-16.md)
 > and [project source of truth](./docs/PROJECT_SOURCE_OF_TRUTH.md). The deployment

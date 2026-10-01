@@ -9,6 +9,8 @@ import {
 } from "@/src/lib/midiToSargam";
 
 export type ImportedScoreEvent = {
+  readonly voice?: string;
+  readonly staff?: string;
   readonly durationDivisions: number;
   readonly midi: number | null;
   readonly startDivisions: number;
@@ -16,6 +18,7 @@ export type ImportedScoreEvent = {
 };
 
 export type ImportedScoreMeasure = {
+  readonly durationDivisions?: number;
   readonly divisionsPerQuarter: number;
   readonly events: readonly ImportedScoreEvent[];
   readonly number: number;
@@ -76,7 +79,9 @@ function asText(value: unknown): string | null {
 }
 
 function asFiniteInteger(value: unknown): number | null {
-  const parsed = Number(asText(value));
+  const text = asText(value);
+  if (text === null) return null;
+  const parsed = Number(text);
   return Number.isInteger(parsed) ? parsed : null;
 }
 
@@ -167,6 +172,15 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
   let timeSignature: string | null = null;
   const warnings: string[] = [];
   const measures: ImportedScoreMeasure[] = [];
+  if (asArray(score?.part).length > 1) {
+    warnings.push("Only the first instrument part is imported in this beta. Export the desired part separately.");
+  }
+  // The object parser groups like tags. A second ordered view preserves the
+  // interleaving of note / backup / forward without reparsing every note.
+  const ordered = new XMLParser({ preserveOrder: true, parseTagValue: false }).parse(strFromU8(resolved.bytes));
+  const orderedScore = asArray(ordered).map(asNode).find(node => node?.["score-partwise"] !== undefined);
+  const orderedPart = asArray(orderedScore?.["score-partwise"]).map(asNode).find(node => node?.part !== undefined);
+  const orderedMeasures = asArray(orderedPart?.part).map(asNode).filter(node => node?.measure !== undefined);
 
   for (const [index, rawMeasure] of asArray(part.measure).entries()) {
     if (index >= MAX_IMPORTED_MEASURES) {
@@ -177,6 +191,7 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
     const measure = asNode(rawMeasure);
     if (measure === null) continue;
     const attributes = getSingleNode(measure.attributes);
+    if (asArray(measure.attributes).length > 1) throw new Error("Mid-measure attribute changes are not supported. Split the measure before importing.");
     const divisions = asFiniteInteger(attributes?.divisions);
     if (divisions !== null && divisions > 0) divisionsPerQuarter = divisions;
 
@@ -188,14 +203,29 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
     const beatType = asText(time?.["beat-type"]);
     if (beats !== null && beatType !== null) timeSignature = `${beats}/${beatType}`;
 
-    if (measure.backup !== undefined || measure.forward !== undefined) {
-      warnings.push(`Measure ${index + 1} has multiple timeline voices and needs review.`);
-    }
-
     let cursor = 0;
+    let extent = 0;
+    let previousNoteStart: number | null = null;
+    let noteIndex = 0;
+    const notes = asArray(measure.note);
     const events: ImportedScoreEvent[] = [];
-    for (const rawNote of asArray(measure.note)) {
-      const note = asNode(rawNote);
+    for (const rawEntry of asArray(orderedMeasures[index]?.measure)) {
+      const entry = asNode(rawEntry);
+      if (!entry) continue;
+      const movement = entry.backup ?? entry.forward;
+      if (movement !== undefined) {
+        const durationNode = asArray(movement).map(asNode).find(node => node?.duration !== undefined);
+        const textNode = asArray(durationNode?.duration).map(asNode).find(node => node?.["#text"] !== undefined);
+        const duration = asFiniteInteger(textNode?.["#text"]);
+        if (duration === null || duration <= 0) throw new Error(`Invalid timeline movement in measure ${index + 1}.`);
+        cursor += entry.backup !== undefined ? -duration : duration;
+        if (cursor < 0) throw new Error(`Timeline moves before measure ${index + 1}.`);
+        extent = Math.max(extent, cursor);
+        previousNoteStart = null;
+        continue;
+      }
+      if (entry.note === undefined) continue;
+      const note = asNode(notes[noteIndex++]);
       if (note === null) continue;
       const durationDivisions = asFiniteInteger(note.duration);
       if (durationDivisions === null || durationDivisions <= 0) {
@@ -204,8 +234,18 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
       }
 
       const isChordTone = note.chord !== undefined;
+      if (isChordTone && previousNoteStart === null) throw new Error(`Chord has no preceding note in measure ${index + 1}.`);
+      const startDivisions = isChordTone ? previousNoteStart! : cursor;
       const isRest = note.rest !== undefined;
       const midi = isRest ? null : getMidi(note);
+      const alter = asText(getSingleNode(note.pitch)?.alter);
+      if (alter !== null && !Number.isInteger(Number(alter))) throw new Error("Microtonal MusicXML pitches need an explicit pitch-curve import and cannot be rounded to semitones.");
+      // Even an unsupported pitched symbol consumes its written duration.
+      if (!isChordTone) {
+        previousNoteStart = cursor;
+        cursor += durationDivisions;
+      }
+      extent = Math.max(extent, startDivisions + durationDivisions, cursor);
       if (!isRest && midi === null) {
         warnings.push(`A non-pitched symbol in measure ${index + 1} was skipped.`);
         continue;
@@ -217,13 +257,15 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
       events.push({
         durationDivisions,
         midi,
-        startDivisions: cursor,
+        startDivisions,
         tie: getTie(note),
+        ...(asText(note.voice) !== null ? { voice: asText(note.voice)! } : {}),
+        ...(asText(note.staff) !== null ? { staff: asText(note.staff)! } : {}),
       });
-      if (!isChordTone) cursor += durationDivisions;
     }
 
     measures.push({
+      durationDivisions: extent,
       divisionsPerQuarter,
       events,
       number: index + 1,

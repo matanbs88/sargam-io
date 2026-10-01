@@ -1,7 +1,7 @@
 import type { MidiNoteEvent } from './midiToSargam';
 
 export type PracticePart = 'melody' | 'arrangement';
-export type MelodySource = { melodyEvents?: readonly MidiNoteEvent[]; melodyCredit?: string };
+export type MelodySource = { melodyEvents?: readonly MidiNoteEvent[]; melodyCredit?: string; melodyEstimated?: boolean };
 
 export function isMonophonic(events: readonly MidiNoteEvent[]): boolean {
   let end = -Infinity;
@@ -95,7 +95,7 @@ export function estimateUpperMelody(events: readonly MidiNoteEvent[]): readonly 
 export function resolveMelody(events: readonly MidiNoteEvent[], source: MelodySource) {
   if (source.melodyEvents) {
     if (!isMonophonic(source.melodyEvents)) throw new Error('Authored melody contains overlapping voices.');
-    return { events: source.melodyEvents, estimated: false, credit: source.melodyCredit ?? 'Authored melody' };
+    return { events: source.melodyEvents, estimated: source.melodyEstimated ?? false, credit: source.melodyCredit ?? 'Authored melody' };
   }
   const estimated = !isMonophonic(events);
   return { events: estimated ? estimateUpperMelody(events) : events, estimated,

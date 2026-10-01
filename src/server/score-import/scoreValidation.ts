@@ -47,10 +47,7 @@ export function validateImportedScore(score: ImportedScore): ScoreValidationRepo
         measure.divisionsPerQuarter *
         measureSignature.beats *
         (4 / measureSignature.beatType);
-      const actualDuration = Math.max(
-        0,
-        ...measure.events.map((event) => event.startDivisions + event.durationDivisions),
-      );
+      const actualDuration = measure.events.reduce((end, event) => Math.max(end, event.startDivisions + event.durationDivisions), measure.durationDivisions ?? 0);
       if (actualDuration !== expectedDuration) {
         issues.push({
           code: "meter-mismatch",

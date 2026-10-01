@@ -6,6 +6,8 @@ root because they are linked directly from the public README.
 
 ## Start here
 
+- [MusicXML voice selection and ordered timing preview](./audits/SCORE_VOICE_IMPORT_2026-10-01.md)
+
 - [Melody and harmony separation for instrument practice](./audits/MELODY_PARTS_2026-10-01.md)
 
 - [Complete Minuet source verification and remaining live gates](./audits/CATALOG_MINUET_CHECKPOINT_2026-10-01.md)

@@ -1,5 +1,6 @@
 import type { PracticePiece } from '../features/design-lab/usePilotSession';
 import type { MidiNoteEvent } from './midiToSargam';
+import { isMonophonic } from './practiceParts';
 
 export const LOCAL_PRACTICE_DRAFT_KEY = 'sargam-local-practice-draft-v1';
 const MAX_BYTES = 2 * 1024 * 1024;
@@ -28,6 +29,13 @@ function copyPiece(value: unknown): PracticePiece | null {
   if (typeof value.timeSignature !== 'string' || !/^(?:[1-9]|[12]\d|3[0-2])\/(?:1|2|4|8|16|32)$/.test(value.timeSignature)) return null;
   if (value.artistOrSource !== undefined && !text(value.artistOrSource, 240)) return null;
   if (value.reviewIssues !== undefined && (!Array.isArray(value.reviewIssues) || value.reviewIssues.length > 100 || !value.reviewIssues.every(issue => text(issue, 1000)))) return null;
+  if (value.melodyCredit !== undefined && !text(value.melodyCredit, 1000)) return null;
+  if (value.melodyEstimated !== undefined && typeof value.melodyEstimated !== 'boolean') return null;
+  const melody = value.melodyEvents === undefined ? undefined : copyPiece({
+    title: value.title, tempoBpm: value.tempoBpm, rootMidi: value.rootMidi,
+    timeSignature: value.timeSignature, noteEvents: value.melodyEvents,
+  });
+  if (melody === null || (melody && !isMonophonic(melody.noteEvents))) return null;
   if (!Array.isArray(value.noteEvents) || !value.noteEvents.length || value.noteEvents.length > 10_000) return null;
   const noteEvents: MidiNoteEvent[] = [];
   let previousStart = -1;
@@ -67,6 +75,9 @@ function copyPiece(value: unknown): PracticePiece | null {
   }
   return { title: value.title, tempoBpm: value.tempoBpm, rootMidi: value.rootMidi, timeSignature: value.timeSignature,
     ...(value.artistOrSource === undefined ? {} : { artistOrSource: value.artistOrSource }),
+    ...(melody ? { melodyEvents: melody.noteEvents } : {}),
+    ...(value.melodyCredit === undefined ? {} : { melodyCredit: value.melodyCredit }),
+    ...(value.melodyEstimated === undefined ? {} : { melodyEstimated: value.melodyEstimated }),
     ...(value.reviewIssues === undefined ? {} : { reviewIssues: [...value.reviewIssues as string[]] }), noteEvents };
 }
 
