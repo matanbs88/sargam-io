@@ -33,5 +33,5 @@
     [{"midi":[72,60],"beats":2}]
   ]],
   "validation":{"research":"content/catalog/research/au-clair-de-la-lune-1111-verified-source.json","exactMidiIntervals":62,"chordAttacks":17,"rests":4,"quarterBeats":32,"durationMs":32000,"mainAgentReview":"Full official notation read 2026-10-01; every upper-voice bar and chord member checked against the independently decoded ledger."},
-  "liveVerification":{"library":false,"sargam":false,"instruments":false,"pdf":false}
+  "liveVerification":{"library":true,"sargam":true,"instruments":true,"pdf":true,"release":"2118909","evidence":"content/catalog/research/au-clair-de-la-lune-acceptance.json"}
 }

@@ -1,0 +1,12 @@
+{
+  "schema":"complete-catalog-acceptance-v1",
+  "pieceId":"verified-au-clair-de-la-lune-complete",
+  "date":"2026-10-01",
+  "release":"2118909c4646a7d990da0b3a2cbbb737d95f0d36",
+  "scope":"Complete 16-bar Horetzky harmonized guitar upper voice; all 17 dyads retained; separate lower accompaniment excluded. Not a single-flute playable arrangement. Bansuri audio playback and generic fingering reference do not certify simultaneous physical flute execution.",
+  "sourceEvidence":"content/catalog/research/au-clair-de-la-lune-1111-verified-source.json",
+  "local":{"tests":323,"testFiles":69,"lint":true,"productionBuild":true,"fullSargamBars":16,"sourceScalarNotes":62,"pianoEndMs":32000,"harmoniumEndMs":32000,"bansuriEndMs":32000,"capturedErrors":[],"pdfNotePreservation":true,"renderedPdfVisualReview":true},
+  "live":{"deployment":"success","library":true,"fullSargam":true,"instruments":true,"pianoEndMs":32000,"harmoniumEndMs":32000,"bansuriEndMs":32000,"capturedBrowserErrors":[],"pdf":true,"pdfReadyLink":true,"pdfHTTP":200,"pdfContentType":"application/pdf","pdfBytes":67101,"pdfPages":1,"renderedPdfVisualReview":true,"pdfPath":"output/pdf/catalog-qa/au-clair-de-la-lune-live.pdf","screenshot":"tmp/catalog-proof/au-clair-de-la-lune-live.jpg"},
+  "liveCompleteCountAtCheckpoint":9,
+  "remaining":[]
+}

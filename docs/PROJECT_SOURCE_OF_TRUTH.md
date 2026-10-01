@@ -2,6 +2,21 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
+**9/100 distinct complete pieces are live verified.** Release `2118909` adds
+Au Clair de la Lune's complete Horetzky upper voice: 16 bars, 62 scalar notes,
+17 dyads, four printed rests, 32 seconds at 60 BPM. Public Library discovery
+opens the entire Sargam score. Piano, harmonium and bansuri audio playback each
+reach Replay at 32,000 ms at 1x, with no captured browser errors. The production
+download offers a PDF-ready link; direct live export returns HTTP 200 PDF,
+67,101 bytes, one visually inspected A4 page with all chord members retained.
+This harmonized setting is not an arrangement for a single physical flute;
+bansuri playback/reference does not certify simultaneous physical execution.
+Public ready entries: 44, including 35 older studies and nine verified complete
+pieces. [Acceptance evidence](../content/catalog/research/au-clair-de-la-lune-acceptance.json).
+The 100-piece goal remains active. Mehfil and Sa behavior are unchanged.
+
+### Earlier eight piece checkpoint
+
 **8/100 distinct complete pieces are live verified.** Release `75fdf66` adds
 Oats and Beans: complete ten-bar singer melody, 38 attacks, 6/8, quarter=100,
 18,000 ms. Public Library search opens its complete Sargam; all three instruments
