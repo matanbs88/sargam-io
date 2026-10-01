@@ -2,6 +2,21 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
+**8/100 distinct complete pieces are live verified.** Release `75fdf66` adds
+Oats and Beans: complete ten-bar singer melody, 38 attacks, 6/8, quarter=100,
+18,000 ms. Public Library search opens its complete Sargam; all three instruments
+reach Replay at 18,000 ms at 1x with no captured browser errors. Download score
+produces a PDF-ready link. Live export returns HTTP 200 application/pdf,
+67,068 bytes, one A4 page; the full rendered score and cadence were inspected.
+Public ready entries: 43, comprising 35 older studies and eight verified complete
+pieces. See [Oats acceptance](./audits/CATALOG_OATS_CHECKPOINT_2026-10-01.md).
+The full 100-piece goal remains active; Mehfil and Sa behavior are unchanged.
+The existing 30-minute catalog heartbeat is ACTIVE. Next source checkpoint:
+Au Clair de la Lune's complete named upper voice, with all chords retained;
+Purano Sei Diner Katha's primary Swarabitan witness is still under review.
+
+### Earlier seven piece checkpoint
+
 **7/100 distinct complete pieces are live verified.** Release `0d3315f` adds
 Ode to Joy's complete declared hymn soprano: 16 bars, 62 attacks, 38,400 ms
 at 100 BPM. Public Library search distinguishes it from the older theme study;

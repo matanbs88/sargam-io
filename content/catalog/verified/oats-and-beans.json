@@ -26,5 +26,5 @@
     [[62,1.5],[60,1.5]]
   ]],
   "validation": {"research":"content/catalog/research/world-digital-batch-2-2026-10-01.json","officialMidiSHA256":"6e097cb82d30524335a19a2adb1cbf79cf6b070f7059182f0dc9d34ca3fc3848","exactPitchOnsetDurationMatches":38,"mismatches":[],"mainAgentSourceRead":"Complete official LilyPond file read 2026-10-01; all pitches and inherited durations reviewed against literal relative-c-double-prime melody"},
-  "liveVerification": {"library":false,"sargam":false,"instruments":false,"pdf":false}
+  "liveVerification": {"library":true,"sargam":true,"instruments":true,"pdf":true,"release":"75fdf66","evidence":"docs/audits/CATALOG_OATS_CHECKPOINT_2026-10-01.md"}
 }
