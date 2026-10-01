@@ -1,0 +1,30 @@
+{
+  "id": "verified-oats-and-beans-complete",
+  "title": "Oats and Beans · complete folk melody",
+  "composer": "Traditional · arranged L. E. Broadwood (1893)",
+  "edition": "Mutopia-2006/12/21-888 · complete singer voice",
+  "source": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=888",
+  "notationSource": "https://www.mutopiaproject.org/ftp/Traditional/oatsandbeans/oatsandbeans.ly",
+  "sourceCredit": "Nigel Holmes, Mutopia; English County Songs; complete named melody/singer voice, piano accompaniment excluded",
+  "sourceLicense": "Public Domain composition and notation edition",
+  "status": "source-reviewed",
+  "tempoBpm": 100,
+  "timeSignature": "6/8",
+  "rootMidi": 60,
+  "declaredForm": "Entire written ten-bar musical setting once, including the final Waiting for the partner cadence. Three printed lyric stanzas do not imply additional encoded repetitions. Source eighth=200 means quarter=100; durations below are quarter-note units, not dotted-quarter pulses.",
+  "form": [0],
+  "sections": [[
+    [[67,1],[67,0.5],[64,1],[60,0.5]],
+    [[65,1],[69,0.5],[67,1],[67,0.5]],
+    [[67,1],[67,0.5],[64,1],[60,0.5]],
+    [[65,0.5],[65,0.5],[69,0.5],[67,1.5]],
+    [[72,1],[72,0.5],[71,1],[71,0.5]],
+    [[69,1],[69,0.5],[67,1],[67,0.5]],
+    [[65,1],[65,0.5],[64,1],[64,0.5]],
+    [[62,0.5],[62,0.5],[62,0.5],[60,1.5]],
+    [[67,1],[67,0.5],[64,1],[60,0.5]],
+    [[62,1.5],[60,1.5]]
+  ]],
+  "validation": {"research":"content/catalog/research/world-digital-batch-2-2026-10-01.json","officialMidiSHA256":"6e097cb82d30524335a19a2adb1cbf79cf6b070f7059182f0dc9d34ca3fc3848","exactPitchOnsetDurationMatches":38,"mismatches":[],"mainAgentSourceRead":"Complete official LilyPond file read 2026-10-01; all pitches and inherited durations reviewed against literal relative-c-double-prime melody"},
+  "liveVerification": {"library":false,"sargam":false,"instruments":false,"pdf":false}
+}
