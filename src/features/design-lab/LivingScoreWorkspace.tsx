@@ -119,12 +119,12 @@ export function LivingScoreWorkspace({ session: p, settings, transport, visualiz
     </div></div>
     <div className={s.anchor}>
       <p><span>{p.instrument === 'Bansuri' ? 'SONG SA' : 'YOUR SA'}</span><strong>{ROOT_NAMES[((p.root % 12) + 12) % 12]}{Math.floor(p.root / 12) - 1}</strong>{p.instrument === 'Bansuri' && <small>FLUTE NATIVE SA {ROOT_NAMES[p.fluteSa % 12]}{Math.floor(p.fluteSa / 12)-1}</small>}<small>{p.piece.timeSignature} · ♩ {Math.round(p.piece.tempoBpm * p.rate)}</small></p>
-      <p><span>{p.transport.isPlaying ? 'FOLLOW' : atEnd ? 'END OF SCORE' : 'SELECTED NOTE'}</span><strong>{p.notes[p.transport.activeEventIndex] ?? '—'}</strong></p>
+      <p><small>{p.part === 'melody' ? p.melody.estimated ? 'ESTIMATED MELODY · REVIEW' : 'MELODY · SINGLE LINE' : 'MELODY + HARMONY'}</small><span>{p.transport.isPlaying ? 'FOLLOW' : atEnd ? 'END OF SCORE' : 'SELECTED NOTE'}</span><strong>{p.notes[p.transport.activeEventIndex] ?? '—'}</strong></p>
     </div>
     <span className={s.completionNotice} role="status">{atEnd ? 'End of score. Choose Replay to practice again, or select a note to revisit a passage.' : ''}</span>
     <div ref={stage} className={s.stage} data-view={view} style={{ '--score-share': `${scoreShare}%` } as CSSProperties}>
       {view !== 'instrument' && <section className={s.paper} aria-label="Playable score" tabIndex={0}>
-        <div className={s.sheetHeader}><div className={s.paperTitle}><h2>The melody</h2><span>{p.notation === 'ABC' ? 'PITCH NAMES' : p.notation === 'Sargam_HI' ? 'देवनागरी' : 'SARGAM'}</span></div>
+        <div className={s.sheetHeader}><div className={s.paperTitle}><h2>{p.part === 'melody' ? 'The melody' : 'Melody + harmony'}</h2><span>{p.notation === 'ABC' ? 'PITCH NAMES' : p.notation === 'Sargam_HI' ? 'देवनागरी' : 'SARGAM'}</span></div>
         <div className={s.noteNavigation} role="group" aria-label="Navigate individual notes">
           <button disabled={p.transport.activeEventIndex <= 0} onClick={() => selectNote(p.transport.activeEventIndex - 1)} aria-label="Previous note">←</button>
           <span>Note {Math.max(0, p.transport.activeEventIndex) + 1} / {p.notes.length}</span>
@@ -151,7 +151,7 @@ export function LivingScoreWorkspace({ session: p, settings, transport, visualiz
     </div>
     <div className={s.transport}>{transport}</div>
     {view === 'instrument' && <div className={s.accessibleScore} aria-label="Readable note sequence">
-      <ol>{p.piece.noteEvents.map((note, index) => <li key={index}><button aria-current={p.transport.activeEventIndex === index ? 'step' : undefined} onClick={() => selectNote(index)}>Note {index + 1}: {p.notes[index]}, starts {(note.startMs / 1000).toFixed(2)} seconds, duration {(note.durationMs / 1000).toFixed(2)} seconds</button></li>)}</ol>
+      <ol>{p.events.map((note, index) => <li key={index}><button aria-current={p.transport.activeEventIndex === index ? 'step' : undefined} onClick={() => selectNote(index)}>Note {index + 1}: {p.notes[index]}, starts {(note.startMs / 1000).toFixed(2)} seconds, duration {(note.durationMs / 1000).toFixed(2)} seconds</button></li>)}</ol>
     </div>}
     {focus && <div className={s.focusLoop} role="group" aria-label="Passage loop">
       <button onClick={() => { clearLoop(); setLoopAnchor(Math.max(0, p.transport.activeEventIndex)); }}>Set A</button>

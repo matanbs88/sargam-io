@@ -9,7 +9,7 @@ import oatsAndBeans from "../../content/catalog/verified/oats-and-beans.json";
 import auClair from "../../content/catalog/verified/au-clair-de-la-lune.json";
 import joyToTheWorld from "../../content/catalog/verified/joy-to-the-world.json";
 import henWlad from "../../content/catalog/verified/hen-wlad-fy-nhadau.json";
-import { verifiedVoiceEvents } from './verifiedVoiceEvents';
+import { reviewedLeadingMelodyEvents, verifiedVoiceEvents } from './verifiedVoiceEvents';
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
 
@@ -100,8 +100,10 @@ function catalogEntry(score: {
 
 export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [
   ...[minuet, silentNight, wenceslas, raghupati, harkHerald, odeToJoy, oatsAndBeans, joyToTheWorld, henWlad].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
-  catalogEntry(gymnopedie, verifiedVoiceEvents(gymnopedie)),
-  catalogEntry(auClair, verifiedVoiceEvents(auClair)),
+  ...[gymnopedie, auClair].map(score => ({ ...catalogEntry(score, verifiedVoiceEvents(score)),
+    melodyEvents: reviewedLeadingMelodyEvents(score),
+    melodyCredit: `${score.composer}: leading melodic pitch of the reviewed upper voice; chord support omitted for single-line practice.`,
+  })),
 ];
 
 function catalogMeter(meter: string): CatalogSong["timeSignature"] {

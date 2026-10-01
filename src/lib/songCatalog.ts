@@ -36,6 +36,8 @@ export type CatalogSong = {
   readonly timeSignature: "2/4" | "4/4" | "3/4" | "3/8" | "6/8";
   readonly rootMidi: number;
   readonly noteEvents: readonly MidiNoteEvent[] | null;
+  readonly melodyEvents?: readonly MidiNoteEvent[];
+  readonly melodyCredit?: string;
   readonly rightsNote: string;
 };
 

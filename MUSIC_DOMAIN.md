@@ -11,6 +11,14 @@ This document is the working domain boundary for the product. It covers a learne
 
 ## Engineering implications
 
+**Practice part policy (2026-10-01):** Bansuri is monophonic. Harmonium supports
+chords physically, but this product's harmonium practice uses melody only.
+Piano offers Melody or Melody + harmony. Select the part before transposition,
+ornament generation, playback, notation and PDF export. Explicit reviewed melody
+data takes precedence over pitch-ranking heuristics. Unknown polyphonic sources
+may use a labelled upper-voice estimate, which must not be represented as verified
+melody extraction. See [part separation audit](docs/audits/MELODY_PARTS_2026-10-01.md).
+
 1. **MIDI conversion is relative transposition, not raga classification.** The current engine labels the 12 equal-tempered pitch classes produced by an audio-to-MIDI provider. It must never infer a raga, aroha/avaroha, vadi/samvadi, or shruti from that output alone.
 2. **Persist time.** A real provider adapter must retain onset and duration, not only pitches. `MidiNoteEvent` exists for that reason.
 3. **Song Sa and instrument key are independent.** The transcription root describes the musical reference. A bansuri key describes the instrument's physical concert-pitch reference. The fingering layer must join them only after player/instrument calibration.

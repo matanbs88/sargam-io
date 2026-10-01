@@ -1,5 +1,21 @@
 # Sargam.io project source of truth
 
+## Melody and harmony correction
+
+The October 1 founder correction requires single-line practice for bansuri and
+harmonium. Harmonium can physically play chords; this is a product mode, not an
+instrument limitation. Piano defaults to melody and offers Melody + harmony
+for the complete stored arrangement. Audio, visible notation, accessible note
+navigation and PDF export consume the same selected events.
+
+Au Clair de la Lune now has an explicit 45-attack melodic line alongside its
+62-pitch harmonized voice. Gymnopédie retains its 128-pitch arrangement and
+provides a 116-attack melodic reduction, with introduction rests and ties intact.
+Unknown polyphonic imports use a clearly labelled upper-voice estimate; this
+does not certify correct melody recognition. Catalog expansion remains paused.
+This correction is verified locally on the preview branch, not released to
+production. [Acceptance and limitations](./audits/MELODY_PARTS_2026-10-01.md).
+
 ## Current catalog and bansuri checkpoint
 
 The founder stopped catalog expansion after one final piece. There are now **11 live-verified complete pieces** and 46 playable Library entries. The former 100-piece goal is paused, not complete. Do not restart catalog expansion without a new instruction.

@@ -10,8 +10,9 @@ import { DEFAULT_BANSURI_VOICE, type BansuriVoice } from '@/src/lib/ventusAudio'
 import { expressBansuri, type BansuriArticulation, type BansuriExpression } from '@/src/lib/ventusPerformance';
 import { adjustMidiEvent } from '@/src/lib/editableMidi';
 import { evaluateBansuriSetup, projectBansuriSetup, type BansuriSetupMode } from '@/src/lib/bansuriSetup';
+import { instrumentPart, resolveMelody, type MelodySource, type PracticePart } from '@/src/lib/practiceParts';
 
-export type PracticePiece = { id?: string; title: string; artistOrSource?: string; rightsNote?: string; tempoBpm: number; timeSignature: string; rootMidi: number; noteEvents: readonly MidiNoteEvent[]; reviewIssues?: readonly string[] };
+export type PracticePiece = MelodySource & { id?: string; title: string; artistOrSource?: string; rightsNote?: string; tempoBpm: number; timeSignature: string; rootMidi: number; noteEvents: readonly MidiNoteEvent[]; reviewIssues?: readonly string[] };
 const DEFAULT_PIECE: PracticePiece = { ...PILOT, noteEvents: PILOT_EVENTS };
 
 export const ROOT_NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
@@ -19,6 +20,10 @@ export function usePilotSession(piece: PracticePiece = DEFAULT_PIECE, catalogSel
   const [sessionOpened, setOpened] = useState(false);
   const opened = sessionOpened || catalogSelected;
   const [instrument, setInstrument] = useState<'Piano' | 'Harmonium' | 'Bansuri'>('Piano');
+  const [pianoPart, setPianoPart] = useState<PracticePart>('melody');
+  const part = instrumentPart(instrument, pianoPart);
+  const melody = useMemo(() => resolveMelody(piece.noteEvents, piece), [piece]);
+  const partEvents = part === 'melody' ? melody.events : piece.noteEvents;
   const [rootChoice, setRootChoice] = useState<{ piece: PracticePiece; value: number } | null>(null);
   const sourceSa = rootChoice?.piece === piece ? rootChoice.value : piece.rootMidi;
   const setRoot = (value: number) => setRootChoice({ piece, value });
@@ -37,8 +42,8 @@ export function usePilotSession(piece: PracticePiece = DEFAULT_PIECE, catalogSel
   const [bansuriArticulation, setBansuriArticulation] = useState<BansuriArticulation>('natural');
   const [bansuriExpression, setBansuriExpression] = useState<BansuriExpression>('plain');
   const [bansuriVolume, setBansuriVolume] = useState(85);
-  const [corrections, setCorrections] = useState<{ piece: PracticePiece; events: readonly MidiNoteEvent[] } | null>(null);
-  const sourceEvents = corrections?.piece === piece ? corrections.events : piece.noteEvents;
+  const [corrections, setCorrections] = useState<{ piece: PracticePiece; part: PracticePart; events: readonly MidiNoteEvent[] } | null>(null);
+  const sourceEvents = corrections?.piece === piece && corrections.part === part ? corrections.events : partEvents;
   const [setupError, setSetupError] = useState('');
   const correctNote = (index: number, delta: -1 | 1) => {
     const candidate = adjustMidiEvent(sourceEvents, index, delta);
@@ -46,15 +51,15 @@ export function usePilotSession(piece: PracticePiece = DEFAULT_PIECE, catalogSel
       if (instrument === 'Bansuri') { setSetupError('That correction exceeds the selected transposition range. Change flute octave or reset setup.'); return; }
       setFluteSetup(null);
     }
-    setSetupError(''); setCorrections({ piece, events: candidate });
+    setSetupError(''); setCorrections({ piece, part, events: candidate });
   };
   const resetCorrections = () => setCorrections(null);
   const projection = useMemo(() => projectBansuriSetup(sourceEvents, sourceSa, fluteSa, instrument === 'Bansuri' ? setupMode : 'matching'), [sourceEvents, sourceSa, fluteSa, setupMode, instrument]);
   const root = instrument === 'Bansuri' ? projection.songSa : sourceSa;
   const events = useMemo(() => instrument === 'Bansuri' ? expressBansuri(projection.events,bansuriExpression) : sourceEvents, [sourceEvents,instrument,bansuriExpression,projection]);
-  const [loopChoice, setLoopChoice] = useState<{ piece: PracticePiece; value: EventLoopRange | null } | null>(null);
-  const loop = loopChoice?.piece === piece ? loopChoice.value : null;
-  const setLoop = (value: EventLoopRange | null) => setLoopChoice({ piece, value });
+  const [loopChoice, setLoopChoice] = useState<{ piece: PracticePiece; part: PracticePart; value: EventLoopRange | null } | null>(null);
+  const loop = loopChoice?.piece === piece && loopChoice.part === part ? loopChoice.value : null;
+  const setLoop = (value: EventLoopRange | null) => setLoopChoice({ piece, part, value });
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState('');
   const [pdf, setPdf] = useState<{ url: string; filename: string; events: readonly MidiNoteEvent[]; root: number; notation: NotationSystem; title: string } | null>(null);
@@ -95,12 +100,13 @@ export function usePilotSession(piece: PracticePiece = DEFAULT_PIECE, catalogSel
   useEffect(() => () => { if (context.current?.state !== 'closed') void context.current?.close(); context.current = null; }, []);
   useEffect(() => () => { if (pdfUrl.current) URL.revokeObjectURL(pdfUrl.current); }, []);
   const notes = useMemo(() => formatRelativeMidiEvents(events, root, notation), [events, root, notation]);
-  const exportTitle = instrument === 'Bansuri' ? `${piece.title} [${setupMode}; flute Sa ${ROOT_NAMES[projection.fluteSa % 12]}${Math.floor(projection.fluteSa / 12)-1}]` : piece.title;
+  const partTitle = `${piece.title} · ${part === 'melody' ? 'melody' : 'melody + harmony'}`;
+  const exportTitle = instrument === 'Bansuri' ? `${partTitle} [${setupMode}; flute Sa ${ROOT_NAMES[projection.fluteSa % 12]}${Math.floor(projection.fluteSa / 12)-1}]` : partTitle;
   async function download() {
     setExporting(true); setExportError('');
     try {
       const setupCredit = instrument === 'Bansuri' ? `Bansuri setup: ${setupMode}; source Sa ${ROOT_NAMES[sourceSa % 12]}${Math.floor(sourceSa / 12)-1}; flute native Sa ${ROOT_NAMES[projection.fluteSa % 12]}${Math.floor(projection.fluteSa / 12)-1}; pitch shift ${projection.shift} semitones. Generic fingering reference.` : '';
-      const response = await fetch('/api/exports/sargam-pdf', { method: 'POST', signal: AbortSignal.timeout(30_000), headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ events, rootMidi: root, rootLabel: `${ROOT_NAMES[((root % 12) + 12) % 12]}${Math.floor(root / 12) - 1}`, notation, title: piece.title, sourceCredit: [piece.rightsNote, setupCredit].filter(Boolean).join(' '), tempoBpm: piece.tempoBpm, timeSignature: piece.timeSignature, compact: true }) });
+      const response = await fetch('/api/exports/sargam-pdf', { method: 'POST', signal: AbortSignal.timeout(30_000), headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ events, rootMidi: root, rootLabel: `${ROOT_NAMES[((root % 12) + 12) % 12]}${Math.floor(root / 12) - 1}`, notation, title: partTitle, sourceCredit: [piece.rightsNote, part === 'melody' ? melody.credit : 'Complete stored arrangement, including harmony.', setupCredit].filter(Boolean).join(' '), tempoBpm: piece.tempoBpm, timeSignature: piece.timeSignature, compact: true }) });
       if (!response.ok) throw new Error('Could not export the score. Please try again.');
       const url = URL.createObjectURL(await response.blob());
       if (pdfUrl.current) URL.revokeObjectURL(pdfUrl.current);
@@ -113,7 +119,7 @@ export function usePilotSession(piece: PracticePiece = DEFAULT_PIECE, catalogSel
     finally { setExporting(false); }
   }
   const generatedPdf = pdf?.events === events && pdf.root === root && pdf.notation === notation && pdf.title === exportTitle ? pdf : null;
-  return { piece, opened, setOpened, instrument, setInstrument, root, setRoot, notation, setNotation, rate, setRate, soundEnabled, setSoundEnabled, double, setDouble, room, setRoom, bansuriVoice, setBansuriVoice, bansuriArticulation, setBansuriArticulation, bansuriExpression, setBansuriExpression, bansuriVolume, setBansuriVolume, loop, setLoop, notes, transport, download, exporting, exportError, generatedPdf, correctNote, resetCorrections, hasCorrections: sourceEvents !== piece.noteEvents, sourceEvents,
+  return { piece, opened, setOpened, instrument, setInstrument, pianoPart, setPianoPart, part, melody, root, setRoot, notation, setNotation, rate, setRate, soundEnabled, setSoundEnabled, double, setDouble, room, setRoom, bansuriVoice, setBansuriVoice, bansuriArticulation, setBansuriArticulation, bansuriExpression, setBansuriExpression, bansuriVolume, setBansuriVolume, loop, setLoop, notes, transport, download, exporting, exportError, generatedPdf, correctNote, resetCorrections, hasCorrections: sourceEvents !== partEvents, sourceEvents,
     events, sourceSa, fluteSa: projection.fluteSa, setupMode, setupConfirmed, bansuriSetupOpen, setBansuriSetupOpen, playAfterSetup, openBansuriSetup, applyBansuriSetup, setupError,
     roll: { events, activeEventIndex: transport.activeEventIndex, isPlaying: transport.isPlaying, notationSystem: notation, playbackRate: rate, rootMidi: root, fluteRootMidi: projection.fluteSa, readTimeMs: transport.readTimeMs } };
 }

@@ -11,6 +11,14 @@ export type WrittenVoiceScore = {
   }[])[])[];
 };
 
+/** Only for editions whose reviewed chord order explicitly lists the melody
+ * first (Horetzky 21 and Satie's ending chords). Never infer this for imports. */
+export function reviewedLeadingMelodyEvents(score: WrittenVoiceScore): readonly MidiNoteEvent[] {
+  return verifiedVoiceEvents({ ...score, sections: score.sections.map(section => section.map(bar =>
+    bar.map(segment => ({ ...segment, midi: Array.isArray(segment.midi) ? segment.midi[0] : segment.midi })),
+  )) });
+}
+
 /** Literal single authored voice, including its explicit chords and cross-bar ties. */
 export function verifiedVoiceEvents(score: WrittenVoiceScore): readonly MidiNoteEvent[] {
   if (!Number.isFinite(score.tempoBpm) || score.tempoBpm <= 0

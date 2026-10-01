@@ -1,6 +1,5 @@
 "use client";
 import type { PilotSession } from './usePilotSession';
-import { scorePolyphony } from '@/src/lib/ventusPerformance';
 export function BansuriControls({session:p}:{session:PilotSession}) {
   const connections=p.roll.events.filter(n=>n.transition).length;
   return <>
@@ -12,7 +11,6 @@ export function BansuriControls({session:p}:{session:PilotSession}) {
     </select><small>{p.bansuriExpression==='plain'?'Original melody; no added ornaments.':'Optional synthesized pitch gesture, not recorded Kontakt legato or a raga-specific interpretation.'}</small></label>
     {p.bansuriExpression!=='plain' && <small role="status">{connections ? `${connections} connected-note transitions. Sustained note bodies stay steady.` : 'No eligible connections in this score. Rests and repeated pitches are preserved. Try the Ode to Joy study to compare transitions.'}</small>}
     <label>Bansuri volume · {p.bansuriVolume}%<input aria-label="Bansuri volume" aria-valuetext={`${p.bansuriVolume} percent`} type="range" min="0" max="100" value={p.bansuriVolume} onChange={e=>p.setBansuriVolume(Number(e.target.value))}/><small>Adjust while playing.</small></label>
-    {p.bansuriExpression!=='plain' && scorePolyphony(p.piece.noteEvents)>1 && <small>Automatic transitions are off for overlapping voices. Authored pitch curves are preserved.</small>}
-    {p.piece.noteEvents.some(n=>n.midi<64||n.midi>90) && <small>Some notes are outside the recorded E4–F♯6 range and use pitch-shifted samples.</small>}
+    {p.events.some(n=>n.midi<64||n.midi>90) && <small>Some notes are outside the recorded E4–F♯6 range and use pitch-shifted samples.</small>}
   </>;
 }
