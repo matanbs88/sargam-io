@@ -15,6 +15,11 @@ MusicXML staff/voice identifiers describe written parts, not automatic melodic
 intent. Polyphonic imports offer explicit melody selection; chordal choices
 remain labelled estimates. Preserve the complete imported arrangement separately.
 Do not round fractional pitch alterations silently to Western semitones.
+MusicXML instrument transposition adds the declared chromatic offset and octave
+change to written pitches to obtain concert pitch. Staff-specific declarations
+apply only to that staff. The source key signature remains written-pitch
+metadata; never use it silently as an inferred concert Sa. Unexpanded repeats,
+tempo instructions and omitted grace notes require visible review warnings.
 
 **Practice part policy (2026-10-01):** Bansuri is monophonic. Harmonium supports
 chords physically, but this product's harmonium practice uses melody only.

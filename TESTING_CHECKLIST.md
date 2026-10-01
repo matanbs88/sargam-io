@@ -14,6 +14,10 @@ only this melody should play and print. Piano full arrangement should show
 seven attacks. Save, refresh and restore: retain the selected low melody and
 the original arrangement. Repeat at narrow width; verify selection controls
 do not overflow. Browser checks beyond selecting the low voice remain pending.
+Enable Allow access to file URLs for the ChatGPT Chrome extension before the
+upload test. Also verify an MXL containing auxiliary XML and a container-defined
+`.musicxml` score selects the declared primary file. Repeated form and written
+tempo instructions must display review warnings, not a false ready verdict.
 
 ```powershell
 npm.cmd run audit:repo

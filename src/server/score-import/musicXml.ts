@@ -61,6 +61,7 @@ const STEP_TO_SEMITONES: Readonly<Record<string, number>> = {
 
 /** Lead-sheet beta guardrail; larger scores need a dedicated async workflow. */
 const MAX_IMPORTED_MEASURES = 200;
+const MAX_EXPANDED_XML_BYTES = 12 * 1024 * 1024;
 
 function asArray(value: unknown): unknown[] {
   if (value === undefined || value === null) return [];
@@ -109,10 +110,28 @@ function resolveMusicXmlBytes(bytes: Uint8Array): {
   const isZip = bytes[0] === 0x50 && bytes[1] === 0x4b;
   if (!isZip) return { bytes, sourceFormat: "musicxml" };
 
-  const archive = unzipSync(bytes);
-  const filename = Object.keys(archive).find(
-    (entry) => entry.endsWith(".xml") && !entry.startsWith("META-INF/"),
-  );
+  let expandedBytes = 0;
+  const archive = unzipSync(bytes, { filter: file => {
+    if (!/\.(?:musicxml|xml)$/i.test(file.name)) return false;
+    expandedBytes += file.originalSize;
+    if (expandedBytes > MAX_EXPANDED_XML_BYTES) throw new Error("Expanded MXL notation exceeds the 12 MB limit.");
+    return true;
+  } });
+  const containerBytes = archive["META-INF/container.xml"];
+  let filename: string | undefined;
+  if (containerBytes) {
+    const container = getSingleNode(parseXml(containerBytes).container);
+    const rootfiles = getSingleNode(container?.rootfiles);
+    const rootfile = getSingleNode(rootfiles?.rootfile);
+    filename = asText(rootfile?.["@_full-path"]) ?? undefined;
+    if (!filename || !archive[filename]) throw new Error("The MXL container does not reference an available notation file.");
+  } else {
+    // Compatibility with older exports without the required container: do not
+    // guess between multiple scores or treat an auxiliary XML file as a score.
+    const candidates = Object.keys(archive).filter(entry => !entry.startsWith("META-INF/") && /\.(?:musicxml|xml)$/i.test(entry));
+    if (candidates.length > 1) throw new Error("The MXL archive has multiple XML files but no primary-score container.");
+    filename = candidates[0];
+  }
   if (filename === undefined) {
     throw new Error("The MXL file does not contain a MusicXML score.");
   }
@@ -171,6 +190,7 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
   let keyFifths: number | null = null;
   let timeSignature: string | null = null;
   const warnings: string[] = [];
+  const concertOffsets = new Map<string, number>([["*", 0]]);
   const measures: ImportedScoreMeasure[] = [];
   if (asArray(score?.part).length > 1) {
     warnings.push("Only the first instrument part is imported in this beta. Export the desired part separately.");
@@ -203,6 +223,29 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
     const beatType = asText(time?.["beat-type"]);
     if (beats !== null && beatType !== null) timeSignature = `${beats}/${beatType}`;
 
+    for (const rawTranspose of asArray(attributes?.transpose)) {
+      const transpose = asNode(rawTranspose);
+      const chromatic = asFiniteInteger(transpose?.chromatic);
+      const octaveText = asText(transpose?.["octave-change"]);
+      const octave = octaveText === null ? 0 : asFiniteInteger(octaveText);
+      if (chromatic === null || octave === null || transpose?.double !== undefined) throw new Error("This instrument transposition is unsupported; export the part in concert pitch.");
+      const staff = asText(transpose?.["@_number"]) ?? "*";
+      if (staff === "*") concertOffsets.clear();
+      concertOffsets.set(staff, chromatic + 12 * octave);
+      if (chromatic !== 0 || octave !== 0) warnings.push("Written instrument pitches were converted to concert pitch. Check Sa against the sounding melody; the source key signature is still written-pitch metadata.");
+    }
+    for (const barline of asArray(measure.barline).map(asNode)) {
+      if (barline?.repeat !== undefined || barline?.ending !== undefined) warnings.push("Written repeats and alternate endings are not expanded. This draft plays each written measure once; review the song form.");
+    }
+    const directions = asArray(measure.direction).map(asNode);
+    const sounds = [...asArray(measure.sound), ...directions.flatMap(direction => asArray(direction?.sound))].map(asNode);
+    if (sounds.some(sound => sound?.["@_tempo"] !== undefined) || directions.some(direction => getSingleNode(direction?.["direction-type"])?.metronome !== undefined)) {
+      warnings.push("Written tempo instructions are not applied. This draft uses the editable 96 BPM reference timeline.");
+    }
+    if (sounds.some(sound => ["@_dacapo", "@_dalsegno", "@_tocoda", "@_fine", "@_segno", "@_coda"].some(key => sound?.[key] !== undefined))) {
+      warnings.push("D.C., D.S. or coda navigation is not expanded. This draft plays the written measures in order.");
+    }
+
     let cursor = 0;
     let extent = 0;
     let previousNoteStart: number | null = null;
@@ -227,6 +270,10 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
       if (entry.note === undefined) continue;
       const note = asNode(notes[noteIndex++]);
       if (note === null) continue;
+      if (note.grace !== undefined) {
+        warnings.push("Grace notes are omitted from the timed draft. Review ornaments against the source score.");
+        continue;
+      }
       const durationDivisions = asFiniteInteger(note.duration);
       if (durationDivisions === null || durationDivisions <= 0) {
         warnings.push(`A note in measure ${index + 1} has no usable duration.`);
@@ -237,7 +284,11 @@ export function parseMusicXmlScore(bytes: Uint8Array): ImportedScore {
       if (isChordTone && previousNoteStart === null) throw new Error(`Chord has no preceding note in measure ${index + 1}.`);
       const startDivisions = isChordTone ? previousNoteStart! : cursor;
       const isRest = note.rest !== undefined;
-      const midi = isRest ? null : getMidi(note);
+      const writtenMidi = isRest ? null : getMidi(note);
+      const staff = asText(note.staff) ?? "1";
+      const offset = concertOffsets.get(staff) ?? concertOffsets.get("*") ?? 0;
+      const midi = writtenMidi === null ? null : writtenMidi + offset;
+      if (midi !== null && (midi < 0 || midi > 127)) throw new Error("Concert pitch is outside the supported MIDI range.");
       const alter = asText(getSingleNode(note.pitch)?.alter);
       if (alter !== null && !Number.isInteger(Number(alter))) throw new Error("Microtonal MusicXML pitches need an explicit pitch-curve import and cannot be rounded to semitones.");
       // Even an unsupported pitched symbol consumes its written duration.

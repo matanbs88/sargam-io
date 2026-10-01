@@ -71,3 +71,32 @@ Selecting a written voice is a learner decision, not proof of melodic intent.
 Complete the remaining browser gates, then introduce an explicit canonical
 import model for multipart selection and repeat/tempo semantics before durable
 transcription jobs. Do not restart manual catalog expansion.
+
+## Follow up on archive and musical instruction handling
+
+The next continuation adds a parser-to-client-to-draft integration test using
+the actual two-voice fixture. It checks the JSON boundary, four selected lower
+melody notes, seven original arrangement notes, preserved timing, and the
+instrument part policy. This verifies data flow, not audible playback.
+
+MXL intake now follows `META-INF/container.xml` to its primary notation file,
+including `.musicxml` names, instead of selecting the first auxiliary XML.
+Legacy archives without containers are accepted only when there is one XML
+candidate. Expanded XML content is capped at 12 MB before extraction.
+This follows the [MusicXML compressed-file specification](https://www.w3.org/2021/06/musicxml40/tutorial/compressed-mxl-files/).
+
+Written repeats, endings, playback jumps, metronome/tempo instructions and
+omitted grace notes generate visible review warnings. They are not expanded
+into performance form by this slice. Standard integer chromatic and octave
+transposition instructions now convert to concert pitches, including
+staff-specific declarations. The imported key signature remains source
+written-pitch metadata, with a review warning when conversion changes pitch.
+This uses the [MusicXML transpose semantics](https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/transpose/).
+Microtonal/doubled transposition instructions remain unsupported explicitly.
+
+The browser upload gate requires enabling Allow access to file URLs in the
+ChatGPT Chrome extension. It has not been bypassed, and playback/refresh/mobile
+acceptance remains pending. The focused parser/pipeline suite passed 12 tests.
+Final closeout passed the repository audit, lint, all 381 tests across 75 files,
+TypeScript, production build and whitespace checks. Production is unchanged;
+this remains preview work with the browser acceptance gates above open.

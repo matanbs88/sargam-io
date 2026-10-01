@@ -8,6 +8,11 @@ asks the learner to select the melodic voice before opening polyphonic imports.
 The full first-part arrangement and the selected single-line melody remain
 separate, including local draft storage. This is not live audio recognition or
 a new production release. [Evidence and remaining browser gates](./audits/SCORE_VOICE_IMPORT_2026-10-01.md).
+The continuation hardens MXL primary-file selection and expanded XML limits,
+converts standard written instrument transposition to concert pitch, and flags
+unexpanded form, tempo and grace instructions. Browser upload acceptance still
+requires the Chrome extension file-URL permission; automated pipeline tests do
+not certify audible playback.
 
 ## Melody and harmony correction
 
