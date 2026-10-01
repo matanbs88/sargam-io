@@ -1,0 +1,2781 @@
+{
+  "schema": "music-source-research-batch/1",
+  "researchOnly": true,
+  "createdDate": "2026-10-01",
+  "scope": "Five complete written digital melody voices; no application registration, publication, or catalog count changes.",
+  "units": "Quarter-note beats, not denominator beats. Each bar events triple is [MIDI pitch or null, quarter duration, exact source token]. null token s2 is a source skip; null r* is a source rest. Source event indices are one-based across each piece; bar.firstEventIndex plus array offset is a provenance reference. Start quarters derive cumulatively without added silence.",
+  "summary": {
+    "pieces": 5,
+    "notatedPitchedEvents": 300,
+    "tieMergedPitchedEventsSingleWrittenTraversal": 295,
+    "explicitRests": 21,
+    "explicitSkips": 1,
+    "unresolvedPerformedForms": [
+      "la-marseillaise textual D.C."
+    ]
+  },
+  "pieces": [
+    {
+      "id": "happy-birthday",
+      "title": "Happy Birthday to You",
+      "status": "complete_written_source_and_midi_verified",
+      "source": {
+        "pageUrl": "https://www.celticscores.com/sheet-music/791_Happy_Birthday_to_You",
+        "digitalUrl": "https://www.celticscores.com/file/1729_Happy_Birthday_to_You.ly",
+        "midiUrl": "https://www.celticscores.com/file/1728_Happy_Birthday_to_You.mid",
+        "midiSha256": "ebf5962a9dfbd90241e0d1e7cb1f1660b1a0bd3bae430ee2dc6f9aca4febf01b",
+        "editionAttribution": "Breizh Partitions, 2013, version 1.0; Patty Hill & Mildred J. Hill (1893)",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "editionLicenseEvidence": "Edition page labels the score Creative Commons BY-SA; LilyPond tagline specifies Attribution-ShareAlike 3.0.",
+        "selectedVoice": "main, selected by the sole Staff through \\transpose a g''",
+        "locations": "LilyPond main lines 46–73; sole Staff/transpose lines 76–90",
+        "selectedSourceText": "c8. c16\n  |\n  d4 c f\n  |\n  e2 c8. c16\n  |\n  d4 c g\n  |\n  f2 c8. c16\n  |\n  \n  c'4 a f\n  |\n  e8. d16 d4  bes8. bes16\n  |\n  a4 f g \n  |\n  f2"
+      },
+      "meter": [
+        3,
+        4
+      ],
+      "tempo": {
+        "quarterBpmForPublisherMidi": 130.00013000013,
+        "sourceExplicitQuarterBpm": 130,
+        "fermatas": "Written values retained; no guessed extension."
+      },
+      "form": "Entire main: pickup + seven complete 3/4 bars + 2-quarter final bar; one traversal; no repeats.",
+      "counts": {
+        "writtenBars": 9,
+        "totalQuarter": 24,
+        "notatedPitchedEvents": 26,
+        "tieMergedPitchedEvents": 26,
+        "restEvents": 0,
+        "skipEvents": 0
+      },
+      "bars": [
+        {
+          "bar": 1,
+          "startQuarter": 0,
+          "quarterLength": 1,
+          "partial": true,
+          "firstEventIndex": 1,
+          "events": [
+            [
+              70,
+              0.75,
+              "c8."
+            ],
+            [
+              70,
+              0.25,
+              "c16"
+            ]
+          ]
+        },
+        {
+          "bar": 2,
+          "startQuarter": 1,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 3,
+          "events": [
+            [
+              72,
+              1,
+              "d4"
+            ],
+            [
+              70,
+              1,
+              "c"
+            ],
+            [
+              75,
+              1,
+              "f"
+            ]
+          ]
+        },
+        {
+          "bar": 3,
+          "startQuarter": 4,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 6,
+          "events": [
+            [
+              74,
+              2,
+              "e2"
+            ],
+            [
+              70,
+              0.75,
+              "c8."
+            ],
+            [
+              70,
+              0.25,
+              "c16"
+            ]
+          ]
+        },
+        {
+          "bar": 4,
+          "startQuarter": 7,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 9,
+          "events": [
+            [
+              72,
+              1,
+              "d4"
+            ],
+            [
+              70,
+              1,
+              "c"
+            ],
+            [
+              77,
+              1,
+              "g"
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "startQuarter": 10,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 12,
+          "events": [
+            [
+              75,
+              2,
+              "f2"
+            ],
+            [
+              70,
+              0.75,
+              "c8."
+            ],
+            [
+              70,
+              0.25,
+              "c16"
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "startQuarter": 13,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 15,
+          "events": [
+            [
+              82,
+              1,
+              "c'4"
+            ],
+            [
+              79,
+              1,
+              "a"
+            ],
+            [
+              75,
+              1,
+              "f"
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "startQuarter": 16,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 18,
+          "events": [
+            [
+              74,
+              0.75,
+              "e8."
+            ],
+            [
+              72,
+              0.25,
+              "d16"
+            ],
+            [
+              72,
+              1,
+              "d4"
+            ],
+            [
+              80,
+              0.75,
+              "bes8."
+            ],
+            [
+              80,
+              0.25,
+              "bes16"
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "startQuarter": 19,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 23,
+          "events": [
+            [
+              79,
+              1,
+              "a4"
+            ],
+            [
+              75,
+              1,
+              "f"
+            ],
+            [
+              77,
+              1,
+              "g"
+            ]
+          ]
+        },
+        {
+          "bar": 9,
+          "startQuarter": 22,
+          "quarterLength": 2,
+          "partial": true,
+          "firstEventIndex": 26,
+          "events": [
+            [
+              75,
+              2,
+              "f2"
+            ]
+          ]
+        }
+      ],
+      "ties": [],
+      "midiIndependentCheck": {
+        "ppq": 384,
+        "selectedTrack": 1,
+        "method": "Exact all-events comparison of source-selected voice to track 1, with printed ties merged.",
+        "matchedExpectedPitchedEvents": 26,
+        "mismatchedExpectedPitchedEvents": 0,
+        "wholeTrackPitchedEvents": 26,
+        "sourceVoiceFirstStartQuarter": 0,
+        "lastNoteEndQuarter": 24,
+        "midiTempoQuarterBpm": 130.00013000013
+      },
+      "uncertainties": [
+        "Bombarde edition, not neutral concert-pitch folk transcription: absolute main is transposed up 22 semitones; all 26 resulting pitches match publisher MIDI (first pitch 70, last 75). Clef G^8 is notation only; do not add another octave.",
+        "Fermata on the second D in source main is not a numeric extension; retain written duration. Introductory Petrie/Stanford comments appear copied from another template; do not use them as historical attribution."
+      ]
+    },
+    {
+      "id": "hen-wlad-fy-nhadau",
+      "title": "Hen Wlad Fy Nhadau — Welsh National Anthem",
+      "status": "complete_written_source_and_midi_verified",
+      "source": {
+        "pageUrl": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=1017",
+        "digitalUrl": "https://www.mutopiaproject.org/ftp/JamesJ/henwlad/henwlad.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/JamesJ/henwlad/henwlad.mid",
+        "midiSha256": "a0988fe84512409b3a86f21f62dd886b5e28a613add9c44f00791fc805ee8bac",
+        "editionAttribution": "David Chan, Mutopia-2007/07/30-1017; James James; source Llyfrgell Genedlaethol Cymru",
+        "license": "Public Domain",
+        "licenseUrl": "https://www.mutopiaproject.org/legal.html",
+        "editionLicenseEvidence": "Official piece page Copyright: Public Domain; source license/mutopiacopyright fields and tagline expressly place this sheet music in the public domain by the typesetter.",
+        "selectedVoice": "sole \\new Voice { \\relative { ... } }, MIDI track 1 named \\new",
+        "locations": "LilyPond lines 31–56, verse and chorus within sole Voice",
+        "selectedSourceText": "s2 es4 |\n    g f es | bes' as g | es' es c8( d) | es2 c4 |\n    bes g es | es d es | g f f | f2 g8( as) |\n    bes4 bes g8( as) | bes4 bes c8( d) | es4 es c8( d) | es2 c4 |\n    bes g es | f8 g4. f4 | es2. |\n    \n    \n    bes' |\n     \n    es |\n    bes4( g) es | es( d) es | f2 g8( as) |\n    bes2 g8( as) | bes2 c8( d) | es2 c8( d) | es2 c4 |\n    bes g es | f8 g4. f4 | es2. |"
+      },
+      "meter": [
+        3,
+        4
+      ],
+      "tempo": {
+        "quarterBpmForPublisherMidi": 60,
+        "sourceExplicitQuarterBpm": null,
+        "fermatas": "Written values retained; no guessed extension."
+      },
+      "form": "Complete 16-bar verse followed by 12-bar chorus, 28 bars total. No encoded repeat. Initial s2 is an explicit skip, not a missing pickup.",
+      "counts": {
+        "writtenBars": 28,
+        "totalQuarter": 84,
+        "notatedPitchedEvents": 75,
+        "tieMergedPitchedEvents": 75,
+        "restEvents": 0,
+        "skipEvents": 1
+      },
+      "bars": [
+        {
+          "bar": 1,
+          "startQuarter": 0,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 1,
+          "events": [
+            [
+              null,
+              2,
+              "s2"
+            ],
+            [
+              63,
+              1,
+              "es4"
+            ]
+          ]
+        },
+        {
+          "bar": 2,
+          "startQuarter": 3,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 3,
+          "events": [
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              65,
+              1,
+              "f"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 3,
+          "startQuarter": 6,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 6,
+          "events": [
+            [
+              70,
+              1,
+              "bes'"
+            ],
+            [
+              68,
+              1,
+              "as"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ]
+          ]
+        },
+        {
+          "bar": 4,
+          "startQuarter": 9,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 9,
+          "events": [
+            [
+              75,
+              1,
+              "es'"
+            ],
+            [
+              75,
+              1,
+              "es"
+            ],
+            [
+              72,
+              0.5,
+              "c8"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "startQuarter": 12,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 13,
+          "events": [
+            [
+              75,
+              2,
+              "es2"
+            ],
+            [
+              72,
+              1,
+              "c4"
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "startQuarter": 15,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 15,
+          "events": [
+            [
+              70,
+              1,
+              "bes"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "startQuarter": 18,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 18,
+          "events": [
+            [
+              63,
+              1,
+              "es"
+            ],
+            [
+              62,
+              1,
+              "d"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "startQuarter": 21,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 21,
+          "events": [
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              65,
+              1,
+              "f"
+            ],
+            [
+              65,
+              1,
+              "f"
+            ]
+          ]
+        },
+        {
+          "bar": 9,
+          "startQuarter": 24,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 24,
+          "events": [
+            [
+              65,
+              2,
+              "f2"
+            ],
+            [
+              67,
+              0.5,
+              "g8"
+            ],
+            [
+              68,
+              0.5,
+              "as"
+            ]
+          ]
+        },
+        {
+          "bar": 10,
+          "startQuarter": 27,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 27,
+          "events": [
+            [
+              70,
+              1,
+              "bes4"
+            ],
+            [
+              70,
+              1,
+              "bes"
+            ],
+            [
+              67,
+              0.5,
+              "g8"
+            ],
+            [
+              68,
+              0.5,
+              "as"
+            ]
+          ]
+        },
+        {
+          "bar": 11,
+          "startQuarter": 30,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 31,
+          "events": [
+            [
+              70,
+              1,
+              "bes4"
+            ],
+            [
+              70,
+              1,
+              "bes"
+            ],
+            [
+              72,
+              0.5,
+              "c8"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ]
+          ]
+        },
+        {
+          "bar": 12,
+          "startQuarter": 33,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 35,
+          "events": [
+            [
+              75,
+              1,
+              "es4"
+            ],
+            [
+              75,
+              1,
+              "es"
+            ],
+            [
+              72,
+              0.5,
+              "c8"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ]
+          ]
+        },
+        {
+          "bar": 13,
+          "startQuarter": 36,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 39,
+          "events": [
+            [
+              75,
+              2,
+              "es2"
+            ],
+            [
+              72,
+              1,
+              "c4"
+            ]
+          ]
+        },
+        {
+          "bar": 14,
+          "startQuarter": 39,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 41,
+          "events": [
+            [
+              70,
+              1,
+              "bes"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 15,
+          "startQuarter": 42,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 44,
+          "events": [
+            [
+              65,
+              0.5,
+              "f8"
+            ],
+            [
+              67,
+              1.5,
+              "g4."
+            ],
+            [
+              65,
+              1,
+              "f4"
+            ]
+          ]
+        },
+        {
+          "bar": 16,
+          "startQuarter": 45,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 47,
+          "events": [
+            [
+              63,
+              3,
+              "es2."
+            ]
+          ]
+        },
+        {
+          "bar": 17,
+          "startQuarter": 48,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 48,
+          "events": [
+            [
+              70,
+              3,
+              "bes'"
+            ]
+          ]
+        },
+        {
+          "bar": 18,
+          "startQuarter": 51,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 49,
+          "events": [
+            [
+              75,
+              3,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 19,
+          "startQuarter": 54,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 50,
+          "events": [
+            [
+              70,
+              1,
+              "bes4"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 20,
+          "startQuarter": 57,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 53,
+          "events": [
+            [
+              63,
+              1,
+              "es"
+            ],
+            [
+              62,
+              1,
+              "d"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 21,
+          "startQuarter": 60,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 56,
+          "events": [
+            [
+              65,
+              2,
+              "f2"
+            ],
+            [
+              67,
+              0.5,
+              "g8"
+            ],
+            [
+              68,
+              0.5,
+              "as"
+            ]
+          ]
+        },
+        {
+          "bar": 22,
+          "startQuarter": 63,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 59,
+          "events": [
+            [
+              70,
+              2,
+              "bes2"
+            ],
+            [
+              67,
+              0.5,
+              "g8"
+            ],
+            [
+              68,
+              0.5,
+              "as"
+            ]
+          ]
+        },
+        {
+          "bar": 23,
+          "startQuarter": 66,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 62,
+          "events": [
+            [
+              70,
+              2,
+              "bes2"
+            ],
+            [
+              72,
+              0.5,
+              "c8"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ]
+          ]
+        },
+        {
+          "bar": 24,
+          "startQuarter": 69,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 65,
+          "events": [
+            [
+              75,
+              2,
+              "es2"
+            ],
+            [
+              72,
+              0.5,
+              "c8"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ]
+          ]
+        },
+        {
+          "bar": 25,
+          "startQuarter": 72,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 68,
+          "events": [
+            [
+              75,
+              2,
+              "es2"
+            ],
+            [
+              72,
+              1,
+              "c4"
+            ]
+          ]
+        },
+        {
+          "bar": 26,
+          "startQuarter": 75,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 70,
+          "events": [
+            [
+              70,
+              1,
+              "bes"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              63,
+              1,
+              "es"
+            ]
+          ]
+        },
+        {
+          "bar": 27,
+          "startQuarter": 78,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 73,
+          "events": [
+            [
+              65,
+              0.5,
+              "f8"
+            ],
+            [
+              67,
+              1.5,
+              "g4."
+            ],
+            [
+              65,
+              1,
+              "f4"
+            ]
+          ]
+        },
+        {
+          "bar": 28,
+          "startQuarter": 81,
+          "quarterLength": 3,
+          "partial": false,
+          "firstEventIndex": 76,
+          "events": [
+            [
+              63,
+              3,
+              "es2."
+            ]
+          ]
+        }
+      ],
+      "ties": [],
+      "midiIndependentCheck": {
+        "ppq": 384,
+        "selectedTrack": 1,
+        "method": "Exact all-events comparison of source-selected voice to track 1, with printed ties merged.",
+        "matchedExpectedPitchedEvents": 75,
+        "mismatchedExpectedPitchedEvents": 0,
+        "wholeTrackPitchedEvents": 75,
+        "sourceVoiceFirstStartQuarter": 2,
+        "lastNoteEndQuarter": 84,
+        "midiTempoQuarterBpm": 60
+      },
+      "uncertainties": [
+        "Initial bar is source s2 es4: preserve the explicit two-quarter skip. Do not replace with a compressed one-quarter pickup.",
+        "Fermatas are expressive, not MIDI duration multipliers. The official page date and source lastupdated metadata differ; retain edition ID as identity."
+      ]
+    },
+    {
+      "id": "la-marseillaise",
+      "title": "La Marseillaise",
+      "status": "complete_written_source_verified_performed_dc_unresolved",
+      "source": {
+        "pageUrl": "https://www.celticscores.com/sheet-music/784_La_Marseillaise",
+        "digitalUrl": "https://www.celticscores.com/file/1704_La_Marseillaise.ly",
+        "midiUrl": "https://www.celticscores.com/file/1705_La_Marseillaise.mid",
+        "midiSha256": "581c7aca20691c9373576ad9236b82ac48246a52d30756058991151fc6a0e39c",
+        "editionAttribution": "Iain Patterson (2011), slightly improved by Breizh Partitions (2013); Rouget de l’Isle (1792)",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "editionLicenseEvidence": "Edition page labels Creative Commons BY-SA; exact source tagline explicitly specifies Attribution-ShareAlike 3.0.",
+        "selectedVoice": "altoVoice / altoVoicePart; Staff instrumentName Voix; MIDI track 1, not right or left piano tracks",
+        "locations": "LilyPond altoVoice lines 54–88; altoVoicePart wiring lines 178–182",
+        "selectedSourceText": "r2 r8 r16 d16 d8. d16\n  g4 g a a\n  d4.(b8) g r16 g b8. g16\n  e4 c'2 a8. fis16\n  g2 r4 g8. a16\n  b4 b b c8. b16\n  b4 a r4 a8. b16\n  c4 c c d8. c16\n  b2 r4 d8. d16\n  d4(b8.) g16 d'4 b8. g16\n  d2 r8 r16 d16 d8. fis16\n  a2 c4 a8. fis16\n  a4 g f!2\n  e4 g8. g16 g4 fis8. g16\n  a2. r8  a8 \n  bes4. bes8 bes[bes] c d\n  a2. bes8 a\n  g4. g8 g(bes) a g\n  g4 fis8 r8 r4 r8 r16 d' \n  d2~d8. d16 b8. g16\n  a2. r8 r16 d16\n  d2~d8. d16 b8. g16\n  a2~a8 r8 d,4\n  g2 r4 a4\n  b2 r2\n  c2 d4 e\n  a,2~a8 r8 e'4\n  d2~d8. [b16 c8. a16]\n  g2. r4"
+      },
+      "meter": [
+        4,
+        4
+      ],
+      "tempo": {
+        "quarterBpmForPublisherMidi": 100,
+        "sourceExplicitQuarterBpm": 100,
+        "fermatas": "Written values retained; no guessed extension."
+      },
+      "form": "Full 29 written 4/4 bars: verse through bar 19 (including the pickup into refrain at its end), refrain bars 20–29. Final textual D.C. is not an encoded jump; supplied MIDI plays all 29 bars once.",
+      "counts": {
+        "writtenBars": 29,
+        "totalQuarter": 116,
+        "notatedPitchedEvents": 110,
+        "tieMergedPitchedEvents": 105,
+        "restEvents": 21,
+        "skipEvents": 0
+      },
+      "bars": [
+        {
+          "bar": 1,
+          "startQuarter": 0,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 1,
+          "events": [
+            [
+              null,
+              2,
+              "r2"
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              null,
+              0.25,
+              "r16"
+            ],
+            [
+              62,
+              0.25,
+              "d16"
+            ],
+            [
+              62,
+              0.75,
+              "d8."
+            ],
+            [
+              62,
+              0.25,
+              "d16"
+            ]
+          ]
+        },
+        {
+          "bar": 2,
+          "startQuarter": 4,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 7,
+          "events": [
+            [
+              67,
+              1,
+              "g4"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              69,
+              1,
+              "a"
+            ],
+            [
+              69,
+              1,
+              "a"
+            ]
+          ]
+        },
+        {
+          "bar": 3,
+          "startQuarter": 8,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 11,
+          "events": [
+            [
+              74,
+              1.5,
+              "d4."
+            ],
+            [
+              71,
+              0.5,
+              "b8"
+            ],
+            [
+              67,
+              0.5,
+              "g"
+            ],
+            [
+              null,
+              0.25,
+              "r16"
+            ],
+            [
+              67,
+              0.25,
+              "g"
+            ],
+            [
+              71,
+              0.75,
+              "b8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ]
+          ]
+        },
+        {
+          "bar": 4,
+          "startQuarter": 12,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 18,
+          "events": [
+            [
+              64,
+              1,
+              "e4"
+            ],
+            [
+              72,
+              2,
+              "c'2"
+            ],
+            [
+              69,
+              0.75,
+              "a8."
+            ],
+            [
+              66,
+              0.25,
+              "fis16"
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "startQuarter": 16,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 22,
+          "events": [
+            [
+              67,
+              2,
+              "g2"
+            ],
+            [
+              null,
+              1,
+              "r4"
+            ],
+            [
+              67,
+              0.75,
+              "g8."
+            ],
+            [
+              69,
+              0.25,
+              "a16"
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "startQuarter": 20,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 26,
+          "events": [
+            [
+              71,
+              1,
+              "b4"
+            ],
+            [
+              71,
+              1,
+              "b"
+            ],
+            [
+              71,
+              1,
+              "b"
+            ],
+            [
+              72,
+              0.75,
+              "c8."
+            ],
+            [
+              71,
+              0.25,
+              "b16"
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "startQuarter": 24,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 31,
+          "events": [
+            [
+              71,
+              1,
+              "b4"
+            ],
+            [
+              69,
+              1,
+              "a"
+            ],
+            [
+              null,
+              1,
+              "r4"
+            ],
+            [
+              69,
+              0.75,
+              "a8."
+            ],
+            [
+              71,
+              0.25,
+              "b16"
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "startQuarter": 28,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 36,
+          "events": [
+            [
+              72,
+              1,
+              "c4"
+            ],
+            [
+              72,
+              1,
+              "c"
+            ],
+            [
+              72,
+              1,
+              "c"
+            ],
+            [
+              74,
+              0.75,
+              "d8."
+            ],
+            [
+              72,
+              0.25,
+              "c16"
+            ]
+          ]
+        },
+        {
+          "bar": 9,
+          "startQuarter": 32,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 41,
+          "events": [
+            [
+              71,
+              2,
+              "b2"
+            ],
+            [
+              null,
+              1,
+              "r4"
+            ],
+            [
+              74,
+              0.75,
+              "d8."
+            ],
+            [
+              74,
+              0.25,
+              "d16"
+            ]
+          ]
+        },
+        {
+          "bar": 10,
+          "startQuarter": 36,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 45,
+          "events": [
+            [
+              74,
+              1,
+              "d4"
+            ],
+            [
+              71,
+              0.75,
+              "b8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ],
+            [
+              74,
+              1,
+              "d'4"
+            ],
+            [
+              71,
+              0.75,
+              "b8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ]
+          ]
+        },
+        {
+          "bar": 11,
+          "startQuarter": 40,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 51,
+          "events": [
+            [
+              62,
+              2,
+              "d2"
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              null,
+              0.25,
+              "r16"
+            ],
+            [
+              62,
+              0.25,
+              "d16"
+            ],
+            [
+              62,
+              0.75,
+              "d8."
+            ],
+            [
+              66,
+              0.25,
+              "fis16"
+            ]
+          ]
+        },
+        {
+          "bar": 12,
+          "startQuarter": 44,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 57,
+          "events": [
+            [
+              69,
+              2,
+              "a2"
+            ],
+            [
+              72,
+              1,
+              "c4"
+            ],
+            [
+              69,
+              0.75,
+              "a8."
+            ],
+            [
+              66,
+              0.25,
+              "fis16"
+            ]
+          ]
+        },
+        {
+          "bar": 13,
+          "startQuarter": 48,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 61,
+          "events": [
+            [
+              69,
+              1,
+              "a4"
+            ],
+            [
+              67,
+              1,
+              "g"
+            ],
+            [
+              65,
+              2,
+              "f!2"
+            ]
+          ]
+        },
+        {
+          "bar": 14,
+          "startQuarter": 52,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 64,
+          "events": [
+            [
+              64,
+              1,
+              "e4"
+            ],
+            [
+              67,
+              0.75,
+              "g8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ],
+            [
+              67,
+              1,
+              "g4"
+            ],
+            [
+              66,
+              0.75,
+              "fis8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ]
+          ]
+        },
+        {
+          "bar": 15,
+          "startQuarter": 56,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 70,
+          "events": [
+            [
+              69,
+              3,
+              "a2."
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              69,
+              0.5,
+              "a8"
+            ]
+          ]
+        },
+        {
+          "bar": 16,
+          "startQuarter": 60,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 73,
+          "events": [
+            [
+              70,
+              1.5,
+              "bes4."
+            ],
+            [
+              70,
+              0.5,
+              "bes8"
+            ],
+            [
+              70,
+              0.5,
+              "bes"
+            ],
+            [
+              70,
+              0.5,
+              "bes"
+            ],
+            [
+              72,
+              0.5,
+              "c"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ]
+          ]
+        },
+        {
+          "bar": 17,
+          "startQuarter": 64,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 79,
+          "events": [
+            [
+              69,
+              3,
+              "a2."
+            ],
+            [
+              70,
+              0.5,
+              "bes8"
+            ],
+            [
+              69,
+              0.5,
+              "a"
+            ]
+          ]
+        },
+        {
+          "bar": 18,
+          "startQuarter": 68,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 82,
+          "events": [
+            [
+              67,
+              1.5,
+              "g4."
+            ],
+            [
+              67,
+              0.5,
+              "g8"
+            ],
+            [
+              67,
+              0.5,
+              "g"
+            ],
+            [
+              70,
+              0.5,
+              "bes"
+            ],
+            [
+              69,
+              0.5,
+              "a"
+            ],
+            [
+              67,
+              0.5,
+              "g"
+            ]
+          ]
+        },
+        {
+          "bar": 19,
+          "startQuarter": 72,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 88,
+          "events": [
+            [
+              67,
+              1,
+              "g4"
+            ],
+            [
+              66,
+              0.5,
+              "fis8"
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              null,
+              1,
+              "r4"
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              null,
+              0.25,
+              "r16"
+            ],
+            [
+              74,
+              0.25,
+              "d'"
+            ]
+          ]
+        },
+        {
+          "bar": 20,
+          "startQuarter": 76,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 95,
+          "events": [
+            [
+              74,
+              2,
+              "d2"
+            ],
+            [
+              74,
+              0.75,
+              "d8."
+            ],
+            [
+              74,
+              0.25,
+              "d16"
+            ],
+            [
+              71,
+              0.75,
+              "b8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ]
+          ]
+        },
+        {
+          "bar": 21,
+          "startQuarter": 80,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 100,
+          "events": [
+            [
+              69,
+              3,
+              "a2."
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              null,
+              0.25,
+              "r16"
+            ],
+            [
+              74,
+              0.25,
+              "d16"
+            ]
+          ]
+        },
+        {
+          "bar": 22,
+          "startQuarter": 84,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 104,
+          "events": [
+            [
+              74,
+              2,
+              "d2"
+            ],
+            [
+              74,
+              0.75,
+              "d8."
+            ],
+            [
+              74,
+              0.25,
+              "d16"
+            ],
+            [
+              71,
+              0.75,
+              "b8."
+            ],
+            [
+              67,
+              0.25,
+              "g16"
+            ]
+          ]
+        },
+        {
+          "bar": 23,
+          "startQuarter": 88,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 109,
+          "events": [
+            [
+              69,
+              2,
+              "a2"
+            ],
+            [
+              69,
+              0.5,
+              "a8"
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              62,
+              1,
+              "d,4"
+            ]
+          ]
+        },
+        {
+          "bar": 24,
+          "startQuarter": 92,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 113,
+          "events": [
+            [
+              67,
+              2,
+              "g2"
+            ],
+            [
+              null,
+              1,
+              "r4"
+            ],
+            [
+              69,
+              1,
+              "a4"
+            ]
+          ]
+        },
+        {
+          "bar": 25,
+          "startQuarter": 96,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 116,
+          "events": [
+            [
+              71,
+              2,
+              "b2"
+            ],
+            [
+              null,
+              2,
+              "r2"
+            ]
+          ]
+        },
+        {
+          "bar": 26,
+          "startQuarter": 100,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 118,
+          "events": [
+            [
+              72,
+              2,
+              "c2"
+            ],
+            [
+              74,
+              1,
+              "d4"
+            ],
+            [
+              76,
+              1,
+              "e"
+            ]
+          ]
+        },
+        {
+          "bar": 27,
+          "startQuarter": 104,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 121,
+          "events": [
+            [
+              69,
+              2,
+              "a,2"
+            ],
+            [
+              69,
+              0.5,
+              "a8"
+            ],
+            [
+              null,
+              0.5,
+              "r8"
+            ],
+            [
+              76,
+              1,
+              "e'4"
+            ]
+          ]
+        },
+        {
+          "bar": 28,
+          "startQuarter": 108,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 125,
+          "events": [
+            [
+              74,
+              2,
+              "d2"
+            ],
+            [
+              74,
+              0.75,
+              "d8."
+            ],
+            [
+              71,
+              0.25,
+              "b16"
+            ],
+            [
+              72,
+              0.75,
+              "c8."
+            ],
+            [
+              69,
+              0.25,
+              "a16"
+            ]
+          ]
+        },
+        {
+          "bar": 29,
+          "startQuarter": 112,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 130,
+          "events": [
+            [
+              67,
+              3,
+              "g2."
+            ],
+            [
+              null,
+              1,
+              "r4"
+            ]
+          ]
+        }
+      ],
+      "ties": [
+        {
+          "fromEvent": 95,
+          "toEvent": 96,
+          "midi": 74,
+          "mergedQuarter": 2.75
+        },
+        {
+          "fromEvent": 104,
+          "toEvent": 105,
+          "midi": 74,
+          "mergedQuarter": 2.75
+        },
+        {
+          "fromEvent": 109,
+          "toEvent": 110,
+          "midi": 69,
+          "mergedQuarter": 2.5
+        },
+        {
+          "fromEvent": 121,
+          "toEvent": 122,
+          "midi": 69,
+          "mergedQuarter": 2.5
+        },
+        {
+          "fromEvent": 125,
+          "toEvent": 126,
+          "midi": 74,
+          "mergedQuarter": 2.75
+        }
+      ],
+      "midiIndependentCheck": {
+        "ppq": 384,
+        "selectedTrack": 1,
+        "method": "Exact all-events comparison of source-selected voice to track 1, with printed ties merged.",
+        "matchedExpectedPitchedEvents": 105,
+        "mismatchedExpectedPitchedEvents": 0,
+        "wholeTrackPitchedEvents": 105,
+        "sourceVoiceFirstStartQuarter": 2.75,
+        "lastNoteEndQuarter": 115,
+        "midiTempoQuarterBpm": 100
+      },
+      "uncertainties": [
+        "Printed D.C. at the final rest directs a return to the beginning but supplies no Fine/Segno or finite repeat count. Ledger and MIDI validation intentionally cover the complete written verse/refrain once; do not claim a resolved performed D.C. form or automatically loop forever.",
+        "Source five ~ ties must merge matching pitches, not adjacent repeated attacks. Final fermata has no numeric extension. Initial rests total 2.75 quarters; retain them because this is a complete written bar, not a pickup."
+      ]
+    },
+    {
+      "id": "joy-to-the-world",
+      "title": "Joy to the World — Antioch",
+      "status": "complete_written_source_and_midi_verified",
+      "source": {
+        "pageUrl": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=1223",
+        "digitalUrl": "https://www.mutopiaproject.org/ftp/HandelGF/antioch/antioch.ly",
+        "midiUrl": "https://www.mutopiaproject.org/ftp/HandelGF/antioch/antioch.mid",
+        "midiSha256": "41152c8c7c18750cf2040f215e1db3c5b05ce6f79ffeae1a76a1c18cf7978844",
+        "editionAttribution": "Steve Dunlop, Mutopia-2008/01/13-1223; George Frederick Handel & Lowell Mason",
+        "license": "Public Domain",
+        "licenseUrl": "https://www.mutopiaproject.org/legal.html",
+        "editionLicenseEvidence": "Official piece page Copyright: Public Domain; source copyright field and typesetter public-domain dedication in tagline.",
+        "selectedVoice": "Soprano variable, explicitly wired as first upper Staff partcombine input; embedded ABC V:1",
+        "locations": "LilyPond Soprano line 21; score upper Staff partcombine lines 29–36; embedded ABC I:Title=Joy to the World and V:1",
+        "selectedSourceText": "d''4 cis''8. b'16 a'4. g'8 fis'4 e' d'4. a'8 b'4. b'8 cis''4. cis''8 d''4. d''8 d'' cis'' b' a' a'8. g'16 a'8 d'' d'' cis'' b' a' a'8. g'16 fis'8 fis' fis' fis' fis' fis'16 g' a'4. g'16 fis' e'8 e' e' e'16 fis' g'4. fis'16 e' d'8 d''4 b'8 a'8. g'16 fis'8 g' fis'4 e' d'2"
+      },
+      "meter": [
+        2,
+        4
+      ],
+      "tempo": {
+        "quarterBpmForPublisherMidi": 60,
+        "sourceExplicitQuarterBpm": 95,
+        "fermatas": "Written values retained; no guessed extension."
+      },
+      "form": "Whole Soprano through final d'2 and final barline: 19 complete 2/4 bars, no pickup, source repeat or truncation.",
+      "counts": {
+        "writtenBars": 19,
+        "totalQuarter": 38,
+        "notatedPitchedEvents": 57,
+        "tieMergedPitchedEvents": 57,
+        "restEvents": 0,
+        "skipEvents": 0
+      },
+      "bars": [
+        {
+          "bar": 1,
+          "startQuarter": 0,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 1,
+          "events": [
+            [
+              74,
+              1,
+              "d''4"
+            ],
+            [
+              73,
+              0.75,
+              "cis''8."
+            ],
+            [
+              71,
+              0.25,
+              "b'16"
+            ]
+          ]
+        },
+        {
+          "bar": 2,
+          "startQuarter": 2,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 4,
+          "events": [
+            [
+              69,
+              1.5,
+              "a'4."
+            ],
+            [
+              67,
+              0.5,
+              "g'8"
+            ]
+          ]
+        },
+        {
+          "bar": 3,
+          "startQuarter": 4,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 6,
+          "events": [
+            [
+              66,
+              1,
+              "fis'4"
+            ],
+            [
+              64,
+              1,
+              "e'"
+            ]
+          ]
+        },
+        {
+          "bar": 4,
+          "startQuarter": 6,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 8,
+          "events": [
+            [
+              62,
+              1.5,
+              "d'4."
+            ],
+            [
+              69,
+              0.5,
+              "a'8"
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "startQuarter": 8,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 10,
+          "events": [
+            [
+              71,
+              1.5,
+              "b'4."
+            ],
+            [
+              71,
+              0.5,
+              "b'8"
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "startQuarter": 10,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 12,
+          "events": [
+            [
+              73,
+              1.5,
+              "cis''4."
+            ],
+            [
+              73,
+              0.5,
+              "cis''8"
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "startQuarter": 12,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 14,
+          "events": [
+            [
+              74,
+              1.5,
+              "d''4."
+            ],
+            [
+              74,
+              0.5,
+              "d''8"
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "startQuarter": 14,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 16,
+          "events": [
+            [
+              74,
+              0.5,
+              "d''"
+            ],
+            [
+              73,
+              0.5,
+              "cis''"
+            ],
+            [
+              71,
+              0.5,
+              "b'"
+            ],
+            [
+              69,
+              0.5,
+              "a'"
+            ]
+          ]
+        },
+        {
+          "bar": 9,
+          "startQuarter": 16,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 20,
+          "events": [
+            [
+              69,
+              0.75,
+              "a'8."
+            ],
+            [
+              67,
+              0.25,
+              "g'16"
+            ],
+            [
+              69,
+              0.5,
+              "a'8"
+            ],
+            [
+              74,
+              0.5,
+              "d''"
+            ]
+          ]
+        },
+        {
+          "bar": 10,
+          "startQuarter": 18,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 24,
+          "events": [
+            [
+              74,
+              0.5,
+              "d''"
+            ],
+            [
+              73,
+              0.5,
+              "cis''"
+            ],
+            [
+              71,
+              0.5,
+              "b'"
+            ],
+            [
+              69,
+              0.5,
+              "a'"
+            ]
+          ]
+        },
+        {
+          "bar": 11,
+          "startQuarter": 20,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 28,
+          "events": [
+            [
+              69,
+              0.75,
+              "a'8."
+            ],
+            [
+              67,
+              0.25,
+              "g'16"
+            ],
+            [
+              66,
+              0.5,
+              "fis'8"
+            ],
+            [
+              66,
+              0.5,
+              "fis'"
+            ]
+          ]
+        },
+        {
+          "bar": 12,
+          "startQuarter": 22,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 32,
+          "events": [
+            [
+              66,
+              0.5,
+              "fis'"
+            ],
+            [
+              66,
+              0.5,
+              "fis'"
+            ],
+            [
+              66,
+              0.5,
+              "fis'"
+            ],
+            [
+              66,
+              0.25,
+              "fis'16"
+            ],
+            [
+              67,
+              0.25,
+              "g'"
+            ]
+          ]
+        },
+        {
+          "bar": 13,
+          "startQuarter": 24,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 37,
+          "events": [
+            [
+              69,
+              1.5,
+              "a'4."
+            ],
+            [
+              67,
+              0.25,
+              "g'16"
+            ],
+            [
+              66,
+              0.25,
+              "fis'"
+            ]
+          ]
+        },
+        {
+          "bar": 14,
+          "startQuarter": 26,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 40,
+          "events": [
+            [
+              64,
+              0.5,
+              "e'8"
+            ],
+            [
+              64,
+              0.5,
+              "e'"
+            ],
+            [
+              64,
+              0.5,
+              "e'"
+            ],
+            [
+              64,
+              0.25,
+              "e'16"
+            ],
+            [
+              66,
+              0.25,
+              "fis'"
+            ]
+          ]
+        },
+        {
+          "bar": 15,
+          "startQuarter": 28,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 45,
+          "events": [
+            [
+              67,
+              1.5,
+              "g'4."
+            ],
+            [
+              66,
+              0.25,
+              "fis'16"
+            ],
+            [
+              64,
+              0.25,
+              "e'"
+            ]
+          ]
+        },
+        {
+          "bar": 16,
+          "startQuarter": 30,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 48,
+          "events": [
+            [
+              62,
+              0.5,
+              "d'8"
+            ],
+            [
+              74,
+              1,
+              "d''4"
+            ],
+            [
+              71,
+              0.5,
+              "b'8"
+            ]
+          ]
+        },
+        {
+          "bar": 17,
+          "startQuarter": 32,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 51,
+          "events": [
+            [
+              69,
+              0.75,
+              "a'8."
+            ],
+            [
+              67,
+              0.25,
+              "g'16"
+            ],
+            [
+              66,
+              0.5,
+              "fis'8"
+            ],
+            [
+              67,
+              0.5,
+              "g'"
+            ]
+          ]
+        },
+        {
+          "bar": 18,
+          "startQuarter": 34,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 55,
+          "events": [
+            [
+              66,
+              1,
+              "fis'4"
+            ],
+            [
+              64,
+              1,
+              "e'"
+            ]
+          ]
+        },
+        {
+          "bar": 19,
+          "startQuarter": 36,
+          "quarterLength": 2,
+          "partial": false,
+          "firstEventIndex": 57,
+          "events": [
+            [
+              62,
+              2,
+              "d'2"
+            ]
+          ]
+        }
+      ],
+      "ties": [],
+      "midiIndependentCheck": {
+        "ppq": 384,
+        "selectedTrack": 1,
+        "method": "Exact source-pitch/start/duration inclusion in combined Soprano+Alto track; no note-height heuristic.",
+        "matchedExpectedPitchedEvents": 57,
+        "mismatchedExpectedPitchedEvents": 0,
+        "wholeTrackPitchedEvents": 110,
+        "sourceVoiceFirstStartQuarter": 0,
+        "lastNoteEndQuarter": 38,
+        "midiTempoQuarterBpm": 60
+      },
+      "uncertainties": [
+        "Declared embedded ABC Q is quarter=95; LilyPond MIDI uses misspelled tempWholesPerMinute and downloaded MIDI actually encodes quarter=60. Keep declared 95 and observed 60 distinct.",
+        "Official page title is Antioch; embedded source explicitly identifies the familiar lyric title. Upper MIDI track also contains Alto; every Soprano onset/pitch/duration was matched by source identity, not highest-note selection."
+      ]
+    },
+    {
+      "id": "frere-jacques",
+      "title": "Frère Jacques",
+      "status": "complete_written_source_and_midi_verified",
+      "source": {
+        "pageUrl": "https://zh.wikipedia.org/w/index.php?title=ABC记谱法&oldid=91817555",
+        "digitalUrl": "https://zh.wikipedia.org/w/index.php?title=ABC记谱法&oldid=91817555",
+        "midiUrl": "https://upload.wikimedia.org/score/i/m/imul47377pmv7gtr5d1v8jf0we4skl5/imul4737.midi",
+        "midiSha256": "bb02f198052f1bd705f659affab8384a973fcfbf888435b51827152122f7abea",
+        "editionAttribution": "Chinese Wikipedia ABC记谱法 contributors, revision 91817555; article history https://zh.wikipedia.org/w/index.php?title=ABC记谱法&action=history",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "editionLicenseEvidence": "The complete ABC is article contributor text; revision page footer explicitly licenses all text CC BY-SA 4.0. This is the contributor-authored notation example, not a separately licensed third-party image.",
+        "selectedVoice": "ABC X:1 single implicit voice; generated MIDI track 1 named default:",
+        "locations": "Frère Jacques example ABC block and second Score rendering in revision 91817555",
+        "selectedSourceText": "X:1\nT:Frère Jacques\nM:4/4\nL:1/8\nK:F\nF2 G2 A2 F2 | F2 G2 A2 F2 | A2 B2 c4 | A2 B2 c4 |\ncd cB A2 F2 | cd cB A2 F2 | G2 C2 F4 | G2 C2 F4 ||"
+      },
+      "meter": [
+        4,
+        4
+      ],
+      "tempo": {
+        "quarterBpmForPublisherMidi": 60,
+        "sourceExplicitQuarterBpm": null,
+        "fermatas": "Written values retained; no guessed extension."
+      },
+      "form": "All eight 4/4 bars, four phrase-pairs, no encoded canon entrances or repeats. Complete single-voice round subject.",
+      "counts": {
+        "writtenBars": 8,
+        "totalQuarter": 32,
+        "notatedPitchedEvents": 32,
+        "tieMergedPitchedEvents": 32,
+        "restEvents": 0,
+        "skipEvents": 0
+      },
+      "bars": [
+        {
+          "bar": 1,
+          "startQuarter": 0,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 1,
+          "events": [
+            [
+              65,
+              1,
+              "F2"
+            ],
+            [
+              67,
+              1,
+              "G2"
+            ],
+            [
+              69,
+              1,
+              "A2"
+            ],
+            [
+              65,
+              1,
+              "F2"
+            ]
+          ]
+        },
+        {
+          "bar": 2,
+          "startQuarter": 4,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 5,
+          "events": [
+            [
+              65,
+              1,
+              "F2"
+            ],
+            [
+              67,
+              1,
+              "G2"
+            ],
+            [
+              69,
+              1,
+              "A2"
+            ],
+            [
+              65,
+              1,
+              "F2"
+            ]
+          ]
+        },
+        {
+          "bar": 3,
+          "startQuarter": 8,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 9,
+          "events": [
+            [
+              69,
+              1,
+              "A2"
+            ],
+            [
+              70,
+              1,
+              "B2"
+            ],
+            [
+              72,
+              2,
+              "c4"
+            ]
+          ]
+        },
+        {
+          "bar": 4,
+          "startQuarter": 12,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 12,
+          "events": [
+            [
+              69,
+              1,
+              "A2"
+            ],
+            [
+              70,
+              1,
+              "B2"
+            ],
+            [
+              72,
+              2,
+              "c4"
+            ]
+          ]
+        },
+        {
+          "bar": 5,
+          "startQuarter": 16,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 15,
+          "events": [
+            [
+              72,
+              0.5,
+              "c"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ],
+            [
+              72,
+              0.5,
+              "c"
+            ],
+            [
+              70,
+              0.5,
+              "B"
+            ],
+            [
+              69,
+              1,
+              "A2"
+            ],
+            [
+              65,
+              1,
+              "F2"
+            ]
+          ]
+        },
+        {
+          "bar": 6,
+          "startQuarter": 20,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 21,
+          "events": [
+            [
+              72,
+              0.5,
+              "c"
+            ],
+            [
+              74,
+              0.5,
+              "d"
+            ],
+            [
+              72,
+              0.5,
+              "c"
+            ],
+            [
+              70,
+              0.5,
+              "B"
+            ],
+            [
+              69,
+              1,
+              "A2"
+            ],
+            [
+              65,
+              1,
+              "F2"
+            ]
+          ]
+        },
+        {
+          "bar": 7,
+          "startQuarter": 24,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 27,
+          "events": [
+            [
+              67,
+              1,
+              "G2"
+            ],
+            [
+              60,
+              1,
+              "C2"
+            ],
+            [
+              65,
+              2,
+              "F4"
+            ]
+          ]
+        },
+        {
+          "bar": 8,
+          "startQuarter": 28,
+          "quarterLength": 4,
+          "partial": false,
+          "firstEventIndex": 30,
+          "events": [
+            [
+              67,
+              1,
+              "G2"
+            ],
+            [
+              60,
+              1,
+              "C2"
+            ],
+            [
+              65,
+              2,
+              "F4"
+            ]
+          ]
+        }
+      ],
+      "ties": [],
+      "midiIndependentCheck": {
+        "ppq": 384,
+        "selectedTrack": 1,
+        "method": "Exact all-events comparison of source-selected voice to track 1, with printed ties merged.",
+        "matchedExpectedPitchedEvents": 32,
+        "mismatchedExpectedPitchedEvents": 0,
+        "wholeTrackPitchedEvents": 32,
+        "sourceVoiceFirstStartQuarter": 0,
+        "lastNoteEndQuarter": 32,
+        "midiTempoQuarterBpm": 60
+      },
+      "uncertainties": [
+        "Source provides no Q tempo: quarter=60 comes from its generated MIDI, not a composer tempo marking.",
+        "The implicit ABC voice has no author-supplied V:name; default: is the renderer's explicit MIDI track label. Do not invent a named Soprano.",
+        "The last two bars are source G2 C2 F4 (MIDI 67,60,65), and B is B-flat under K:F; preserve this edition's exact notes. Wikipedia MIDI URL is exposed by the Score renderer asset stem (.midi), and was successfully read and checked."
+      ]
+    }
+  ],
+  "rejectedOrDeferred": [
+    {
+      "title": "Jingle Bells",
+      "url": "https://trillian.mit.edu/~jc/music/abc/demo/Tunes/JingleBells.abc",
+      "reason": "Public Domain metadata is explicit, but retrieved ABC starts malformed a/b/][f/b/] and has only seven fragmentary bars; no complete melody. Not counted."
+    },
+    {
+      "title": "Jingle Bells",
+      "url": "https://www.celticscores.com/sheet-music/492_Jingle_Bells",
+      "reason": "Open Free Art License page has MIDI/PDF but no exact ABC/LilyPond/MusicXML source. Accessible notation is chorus-only; not accepted as complete verse/refrain digital source."
+    }
+  ],
+  "conversionPath": "Use named source voice directly, flatten bar events preserving rests/skips and exact partial lengths, expand only explicit finite repeats, and merge only recorded ties. Do not extract scalar highest notes from combined MIDI. Frère Jacques ABC can convert directly; Happy Birthday must apply source transpose. La Marseillaise needs a product choice for textual D.C. before asserting a performed form."
+}

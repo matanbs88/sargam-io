@@ -4,18 +4,20 @@
   "reviewedAt": "2026-10-01",
   "title": "Purano Sei Diner Katha",
   "composer": "Rabindranath Tagore",
-  "status": "Complete written main-note ledger independently parsed and compared with SNLTR encoded witness; exact printed-page locator, source pixels and canonical JSON repeat/provenance objects remain unresolved.",
+  "status": "Pinned canonical JSON fully parsed; complete written traversal matched to the encoded SNLTR witness. Printed pages 37-38 visually inspected for full scope, header, terminal bars and two kan glyphs. No invented sung-stanza repeats or grace durations.",
   "catalogEligible": false,
   "edition": {
     "digital": "Indranil (Neel) Banerjee, Ten Songs of Tagore, In Data / tagore-swaralipi corpus v0.1, released 2026-08-11",
     "sourceBranch": "main",
-    "immutableRevision": null,
-    "revisionCaveat": "The readable GitHub file did not expose a commit SHA. Do not treat this as revision-pinned canonical JSON verification.",
+    "immutableRevision": "1aa0846821cf0bca336d594cfaafbcc238a42cda",
+    "revisionCaveat": "Commit SHA supplied by main's public commits(path) fetch and independently confirmed by reading the exact-SHA GitHub file page; all canonical lines/provenance/confidence/marks inspected.",
     "notationText": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/data/text/purano-sei-diner-katha.txt",
     "canonicalJsonRoute": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/data/songs/purano-sei-diner-katha.json",
     "verificationRecordRoute": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/docs/VERIFICATION.md",
     "license": "Corpus data CC BY 4.0; attribute Indranil Banerjee and the SNLTR/Swarabitan source lineage.",
-    "rightsCaveat": "The corpus states Tagore is public domain in India. Archive metadata states public domain. Neither is independent worldwide clearance of this edition or its digitization."
+    "rightsCaveat": "The corpus states Tagore is public domain in India. Archive metadata states public domain. Neither is independent worldwide clearance of this edition or its digitization.",
+    "pinnedCanonicalUrl": "https://github.com/indranilbanerjee/tagore-swaralipi/blob/1aa0846821cf0bca336d594cfaafbcc238a42cda/data/songs/purano-sei-diner-katha.json",
+    "pinnedRawUrl": "https://raw.githubusercontent.com/NeelVerse-Lab/tagore-swaralipi/1aa0846821cf0bca336d594cfaafbcc238a42cda/data/songs/purano-sei-diner-katha.json"
   },
   "printedWitness": {
     "volume": 32,
@@ -31,14 +33,41 @@
     "metadataDate": "1970",
     "metadataDescription": "First Published in 1953 and this copy is Reprinted in 1987",
     "dateConflict": "1970 metadata date and 1987 reprint description require title/imprint-page inspection; do not select one silently.",
-    "printedSongPage": null,
-    "scanLeaf": null,
-    "pixelsInspected": false,
-    "curatorClaim": "Corpus reports exact comparison over six printed lines and a Mishra Bhupali header; this review independently confirms the encoded witness only.",
-    "routingConfidence": "Archive item identified through the publicly linked volume 32 listing and confirmed by its own dc.title metadata; not established to be the curator's exact scan copy.",
+    "printedSongPage": 37,
+    "scanLeaf": 36,
+    "pixelsInspected": true,
+    "curatorClaim": "Canonical provenance reports exact matra/lyric comparison of lines 1-6 only, checked 2026-08-11. Do not extend that curator claim to lines 7-16.",
+    "routingConfidence": "Exact archive copy agrees with pinned canonical scan field; song 16 and printed page 37 index confirmed visually. Printed page 37 is leaf n36, not the preliminary song-number/leaf offset initially considered.",
     "ocrRoute": "https://archive.org/download/in.ernet.dli.2015.339540/2015.339540.Ed2_djvu.txt",
     "ocrResult": "Permitted web fetch unavailable; no OCR used to infer pitches or page number.",
-    "remainingAction": "Read the title/imprint and song index in the volume 32 reader, record the exact printed page and leaf, and compare notation pixels. Retrieve canonical scan_verification and repeat marks when publicly readable."
+    "remainingAction": "For a full independent glyph-by-glyph scan certification, resolve the line 4 matra 5 lower-octave mark and compare every octave/fraction glyph at higher resolution. No repeated sung-stanza arrangement is supplied by this score.",
+    "printedSongPages": [
+      37,
+      38
+    ],
+    "scanLeaves": [
+      36,
+      37
+    ],
+    "songNumberInVolume": 16,
+    "visualReview": {
+      "method": "Ordinary permitted Chrome archive reader, whole-page spreads and magnified notation; no PDF/media download.",
+      "indexUrl": "https://archive.org/details/in.ernet.dli.2015.339540/page/n2/mode/1up",
+      "openingUrl": "https://archive.org/details/in.ernet.dli.2015.339540/page/n36/mode/1up",
+      "continuationUrl": "https://archive.org/details/in.ernet.dli.2015.339540/page/n37/mode/2up",
+      "header": "মিশ্র ভূপালী । একতাল",
+      "openingSystems": 6,
+      "continuationSystems": 10,
+      "followingSong": "Song 17 starts on printed page 39 / leaf n38.",
+      "terminal": "Final sustained Sa followed by terminal double bars at end of printed page 38.",
+      "kanPixels": "Small pre-Sa glyphs visible on page 38 system 5 cell 3 (canonical line 11) and system 9 cell 5 (canonical line 15). Their pitch/octave reading is confirmed by canonical kan objects; no duration glyph interpreted.",
+      "scopeConfidence": "Complete pages and structural form visually inspected. Not a claim of 192-cell independent pixel certification; fine octave mark at line 4 matra 5 remains ambiguous.",
+      "sourceImages": [
+        "https://ia802905.us.archive.org/BookReader/BookReaderImages.php?zip=/18/items/in.ernet.dli.2015.339540/2015.339540.Ed2_jp2.zip&file=2015.339540.Ed2_jp2/2015.339540.Ed2_0036.jp2&id=in.ernet.dli.2015.339540&scale=4&rotate=0",
+        "https://ia802905.us.archive.org/BookReader/BookReaderImages.php?zip=/18/items/in.ernet.dli.2015.339540/2015.339540.Ed2_jp2.zip&file=2015.339540.Ed2_jp2/2015.339540.Ed2_0037.jp2&id=in.ernet.dli.2015.339540&scale=4&rotate=0"
+      ],
+      "localScreenshotPath": null
+    }
   },
   "digitalWitness": {
     "url": "https://rabindra-rachanabali.nltr.org/node/16053?gaan=%E0%A6%AA%E0%A7%81%E0%A6%B0%E0%A6%BE%E0%A6%A8%E0%A7%8B%20%E0%A6%B8%E0%A7%87%E0%A6%87%20%E0%A6%A6%E0%A6%BF%E0%A6%A8%E0%A7%87%E0%A6%B0%20%E0%A6%95%E0%A6%A5%E0%A6%BE%20%E0%A6%AD%E0%A7%81%E0%A6%B2%E0%A6%AC%E0%A6%BF%20%E0%A6%95%E0%A6%BF%20%E0%A6%B0%E0%A7%87%20%E0%A6%B9%E0%A6%BE%E0%A7%9F.xml",
@@ -79,13 +108,16 @@
       16
     ],
     "repeatExpansionApplied": false,
-    "repeatConfidence": "Readable text has only one [sthayi] label; SNLTR rows have group separators and final ll ll. No numeric repeat expansion established. Single written traversal is the ledger, not a certified performed repeat order.",
-    "sectionCaveat": "Do not infer antara boundaries from the separate AI experiment or split the 16 lines into invented sections.",
-    "completeScope": "Full written song through the final cadence and terminal bars in both accessible representations; printed full-form and canonical marks remain unverified.",
+    "repeatConfidence": "All pinned canonical marks inspected: section_bar, bar and vibhag only; no repeat or alternative-ending marks. Final line has two section_bar marks at cell 12. Printed pages show the complete traversal and terminal bars. No extra verse/refrain/stanza repeats inferred.",
+    "sectionCaveat": "All 16 canonical lines are labelled sthayi. Provenance describes its checked first six lines as sthayi through first antara, but provides no separate section boundaries. Keep encoded labels without imposing an inferred antara split.",
+    "completeScope": "Full written traversal of song 16 across printed pages 37-38, with canonical lines 1-16 once (192 matras). This is not certification of a specific singer's stanza/refrain arrangement.",
     "absoluteTonic": null,
     "tempoBpm": null,
     "westernTimeSignature": null,
-    "projectionCaveat": "Pitch is relative swara plus explicit octave offset. Matra timing is not seconds and is not asserted to equal a Western quarter note."
+    "projectionCaveat": "Pitch is relative swara plus explicit octave offset. Matra timing is not seconds and is not asserted to equal a Western quarter note.",
+    "sectionsAsEncoded": [
+      "sthayi"
+    ]
   },
   "timingMethod": {
     "ticksPerMatra": 12,
@@ -118,7 +150,7 @@
     "rows": 16,
     "cells": 192,
     "mismatches": [],
-    "limitation": "Independent literal encoding comparison, not an independent interpretation of the original typography. Both witnesses share SNLTR lineage. Equal timing depends on the published encoding rules; no MIDI bytes or canonical JSON read.",
+    "limitation": "Full encoded comparison shares SNLTR lineage. Pinned canonical objects now also parsed and main timing/pitches matched by normalized ledger SHA-256. Printed full scope and kan placements visually inspected, not every source glyph independently certified. No MIDI bytes read.",
     "rulesSource": "https://github.com/NeelVerse-Lab/tagore-swaralipi/blob/main/CONTRIBUTING.md"
   },
   "mainLedger": {
@@ -281,7 +313,18 @@
       "durationTicks": null,
       "attachmentTicks": 1464,
       "sourceToken": "(N)S'",
-      "uncertainty": "Canonical kan object not read; literal has no octave suffix; no grace-time allocation."
+      "uncertainty": "Canonical kan pitch/octave resolved; no source grace duration supplied. Onset and duration intentionally null; attachmentTicks is the main-note anchor, not a grace onset.",
+      "canonicalKan": {
+        "degree": "N",
+        "saptak": 0
+      },
+      "canonicalMain": {
+        "degree": "S",
+        "saptak": 1
+      },
+      "octaveOffsetFromCanonical": 0,
+      "printedPage": 38,
+      "printedSystem": 5
     },
     {
       "mainEventIndex": 123,
@@ -293,22 +336,556 @@
       "durationTicks": null,
       "attachmentTicks": 2064,
       "sourceToken": "(R)S'",
-      "uncertainty": "Canonical kan object not read; literal has no octave suffix; no grace-time allocation."
+      "uncertainty": "Canonical kan pitch/octave resolved; no source grace duration supplied. Onset and duration intentionally null; attachmentTicks is the main-note anchor, not a grace onset.",
+      "canonicalKan": {
+        "degree": "R",
+        "saptak": 0
+      },
+      "canonicalMain": {
+        "degree": "S",
+        "saptak": 1
+      },
+      "octaveOffsetFromCanonical": 0,
+      "printedPage": 38,
+      "printedSystem": 9
     }
   ],
   "accessBoundary": {
-    "canonicalJson": "Web cache misses; not read.",
-    "verificationRecord": "Web cache misses; not read.",
+    "canonicalJson": "Exact-SHA ordinary GitHub page succeeded; all 16 lines parsed. Web raw fetch cache miss and browser raw route ERR_BLOCKED_BY_CLIENT, no bypass.",
+    "verificationRecord": "Separate docs/VERIFICATION.md web fetch cache misses; equivalent song-local scan_verification object independently read at pinned SHA.",
     "smallRawTextShellRead": "Attempted ordinary read-only requests for the two small primary text files; socket access denied. Stopped shell network requests; no escalation or bypass.",
-    "archiveReader": "Web cache miss; no browser test claimed.",
+    "archiveReader": "Succeeded in ordinary Chrome, no login or borrowing/payment prompt. In-book search returned a search service error; used printed index and visible pages instead.",
     "downloads": "No PDF, audio or media download; previously denied source downloads not retried.",
-    "aiContinuationUsed": false
+    "aiContinuationUsed": false,
+    "api": "Main supplied SHA from public commits(path) endpoint. This agent's web API request reported inaccessible and Chrome API request ERR_BLOCKED_BY_CLIENT. Not login/paywall evidence."
   },
   "promotionGate": [
-    "Exact printed song page/leaf and readable notation pixels.",
-    "Canonical JSON source revision, provenance and repeat/alternative marks.",
-    "Confirm kan octave and glyph semantics from canonical objects / printed witness; keep kan timing unset unless notation supplies it.",
-    "Resolve edition metadata dates and applicable attribution/rights before catalog consideration."
+    "Line 4 cell 5 printed lower-octave mark remains ambiguous: retain explicit canonical uncertainty.",
+    "Do not label full written traversal as a particular sung-stanza repeat arrangement.",
+    "Kan has canonical pitches but no measured grace timing: do not manufacture grace events.",
+    "Resolve remaining edition imprint/date and applicable rights before publication; this report grants no publication approval."
   ],
-  "scope": "Only this new research JSON; no application, existing research, catalog registration, publication or count changes."
+  "scope": "Only this new research JSON; no application, existing research, catalog registration, publication or count changes.",
+  "canonicalEvidence": {
+    "readMethod": "Complete displayed source JSON parsed from ordinary GitHub exact-SHA page; raw and API clients failed separately.",
+    "schema_version": "0.1",
+    "id": "purano-sei-diner-katha",
+    "sections": [
+      "sthayi"
+    ],
+    "taal": {
+      "name": {
+        "bn": "একতাল",
+        "translit": "ektaal"
+      },
+      "matras": 12,
+      "vibhags": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "beats": [
+        "sam",
+        "taali",
+        "khali",
+        "taali"
+      ],
+      "talamukta": false
+    },
+    "provenance": {
+      "primary_witness": {
+        "archive": "SNLTR Rabindra Rachanabali digital edition (digitization of Swarabitan, Visva-Bharati)",
+        "url": "https://rabindra-rachanabali.nltr.org/node/16053?gaan=পুরানো সেই দিনের কথা ভুলবি কি রে হায়.xml",
+        "retrieved": "2026-08-11",
+        "taal_as_stated": "একতালা"
+      },
+      "scan_verification": {
+        "swarabitan_volume": 32,
+        "song_number_in_volume": 16,
+        "scan": "https://archive.org/details/in.ernet.dli.2015.339540",
+        "checked": "2026-08-11",
+        "scope": "lines 1-6 (sthayi through first antara): every matra and lyric syllable",
+        "result": "exact match",
+        "printed_header": "মিশ্র ভূপালী । একতাল",
+        "notes": [
+          "The printed header confirms ektaal and supplies a raga the online witness omits: Mishra Bhupali, a pentatonic raga — consistent both with the song's Auld Lang Syne origin and with the pentatonic note-set the data itself shows.",
+          "Line 4, matra 5: the udara mark under the second ধা is ambiguous in this scan. We keep the witness reading (udara), which fits the surrounding low-register phrase."
+        ]
+      },
+      "secondary_witnesses": [
+        {
+          "site": "geetabitan.com",
+          "url": "https://www.geetabitan.com/lyrics/P/purano-sei-diner-kotha-lyric.html",
+          "agreement": "taal (ektaal), parjaay, Auld-Lang-Syne origin, written 1885"
+        },
+        {
+          "site": "notesandsargam.com",
+          "url": "https://notesandsargam.com/purano-shei-diner-kotha/",
+          "agreement": "melodic contour matches throughout (independent romanized sargam)"
+        }
+      ],
+      "encoding_method": "automated parse of the witness's notation grid (tools/parse_nltr.py) + manual review of every line",
+      "known_deviations": []
+    },
+    "confidence": {
+      "level": "high",
+      "notes": [
+        "Lines 1-6 verified against the printed Swarabitan vol. 32 scan (exact match)",
+        "Line 4, matra 5: udara mark on the second ধা is ambiguous in the scan; witness reading kept"
+      ]
+    },
+    "lineMarks": [
+      {
+        "line_no": 1,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "section_bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 2,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 3,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 4,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 5,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 6,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 7,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 8,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 9,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 10,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 11,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 12,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 13,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 14,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 15,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "bar",
+            "cell": 12
+          }
+        ]
+      },
+      {
+        "line_no": 16,
+        "section": "sthayi",
+        "cells": 12,
+        "marks": [
+          {
+            "type": "bar",
+            "cell": 0
+          },
+          {
+            "type": "vibhag",
+            "cell": 3
+          },
+          {
+            "type": "vibhag",
+            "cell": 6
+          },
+          {
+            "type": "vibhag",
+            "cell": 9
+          },
+          {
+            "type": "section_bar",
+            "cell": 12
+          },
+          {
+            "type": "section_bar",
+            "cell": 12
+          }
+        ]
+      }
+    ],
+    "canonicalNormalizedSha256": "d6c96f74c1d24777a00db39f7d5d003d65dca1f395a64b0d23dc38f08abbaa1e",
+    "mainLedgerNormalizedSha256": "f9510834f53d929db6c173e353786022c7743249cf7c60823c299f1256f12407",
+    "hashNormalization": "UTF-8 JSON.stringify of parsed canonical object / compact main-event tuples, respectively; not hashes of raw HTTP response bytes.",
+    "mainAttacks": 135,
+    "totalTicks": 2304,
+    "repeatMarks": 0,
+    "alternativeMarks": 0,
+    "uncertainPrintedPitch": {
+      "line": 4,
+      "cell": 5,
+      "degree": "D",
+      "saptak": -1,
+      "reason": "Canonical witness reading retained; printed udara mark ambiguous. No substitution from melodic expectation."
+    }
+  }
 }

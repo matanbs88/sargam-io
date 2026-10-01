@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-01",
+  "id": "verified-joy-to-the-world-complete",
+  "status": "local accepted; production acceptance pending",
+  "countAsLiveComplete": false,
+  "liveVerifiedCount": 9,
+  "source": {
+    "edition": "Mutopia-2008/01/13-1223",
+    "scope": "Entire declared soprano, 19 bars, 57 notes, 38 quarter beats; no inferred stanza repeats",
+    "mainSourceRead": true,
+    "independentFreshMidiCheck": {"http":200,"sha256":"41152c8c7c18750cf2040f215e1db3c5b05ce6f79ffeae1a76a1c18cf7978844","ppq":384,"checked":57,"missing":[]},
+    "tempo": "Declared quarter=95 used; legacy publisher MIDI actual quarter=60 retained as separate evidence"
+  },
+  "local": {
+    "origin": "http://localhost:3027",
+    "librarySearchOpensCompleteScore": true,
+    "visibleBars": 19,
+    "notation": "Sargam",
+    "root": "D4",
+    "playback": [
+      {"instrument":"Piano","speed":1,"startMs":0,"replay":true,"endMs":24000,"errors":[]},
+      {"instrument":"Harmonium","speed":1,"startMs":0,"replay":true,"endMs":24000,"errors":[]},
+      {"instrument":"Bansuri","speed":1,"startMs":0,"replay":true,"endMs":24000,"errors":[]}
+    ],
+    "pdf": {"path":"output/pdf/catalog-qa/verified-joy-to-the-world-complete.pdf","endpointStatus":200,"onsetsPreserved":57,"visuallyInspected":true,"pages":1,"format":"A4"},
+    "checks": {"testsPassed":329,"testFiles":70,"lintExit":0,"buildExit":0,"catalogPdfTests":10}
+  },
+  "production": {"library":false,"sargam":false,"instruments":false,"pdf":false},
+  "next": "Verify deployed exact commit, public library discovery, complete Sargam, all three instruments at 1x to Replay, and live downloadable rendered PDF before incrementing count.",
+  "preserved": ["Mehfil", "Sa selection semantics", "existing catalog"]
+}

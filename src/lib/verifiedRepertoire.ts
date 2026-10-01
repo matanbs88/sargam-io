@@ -7,6 +7,7 @@ import harkHerald from "../../content/catalog/verified/hark-herald.json";
 import odeToJoy from "../../content/catalog/verified/ode-to-joy.json";
 import oatsAndBeans from "../../content/catalog/verified/oats-and-beans.json";
 import auClair from "../../content/catalog/verified/au-clair-de-la-lune.json";
+import joyToTheWorld from "../../content/catalog/verified/joy-to-the-world.json";
 import { verifiedVoiceEvents } from './verifiedVoiceEvents';
 import type { CatalogSong } from "./songCatalog";
 import type { MidiNoteEvent } from "./midiToSargam";
@@ -96,7 +97,7 @@ function catalogEntry(score: {
 }; }
 
 export const VERIFIED_REPERTOIRE: readonly CatalogSong[] = [
-  ...[minuet, silentNight, wenceslas, raghupati, harkHerald, odeToJoy, oatsAndBeans].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
+  ...[minuet, silentNight, wenceslas, raghupati, harkHerald, odeToJoy, oatsAndBeans, joyToTheWorld].map(score => catalogEntry(score, verifiedMelodyEvents(score))),
   catalogEntry(gymnopedie, verifiedVoiceEvents(gymnopedie)),
   catalogEntry(auClair, verifiedVoiceEvents(auClair)),
 ];
