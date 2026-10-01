@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode 
 import { ROOT_NAMES, type PilotSession } from './usePilotSession';
 import s from './living-score.module.css';
 import { isAtScoreEnd } from '@/src/lib/transportPresentation';
+import { BansuriSetupDialog } from './BansuriSetupDialog';
 
 type View = 'both' | 'score' | 'instrument';
 type Practice = 'free' | 'listen' | 'repeat' | 'phrase';
@@ -40,7 +41,7 @@ export function LivingScoreWorkspace({ session: p, settings, transport, visualiz
     const siblings = Array.from(workspace.current?.parentElement?.children ?? []).filter((node): node is HTMLElement => node instanceof HTMLElement && node !== workspace.current).map(node => ({ node, inert: node.inert }));
     siblings.forEach(({ node }) => { node.inert = true; });
     const escape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && !document.querySelector('dialog[open]')) {
         if (settingsVisible.current) {
           event.preventDefault();
           setSettingsOpen(false);
@@ -109,6 +110,7 @@ export function LivingScoreWorkspace({ session: p, settings, transport, visualiz
     p.transport.pause(); p.setLoop(null); setLoopAnchor(null); setPractice('free');
   }
   return <section ref={workspace} className={s.workspace} data-practice-focus={focus} aria-label="Living score practice workspace" tabIndex={-1}>
+    {p.instrument === 'Bansuri' && p.bansuriSetupOpen && <BansuriSetupDialog session={p} />}
     <div className={s.toolbar}>
       {focus && <div className={s.focusIdentity}><h1 className={s.focusTitle} title={p.piece.title}>{p.piece.title}<span>Living Score · practice</span></h1><button ref={settingsButton} aria-expanded={settingsOpen} aria-controls={settingsId} onClick={() => setSettingsOpen(open => !open)}>Settings</button></div>}
       <div id={settingsId} className={s.settingsPanel} data-expanded={settingsOpen}>{settings}{focus && settingsOpen && <button onClick={() => { setSettingsOpen(false); settingsButton.current?.focus(); }}>Done</button>}</div><div className={s.views} role="group" aria-label="Workspace view">
@@ -116,7 +118,7 @@ export function LivingScoreWorkspace({ session: p, settings, transport, visualiz
       <button ref={focusButton} aria-pressed={focus} onClick={toggleFocus}>{focus ? 'Exit focus' : 'Focus'}</button>
     </div></div>
     <div className={s.anchor}>
-      <p><span>YOUR SA</span><strong>{ROOT_NAMES[((p.root % 12) + 12) % 12]}{Math.floor(p.root / 12) - 1}</strong><small>{p.piece.timeSignature} · ♩ {Math.round(p.piece.tempoBpm * p.rate)}</small></p>
+      <p><span>{p.instrument === 'Bansuri' ? 'SONG SA' : 'YOUR SA'}</span><strong>{ROOT_NAMES[((p.root % 12) + 12) % 12]}{Math.floor(p.root / 12) - 1}</strong>{p.instrument === 'Bansuri' && <small>FLUTE NATIVE SA {ROOT_NAMES[p.fluteSa % 12]}{Math.floor(p.fluteSa / 12)-1}</small>}<small>{p.piece.timeSignature} · ♩ {Math.round(p.piece.tempoBpm * p.rate)}</small></p>
       <p><span>{p.transport.isPlaying ? 'FOLLOW' : atEnd ? 'END OF SCORE' : 'SELECTED NOTE'}</span><strong>{p.notes[p.transport.activeEventIndex] ?? '—'}</strong></p>
     </div>
     <span className={s.completionNotice} role="status">{atEnd ? 'End of score. Choose Replay to practice again, or select a note to revisit a passage.' : ''}</span>

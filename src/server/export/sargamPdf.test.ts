@@ -1,9 +1,29 @@
-import { describe, expect, it } from "vitest";
-import { PDFDocument } from "pdf-lib";
+import { describe, expect, it, vi } from "vitest";
+import { PDFDocument, PDFPage } from "pdf-lib";
 import { mockMidiData } from "@/src/lib/mockMidiData";
 import { createNotationMeasureLayout, createSargamPdf } from "./sargamPdf";
 
 describe("createSargamPdf", () => {
+  it("draws actual concert ABC pitches through the shared formatter", async () => {
+    const draw = vi.spyOn(PDFPage.prototype, "drawText");
+    try {
+      await createSargamPdf({
+        events: [
+          { midi: 62, startMs: 0, durationMs: 500 },
+          { midi: 74, startMs: 500, durationMs: 500 },
+        ],
+        rootMidi: 62, rootLabel: "D4", notation: "ABC",
+        tempoBpm: 120, timeSignature: "4/4", title: "Concert pitch fixture",
+      });
+      const texts = draw.mock.calls.map(([text]) => text);
+      expect(texts).toContain("D4");
+      expect(texts).toContain("D5");
+      expect(texts).not.toContain("C4");
+      expect(texts).not.toContain("C5");
+    } finally {
+      draw.mockRestore();
+    }
+  });
   it("preserves every chord voice and a new attack over a sustained voice", () => {
     const layout = createNotationMeasureLayout({ duration: 3, number: 1, events: [
       { midi: 72, start: 0, duration: 3, tie: 'none' },

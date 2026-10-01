@@ -1,6 +1,16 @@
 # Sargam.io project source of truth
 
-## Verified catalog checkpoint — 2026-10-01
+## Current catalog and bansuri checkpoint
+
+The founder stopped catalog expansion after one final piece. There are now **11 live-verified complete pieces** and 46 playable Library entries. The former 100-piece goal is paused, not complete. Do not restart catalog expansion without a new instruction.
+
+Hen Wlad Fy Nhadau is the final addition: all 28 written bars, 75 attacks, 84 seconds at publisher MIDI tempo 60 BPM. Its pitches, onsets and durations match the public publisher MIDI exactly. Live Piano, Harmonium and Bansuri reached Replay at 84,000 ms at 1x without captured browser errors. The Full pieces only Library filter returns 11 entries and opens the full Sargam directly. Live PDF export returns 200 application/pdf with the actual E♭4 interface label after the accidental-font hotfix. [Acceptance](../content/catalog/research/hen-wlad-acceptance.json).
+
+Catalog and filter release: `9b9e553`; production PDF hotfix: `8335558`. Mehfil remains unchanged. The three-option bansuri setup is a preview-branch upgrade: song Sa and flute native Sa are separate, transposition preserves source intervals, and source-pitch mode changes fingerings without shifting audio. UI/UX and musician reviews were run and their findings addressed. [Review and next automation stage](./reviews/BANSURI_SETUP_REVIEW_2026-10-01.md).
+
+Next work is canonical automated score ingestion and durable transcription jobs, not manual catalog expansion. Audio/YouTube recognition remains Mock until a real provider is connected and benchmarked; do not claim it is automatic live recognition today.
+
+### Earlier ten piece checkpoint
 
 **10/100 distinct complete pieces are live verified.** Release `2961c6f` adds
 Joy to the World's complete Antioch soprano: 19 bars, 57 attacks, 24 seconds

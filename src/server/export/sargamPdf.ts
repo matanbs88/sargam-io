@@ -416,7 +416,7 @@ function drawNotation(page: PDFPage, fonts: PdfFonts, midi: number, rootMidi: nu
   page.drawText(text, { x: textX, y, size, font, color: colors.charcoal });
 
   // Traditional semantic markers are drawn as marks, not appended ASCII.
-  if (note.octaveShift !== 0) {
+  if (notation !== 'ABC' && note.octaveShift !== 0) {
     const dotY = note.octaveShift > 0 ? y + size + 2 : y - 4;
     const dotCount = Math.abs(note.octaveShift);
     for (let index = 0; index < dotCount; index += 1) {

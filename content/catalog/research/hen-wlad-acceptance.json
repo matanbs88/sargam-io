@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-01",
+  "id": "verified-hen-wlad-fy-nhadau-complete",
+  "status": "complete live verified",
+  "countAsLiveComplete": true,
+  "liveVerifiedCount": 11,
+  "release": "9b9e553",
+  "pdfHotfixRelease": "833555865608f5ff2197c79c210f5cbe44f5a5c9",
+  "source": {
+    "edition": "Mutopia-2007/07/30-1017",
+    "scope": "All 28 written verse and chorus bars once, 75 attacks, 84 quarter beats with initial two-quarter skip",
+    "freshMidiSha256": "a0988fe84512409b3a86f21f62dd886b5e28a613add9c44f00791fc805ee8bac",
+    "exactPitchOnsetDurationMatches": 75
+  },
+  "local": {
+    "origin": "http://localhost:3028",
+    "pianoReplayMs": 84000,
+    "harmoniumReplayMs": 84000,
+    "bansuriReplayMs": 84000,
+    "pdf": "output/pdf/catalog-qa/verified-hen-wlad-fy-nhadau-complete.pdf",
+    "pdfPages": 1,
+    "visuallyInspected": true
+  },
+  "production": {
+    "url": "https://sargam-io.vercel.app/?score=verified-hen-wlad-fy-nhadau-complete#practice",
+    "deploymentSuccess": true,
+    "librarySearchOpensScore": true,
+    "fullOnlyResultCount": 11,
+    "visibleBars": 28,
+    "playback": [
+      {
+        "instrument": "Piano",
+        "speed": 1,
+        "endMs": 84000,
+        "replay": true,
+        "errors": []
+      },
+      {
+        "instrument": "Harmonium",
+        "speed": 1,
+        "endMs": 84000,
+        "replay": true,
+        "errors": []
+      },
+      {
+        "instrument": "Bansuri",
+        "speed": 1,
+        "endMs": 84000,
+        "replay": true,
+        "errors": []
+      }
+    ],
+    "pdf": {
+      "readyStatus": true,
+      "generatedDownloadLink": true,
+      "exactUiPayloadRoot": "E♭4",
+      "directPostHttp": 200,
+      "contentType": "application/pdf",
+      "bytes": 68786
+    },
+    "proof": "tmp/catalog-proof/hen-wlad-pdf-ready.jpg"
+  },
+  "decision": "Founder explicitly stopped catalog expansion after next piece. Former 100-piece goal paused at 11 live-verified complete pieces; do not resume without instruction.",
+  "bansuriUI": "Three-mode implementation remains on preview branch; no production interface replacement."
+}

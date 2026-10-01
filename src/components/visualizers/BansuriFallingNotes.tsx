@@ -12,7 +12,7 @@ import { canvasResolution } from "@/src/lib/canvasResolution";
 import styles from './bansuri-runway.module.css';
 import { bansuriArtworkY } from '@/src/lib/bansuriArtworkGeometry';
 
-export function BansuriFallingNotes({ events, rootMidi, notationSystem, readTimeMs, playbackRate, fitViewport = false }: KeyboardRollProps) {
+export function BansuriFallingNotes({ events, rootMidi, fluteRootMidi = rootMidi, notationSystem, readTimeMs, playbackRate, fitViewport = false }: KeyboardRollProps & { fluteRootMidi?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fluteRef = useRef<HTMLDivElement>(null);
   const [activeMidi, setActiveMidi] = useState<number | null>(null);
@@ -34,7 +34,7 @@ export function BansuriFallingNotes({ events, rootMidi, notationSystem, readTime
       const matrix = fluteRef.current?.querySelector('svg')?.getScreenCTM();
       const rect = canvas.getBoundingClientRect();
       const y = (midi: number) => {
-        const artY = bansuriArtworkY(midi - rootMidi);
+        const artY = bansuriArtworkY(midi - fluteRootMidi);
         return matrix && matrix.d > 0 && rect.height > 0
           ? (matrix.d * artY + matrix.f - rect.top) * H / rect.height
           : 28 + (artY - 30) / 1480 * (H - 56);
@@ -47,9 +47,9 @@ export function BansuriFallingNotes({ events, rootMidi, notationSystem, readTime
       const visible = visibleNotes(now - (PLAY - 48) / PPS * 1000, now + (W - PLAY) / PPS * 1000);
       const midi = visible.find(n => isNoteSounding(n, now))?.midi ?? null;
       if (midi !== previous) { previous = midi; setActiveMidi(midi); }
-      for (let pitch = rootMidi - 5; pitch <= rootMidi + 6; pitch++) {
-        const note = midiToRelativeNote(pitch, rootMidi);
-        ctx.strokeStyle = pitch === rootMidi ? "#617b88" : "#22313b";
+      for (let pitch = fluteRootMidi - 5; pitch <= fluteRootMidi + 6; pitch++) {
+        const note = midiToRelativeNote(pitch, fluteRootMidi);
+        ctx.strokeStyle = pitch === fluteRootMidi ? "#617b88" : "#22313b";
         ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, y(pitch)); ctx.lineTo(W, y(pitch)); ctx.stroke();
         {
           ctx.fillStyle = "#b7c5d0"; ctx.font = `12px ${font}`; ctx.textAlign = "left";
@@ -95,14 +95,14 @@ export function BansuriFallingNotes({ events, rootMidi, notationSystem, readTime
     const resize = new ResizeObserver(draw);
     resize.observe(canvas);
     animate(); return () => { cancelAnimationFrame(frame); resize.disconnect(); };
-  }, [events, notationSystem, rootMidi, readTimeMs, fitViewport, playbackRate]);
-  const fingering = getBansuriReferenceFingering(activeMidi, rootMidi);
+  }, [events, notationSystem, rootMidi, fluteRootMidi, readTimeMs, fitViewport, playbackRate]);
+  const fingering = getBansuriReferenceFingering(activeMidi, fluteRootMidi);
   const label = activeMidi === null ? "Rest" : formatRelativeNote(midiToRelativeNote(activeMidi, rootMidi), notationSystem);
-  const register = activeMidi === null ? "" : `Register ${Math.floor((activeMidi - rootMidi) / 12)} relative to Sa`;
+  const register = activeMidi === null ? "" : `Flute register ${Math.floor((activeMidi - fluteRootMidi) / 12)}`;
   return <section aria-label="Bansuri melody runway" className="overflow-hidden rounded-lg bg-[#101820] text-[#f4f7fa]">
     <header className="flex items-center justify-between gap-3 px-4 py-3">
       <h3 className="text-base font-semibold">Bansuri</h3>
-      <span className="text-xs text-[#b7c5d0]">Fingering lanes · true duration · octaves share landmarks</span>
+      <span className="text-xs text-[#b7c5d0]">Lanes: flute-relative · bars: song-relative · octaves share landmarks</span>
     </header>
     <div style={{ height: fitViewport ? 'clamp(360px, 34vw, 490px)' : 470 }} className={`${styles.surface} bansuri-surface grid grid-cols-[88px_minmax(0,1fr)] sm:grid-cols-[130px_minmax(0,1fr)]`}>
       <figure className={styles.figure}>

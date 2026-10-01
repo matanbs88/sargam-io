@@ -1,0 +1,27 @@
+.dialog { margin:auto; color:#202b32; background:#fffdf8; border:1px solid #b6aea0; border-radius:16px; padding:0; width:min(620px,calc(100vw - 24px)); max-height:calc(100dvh - 32px); overflow:hidden; box-shadow:0 20px 80px #0005; }
+.dialog::backdrop { background:#1726309c; }
+.dialog header { padding:24px 24px 12px; border-bottom:1px solid #ded8ce; }
+.dialog header > p:first-child { font-size:11px; letter-spacing:.12em; color:#77603b; }
+.dialog h2 { font-size:26px; margin:8px 0; }
+.dialog h3 { font-size:16px; margin:8px 0 16px; }
+.body { padding:16px 24px; max-height:calc(100dvh - 275px); overflow:auto; }
+.body > label { display:flex; align-items:center; justify-content:space-between; gap:12px; font-weight:600; }
+.dialog select { padding:8px; min-width:90px; color:inherit; background:white; border:1px solid #8c969c; border-radius:5px; }
+.dialog fieldset { padding:0; border:0; margin:20px 0; }
+.dialog legend { font-weight:600; margin-bottom:10px; }
+.choice { display:flex; align-items:flex-start; gap:12px; padding:14px; border:1px solid #b6bebf; border-radius:9px; margin:8px 0; cursor:pointer; }
+.choice[data-selected=true] { border:2px solid #17675f; padding:13px; background:#eaf4ee; }
+.choice input { margin-top:4px; accent-color:#17675f; }
+.choice strong { display:block; }
+.choice span span { display:block; font-size:13px; line-height:1.5; margin-top:5px; }
+.choice small { margin-left:8px; font-size:10px; color:#17675f; }
+.hint { font-size:12px; line-height:1.6; color:#505c61; }
+.preview { background:#f2efe6; border-radius:8px; padding:14px; }
+.preview dl { display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:13px; line-height:1.5; margin:0; }
+.preview dd { margin:0; font-weight:600; }
+.dialog footer { display:flex; justify-content:flex-end; gap:12px; padding:16px 24px; border-top:1px solid #ded8ce; }
+.dialog button { padding:10px 16px; border:1px solid #66767a; border-radius:6px; background:transparent; color:inherit; cursor:pointer; }
+.dialog button:last-child { background:#17675f; border-color:#17675f; color:white; }
+.dialog button:disabled { opacity:.5; cursor:not-allowed; }
+.dialog :focus-visible { outline:3px solid #234caa; outline-offset:3px; }
+@media(max-width:480px) { .dialog header,.body,.dialog footer { padding-left:16px; padding-right:16px; } .preview dl { grid-template-columns:1fr; gap:4px; } .preview dd { margin-bottom:8px; } }

@@ -168,14 +168,17 @@ export function midiEventsToRelativeNotes(
   });
 }
 
-/** Renders a previously-tokenized relative note in the selected notation. */
+/** Sargam is Sa-relative; ABC display is an absolute concert pitch name. */
 export function formatRelativeNote(
   note: RelativeMidiNote,
   notation: NotationSystem,
 ): string {
   switch (notation) {
     case "ABC":
-      return note.abcToken + note.octaveMarker;
+      assertMidiValue(note.midi, "note.midi");
+      // Keep abcToken relative for existing internal consumers. Reuse only the
+      // chromatic spelling table, indexed by absolute MIDI pitch class here.
+      return RELATIVE_ABC_TOKENS[note.midi % 12] + String(Math.floor(note.midi / 12) - 1);
     case "Sargam_EN":
       return note.sargamToken + note.octaveMarker;
     case "Sargam_HI":

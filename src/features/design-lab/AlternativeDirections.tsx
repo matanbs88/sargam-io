@@ -9,15 +9,17 @@ import s from './alternatives.module.css';
 import { LivingScoreWorkspace } from './LivingScoreWorkspace';
 import { formatPlaybackTime, isAtScoreEnd } from '@/src/lib/transportPresentation';
 import { BansuriControls } from './BansuriControls';
+import { BansuriSetupDialog } from './BansuriSetupDialog';
 
 type Direction = 'score' | 'riyaz' | 'coach';
 export function Settings({ session: p }: { session: PilotSession }) {
   return <div className={s.settings}>
     <label>Instrument<select value={p.instrument} onChange={e => p.setInstrument(e.target.value as PilotSession['instrument'])}>{['Piano', 'Harmonium', 'Bansuri'].map(i => <option key={i}>{i}</option>)}</select></label>
     {p.instrument === 'Bansuri' && <><label>Sound<select value={p.bansuriVoice} onChange={e => p.setBansuriVoice(e.target.value as PilotSession['bansuriVoice'])}><option value="ventus">Ventus · recorded bansuri</option><option value="procedural">Synthetic · comparison only</option></select></label>{p.bansuriVoice==='ventus' && <BansuriControls session={p}/>}</>}
-    <label>Sa<select title="Reference pitch for the notation; changing Sa does not transpose the recording." value={p.root} onChange={e => p.setRoot(Number(e.target.value))}>{(p.root < 60 || p.root > 71) && <option value={p.root}>{ROOT_NAMES[((p.root % 12) + 12) % 12]}{Math.floor(p.root / 12) - 1}</option>}{ROOT_NAMES.map((n, i) => <option key={n} value={60 + i}>{n}4</option>)}</select></label>
+    {p.instrument === 'Bansuri' ? <button onClick={p.openBansuriSetup}>Bansuri setup · {p.setupConfirmed ? p.setupMode === 'transpose' ? 'Transposed' : p.setupMode === 'original' ? 'Original pitches' : 'Matching flute' : 'Not confirmed'}</button> : <label>Sa<select title="Reference pitch for the notation; changing Sa does not transpose the recording." value={p.root} onChange={e => p.setRoot(Number(e.target.value))}>{(p.root < 60 || p.root > 71) && <option value={p.root}>{ROOT_NAMES[((p.root % 12) + 12) % 12]}{Math.floor(p.root / 12) - 1}</option>}{ROOT_NAMES.map((n, i) => <option key={n} value={60 + i}>{n}4</option>)}</select></label>}
     <label>Notation<select value={p.notation} onChange={e => p.setNotation(e.target.value as NotationSystem)}><option value="Sargam_EN">Sargam</option><option value="Sargam_HI">देवनागरी</option><option value="ABC">C D E</option></select></label>
-    <small>Sa changes the notation reference, not playback pitch.{p.instrument === 'Bansuri' && ' Fingering is a generic six-hole reference; match it to your flute.'}</small>
+    <small>{p.instrument === 'Bansuri' ? `Song Sa ${ROOT_NAMES[p.root % 12]}${Math.floor(p.root / 12)-1} · Flute native Sa ${ROOT_NAMES[p.fluteSa % 12]}${Math.floor(p.fluteSa / 12)-1}. Setup controls transposition; lanes and holes follow the flute.` : 'Sa changes the notation reference, not playback pitch.'}</small>
+    {p.setupError && <p role="alert">{p.setupError}</p>}
     <details><summary>Correct selected note</summary><p>Note {Math.max(0, p.transport.activeEventIndex) + 1}: {p.notes[Math.max(0, p.transport.activeEventIndex)]}. Edits affect playback and PDF; the original score stays unchanged.</p><button onClick={() => { p.transport.pause(); p.correctNote(Math.max(0, p.transport.activeEventIndex), -1); }}>Pitch −1</button><button onClick={() => { p.transport.pause(); p.correctNote(Math.max(0, p.transport.activeEventIndex), 1); }}>Pitch +1</button><button disabled={!p.hasCorrections} onClick={() => { p.transport.pause(); p.resetCorrections(); }}>Reset corrections</button><p>Rhythm/voice issues still require editing the source score and re-importing it.</p></details>
     {p.instrument === 'Harmonium' && <><label>Reeds<select value={String(p.double)} onChange={e => p.setDouble(e.target.value === 'true')}><option value="false">Single</option><option value="true">Double</option></select></label><label>Space<select value={String(p.room)} onChange={e => p.setRoom(e.target.value === 'true')}><option value="false">Dry</option><option value="true">Room</option></select></label></>}
   </div>;
@@ -60,6 +62,7 @@ export function AlternativeDirections({ direction }: { direction: Direction }) {
   }
   const names = { score: 'The living score', riyaz: 'The riyaz room', coach: 'Your practice path' };
   return <main className={`${s.shell} ${direction === 'score' ? s.scoreShell : s[direction]}`}>
+    {direction !== 'score' && p.instrument === 'Bansuri' && p.bansuriSetupOpen && <BansuriSetupDialog session={p} />}
     <nav className={s.nav}><Link href="/design-lab">← All directions</Link><strong>sargam</strong><button onClick={() => { p.transport.pause(); p.setOpened(false); }}>Library</button></nav>
     {!p.opened ? <section className={s.entry}>
       <div><p className={s.kicker}>{names[direction]}</p><h1>{direction === 'score' ? <>Read the music.<br />Hear it unfold.</> : direction === 'riyaz' ? <>Make room<br />for your riyaaz.</> : <>One phrase.<br />One small step.</>}</h1><p>{direction === 'score' ? 'A playable score you can read, mark by ear, and take to your instrument.' : direction === 'riyaz' ? 'Choose your instrument, settle into your Sa, and spend a little time with a melody.' : 'Listen first. Practice slowly. Then bring the whole phrase together.'}</p></div>

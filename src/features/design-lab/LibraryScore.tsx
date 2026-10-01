@@ -8,7 +8,7 @@ import { readingScoreLayout } from '@/src/lib/readingScoreLayout';
 export function LibraryScore({ session: p, onSelect }: { session: PilotSession; onSelect: (index: number) => void }) {
   const [follow, setFollow] = useState(true);
   const viewport = useRef<HTMLDivElement>(null);
-  const score = useMemo(() => buildReadingScore(p.piece.noteEvents, p.piece.tempoBpm, p.piece.timeSignature), [p.piece]);
+  const score = useMemo(() => buildReadingScore(p.events, p.piece.tempoBpm, p.piece.timeSignature), [p.events, p.piece.tempoBpm, p.piece.timeSignature]);
   const activeBar = score.barAt(p.transport.positionMs);
   useEffect(() => {
     const container = viewport.current;
@@ -33,7 +33,7 @@ export function LibraryScore({ session: p, onSelect }: { session: PilotSession; 
     if (target.top < bounds.top || target.bottom > bounds.bottom) container.scrollTo({ top: container.scrollTop + target.top - bounds.top - 8, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   }, [activeBar, follow]);
   return <div className={s.reader}>
-    <div className={s.tools}><span>{score.bars.length} bars · complete score{p.loop && ` · A–B: ${p.loop.startIndex + 1}–${p.loop.endIndex + 1}`}</span><label><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)} /> Follow playback</label></div>
+    <div className={s.tools}><span>{score.bars.length} bars · score{p.loop && ` · A–B: ${p.loop.startIndex + 1}–${p.loop.endIndex + 1}`}</span><label><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)} /> Follow playback</label></div>
     <div ref={viewport} className={s.viewport} tabIndex={0} aria-label="Complete Sargam score, scroll vertically" onWheel={() => setFollow(false)} onTouchMove={() => setFollow(false)} onKeyDown={e => { if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'].includes(e.key)) setFollow(false); }}>
       <div className={s.bars} data-notation={p.notation}>{score.bars.map((beats, bar) => <section className={s.bar} data-bar={bar} key={bar} aria-label={`Bar ${bar + 1}`}>
         <span className={s.number}>{bar + 1}</span>
