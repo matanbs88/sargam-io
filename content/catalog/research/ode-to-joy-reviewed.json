@@ -1,6 +1,6 @@
 {
   "schema": "complete-voice-review-v1",
-  "status": "source-reviewed-not-live",
+  "status": "live-verified",
   "source": "https://www.mutopiaproject.org/ftp/BeethovenLv/ode/ode.ly",
   "midiSource": "https://www.mutopiaproject.org/ftp/BeethovenLv/ode/ode.mid",
   "edition": "Mutopia-2009/08/05-528",
@@ -22,5 +22,6 @@
     "literalRegister": "Bar 12 d2 is D4 after octave transpose, not D5",
     "slurs": "Bridge brackets are slurs; eighth-note attacks remain separate"
   },
-  "remaining": ["catalog registration", "full playback and PDF acceptance", "deployment", "live library discovery and PDF verification"]
+  "remaining": [],
+  "liveAcceptance": {"release":"0d3315f","evidence":"docs/audits/CATALOG_ODE_CHECKPOINT_2026-10-01.md","library":true,"sargam":true,"pianoEndMs":38400,"harmoniumEndMs":38400,"bansuriEndMs":38400,"capturedBrowserErrors":[],"pdfDownloadReady":true,"pdfBytes":67793,"pdfPages":1}
 }

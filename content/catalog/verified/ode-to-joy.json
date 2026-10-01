@@ -31,5 +31,5 @@
     [[67,1],[67,1],[69,1],[71,1]],
     [[69,1.5],[67,0.5],[67,2]]
   ]],
-  "liveVerification": {"library":false,"sargam":false,"instruments":false,"pdf":false}
+  "liveVerification": {"library":true,"sargam":true,"instruments":true,"pdf":true,"release":"0d3315f","evidence":"docs/audits/CATALOG_ODE_CHECKPOINT_2026-10-01.md"}
 }

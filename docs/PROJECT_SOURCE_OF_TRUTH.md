@@ -2,6 +2,19 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
+**7/100 distinct complete pieces are live verified.** Release `0d3315f` adds
+Ode to Joy's complete declared hymn soprano: 16 bars, 62 attacks, 38,400 ms
+at 100 BPM. Public Library search distinguishes it from the older theme study;
+opening it immediately displays all 16 bars in Sargam. Actual production playback
+from zero at 1x reaches Replay on piano, harmonium and bansuri at 38,400 ms,
+with no captured browser errors. Production Download score offers its generated
+PDF; the 67,793-byte, one-page A4 output was rendered and visually inspected.
+Public Library contains 42 ready entries: 35 older studies plus seven verified
+complete pieces. See [Ode acceptance](./audits/CATALOG_ODE_CHECKPOINT_2026-10-01.md).
+The 100-piece goal remains active. Sa selection behavior has not been changed.
+
+### Earlier six piece checkpoint
+
 **6/100 distinct complete pieces are live verified.** Release `51059c0` adds
 Gymnopedie No. 1 (complete declared upper voice, 78 performed bars, 128 scalar
 attacks, 234 seconds) and Hark! The Herald Angels Sing (complete hymn soprano,
