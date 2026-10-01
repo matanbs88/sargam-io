@@ -37,5 +37,5 @@
     [[67,1],[69,0.5],[70,0.5],[72,1.5],[65,0.5]],
     [[65,1],[67,1],[65,2]]
   ]],
-  "liveVerification": {"library":false,"sargam":false,"instruments":false,"pdf":false}
+  "liveVerification": {"library":true,"sargam":true,"instruments":true,"pdf":true,"release":"51059c0","evidence":"docs/audits/CATALOG_RELEASE_51059C0_2026-10-01.md"}
 }

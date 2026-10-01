@@ -1,0 +1,26 @@
+{
+  "schema": "complete-voice-review-v1",
+  "status": "source-reviewed-not-live",
+  "source": "https://www.mutopiaproject.org/ftp/BeethovenLv/ode/ode.ly",
+  "midiSource": "https://www.mutopiaproject.org/ftp/BeethovenLv/ode/ode.mid",
+  "edition": "Mutopia-2009/08/05-528",
+  "voice": "sop = transpose c c' (absolute notation)",
+  "scope": "Complete written 16-bar hymn soprano, accompaniment excluded",
+  "sourceVoice": "b4 b c' d' | d' c' b a | g g a b | b4. a8 a2 | b4 b c' d' | d' c' b a | g g a b | a4. g8 g2 | a4 a b g | a b8[( c']) b4 g | a b8[( c']) b4 a | g a d2 | b4 b c' d' | d' c' b a | g g a b | a4. g8 g2",
+  "timeSignature": "4/4",
+  "tempoBpm": 100,
+  "sourceKey": "G major",
+  "practiceSa": "G4 (editable)",
+  "attacks": 62,
+  "quarterBeats": 64,
+  "durationMs": 38400,
+  "midiSHA256": "fb1604c08c865b275b464d74e5a7c526ff1a8acccdf9853cb92f0778daaed14b",
+  "validation": {
+    "exactPitchOnsetDurationMatches": 62,
+    "unmatched": [],
+    "method": "Every event derived from named soprano notation independently matched to a MIDI interval; no highest-note voice inference",
+    "literalRegister": "Bar 12 d2 is D4 after octave transpose, not D5",
+    "slurs": "Bridge brackets are slurs; eighth-note attacks remain separate"
+  },
+  "remaining": ["catalog registration", "full playback and PDF acceptance", "deployment", "live library discovery and PDF verification"]
+}

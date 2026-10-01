@@ -2,7 +2,17 @@
 
 ## Verified catalog checkpoint — 2026-10-01
 
-**4/100 distinct complete pieces are live verified:** Petzold's Minuet in G,
+**6/100 distinct complete pieces are live verified.** Release `51059c0` adds
+Gymnopedie No. 1 (complete declared upper voice, 78 performed bars, 128 scalar
+attacks, 234 seconds) and Hark! The Herald Angels Sing (complete hymn soprano,
+20 bars, 76 attacks, 41.739 seconds). Public Library discovery opens the full
+Sargam; each piece reached Replay on all three instruments without captured
+browser errors. Live PDFs returned HTTP 200 and were rendered and visually
+checked as complete single-page A4 scores, including all Gymnopedie ending chords.
+Public library now contains 41 ready entries: 35 older studies plus six verified
+complete pieces. See [release acceptance](./audits/CATALOG_RELEASE_51059C0_2026-10-01.md).
+
+The earlier four verified pieces remain live: Petzold's Minuet in G,
 complete declared unornamented upper melody with A-A-B-B repeats, 64 played
 bars, 252 notes. Public library discovery, full Sargam, all three instruments
 to Replay at 82,286 ms, and rendered one-page live PDF passed. Release `0e3552d`.

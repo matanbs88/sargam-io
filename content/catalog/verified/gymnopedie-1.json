@@ -70,5 +70,5 @@
     ]
   ],
   "status": "source-reviewed",
-  "liveVerification": {"library":false,"playback":false,"pdf":false}
+  "liveVerification": {"library":true,"playback":true,"pdf":true,"release":"51059c0","evidence":"docs/audits/CATALOG_RELEASE_51059C0_2026-10-01.md"}
 }
